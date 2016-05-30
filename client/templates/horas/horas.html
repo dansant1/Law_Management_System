@@ -1,0 +1,236 @@
+<template name="horas">
+	<div class="box-header">
+		{{> nuevoHoras}}
+	</div>
+  <div style="width: 100%; background-color: #F9F9F9;">
+        <div style="margin: 0 auto;">
+          {{> menuHoras}}  
+        </div>       
+  </div>
+  <div class="box-semi-header">
+    <br>
+    <h1>Lista de Horas</h1>
+    
+  </div>
+	<div class="box">
+    <div class="box-news" style="margin-top: 20px; padding-left: 0; padding-right: 0;">
+      <a class="btn nueva-tarea horas nuevo-evento verde-flat" id="generate-pdf" style="margin-left: 15px; margin-bottom: 15px;">Generar factura</a>
+      {{> listaHoras}}
+    </div>		
+	</div>
+	
+</template>
+
+<template name="listaHoras">     	
+ 		  {{#if Template.subscriptionsReady}}
+      {{#if hayhoras}}
+  		<table class="table table-striped">
+    		<thead>
+      			<tr>
+        			<th>FECHA</th>
+       	 			<th>RESPONSABLE</th>
+        			<th>ASUNTO</th>
+        			<th>DETALLE</th>
+        			<th>MONTO</th>
+      			</tr>
+    		</thead>
+    		<tbody>
+    		{{#transition in="slideInLeft" out="bounceOut"}}
+    		{{#each horas}}
+      			<tr>
+        			<td>{{fecha}}</td>
+        			<td>{{responsable.nombre}}</td>
+        			<td>{{asunto.nombre}}</td>
+        			<td>{{descripcion}}</td>
+        			<td>{{total}}</td>
+      			</tr>
+      		{{/each}}
+      		{{/transition}}
+    		</tbody>
+  		</table>
+      {{else}}
+        <h1 style="margin-left: 15px;">No hay horas ingresadas.</h1>
+      {{/if}}
+	   {{else}}
+      {{> loader}}
+     {{/if}}
+
+</template>
+
+<template name="listaHorasxAsunto"> 
+      <div style="width: 100%; display: block; padding: 10px; margin-bottom: 10px;">
+        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Horas</a>  
+      </div>
+      {{#if Template.subscriptionsReady}}
+      {{#if hayhoras}}
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>FECHA</th>
+              <th>RESPONSABLE</th>
+              
+              <th>DETALLE</th>
+              <th>MONTO</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#transition in="slideInLeft" out="bounceOut"}}
+        {{#each horas}}
+            <tr>
+              <td>{{fecha}}</td>
+              <td>{{responsable.nombre}}</td>
+              
+              <td>{{descripcion}}</td>
+              <td>{{total}}</td>
+            </tr>
+          {{/each}}
+          {{/transition}}
+        </tbody>
+      </table>
+      {{else}}
+        <h1 style="margin-left: 15px;">No hay horas ingresadas.</h1>
+      {{/if}}
+     {{else}}
+      <h1>Cargando...</h1>
+     {{/if}}
+
+</template>
+
+<template name="listaGastos">	
+  		<table class="table table-striped">
+    		<thead>
+      			<tr>
+        			<th>FECHA</th>
+       	 			<th>RESPONSABLE</th>
+        			<th>ASUNTO</th>
+        			<th>DETALLE</th>
+        			<th>MONTO</th>
+      			</tr>
+    		</thead>
+    		<tbody>
+    		{{#transition in="slideInLeft" out="bounceOut"}}
+      			{{#each gastos}}
+      			<tr>
+        			<td>{{fecha}}</td>
+        			<td>{{responsable.nombre}}</td>
+        			<td>{{asunto.nombre}}</td>
+        			<td>{{descripcion}}</td>
+        			<td>{{monto}}</td>
+      			</tr>
+      		{{/each}}
+      		{{/transition}}
+    		</tbody>
+  		</table>
+</template>
+
+<template name="listaGastosxAsunto"> 
+      <div style="width: 100%; display: block; padding: 10px; margin-bottom: 10px;">
+        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Gasto</a>  
+      </div>
+      {{#if Template.subscriptionsReady}}
+      {{#if haygastos}}
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>FECHA</th>
+              <th>RESPONSABLE</th>     
+              <th>DETALLE</th>
+              <th>MONTO</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#transition in="slideInLeft" out="bounceOut"}}
+        {{#each gastos}}
+            <tr>
+              <td>{{fecha}}</td>
+              <td>{{responsable.nombre}}</td>           
+              <td>{{descripcion}}</td>
+              <td>{{monto}}</td>
+            </tr>
+          {{/each}}
+          {{/transition}}
+        </tbody>
+      </table>
+      {{else}}
+        <h1 style="margin-left: 15px;">No hay gastos ingresados.</h1>
+      {{/if}}
+     {{else}}
+      <h1>Cargando...</h1>
+     {{/if}}
+</template>
+
+<template name="nuevoHoras">
+	<a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Horas</a>
+	<a class="btn nueva-tarea gastos nuevo-evento verde-flat">+ Gastos</a>
+</template>
+
+<template name="agregarHoras">
+	 <div id="agregar-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Hora</h4>
+                </div>
+
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                    <fieldset>
+                      	<div class="icon">
+                        	<label class="cd-label" for="cd-company">Descripción</label>
+                        	<input class="company" type="text" name="descripcion" id="cd-company">
+                      	</div>
+						
+						<div class="icon">
+		    				<label class="cd-label" for="cd-company">Fecha</label>
+							<input class="company" type="text" name="fecha" id="datepicker">
+		    			</div>
+
+						<div class="icon">
+							<label class="cd-label" for="cd-email">Asunto</label>
+							<p class="cd-select icon">
+								<select class="budget asunto">
+									{{#each asunto}}
+									<option value="{{_id}}">{{caratula}}</option>
+									{{/each}}
+								</select>
+							</p>
+						</div>
+
+                    	<div class="icon">
+							<label class="cd-label" for="cd-email">Responsable</label>
+							<p class="cd-select icon">
+								<select class="budget responsable">
+									{{#each responsable}}
+									<option value="{{_id}}">{{profile.nombre}} {{profile.apellido}}</option>
+									{{/each}}
+								</select>
+							</p>
+						</div>
+
+						<div class="icon">
+                        	<label class="cd-label" for="cd-company">Tiempo horas</label>
+                        	<input class="company" type="number" step="0.10" min="1" name="horas" id="cd-company">
+                      	</div>
+
+                      	<div class="icon">
+                        	<label class="cd-label" for="cd-company">Precio</label>
+                        	<input class="company" type="number" step="0.10" min="1" name="precio" id="cd-company">
+                      	</div>
+
+                      	<input type="submit" value="Agregar horas">
+                    </fieldset>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+
+

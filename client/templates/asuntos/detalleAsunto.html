@@ -1,0 +1,434 @@
+<template name="detalleAsunto">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuAsunto}}
+					</div>
+					{{#with expediente}}
+					<div class="col">
+						<h3>Información del asunto</h3>
+						<p>Nombre <span>{{caratula}}</span></p>
+						<p>Número <span>{{carpeta}}</span></p>
+						<p>Área de practica {{area}}</p>
+						<p>Observaciones {{observaciones}}</p>
+					</div>
+					<div class="col">
+						<h3>Fechas importantes</h3>
+						<p>Fecha de inicio <span>{{dia}}</span></p>
+						<p>Fecha de finalización</p>
+					</div>
+					{{/with}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="TareasAsunto">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuAsunto}}
+					</div>
+					<div style="width:100%; display: block;">
+						<div style="width: 100%; text-align: center;">
+							<h1 style="text-transform: uppercase;">Tareas</h1>
+						</div>
+						<div style="display: flex; flex-wrap: wrap;">
+							{{#transition in="zoomIn" out="bounceOut"}}
+								{{#each tareas}}
+								<div class="box-item">
+									<div class="box-content">
+										<h1><a href="#" class="box-titulo">{{descripcion}}</a></h1>
+										<a class="bloque"><span>Vence {{dia vence}}</span></a>
+										<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
+									</div>
+									<div class="box-foot">
+										<h1><a href="#" class="box-ingresar listo">Listo</a></h1>
+									</div>
+								</div>
+								{{/each}}
+							{{/transition}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="editarFacturacionModal">
+	<div class="modal fade">
+			<div class="modal-dialog">
+					<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Información de facturación</h4>
+							</div>
+
+							<div class="modal-body">
+								<form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+									<fieldset>
+										<div class="icon">
+											<label class="cd-label" for="cd-company">¿Quien sera el punto de facturación para este caso?</label>
+											<p class="cd-select icon">
+												<select class="budget tipo">
+													<option value="">Por hora</option>
+													<option value="">Costo flat</option>
+													<option value="">Por hora y costo flat</option>
+												</select>
+											</p>
+											<br>
+											<label class="cd-label" for="cd-company">¿Cómo sera facturado este caso?</label>
+											<p class="cd-select icon">
+												<select class="budget cliente">
+													<!-- {{#each clientes}} -->
+														<option value="">Evaristo Delgadillo</option>
+														<option value="">Claudia Delgado</option>
+													<!-- {{/each}} -->
+												</select>
+											</p>
+										</div>
+										<input type="submit" value="Editar facturación">
+									</fieldset>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							</div>
+
+					</div>
+			</div>
+	</div>
+</template>
+
+<template name="finanzasAsunto">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuFinanzas}}
+					</div>
+					<div class="col">
+						<h3 style="margin-left: 10px;">Información de facturación</h3>
+						<div class="caja-info">
+							<p>Estructura de cobro <a>Por hora</a></p>
+							<hr>
+							<p>Contacto de facturación <a>Evaristo Delgadillo</a></p>
+							<a href="" class="btn nueva-tarea nuevo-evento azul-flat editar" style="min-width: 140px; max-width: 180px; border: none;">Editar información</a>
+						</div>
+
+						<h3 style="margin-left: 10px;">Balances no-facturados</h3>
+						<div class="caja-info">
+							<p>Horas ingresadas <a>S/ 0.00</a></p>
+							<p>Gastos <a>S/ 0.00</a></p>
+							<hr>
+							<p>Balance total <a>S/ 0.00</a></p>
+						</div>
+
+						<h3 style="margin-left: 10px;">Cuenta de confianza</h3>
+						<div class="caja-info">
+							<p>Balance disponible <a>S/ 0.00</a></p>
+							<hr>
+							<p>Evaristo Delgadillo <a>S/ 0.00</a></p>
+						</div>
+					</div>
+					<div class="col">
+						<h3 style="margin-left: 10px;">Balances</h3>
+						<div class="caja-info">
+							<h3>Monto recolectado</h3>
+							<p>S/ 0.00</p>
+							<hr>
+							<h3>Pagos en espera</h3>
+							<p>S/ 0.00</p>
+							<hr>
+							<h3>Monto no facturado</h3>
+							<p>S/ 0.00</p>
+							<hr>
+							<h3>Balance disponible</h3>
+							<p>S/ 0.00</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="finanzasAsuntoHoras">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuFinanzas}}
+					</div>
+					{{> listaHorasxAsunto}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="finanzasAsuntoGastos">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuFinanzas}}
+					</div>
+					{{> listaGastosxAsunto}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="menuMain">
+	<div class="calendar">
+		<a href="/asuntos/d/{{asuntoId}}" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Información</a>
+		<a href="/asuntos/d/{{asuntoId}}/tiempos" class="btn nueva-tarea nuevo-evento azul-empresa" style="border: none;">Horas y gastos</a>
+		<a href="#" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Contactos</a>
+	</div>
+</template>
+
+<template name="menuFinanzas">
+	<div id='cssmenu' style="width: 100%; margin-bottom: 20px; padding: 0;">
+	<ul style="margin: 0 auto; padding: 0; text-align: center;">
+		<li><a href='/asuntos/d/{{asuntoId}}/tiempos'><span>Resumen</span></a></li>
+		<li><a href='/asuntos/d/{{asuntoId}}/tiempos/horas'><span>Horas</span></a></li>
+	  	<li><a href='/asuntos/d/{{asuntoId}}/tiempos/gastos'><span>Gastos</span></a></li>
+	   	<li><a href='/asuntos/d/{{asuntoId}}/tiempos/facturas'><span>Facturas</span></a></li>
+	   	<li><a href='/asuntos/d/{{asuntoId}}/tiempos/pagos'><span>Pagos</span></a></li>
+	</ul>
+	</div>
+</template>
+
+<template name="detalleEstados">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+		<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuAsunto}}
+					</div>
+					<div style="width: 100%; display: block;">
+					{{> nuevoEstado}}
+					<div style="width: 100%; text-align: center;">
+						<h1 style="text-transform: uppercase;">Workflow</h1>
+					</div>
+					<div style="display: flex; flex-wrap: wrap;">
+						{{#transition in="zoomIn" out="bounceOut"}}
+						{{#each estados}}
+							<div class="box-item">
+								<div class="box-content">
+									<h1><a href="/asuntos/d/{{asuntoId}}/n/{{this._id}}" class="box-titulo">{{this.nombre}}</a></h1>
+									<a class="bloque"><span>{{this.descripcion}}</span></a>
+								</div>
+								<div class="box-foot">
+									<h1><a href="/asuntos/d/{{asuntoId}}/n/{{this._id}}" class="box-ingresar">Cronología</a></h1>
+								</div>
+							</div>
+						{{/each}}
+					{{/transition}}
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="detalleCalendario">
+	<div class="box">
+		<!--{{> datosAsunto}}-->
+		<div class="info-calendario" style="width: 100%;">
+				<!--{{> menuMain}}-->
+				
+					<!--<div style="display: block; width: 100%;">
+						{{> menuAsunto}}
+					</div>-->
+				<div id="calendario"></div>		
+			</div>
+	</div>
+</template>
+
+<template name="nuevoEstado">
+{{#if esAdministrador}}
+	<a class="btn nueva-tarea nuevo-evento __open verde-flat" style="margin-left: 15px;">+ Estado</a>
+{{/if}}
+</template>
+
+<template name="datosAsunto">
+		<div class="col-md-3">
+			<div class="info-calendario">
+				<div class="calendar">
+					<h1>Datos del asunto</h1>
+				</div>
+				{{#with expediente}}
+				<div class="lista-calendarios">
+
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Nombre <span style="color: #949494;">{{caratula}}</span> </a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Número <span style="color: #949494;">{{carpeta}}</span> </a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Fecha de inicio <span style="color: #949494;">{{dia this.inicio}}</span></a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Juzgado  <span style="color: #949494;">{{juzgado}}</span></a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Area de practica <span style="color: #949494;">{{area}}</span> </a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Cliente <span style="color: #949494;">{{cliente.nombre}}</span></a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Descripción <span style="color: #949494;">{{observaciones}}</span> </a>
+								</div>
+
+				</div>
+				<div class="body-contacto" style="min-height: 320px;">
+					<br>
+					<p style="margin-left: 10px;">Creado originalmente</p>
+					<p style="margin-left: 10px; color: #949494;">{{dia this.createdAt}} asignado a  {{responsable.nombre}}</p>
+					<hr>
+					<div style="padding: 15px; width: 100%;">
+					<a class="btn nueva-tarea nuevo-evento verde-flat imprimir" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%; margin-bottom: 7.5px;">Imprimir información</a>
+					{{#if esAdministrador}}
+					<a class="btn nueva-tarea nuevo-evento rojo-flat cerrar" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%;">Cerrar asunto</a>
+					{{/if}}
+					</div>
+
+				</div>
+				{{/with}}
+				<div class="contacto-foot">
+					<a href="#">Editar</a>
+				</div>
+			</div>
+		</div>
+</template>
+
+<template name="estadoForm">
+	<div id="estado-modal" class="modal fade">
+			<div class="modal-dialog">
+					<div class="modal-content">
+
+							<div class="modal-header">
+									<h4 class="modal-title">Nuevo estado</h4>
+							</div>
+
+							<div class="modal-body">
+								<form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+									<fieldset>
+										<div class="icon">
+											<label class="cd-label" for="cd-company">Nombre</label>
+											<input class="company" type="text" name="nombre" id="cd-company">
+										</div>
+
+										<div class="icon">
+											<label class="cd-label" for="cd-company">Descripción</label>
+											<textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
+										</div>
+
+										<div class="icon">
+								    	<label class="cd-label" for="cd-company">Fecha de inicio</label>
+											<input class="company" type="text" name="fecha" id="datepicker">
+								    </div>
+
+										<input type="submit" value="Agregar estado">
+									</fieldset>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							</div>
+
+					</div>
+			</div>
+	</div>
+</template>
+
+<template name="menuAsunto">
+	<div id='cssmenu' style="width: 100%; margin-bottom: 20px; padding: 0;">
+	<ul style="margin: 0 auto; padding: 0; text-align: center;">
+		<li><a href='/asuntos/d/{{asuntoId}}'><span>Información</span></a></li>
+		<li><a href='/asuntos/d/{{asuntoId}}/calendario'><span>Calendario</span></a></li>
+	  	<li><a href='/asuntos/d/{{asuntoId}}/estados'><span>Estados</span></a></li>
+	   	<li><a href='/asuntos/d/{{asuntoId}}/documentos'><span>Documentos</span></a></li>
+	   	<li><a href='/asuntos/d/{{asuntoId}}/tareas'><span>Tareas</span></a></li>
+	   	<li class='last'><a href='/asuntos/d/{{asuntoId}}/chat'><span>Mensajes</span></a></li>
+	</ul>
+	</div>
+</template>
+
+<template name="chat">
+	<div class="box">
+		{{> datosAsunto}}
+		<div class="col-md-9">
+		<div class="info-calendario" style="width: 100%;">
+				{{> menuMain}}
+				<div class="detalle-contacto">
+					<div style="display: block; width: 100%;">
+						{{> menuAsunto}}
+					</div>
+					<div style="width: 100%; display: block;">
+
+						{{> mensajes}}
+						{{> cajaChat}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="mensajes">
+  <div class="box-comentarios">
+  	{{#transition in="fadeInLeft" out="fadeOutRight"}}
+    {{#each mensajes}}
+			<hr>
+      <h4>{{creador.nombre}} dice:</h4>
+      <p style="color: #94AAB0;">{{this.mensaje}}</p>
+    {{else}}
+      <h3><strong>Sin mensajes</strong></h3>
+    {{/each}}
+    {{/transition}}
+  </div>
+</template>
+
+<template name="cajaChat">
+
+    <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px; height: 250px; min-width: 700px;">
+      <fieldset>
+        <div class="icon">
+          <input placeholder="Escribe un mensaje" class="company" type="text" name="mensaje" id="cd-company">
+        </div>
+
+        <input type="submit" value="Enviar mensaje" class="__enviar">
+      </fieldset>
+    </form>
+
+</template>

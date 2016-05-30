@@ -1,0 +1,257 @@
+<template name="clientes">
+	<div class="box-header">
+		{{> clienteBotom}}
+	</div>
+	<!-- <div class="box-header">
+	{{#if currentUser}}
+      	<input type="text" name="search" class="form-control" style="width: 60%; margin: 0 auto; height: 45px;" placeholder="Hola {{hola}}, desde aquí puedes buscar a tus clientes">
+	{{/if}}
+	</div> -->
+	<div style="width: 100%; background-color: #f9f9f9; padding-bottom: 10px;">
+		{{> contactoMenu}}
+	</div>
+
+	<div class="box">
+		{{#if searching}}
+      		{{> loader}}
+
+    	{{else}}
+    		{{#if Template.subscriptionsReady}}
+				{{#transition in="zoomIn" out="bounceOut"}}
+					{{#each clientes}}
+					<div class="box-item" style="height: 315px;">
+						<div class="box-content">
+							<h1><a href="clientes/d/{{_id}}" class="box-titulo">{{nombre}} {{apellido}}</a></h1>
+								<a class="bloque"><span>{{email}}</span></a>
+								<a class="bloque"><span>+51 {{celular}}</span></a>
+								<a class="bloque">{{direccion}}</a>
+								<a class="bloque"><span>{{provincia}}, {{pais}}</span></a>
+						</div>
+						<div class="box-foot">
+							<h1><a href="clientes/d/{{_id}}" class="box-ingresar">Ver más</a></h1>
+						</div>
+					</div>
+					{{else}}
+						<p>No encontramos nada relacionado a {{query}}. Lo sentimos.</p>
+					{{/each}}
+				{{/transition}}
+			{{else}}
+				{{>loader}}
+				<div style="width: 100%; margin: 0 auto; text-align: center; color: #34495E;">
+					<h1>Cargando los resultados</h1>
+				</div>
+			{{/if}}
+		{{/if}}
+	</div>
+</template>
+
+<template name="clienteBotom">
+	{{#if esAdministrador}}
+	<a href="/clientes/nuevo" class="btn nueva-tarea nuevo-evento verde-flat">+ Contacto</a>
+	<a href="/clientes/nuevo" class="btn nueva-tarea nuevo-evento morado-flat" style="border: none;">+ Empresa</a>
+	<a href="/clientes/nuevo" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">+ Grupo</a>
+	{{/if}}
+</template>
+
+<template name="clienteNuevo">
+	<form class="cd-form floating-labels">
+		<fieldset>
+			<legend>Contacto nuevo</legend>
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Nombre</label>
+				<input class="company" type="text" name="nombre" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Apellido</label>
+				<input class="company" type="text" name="apellido" id="cd-company">
+		    </div>
+
+			<div class="icon">
+		    	<label class="cd-label" for="cd-company">Dirección</label>
+				<input class="company" type="text" name="direccion" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Telefono</label>
+				<input class="company" type="text" name="telefono" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Celular</label>
+				<input class="company" type="text" name="celular" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Email</label>
+				<input class="company" type="email" name="email" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">DNI</label>
+				<input class="company" type="text" name="dni" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Provincia</label>
+				<input class="company" type="text" name="provincia" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">País</label>
+				<input class="company" type="text" name="pais" id="cd-company">
+		    </div>
+
+			<div class="centrar-boton">
+		      	<input type="submit" value="Agregar contacto">
+		    </div>
+		</fieldset>
+	</form>
+</template>
+
+<template name="datosCliente">
+	<div class="col-md-3">
+			<div class="info-calendario">
+				<div class="calendar">
+					<h1>Detalles de contacto</h1>
+				</div>
+				<div class="body-contacto">
+					<div class="imagen-contacto">
+						<img src="/contactos/contactos.jpg" alt="Imagen de contacto">
+					</div>
+					<div class="expedientes-contacto">
+						<h2>Expediente(s)</h2>
+					</div>
+					<div class="expedientes-contacto">
+						<h2>Balance</h2>
+					</div>
+					<hr>
+					<p style="margin-left: 25px;">Creado originalmente</p>
+					{{#with contacto}}
+					<p style="margin-left: 25px; color: #949494;">{{dia createdAt}}</p>
+					{{/with}}
+					<hr>
+					<div style="padding: 15px; width: 100%;">
+					<a class="btn nueva-tarea nuevo-evento verde-flat imprimir" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%; margin-bottom: 7.5px;">Imprimir información</a>
+					{{#if esAdministrador}}
+					<a  class="btn nueva-tarea nuevo-evento rojo-flat archivar" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%;">Archivar contacto</a>
+					{{/if}}
+					</div>
+				</div>
+				<div class="contacto-foot">
+					<a href="#">Editar</a>
+				</div>
+			</div>
+		</div>
+</template>
+
+<template name="detalleCliente">
+	<div class="box">
+		{{> datosCliente}}
+		<div class="col-md-9">
+			{{#with contacto}}
+			<div class="info-calendario" style="width: 100%; margin-right: 0px;">
+				{{>menuCliente}}
+				<div class="detalle-contacto">
+					<div class="col">
+						<h3>Información de contacto</h3>
+						<p>Nombre <a>{{this.nombre}} {{this.apellido}}</a></p>
+						<p>Empresa</p>
+						<p>Título</p>
+						<p>Grupo</p>
+					</div>
+					<div class="col">
+						<h3>Correo electrónico</h3>
+						<p>{{this.email}}</p>
+					</div>
+				</div>
+				<div class="detalle-contacto">
+					<div class="col">
+						<h3>Números de teléfono</h3>
+						<p>Trabajo</p>
+						<p>Celular <a>{{this.celular}}</a></p>
+						<p>Casa <a>{{this.telefono}}</a></p>
+					</div>
+					<div class="col">
+						<h3>Dirección</h3>
+						<p>{{this.direccion}}</p>
+						<p>{{this.provincia}}, {{this.pais}}</p>
+					</div>
+				</div>
+				<div class="detalle-contacto">
+					<div class="col">
+						<h3>Otra información</h3>
+						<p>DNI <a>{{this.identificacion}}</a></p>
+						<p>Página web</p>
+					</div>
+					<div class="col">
+
+					</div>
+				</div>
+				<div class="detalle-contacto">
+					<div class="col">
+						<h3>Mensaje de bienvenida</h3>
+					</div>
+					<div class="col">
+						<h3>Notas privadas</h3>
+					</div>
+				</div>
+			</div>
+			{{/with}}
+		</div>
+	</div>
+</template>
+
+<template name="asuntoxCliente">
+	<div class="box">
+		{{> datosCliente}}
+		<div class="col-md-9">
+			<div class="info-calendario" style="width: 100%; margin-right: 0px;">
+				{{>menuCliente}}
+				<div style="width:100%; display: block;">
+				<div style="width: 100%; text-align: center;">
+					<h1 style="text-transform: uppercase;">Asuntos</h1>
+				</div>
+				<div style="display: flex; flex-wrap: wrap; padding: 15px;">
+					{{#transition in="zoomIn" out="bounceOut"}}
+					{{#each asuntos}}
+						<div class="box-item" style="height: 325px;">
+							<div class="box-content">
+								<h1><a href="/asuntos/d/{{_id}}" class="box-titulo">{{caratula}}</a></h1>
+								<a class="bloque">Responsable {{responsable.nombre}}</a>
+								<a class="bloque"><span>Exp. Nº {{carpeta}}</span></a>
+								<a class="bloque"><span>{{area}}</span></a>
+							</div>
+							<div class="box-foot">
+								<h1><a href="/asuntos/d/{{_id}}" class="box-ingresar">Ingresar</a></h1>
+							</div>
+						</div>
+					{{/each}}
+					{{/transition}}
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="menuCliente">
+	<div class="calendar">
+		<a href="/clientes/d/{{contactoId}}" class="btn nueva-tarea nuevo-evento azul-empresa" style="border: none;">Información</a>
+		<a href="/clientes/d/{{contactoId}}/asuntos" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Asuntos</a>
+		<a href="/clientes/d/{{contactoId}}/notas" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Notas</a>
+		<a href="/clientes/d/{{contactoId}}/finanzas" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Finanzas</a>
+		<a href="/clientes/d/{{contactoId}}/mensajes" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Mensajes</a>
+	</div>
+</template>
+
+<template name="contactoMenu">
+	<div id='cssmenu'>
+	<ul style="margin: 0 auto; padding: 0; text-align: center;">
+	   <li><a href=""><span>Todos</span></a></li>
+	   <li><a href=""><span>Personas</span></a></li>
+		 <li><a href=""><span>Empresas</span></a></li>
+		 <li><a href=""><span>Grupos</span></a></li>
+	</ul>
+	</div>
+</template>

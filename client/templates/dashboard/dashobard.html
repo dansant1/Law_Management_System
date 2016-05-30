@@ -1,0 +1,3435 @@
+<!-- Dentro de este template estara todo el contenido del dashboard y se dividira en izquierdo (sidebar) y derecho (menu y contenido) -->
+
+<template name="dashboard">
+	
+	{{#if currentUser}}
+		{{> sidebarDashobard}}
+		{{> appDashboard}}
+	{{else}}
+		{{> login}}
+	{{/if}}
+
+</template>
+
+<!-- Contenido izquierdo -->
+
+<template name="sidebarDashobard">
+	<div class="sidebar-vertical">
+	
+		<!-- Seccion link de dashboard -->
+		<div class="sidebar-link">
+			<h5><a href="/dashboard2" id="sidebar-a">Dashboard</a></h5>
+		</div>
+
+		<!-- Seccion lista de integrantes de equipo -->
+		{{> teamSidebarDahboard}}
+
+		<!-- Seccion de conversacion de equipo -->
+		{{> conversacionesSidebar}}
+
+		<!-- Seccion de calendario global -->
+		{{> calendarioSidebar}}
+
+     <!-- Seccion de mis tareas -->
+    {{> tareasSidebarDashboard}}
+
+		<!-- Seccion lista asuntos -->
+		{{> asuntosSidebarDashboard}}
+
+		<!-- Seccion lista clientes -->	
+		{{> clientesSidebarDashboard}}	
+
+	</div>
+</template>
+
+<template name="calendarioSidebar">
+	<div class="sidebar-titulo" style="margin-top: 0;">
+		<h5 class="sidebar-item">
+		<a href="/calendario2" style="text-decoration:none;">Calendario</a>
+		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i>
+		</h5>
+	</div>
+</template>
+
+<template name="conversacionesSidebar">
+	<div class="sidebar-titulo" style="margin-top: 5px;">
+		<h5 class="sidebar-item">
+		<a href="/conversaciones">Conversaciones</a>
+		</h5>
+	</div>
+</template>
+
+<template name="teamSidebarDahboard">
+	
+	<div class="sidebar-titulo" style="margin-top: 0;">
+		<h5 class="sidebar-item">
+		Mienbros
+		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 80px;"></i>
+		</h5>
+	</div>
+
+	<div class="sidebar-circulos">
+		{{#transition in="fadeInLeft" out="fadeOutRight"}}
+			{{#each miembros}}
+				{{> itemMienbro}}
+			{{/each}}
+		{{/transition}}
+	</div>
+
+</template>
+
+<template name="itemMienbro">
+	<img src="/contactos/contacto.jpg" alt="{{profile.nombre}}" class="item-mienbro">
+</template>
+
+<template name="asuntosSidebarDashboard">
+	
+	<div class="sidebar-titulo" style="margin-top: 0;">
+		<h5>
+		<a href="/asuntos2" id="sidebar-a">asuntos</a>
+		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 90px;"></i>
+		</h5>	
+	</div>
+
+	<div class="sidebar-lista">
+		{{#each asuntos}}
+			{{> itemAsuntos}}
+		{{/each}}
+	</div>
+
+</template>
+
+<template name="tareasSidebarDashboard">
+  
+  <div class="sidebar-titulo" style="margin-top: 0;">
+    <h5>
+    <a href="/asuntos2" id="sidebar-a">Mis tareas</a>
+    <i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 74px;"></i>
+    </h5> 
+  </div>
+
+  <div class="sidebar-lista">
+    {{#each tareas}}
+      {{> itemTareas}}
+    {{/each}}
+  </div>
+
+</template>
+
+<template name="itemTareas">
+  <p >
+    <a class="sidebar-item" href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
+    </a>
+  </p>
+</template>
+
+<template name="asuntoNuevoModal">
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-book"></i> Ingresa los datos del asunto</h4>
+      			</div>
+      			<div class="modal-body">
+      				<div class="row">
+          				<div class="col-md-6">
+          					<div class="form-group">
+          						<label>Asignar cliente</label>
+          						 <select class="form-control cliente" id="sel1">
+                       {{#each clientes}}
+                        <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
+                        {{/each}}
+                        
+                        </select>
+          					</div>
+          				</div>
+          				<div class="col-md-6">
+          					<div class="form-group">
+          						<label id="basic-addon1">Carátula</label>
+          						<input type="text" class="form-control" placeholder="Escriba el nombre del asunto" aria-describedby="basic-addon1" name="caratula">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-6">
+          					<div class="form-group">
+          						<label>Nª</label>
+          						<input type="text" class="form-control" placeholder="Escriba el número del asunto" aria-describedby="basic-addon1" name="carpeta" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-6">
+          					<div class="form-group">
+          						<label>Responsable</label>
+          						<select class="form-control responsable">
+                       {{#each mienbros}}
+                        <option value="{{this._id}}">{{this.profile.nombre}} {{this.profile.apellido}}</option>
+                        {{/each}}
+                        
+                        </select>
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+              <div class="panel-group">                     
+                  <a data-toggle="collapse" href="#collapse0">
+                    Formar equipo
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </a>
+                  
+                <div id="collapse0" class="panel-collapse collapse">
+                  <br>
+                    
+                    <div class="row">
+                        <div class="col-md-11">
+                          <form class="cd-form floating-labels">
+                            <label>¿Quienes trabajaran en este asunto?</label>
+                                                    
+                              <ul class="cd-form-list" id="integrantes">
+                                {{#each mienbros}}
+                                <li>
+                                  <input type="checkbox" id="cd-checkbox-1" value="{{_id}}">
+                                  <label for="cd-checkbox-1">{{profile.nombre}} {{profile.apellido}}</label>
+                                </li>
+                                {{/each}}
+                              </ul>
+                            
+                          </form>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+              </div>
+        			
+        			<hr>
+        			<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse1">
+        						Agregar información
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse1" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Juzgado</span>
+          									<input type="text" class="form-control" name="juzgado" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          								<span class="input-group-addon" id="basic-addon1">Área de practica</span>
+          								<input type="text" class="form-control"  name="area">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Fecha de inicio</span>
+          									<input type="text" class="form-control" name="fecha" aria-describedby="basic-addon1" id="datepicker">
+          								</div>
+          							</div>
+          							
+        						</div>
+        						<br>
+    						</div>
+					</div>
+					
+				
+					
+					<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse3">
+        						Información adicional
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse3" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="form-group">
+  									<textarea class="form-control" name="observaciones" placeholder="Comentarios"></textarea>
+								</div>
+    						</div>
+					</div>
+      			</div>
+      			<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-default agregar-asunto btn-primary" data-dismiss="modal">Agregar asunto</button>
+                </div>
+    		</div>
+  		</div>
+	</div>
+
+</template>
+
+<template name="itemAsuntos">
+	<p><a class="sidebar-item" href="/asuntos2/d/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.caratula}}</a></p>
+</template>
+
+<template name="clientesSidebarDashboard">
+	
+	<div class="sidebar-titulo" style="margin-top: 0;">
+		<h5>
+		<a href="/clientes2" id="sidebar-a">clientes</a>
+		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 92px;"></i>
+		</h5>		
+	</div>
+  
+  <div class="sidebar-circulos">
+    {{#transition in="fadeInLeft" out="fadeOutRight"}}
+      {{#each clientes}}
+        {{> itemMienbro}}
+      {{/each}}
+    {{/transition}}
+  </div>
+
+	
+
+</template>
+
+<template name="empresaNuevoModal">
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar nueva empresa</h4>
+      			</div>
+      			<div class="modal-body">
+      				<div class="row">
+          				<div class="col-md-11">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Nombre</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el nombre del contacto" aria-describedby="basic-addon1" name="nombre" style="width: 100%;">
+          					</div>
+          				</div>
+          				
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Empresa</span>
+          						<input type="text" class="form-control" placeholder="Ingrese la empresa del contacto" aria-describedby="basic-addon1" name="empresa" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Cargo</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el cargo del contacto" aria-describedby="basic-addon1" name="cargo">
+          					</div>
+          				</div>
+        			</div>
+        			<hr>
+        			<div class="row">
+          				<div class="col-md-11">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Email</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el email del contacto" aria-describedby="basic-addon1" name="email" style="width: 100%;">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Celular</span>
+          						<input type="text" class="form-control" name="celular" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Teléfono</span>
+          						<input type="text" class="form-control" name="telefono" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Teléfono de casa</span>
+          						<input type="text" class="form-control" name="telefonocasa" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-11">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Dirección</span>
+          						<input type="text" class="form-control" placeholder="Ingrese la dirección del contacto" aria-describedby="basic-addon1" name="direccion" style="width: 100%;">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">País</span>
+          						<input type="text" class="form-control" name="pais" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Ciudad / Estado</span>
+          						<input type="text" class="form-control" name="provincia" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Código postal</span>
+          						<input type="text" class="form-control" name="codigo" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<hr>
+        			<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse1">
+        						Agregar mas información
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse1" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="row">
+          							<div class="col-md-6">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Industria</span>
+          									<input type="text" name="industria" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+          							<div class="col-md-6">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">RUC</span>
+          									<input type="text" name="identificacion" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+        						<br>
+        					
+    						</div>
+					</div>
+					<br>
+					<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse2">
+        						Agregar redes sociales
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        			
+    						<div id="collapse2" class="panel-collapse collapse">
+    							<br>
+      							<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Skype</span>
+          									<input type="text" name="skype" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          								<span class="input-group-addon" id="basic-addon1">Facebook</span>
+          								<input type="text" name="fb" class="form-control"  aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Twitter</span>
+          									<input type="text" name="twitter" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+        						<br>
+        						<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Linkedin</span>
+          									<input type="text" name="linkedin" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Google +</span>
+          									<input type="text" name="google" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+    						</div>
+					</div>
+					<br>
+					<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse3">
+        						Información adicional
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse3" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="form-group">
+  									<textarea class="form-control" name="comentarios" placeholder="Comentarios"></textarea>
+								</div>
+    						</div>
+					</div>
+      			</div>
+      			<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-default guardar-contacto btn-primary" data-dismiss="modal">Guardar contacto</button>
+                </div>
+    		</div>
+  		</div>
+	</div>
+
+</template>
+
+<template name="clienteNuevoModal">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Ingresa los datos del contacto</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Nombre</span>
+                      <input type="text" class="form-control" placeholder="Ingrese el nombre del contacto" aria-describedby="basic-addon1" name="nombre" style="width: 100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Apellido</span>
+                      <input type="text" class="form-control" placeholder="Ingrese el apellido del contacto" aria-describedby="basic-addon1" name="apellido">
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Empresa</span>
+                      <input type="text" class="form-control" placeholder="Ingrese la empresa del contacto" aria-describedby="basic-addon1" name="empresa" style="width: 100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Cargo</span>
+                      <input type="text" class="form-control" placeholder="Ingrese el cargo del contacto" aria-describedby="basic-addon1" name="cargo">
+                    </div>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                  <div class="col-md-11">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Email</span>
+                      <input type="text" class="form-control" placeholder="Ingrese el email del contacto" aria-describedby="basic-addon1" name="email" style="width: 100%;">
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Celular</span>
+                      <input type="text" class="form-control" name="celular" aria-describedby="basic-addon1" style="width: 100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Teléfono</span>
+                      <input type="text" class="form-control" name="telefono" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Teléfono de casa</span>
+                      <input type="text" class="form-control" name="telefonocasa" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-11">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Dirección</span>
+                      <input type="text" class="form-control" placeholder="Ingrese la dirección del contacto" aria-describedby="basic-addon1" name="direccion" style="width: 100%;">
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">País</span>
+                      <input type="text" class="form-control" name="pais" aria-describedby="basic-addon1" style="width: 100%;">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Ciudad / Estado</span>
+                      <input type="text" class="form-control" name="provincia" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Código postal</span>
+                      <input type="text" class="form-control" name="codigo" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <hr>
+              <div class="panel-group">                     
+                  <a data-toggle="collapse" href="#collapse1">
+                    Agregar mas información
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </a>
+                  
+                <div id="collapse1" class="panel-collapse collapse">
+                  <br>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Industria</span>
+                            <input type="text" name="industria" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon1">Tipo de documento</span>
+                          <input type="text" name="tipoid" class="form-control"  aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Documento</span>
+                            <input type="text" name="identificacion" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Fecha de nacimiento</span>
+                            <input type="text" name="nacimiento" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon1">Sexo</span>
+                          <input type="text" name="sexo" class="form-control"  aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Ocupación</span>
+                            <input type="text" name="ocupacion" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        
+                    </div>
+                </div>
+          </div>
+          <br>
+          <div class="panel-group">                     
+                  <a data-toggle="collapse" href="#collapse2">
+                    Agregar redes sociales
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </a>
+              
+                <div id="collapse2" class="panel-collapse collapse">
+                  <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Skype</span>
+                            <input type="text" name="skype" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon1">Facebook</span>
+                          <input type="text" name="fb" class="form-control"  aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Twitter</span>
+                            <input type="text" name="twitter" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Linkedin</span>
+                            <input type="text" name="linkedin" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Google +</span>
+                            <input type="text" name="google" class="form-control" aria-describedby="basic-addon1">
+                          </div>
+                        </div>
+                        
+                    </div>
+                </div>
+          </div>
+          <br>
+          <div class="panel-group">                     
+                  <a data-toggle="collapse" href="#collapse3">
+                    Información adicional
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </a>
+                  
+                <div id="collapse3" class="panel-collapse collapse">
+                  <br>
+                    
+                    <div class="form-group">
+                    <textarea class="form-control" name="comentarios" placeholder="Comentarios"></textarea>
+                </div>
+                </div>
+          </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-default guardar-contacto btn-primary" data-dismiss="modal">Guardar empresa</button>
+                </div>
+        </div>
+      </div>
+  </div>
+
+</template>
+
+<template name="itemClientes">
+  <a href="/clientes2/d/{{this._id}}">
+    <img src="/banner3.jpg" alt="{{this.nombre}} {{this.apellido}}" class="item-mienbro">
+  </a>
+	<!--<a href="/clientes2/d/{{this._id}}" class="sidebar-item no-hover" style="display: block;">{{this.nombre}} {{this.apellido}}</a> -->
+</template>
+
+
+<!-- Contenido derecho -->
+
+<template name="appDashboard">
+	{{> menuDashboard}}
+	<div class="contenido-dashboard">	
+		{{>Template.dynamic template=content}}
+	</div>
+
+</template>
+
+<template name="menuDashboard">
+	{{> menu}}
+</template>
+
+<template name="asuntos2">
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/asuntos2" >Todos los asuntos</a></p>
+		</div>
+	</div>
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+	<div class="franja-filtros">
+		<div class="progreso" style="padding-top: 15px;">
+			<a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Asunto</a>
+
+			<div class="btn-group">
+  <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
+    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Por fecha</a></li>
+    <li><a href="#">Abiertos</a></li>
+    <li><a href="#">Archivados</a></li>
+  </ul>
+		</div>
+
+		<p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> asuntos abiertos</p>
+
+		</div>
+		
+		<div  style="float: right; width: 100px; padding: 20px; display: inline-block">
+			<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
+			<i class="glyphicon glyphicon-th"></i>
+		</div>
+	</div>
+	<div class="lista-asuntos">
+		{{> cuadroAsuntoNuevo}}
+		{{#transition in="zoomIn" out="bounceOut"}}
+			{{#each asuntos}}
+				{{> asuntoItemCuadro}}
+			{{/each}}
+		{{/transition}}
+	</div>
+</template>
+
+<template name="asuntoItemCuadro">
+	<div class="asunto-item-cuadro">
+		<div class="box-content">
+			<h4><a href="/asuntos2/d/{{this._id}}" style="color: #2c3e50;">{{this.caratula}}</a></h4>
+			<a href="/clientes2/d/{{this.cliente.id}}" style="font-family: 'Open Sans'; font-size: initial;"><h5>{{this.cliente.nombre}}</h5></a>
+      <div style="display: block;">
+      <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block; width: 20px; margin: 0px;">   
+            <img src="/banner3.jpg" alt="{{this.responsable.nombre}}" class="item-mienbro">
+        </div>
+        <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block;">
+        
+          {{#each this.abogados}}
+            <img src="/banner.jpg" alt="{{this.nombre}}" class="item-mienbro">
+          {{/each}}
+        
+          </div>
+      </div>
+		</div>
+		<div class="box-foot">
+			<div class="btn-group">
+  <button type="button" class="btn dropdown-toggle" style="background-color: #F1F1F1; padding: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="/asuntos2/d/{{this._id}}/calendario">Calendario</a></li>
+    <li><a href="/asuntos2/d/{{this._id}}/documentos">Archivos</a></li>
+    <li><a href="/asuntos2/d/{{this._id}}/">Tareas</a></li>
+    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+    <li role="separator" class="divider"></li>
+    <li class="cerrar-asunto"><a style="color: #e74c3c;">Archivar asunto</a></li>
+  </ul>
+		</div>
+
+		</div>
+	</div>
+</template>
+
+<template name="detalleAsunto2">
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+			<a href="/asuntos2" > Todos los asuntos </a> 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			</p>
+		</div>
+	</div>
+
+	{{> menuTareas2}}
+	
+	{{> tareasDelAsunto}}
+
+</template>
+
+<template name="menuTareas2">
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim asunto-item-activo">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
+		<a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Tarea</a>
+
+		<div class="btn-group">
+  			<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
+    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+  			</button>
+ 	 		<ul class="dropdown-menu">
+    			<li><a href="#">Por fecha</a></li>
+    			<li><a href="#">Abiertos</a></li>
+   	 			<li><a href="#">Archivados</a></li>
+  			</ul>
+		</div>
+	</div>
+
+</template>
+
+<template name="tareasDelAsunto">
+	<div class="lista-tareas">
+    <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;"> 
+		{{#each tareas}}
+			<div class="item-lista-tareas">
+        {{#if esMiTarea}}
+				<i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
+        {{/if}}
+				<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a>
+        <i class="glyphicon glyphicon-user"> </i>
+        <a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline;">{{this.asignado.nombre}}</h5></a>	
+			</div>
+		{{/each}}
+	</div>
+</template>
+
+<template name="detalleTareaAsunto">
+	<div class="franja-progreso">
+		<div class="progreso">		
+			<p>{{email}} 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+			<a href="/asuntos2" > Todos los asuntos </a> 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			<a>Tarea</a>
+			</p>	
+		</div>
+	</div>
+
+	{{> menuTareas2}}
+
+	<div class="detalle-tarea">
+
+		<div class="lista-tareas" style="width: 36%;">
+		<input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="border: none; border-bottom: 1px solid #EFEFEF;">
+		{{#each tareas}}
+			<div class="item-lista-tareas">
+        {{#if esMiTarea}}
+        <i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
+        {{/if}}
+				
+				<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline;">{{this.descripcion}}</h5></a>	
+			</div>
+		
+		{{/each}}
+		</div>
+		<div class="cuadro-detalle-tarea">
+			<div class="item-lista-tareas" style="padding-left: 8px;">
+				{{#with tarea}}
+				<a style="display: inline-block; margin-right: 8px;">
+				<i class="glyphicon glyphicon-ok-sign"></i>
+				
+				{{this.descripcion}}
+				
+				</a>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-calendar"></i>
+				{{#if hayFecha this.vence}}
+					{{dia}}
+				{{else}}
+					Agregar fecha
+				{{/if}}
+				</a>
+				{{/with}}	
+				<a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
+				<i class="glyphicon glyphicon-paperclip"></i>
+				Adjuntar</a>
+				<a style="display: inline-block; margin-left: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
+				<i class="glyphicon glyphicon-fullscreen"></i>
+				Pantalla completa
+				</a>
+								
+			</div>
+			<div class="cuadro-tarea-comentarios">
+			{{#transition in="bounceIn" out="bounceOut"}}
+				{{#each comentarios}}
+					<p> <a>{{this.creador.nombre}}: </a> {{this.comentario}}</p>
+					<hr>
+				{{/each}}
+			{{/transition}}
+			</div>
+			<div class="caja-comentario-tarea">
+				<textarea name="comentario" placeholder="Escriba un comentario" style="border: none; font-family: 'Open Sans'; font-weight: initial; padding-left: 0px;"></textarea>
+				<a class="btn nueva-tarea nuevo-evento azul-empresa comentar" style="border-bottom: none;">Comentar</a>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="fullScreenTareaAsunto">
+	<div class="franja-progreso">
+		<div class="progreso">		
+			<p>{{email}} 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+			<a href="/asuntos2" > Todos los asuntos </a> 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			<a>Tarea</a>
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with tarea}}
+			<a>{{this.descripcion}}</a>
+			{{/with}}
+			</p>	
+		</div>
+	</div>
+
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim asunto-item-activo">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
+		<a class="btn nueva-tarea nuevo-evento verde-flat nueva-subtarea">+ Subtarea</a>
+	</div>
+
+	<div class="detalle-tarea">
+		<div class="cuadro-detalle-tarea" style="width: 94.4%; margin: 20px auto;">
+			<div class="item-lista-tareas" style="padding-left: 8px;">
+				{{#with tarea}}
+				<a style="display: inline-block; margin-right: 8px;">
+				<i class="glyphicon glyphicon-ok-sign"></i>
+				
+				{{this.descripcion}}
+				
+				</a>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-calendar"></i>
+				{{#if hayFecha this.vence}}
+					{{dia}}
+				{{else}}
+					Agregar fecha
+				{{/if}}
+				</a>
+				{{/with}}	
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-comment"></i>
+				Comentarios
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-th-list"></i>
+				Subtareas
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f/docs">
+				<i class="glyphicon glyphicon-folder-open"></i>
+				Archivos
+				</a>
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+				<i class="glyphicon glyphicon-paperclip"></i>
+				Adjuntar
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}">
+				<i class="glyphicon glyphicon-fullscreen"></i>
+				Achicar pantalla
+				</a>				
+			</div>
+			<div class="cuadro-tarea-comentarios">
+			{{#transition in="bounceIn" out="bounceOut"}}
+				{{#each comentarios}}
+					<p> <a>{{this.creador.nombre}}: </a> {{this.comentario}}</p>
+					<hr>
+				{{/each}}
+			{{/transition}}
+			</div>
+			<div class="caja-comentario-tarea">
+				<textarea name="comentario" placeholder="Escriba un comentario" style="border: none; font-family: 'Open Sans'; font-weight: initial; padding-left: 0px;"></textarea>
+				<a class="btn nueva-tarea nuevo-evento azul-empresa comentar" style="border-bottom: none;">Comentar</a>
+			</div>
+		</div>
+	</div>
+</template>
+
+
+<template name="fullScreenTareaAsuntoDocs">
+	<div class="franja-progreso">
+		<div class="progreso">		
+			<p>{{email}} 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+			<a href="/asuntos2" > Todos los asuntos </a> 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			<a>Tarea</a>
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with tarea}}
+			<a>{{this.descripcion}}</a>
+			{{/with}}
+			</p>	
+		</div>
+	</div>
+
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim asunto-item-activo">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
+		<a class="btn nueva-tarea nuevo-evento verde-flat nueva-subtarea">+ Subtarea</a>
+	</div>
+
+	<div class="detalle-tarea">
+		<div class="cuadro-detalle-tarea" style="width: 94.4%; margin: 20px auto;">
+			<div class="item-lista-tareas" style="padding-left: 8px;">
+				{{#with tarea}}
+				<a style="display: inline-block; margin-right: 8px;">
+				<i class="glyphicon glyphicon-ok-sign"></i>
+				
+				{{this.descripcion}}
+				
+				</a>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-calendar"></i>
+				{{#if hayFecha this.vence}}
+					{{dia}}
+				{{else}}
+					Agregar fecha
+				{{/if}}
+				</a>
+				{{/with}}	
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
+				<i class="glyphicon glyphicon-comment"></i>
+				Comentarios
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-th-list"></i>
+				Subtareas
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f/docs">
+				<i class="glyphicon glyphicon-folder-open"></i>
+				Archivos
+				</a>
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+				<i class="glyphicon glyphicon-paperclip"></i>
+				Adjuntar
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}">
+				<i class="glyphicon glyphicon-fullscreen"></i>
+				Achicar pantalla
+				</a>				
+			</div>
+			<div class="cuadro-tarea-comentarios" style="padding: 0px;">
+			{{#transition in="bounceIn" out="bounceOut"}}
+				{{#each archivos}}
+					<div class="item-lista-tareas">
+						<i class="glyphicon glyphicon-folder-open i-hover"> </i>
+						<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"> {{this.metadata.nombre}}</a>
+						<a href="{{this.url download=true}}" target="_parent" class="btn nueva-tarea nuevo-evento verde-flat">Descargar</a>
+						{{#FS.DeleteButton class="btn nueva-tarea nuevo-evento rojo-flat"}}Eliminar{{/FS.DeleteButton}}
+					</div>
+				{{else}}
+				<a class="btn verde-flat nueva-tarea adjuntar-archivo-tarea" style="margin-top: 20px; margin-left: 25px;">Adjuntar</a>
+				{{/each}}
+			{{/transition}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="fullScreenTareaAsuntoSubtareas">
+	<div class="franja-progreso">
+		<div class="progreso">		
+			<p>{{email}} 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+			<a href="/asuntos2" > Todos los asuntos </a> 
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			<a>Tarea</a>
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with tarea}}
+			<a>{{this.descripcion}}</a>
+			{{/with}}
+			</p>	
+		</div>
+	</div>
+
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim asunto-item-activo">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
+		<a class="btn nueva-tarea nuevo-evento verde-flat nueva-subtarea">+ Subtarea</a>
+	</div>
+
+	<div class="detalle-tarea">
+		<div class="cuadro-detalle-tarea" style="width: 94.4%; margin: 20px auto;">
+			<div class="item-lista-tareas" style="padding-left: 8px;">
+				{{#with tarea}}
+				<a style="display: inline-block; margin-right: 8px;">
+				<i class="glyphicon glyphicon-ok-sign"></i>
+				
+				{{this.descripcion}}
+				
+				</a>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-calendar"></i>
+				{{#if hayFecha this.vence}}
+					{{dia}}
+				{{else}}
+					Agregar fecha
+				{{/if}}
+				</a>
+				{{/with}}	
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-comment"></i>
+				Comentarios
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-th-list"></i>
+				Subtareas
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+				<i class="glyphicon glyphicon-folder-open"></i>
+				Archivos
+				</a>
+				
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+				<i class="glyphicon glyphicon-paperclip"></i>
+				Adjuntar
+				</a>
+
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}">
+				<i class="glyphicon glyphicon-fullscreen"></i>
+				Achicar pantalla
+				</a>				
+			</div>
+			<div class="cuadro-tarea-comentarios">
+			{{#transition in="bounceIn" out="bounceOut"}}
+				{{#each comentarios}}
+					<p> <a>{{this.creador.nombre}}: </a> {{this.comentario}}</p>
+					<hr>
+				{{/each}}
+			{{/transition}}
+			</div>
+			<div class="caja-comentario-tarea">
+				<textarea name="comentario" placeholder="Escriba un comentario"></textarea>
+				<a class="btn nueva-tarea nuevo-evento azul-empresa comentar">Comentar</a>
+			</div>
+		</div>
+	</div>
+</template>
+
+
+<template name="adjuntarArchivoTarea">
+	 <div class="modal fade" id="doc-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Adjuntar archivo a tarea</h4>
+                </div>
+
+                <div class="modal-body">
+                     <form class="cd-form floating-labels" style="margin-top: 0; margin-bottom: 0;">
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Nombre</label>
+				<input class="company" type="text" name="nombre" id="cd-company">
+		    </div>
+
+			<div class="icon">
+		    	<label class="cd-label" for="cd-company">Archivo</label>
+				<input class="company" type="file" name="archivo" id="myArchivo">
+		    </div>
+		   
+
+		    <div class="centrar-boton">
+		      	<input type="submit" value="Adjuntar">
+		    </div>
+
+
+			</form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="cuadroAsuntoNuevo">
+	<div class="asunto-item-cuadro nuevo" style="text-align: center; padding-top: 65px;">
+		<i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 36px;"></i>
+	</div>
+</template>
+
+<template name="asuntoEditarModal">
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-book"></i> Editar asunto</h4>
+      			</div>
+      			<div class="modal-body">
+      				<div class="row">
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Nombre</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el nombre del contacto" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Apellido</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el apellido del contacto" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Empresa</span>
+          						<input type="text" class="form-control" placeholder="Ingrese la empresa del contacto" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-6">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Cargo</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el cargo del contacto" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<hr>
+        			<div class="row">
+          				<div class="col-md-11">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Email</span>
+          						<input type="text" class="form-control" placeholder="Ingrese el email del contacto" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Celular</span>
+          						<input type="text" class="form-control" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Teléfono</span>
+          						<input type="text" class="form-control" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Teléfono de casa</span>
+          						<input type="text" class="form-control"  aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-11">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Dirección</span>
+          						<input type="text" class="form-control" placeholder="Ingrese la dirección del contacto" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<div class="row">
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">País</span>
+          						<input type="text" class="form-control" aria-describedby="basic-addon1" style="width: 100%;">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Ciudad / Estado</span>
+          						<input type="text" class="form-control" aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+          				<div class="col-md-4">
+          					<div class="input-group">
+          						<span class="input-group-addon" id="basic-addon1">Código postal</span>
+          						<input type="text" class="form-control"  aria-describedby="basic-addon1">
+          					</div>
+          				</div>
+        			</div>
+        			<br>
+        			<hr>
+        			<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse1">
+        						Agregar mas información
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse1" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Industria</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          								<span class="input-group-addon" id="basic-addon1">Tipo de documento</span>
+          								<input type="text" class="form-control"  aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Documento</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+        						<br>
+        						<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Fecha de nacimiento</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          								<span class="input-group-addon" id="basic-addon1">Sexo</span>
+          								<input type="text" class="form-control"  aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Ocupación</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+    						</div>
+					</div>
+					<br>
+					<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse2">
+        						Agregar redes sociales
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        			
+    						<div id="collapse2" class="panel-collapse collapse">
+    							<br>
+      							<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Skype</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          								<span class="input-group-addon" id="basic-addon1">Facebook</span>
+          								<input type="text" class="form-control"  aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Twitter</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+        						<br>
+        						<div class="row">
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Linkedin</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							<div class="col-md-4">
+          								<div class="input-group">
+          									<span class="input-group-addon" id="basic-addon1">Google +</span>
+          									<input type="text" class="form-control" aria-describedby="basic-addon1">
+          								</div>
+          							</div>
+          							
+        						</div>
+    						</div>
+					</div>
+					<br>
+					<div class="panel-group">			   							
+        					<a data-toggle="collapse" href="#collapse3">
+        						Información adicional
+								<i class="fa fa-plus-circle" aria-hidden="true"></i>
+        					</a>
+        					
+    						<div id="collapse3" class="panel-collapse collapse">
+    							<br>
+        						
+      							<div class="form-group">
+  									<textarea class="form-control" rows="5" id="comment" placeholder="Comentarios"></textarea>
+								</div>
+    						</div>
+					</div>
+      			</div>
+      			<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-default guardar btn-primary" data-dismiss="modal">Guardar cambios</button>
+                </div>
+    		</div>
+  		</div>
+	</div>
+
+</template>
+
+<template name="calendario2">
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > calendario</a></p>
+		</div>
+	</div>
+	 <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim  asunto-item-activo" style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+	{{> calendario}}
+</template>
+
+<!-- Template de conversaciones de equipo -->
+
+<template name="Conversaciones">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > Conversaciones</a></p>
+		</div>
+	</div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Conversación
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+	<!--<div class="franja-filtros" style="padding-left: 18px;">
+		<a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="width: 160px; text-align: left;">
+			Conversaciones
+		</a> 
+		<a href="/calendario2" class="menu-asunto-aim" style="margin-left: 0px; text-align: left;">
+			Calendario
+		</a>
+	</div> -->
+	
+	<div class="contenedor-conversacion">
+		<div>
+			<div class="form-conversacion" style="margin-bottom: 30px;">
+				<input type="text" name="nombre" placeholder="Tema">
+				<textarea name="descripcion" placeholder="Empieza una conversación en la firma"></textarea>
+				<div class="div-conversacion">
+					<button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
+				</div>
+			</div>
+	
+			{{#each conversaciones}}
+			<div class="form-conversacion" style="padding-left: 15px; padding-right: 15px; padding-top: 0px;  margin-bottom: 25px;">
+				<h3>{{this.nombre}}</h3>
+				<h5>Por <strong style="color: #34495e;">{{this.autor}}</strong></h5>
+				<h5>{{this.descripcion}}</h5>
+				
+				<div >
+				{{#transition in="bounceIn" out="bounceOut"}}
+					{{#each comentarios}}
+						<h5 style="border-bottom: 1px solid #EFEFEF; padding: 5px 0px;"><a >{{this.autor.nombre}}: </a> {{this.comentario}}</h5>
+					{{/each}}	
+				{{/transition}}
+				</div>
+			<div>
+				<textarea name="comentario" placeholder="Escribe un comentario" style="padding: 0px; padding-top: 10px; display: block; " class="area-comentario"></textarea>
+				
+				<button type="button" class="enviar-comentario boton-post" style="width: 120px;">Comentar</button>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+				<h5 style="display:inline-block;"> <i class="glyphicon glyphicon-paperclip"></i>Adjuntar</h5>
+				</a>
+				<br><br>
+			</div>
+				
+			</div>		
+			{{/each}}
+		</div>
+		
+		{{>cuadroAsuntos}}	
+	</div>
+</template>
+
+<template name="cuadroAsuntos">
+	<div class="lista-asuntos2" style="display: block; padding-top: 0px; padding-left: 15px;">
+		<h3>Asuntos</h3>
+		{{#each asuntos}}
+			<h5><strong>{{this.caratula}}</strong></h5>
+		{{/each}}
+	</div>
+</template>
+
+
+<template name="contenidoDashboard2">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/dashboard2" > Dashboard</a></p>
+		</div>
+	</div>
+	<div class="franja-filtros" style="padding-left: 18px;">
+		<a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+			Bienvenido
+		</a> 
+		<a href="/dashboard2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+			Actividad
+		</a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+	</div>
+
+  {{>newsfeed}}
+</template>
+
+<template name="contenidoDashboard2Bienvenido">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			 	<a href="/dashboard2" > 
+			 		Dashboard
+				</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			 	<a href="/dashboard2" > 
+			 		Bienvenido
+				</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim asunto-item-activo" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+	<div class="row jumbotron" style="margin: 0px;">
+    	<div class="col-md-12" style="text-align: center;">
+    			<h1 style="color: white; margin: 0 auto; display: block;">Bienvenido</h1>
+    	</div>
+	</div>
+
+</template>
+
+<template name="asuntosDocs3">
+	
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Archivos</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	{{>documentos}}
+</template>
+
+<template name="asuntosDocsDetalle">
+
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/documentos" >Archivos</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="">Adffd</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	 <div class="box-header">
+    {{> nuevoArchivo}}
+	</div>
+
+	<div class="detalle-tarea">
+
+		<div class="lista-tareas" style="width: 36%;">
+		{{#each documentos}}
+			<div class="item-lista-tareas">
+				<i class="glyphicon glyphicon-file i-hover"> </i>
+				<a href="/asuntos2/d/{{asuntoId}}/documentos/{{this._id}}">{{this.metadata.descripcion}}</a>
+			</div>
+		{{/each}}
+		</div>
+		<div class="cuadro-detalle-tarea">
+			<div class="item-lista-tareas" style="padding-left: 8px;">
+				{{#with archivo}}
+				<a style="display: inline-block; margin-right: 8px;">
+				<i class="glyphicon glyphicon-file"></i>
+				
+				{{this.metadata.descripcion}}
+
+				</a>
+				
+			
+				<a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
+				<i class="glyphicon glyphicon-paperclip"></i>
+				Nueva versión</a>
+				<a style="display: inline-block; margin-left: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
+				<i class="glyphicon glyphicon-fullscreen"></i>
+				Pantalla completa
+				</a>
+				<div class="btn-group" style="float: right; margin-right: 85px;">
+  					<button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+  					</button>
+  					<ul class="dropdown-menu">
+    					<li><a href="{{this.url download=true}}" target="_parent">Descargar</a></li>			
+  					</ul>
+				</div>
+				{{/with}}				
+			</div>
+			{{>comentarios}}
+			{{> cajaComentario}}
+		</div>
+	</div>
+</template>
+
+<template name="detalleCalendario2">
+		<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/documentos" > Calendario</a>
+				
+			</p>
+		</div>
+	</div>
+	
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+
+	{{>detalleCalendario}}
+</template>
+
+<template name="asuntoInformacion">
+	
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/informacion">
+				Información
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+
+	{{> datosAsunto}}
+</template>
+
+<template name="detalleConversacion2">
+
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/conversacion">
+				Conversaciones
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+	
+	<div class="contenedor-conversacion">
+		<div style="margin: 0 auto;  width: 90%;">
+			<div class="form-conversacion" style="margin-bottom: 30px;  width: 100%;">
+				<input type="text" name="nombre" placeholder="Tema">
+				<textarea name="descripcion" placeholder="Empieza una conversación en este asunto"></textarea>
+				<div class="div-conversacion">
+					<button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
+				</div>
+			</div>
+			{{#transition in="zoomIn" out="bounceOut"}}
+			{{#each conversaciones}}
+			<div class="form-conversacion" style="padding-left: 15px; padding-right: 15px; padding-top: 0px;  margin-bottom: 25px; width: 100%;">
+				<h3>{{this.nombre}}</h3>
+				<h5>Por <strong style="color: #34495e;">{{this.autor}}</strong></h5>
+				<h5>{{this.descripcion}}</h5>
+				
+				<div>
+				{{#transition in="bounceIn" out="bounceOut"}}
+					{{#each comentarios}}
+						<h5 style="border-bottom: 1px solid #EFEFEF; padding: 5px 0px;"><a >{{this.autor.nombre}}: </a> {{this.comentario}}</h5>
+					{{/each}}	
+				{{/transition}}
+				</div>
+			<div>
+				<textarea name="comentario" placeholder="Escribe un comentario" style="padding: 0px; padding-top: 10px; display: block; " class="area-comentario"></textarea>
+				
+				<button type="button" class="enviar-comentario boton-post" style="width: 120px;">Comentar</button>
+				<a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+				<h5 style="display:inline-block;"> <i class="glyphicon glyphicon-paperclip"></i>Adjuntar</h5>
+				</a>
+				<br><br>
+			</div>
+				
+			</div>		
+			{{/each}}
+			{{/transition}}
+		</div>
+		
+	</div>
+</template>
+
+<template name="detalleNotas2">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/notas">
+				Notas
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+
+	{{> notas}}
+</template>
+
+<template name="detalleFacturacion">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2" >Todos los asuntos</a>
+				{{#with expediente}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
+				{{/with}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/asuntos2/d/{{asuntoId}}/facturacion">
+				Facturación
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="franja-filtros">
+		<a href="/asuntos2/d/{{asuntoId}}" class="menu-asunto-aim ">
+			Tareas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/documentos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Archivos
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+			Facturación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
+			Conversación
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
+			Notas
+		</a>
+		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
+			Información
+		</a>
+	</div>
+
+</template>
+
+<template name="clientes2">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}} 
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/clientes2" >CRM</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+				<a href="/clientes2">
+				Resúmen
+				</a>
+			</p>
+		</div>
+	</div>
+
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+	<div class="franja-filtros">
+		<a href="/clientes2" class="menu-asunto-aim asunto-item-activo">
+			Resúmen
+		</a>
+		<a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
+			Contactos
+		</a>
+		<a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+			Ventas
+		</a>
+    <a href="clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+	</div>
+
+	<div class="cuadros-estadisticos">
+		{{> cantidadClientes}}
+		<div class="cuadro-unit azul-flat">
+			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
+			<div style="text-align: center; width: 50%;">
+				<i class="glyphicon glyphicon-tags" style="font-size: 40px;"></i>
+				<h3 style="margin: 0px;">Ventas</h3>
+			</div>
+			<div style="width: 50%;">
+				<h1 style="margin: 0;"><strong>4</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px;">Total</h3>
+			</div>
+			</div>
+		</div>
+		<div class="cuadro-unit morado-flat">
+			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
+			<div style="text-align: center; width: 50%;">
+				<i class="glyphicon glyphicon-user" style="font-size: 40px;"></i>
+				<h3 style="margin: 0px;">Ventas</h3>
+			</div>
+			<div style="width: 50%;">
+				<h1 style="margin: 0;"><strong>4</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px;">Abiertas</h3>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="box">
+		
+	</div>
+
+</template>
+
+<template name="cantidadClientes">
+	<div class="cuadro-unit verde-flat">
+		<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
+			<div style="text-align: center; width: 50%;">
+				<i class="glyphicon glyphicon-user" style="font-size: 40px;"></i>
+				<h3 style="margin: 0px;">Contactos</h3>
+			</div>
+			<div style="width: 50%;">
+				<h1 style="margin: 0;"><strong>{{cantidad}}</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px;">Total</h3>
+			</div>
+		</div>
+			
+		</div>
+</template>
+
+<template name="botonNuevosContactos">
+   <div class="btn-group">
+  <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+    Nuevo <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li class="persona"><a href="#">Persona</a></li>
+    <li class="empresa"><a href="#">Empresa</a></li>
+  </ul>
+    </div>
+</template>
+
+<template name="contactos2">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style=" margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div>
+     <div class="sidebar-vertical-blanco">
+   
+    {{>botonNuevosContactos}}
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+  {{#each clientes}}
+  <div >
+   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      <span style="color: #2B3E51;">{{this.nombre}} {{this.apellido}}</span>
+   
+      <h5>Por {{this.autor}}</h5>
+      
+    </a>
+    <div style="display: inline-block; padding-bottom: 25px;">
+    
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      + Celular
+    </a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+      + Email
+    </a>
+    {{/if}}
+     </div>
+  </div>
+  
+  </div>
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/each}}
+  </div>
+ 
+
+</template>
+
+<template name="listaEmpresas">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Empresas
+        </a>
+      </p>
+    </div>
+  </div>
+  <div class="franja-filtros">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div>
+     <div class="sidebar-vertical-blanco">
+   
+    {{>botonNuevosContactos}}
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+  {{#each empresas}}
+  <div >
+   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+    <img src="/banner.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      <span style="color: #2B3E51;">{{this.nombre}}</span>
+   
+      <h5>Por {{this.autor}}</h5>
+      
+    </a>
+    <div style="display: inline-block; padding-bottom: 25px;">
+    
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      + Celular
+    </a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+      + Email
+    </a>
+    {{/if}}
+     </div>
+  </div>
+  
+  </div>
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/each}}
+  </div>
+ 
+
+</template>
+
+
+<template name="detalleClientes2">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        {{#with cliente}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        {{this.nombre}} {{this.apellido}}
+        </a>
+        {{/with}}
+      </p>
+    </div>
+  </div>
+
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+    {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+  {{#with cliente}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} {{this.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+  
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim  asunto-item-activo">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
+      Información
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Asuntos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+      Facturación
+    </a>
+  </div>
+
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
+      
+        <div class="form-conversacion" style="margin: 20px auto; width: 90%;">
+        <input type="text" name="nombre" placeholder="Nota">
+        <textarea name="descripcion" placeholder="Describe de la nota o agregue un documento"></textarea>
+        <div class="div-conversacion">
+          <button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
+          <h5 style="display:inline-block; margin-left: 15px;"> <i class="glyphicon glyphicon-paperclip"></i>Adjuntar</h5>
+        </div>
+        </div>
+
+      {{#transition in="zoomIn" out="bounceOut"}}
+      {{#each notas}}
+      <div class="form-conversacion" style="padding-left: 15px; padding-right: 15px; padding-top: 0px;   margin: 15px auto; width: 90%;">
+        <h3>{{this.nombre}}</h3>
+        <h5>Por <strong style="color: #34495e;">{{this.autor}}</strong></h5>
+        <h5>{{this.descripcion}}</h5>
+        
+        <div>
+        {{#transition in="bounceIn" out="bounceOut"}}
+          {{#each comentarios}}
+            <h5 style="border-bottom: 1px solid #EFEFEF; padding: 5px 0px;"><a >{{this.autor.nombre}}: </a> {{this.comentario}}</h5>
+          {{/each}} 
+        {{/transition}}
+        </div>
+
+      <div>
+        <textarea name="comentario" placeholder="Escribe un comentario" style="padding: 0px; padding-top: 10px; display: block; " class="area-comentario"></textarea>
+        
+        <button type="button" class="enviar-comentario boton-post" style="width: 120px;">Comentar</button>
+        <a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+       
+        </a>
+        <br><br>
+      </div>
+        
+      </div>    
+      {{/each}}
+      {{/transition}}
+
+    </div>
+  </div>
+
+</template>
+
+<template name="casos">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Casos
+        </a>
+      </p>
+    </div>
+  </div>
+
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+</template>
+
+<template name="detalleClientesInfo">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        {{#with cliente}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        {{this.nombre}} {{this.apellido}}
+        </a>
+        {{/with}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Información
+        </a>
+      </p>
+    </div>
+  </div>
+  
+ <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+    {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+   {{#with cliente}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} {{this.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+  
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+
+  </div>
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim  asunto-item-activo" style="margin-left: 0px;">
+      Información
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Asuntos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+      Facturación
+    </a>
+  </div>
+
+  </div>
+
+  <div style="width: 80%;">
+   {{#with cliente}}
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+   
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Nombre y apellido </h5>{{this.nombre}} {{this.apellido}}
+        </a>
+        {{#if this.telefono}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Telefono </h5>{{this.telefono}}
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Telefono </h5> + Telefono
+        </a>
+        {{/if}}
+        {{#if this.celular}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Celular </h5>{{this.celular}}
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Celular </h5> + Celular
+        </a>
+        {{/if}}
+    
+  </div>
+
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+        {{#if this.identificacion}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Identificación </h5>{{this.identificacion}} 
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Identificación </h5> + Identificacion
+        </a>
+        {{/if}}
+        {{#if this.email}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Email </h5>{{this.email}}
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Email </h5> + Email
+        </a>
+        {{/if}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Autor </h5>{{this.autor}}
+        </a>
+    
+  </div>
+
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+        {{#if this.direccion}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Dirección </h5>{{this.direccion}} 
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Dirección </h5> + Dirección
+        </a>
+        {{/if}}
+        {{#if this.provincia}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Provincia </h5>{{this.provincia}}
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>Provincia </h5> + provincia
+        </a>
+        {{/if}}
+        {{#if this.pais}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>País </h5>{{this.pais}}
+        </a>
+        {{else}}
+        <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
+         <h5>País </h5> + País
+        </a>
+        {{/if}}
+    
+  </div>
+  {{/with}}
+  </div>
+
+
+</template>
+
+
+<template name="detalleClientesCasos">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        {{#with cliente}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        {{this.nombre}} {{this.apellido}}
+        </a>
+        {{/with}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Casos
+        </a>
+      </p>
+    </div>
+  </div>
+  
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+   {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+   {{#with cliente}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} {{this.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+  
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+  </div>
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
+      Información
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Casos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Asuntos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+      Facturación
+    </a>
+  </div>
+
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
+      
+       
+
+    </div>
+  </div>
+
+</template>
+
+
+<template name="detalleClientesAsuntos">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        {{#with cliente}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        {{this.nombre}} {{this.apellido}}
+        </a>
+        {{/with}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Asuntos
+        </a>
+      </p>
+    </div>
+  </div>
+  
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+    {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+   {{#with cliente}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} {{this.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+  
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+  </div>
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
+      Información
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Asuntos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+      Facturación
+    </a>
+  </div>
+
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
+      
+       
+
+    </div>
+  </div>
+
+</template>
+
+<template name="detalleClientesFacturacion">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+        {{#with cliente}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        {{this.nombre}} {{this.apellido}}
+        </a>
+        {{/with}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Facturación
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+      Ventas
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+  {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+   {{#with cliente}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} {{this.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+  
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+  </div>
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
+      Información
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Asuntos
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Facturación
+    </a>
+  </div>
+
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
+      
+       
+
+    </div>
+  </div>
+
+</template>

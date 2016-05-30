@@ -1,0 +1,29 @@
+<template name="app">
+    
+  {{#if currentUser}}
+    
+    
+    
+    {{> menu}}
+    <br><br>
+    {{> subMenu}}
+    <!--<div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12"> -->
+            {{>Template.dynamic template=contenido}}
+        <!--</div>
+      </div>
+    </div>-->
+    
+    
+
+  	<div id="footer">
+        
+    </div>
+   
+
+  {{else}}
+    {{> login}}
+  {{/if}}
+  
+</template>

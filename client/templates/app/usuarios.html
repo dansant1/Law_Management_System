@@ -1,0 +1,72 @@
+<template name="usuarios">
+	<div class="box-header">
+		{{> usuarioNuevo}}
+	</div>
+	<div class="box">
+		{{#transition in="fadeInLeft" out="fadeOutRight"}}
+		{{#each miembros}}
+		<div class="box-item">
+			<div class="box-content">
+				<h1><a href="" class="box-titulo">{{profile.nombre}} {{profile.apellido}}</a></h1>
+				<a class="bloque">Lima, Perú</a>
+			</div>
+			<div class="box-foot">
+				<h1><a href="" class="box-ingresar">ver más</a></h1>
+			</div>
+		</div>
+		{{/each}}
+		{{/transition}}
+	</div>
+</template>
+
+<template name="usuarioNuevo">
+{{#if esAdministrador}}
+	<a class="btn nueva-tarea nuevo-evento verde-flat __user">+ Usuario</a>
+{{/if}}
+</template>
+
+<template name="usuarioForm">
+
+	<div class="modal fade">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Agregar usuario</h4>
+	                </div>
+
+	                <div class="modal-body">
+										<form class="cd-form floating-labels" style="margin-top: 0; margin-bottom: 0;">
+											<fieldset>
+
+												<div class="icon">
+													<input class="company" type="text" name="nombre" id="cd-company" placeholder="Ingrese su nombre">
+													</div>
+
+													<div class="icon">
+													<input class="company" type="text" name="apellido" id="cd-company" placeholder="Ingrese su apellido">
+													</div>
+
+													<div class="icon">
+													<input class="company" type="email" name="email" id="cd-company" placeholder="Ingrese su email">
+													</div>
+
+													<div class="icon">
+													<input class="company" type="password" name="password" id="cd-company" placeholder="Ingrese su contraseña">
+													</div>
+												<div class="centrar-boton">
+															<input type="submit" value="Agregar usuario">
+													</div>
+
+											</fieldset>
+										</form>
+	                </div>
+
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	                </div>
+
+	            </div>
+	        </div>
+	    </div>
+</template>

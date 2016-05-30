@@ -1,0 +1,45 @@
+<template name="asuntos">
+	<div class="box-header">
+		{{> asuntoNuevo}}
+	</div>
+	<div style="width: 100%; background-color: #f9f9f9; padding-bottom: 10px;">
+		{{> asuntoMenu}}
+	</div>
+	<div class="box-semi-header">
+		<h1>Asuntos</h1>
+	</div>
+	<div class="box">
+
+	{{#transition in="zoomIn" out="bounceOut"}}
+		{{#each asuntos}}
+		<div class="box-item" style="height: 325px;">
+			<div class="box-content">
+				<h1><a href="/asuntos/d/{{_id}}" class="box-titulo">{{caratula}}</a></h1>
+				<a class="bloque">Responsable {{responsable.nombre}}</a>
+				<a class="bloque"><span>Exp. Nº {{carpeta}}</span></a>
+				<a class="bloque"><span>Cliente {{cliente.nombre}}</span></a>
+				<a class="bloque"><span>{{area}}</span></a>
+			</div>
+			<div class="box-foot">
+				<h1><a href="/asuntos/d/{{_id}}" class="box-ingresar">Ingresar</a></h1>
+			</div>
+		</div>
+		{{/each}}
+	{{/transition}}
+	</div>
+</template>
+
+<template name="asuntoNuevo">
+{{#if esAdministrador}}
+	<a href="/asuntos/nuevo" class="btn nueva-tarea nuevo-evento verde-flat">+ Asunto</a>
+{{/if}}
+</template>
+
+<template name="asuntoMenu">
+	<div id='cssmenu'>
+	<ul style="margin: 0 auto; padding: 0; text-align: center;">
+	   <li><a href=""><span>Abiertos</span></a></li>
+	   <li><a href=""><span>Cerrados</span></a></li>
+	</ul>
+	</div>
+</template>

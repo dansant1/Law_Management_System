@@ -1,0 +1,67 @@
+
+<template name="newsfeed">
+
+    <div class="box">
+
+        <!--<div class="box-accesos" style="width: 100%; margin-top: 0;">
+            <a class="box-icono-acceso" href="/tareas/nuevo">
+                <i class="glyphicon glyphicon-list-alt tarea"></i>
+                <h4>+ Tarea</h4>
+            </a>
+            <a class="box-icono-acceso evento">
+                <i class="glyphicon glyphicon-calendar"></i>
+                <h4>+ Evento</h4>
+            </a>
+            <a class="box-icono-acceso archivo">
+                <i class="glyphicon glyphicon-folder-open"></i>
+                <h4>+ Archivo</h4>
+            </a>
+            <a class="box-icono-acceso" href="clientes/nuevo">
+                <i class="glyphicon glyphicon-user cliente"></i>
+                <h4>+ Cliente</h4>
+            </a>
+            <a class="box-icono-acceso gasto">
+                <i class="glyphicon glyphicon-shopping-cart"></i>
+                <h4>+ Gasto</h4>
+            </a>
+            <a class="box-icono-acceso hora">
+                <i class="glyphicon glyphicon-usd"></i>
+                <h4>+ Hora</h4>
+            </a>
+            {{#if esAdministrador}}
+                <a class="box-icono-acceso" href="/asuntos/nuevo">
+                    <i class="glyphicon glyphicon-book asunto"></i>
+                    <h4>+ Asunto</h4>
+                </a>
+            {{/if}}
+        </div> -->
+
+        <div class="box-news" style="width: 100%;">
+            <div class="asunto">
+                <h3>{{dia}}</h3>
+                <div class="asunto-contenido">
+                {{#transition in="slideInLeft" out="bounceOut"}}
+                    {{#each news}}
+                        <div class="asunto-item">
+                            <span class="asunto-tipo {{type this.tipo}}">{{tipo}}</span>
+                            <p class="asunto-trata">
+                                <a href="" class="asunto-usuario" style="color: #23527C;">{{creador.nombre}} </a>
+                                {{descripcion}}
+                            </p>   
+                            <span class="asunto-fecha asunto-trata" style="position: absolute; right: 50px;">{{sucedio this.createdAt}}</span>
+                            
+                        </div>
+                    {{else}}
+                    <h1>Aún no tienes notificaciones.</h1>
+                    {{/each}}
+                {{/transition}}
+                    {{#if haynews}}
+                    <button class="cargar btn nueva-tarea" style="width: 100%; border: none;">Cargar más</button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</template>

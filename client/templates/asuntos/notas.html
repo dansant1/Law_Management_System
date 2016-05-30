@@ -1,0 +1,75 @@
+<template name="notas">
+	<div class="box">
+		<div style="width: 100%; display: block;">
+					{{> nuevaNota}}
+					<section id="cd-timeline" class="cd-container">
+					{{#transition in="zoomIn" out="bounceOut"}}
+		{{#each notas}}
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-picture">
+
+			</div>
+
+			<div class="cd-timeline-content">
+				<h2 style="font-size: 18px;">{{this.nombre}}</h2>
+				<a>{{this.autor}}</a>
+				<p style="font-size: 13px;">{{this.descripcion}}</p>
+				<span class="cd-date" style="font-size: 12px;">{{dia this.fecha}}</span>
+			</div>
+		</div>
+		{{/each}}
+					{{/transition}}
+					</section>
+		</div>
+				
+		
+		
+	</div>
+</template>
+
+<template name="nuevaNota">
+
+	<a class="btn nueva-tarea nuevo-evento verde-flat nota">+ Nota</a>
+
+</template>
+
+<template name="notaModal">
+	<div id="nota-modal" class="modal fade">
+			<div class="modal-dialog">
+					<div class="modal-content">
+
+							<div class="modal-header">
+									<h4 class="modal-title">Nueva nota</h4>
+							</div>
+
+							<div class="modal-body">
+								<form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+									<fieldset>
+										<div class="icon">
+											<label class="cd-label" for="cd-company">Título</label>
+											<input class="company" type="text" name="nombre" id="cd-company">
+										</div>
+
+										<div class="icon">
+											<label class="cd-label" for="cd-company">Descripción</label>
+											<textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
+										</div>
+
+										<div class="icon">
+								    	<label class="cd-label" for="cd-company">Fecha</label>
+											<input class="company" type="text" name="fecha" id="datepicker">
+								    </div>
+
+										<input type="submit" value="Agregar nota">
+									</fieldset>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							</div>
+
+					</div>
+			</div>
+	</div>
+</template>

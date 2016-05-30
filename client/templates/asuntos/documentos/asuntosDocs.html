@@ -1,0 +1,178 @@
+<template name="asuntosDocs2">
+    {{> datosAsunto}}
+	<div class="comentarios">
+		{{> menuAsunto}}
+  </div>
+  <div class="box-semi-header">
+		<h1>Gestión de archivos</h1>
+	</div>
+  <div style="display: flex; flex-wrap: wrap; width: 100%;">
+    {{> docsasunto}}
+  </div>
+</template>
+
+<template name="asuntosDocs">
+  <div class="box">
+    {{> datosAsunto}}
+    <div class="col-md-9">
+    <div class="info-calendario" style="width: 100%;">
+        <div class="calendar">
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-empresa" style="border: none;">Información</a>
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Horas y gastos</a>
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Contactos</a>
+        </div>
+        <div class="detalle-contacto">
+          <div style="display: block; width: 100%;">
+            {{> menuAsunto}}
+          </div>
+          <div style="width: 100%; display: block;">
+          <div style="margin-left: 15px; display: block; margin-bottom: 15px;">
+            {{> nuevaCarpeta}}
+            {{> nuevoArchivo}}
+          </div>
+          
+          {{>docsasunto}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="asuntosSubDocs">
+
+<div class="box">
+    {{> datosAsunto}}
+    <div class="col-md-9">
+    <div class="info-calendario" style="width: 100%;">
+        <div class="calendar">
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-empresa" style="border: none;">Información</a>
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Horas y gastos</a>
+          <a href="#" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Contactos</a>
+        </div>
+        <div class="detalle-contacto">
+          <div style="display: block; width: 100%;">
+            {{> menuAsunto}}
+          </div>
+          <div style="width: 100%; display: block;">
+          <div style="margin-left: 15px; display: block; margin-bottom: 15px;">
+            {{> nuevasubCarpeta}}
+            {{> nuevosubArchivo}}
+          </div>  
+          {{> subdocsAsunto}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="subdocsAsunto">  
+<div style="width: 100%; display: flex; flex-wrap: wrap;">
+    {{#transition in="zoomIn" out="bounceOut"}}
+  		{{#each docs}}
+        {{#unless this.isUploaded}}
+          {{> FS.UploadProgressBar bootstrap=true}}
+        {{/unless}}
+  		<div class="box-item">
+        {{#if isImage}}
+          <div class="box-image-file">
+            <img src="{{this.url}}" class="box-image"/>
+          </div>
+          <br><br><br><br><br><br>
+        {{/if}}
+  			<div class="box-content">
+  				<h1><a href="#" class="box-titulo">{{this.metadata.nombre}}</a></h1>
+  				<a class="bloque">{{this.metadata.descripcion}}</a>
+          <br><br>
+  			</div>
+        <div class="box-footer">
+          <a href="{{this.url download=true}}" target="_parent" class="btn nueva-tarea nuevo-evento azul-flat">Descargar</a>
+          {{#if esAdministrador}}
+            {{#FS.DeleteButton class="btn nueva-tarea nuevo-evento rojo-flat"}}Eliminar{{/FS.DeleteButton}}
+          {{/if}}
+        </div>
+        <div class="box-foot">
+        <h1><a href="/documentos/a/{{this._id}}" class="box-ingresar">ver comentarios</a></h1>
+        </div>
+  		</div>
+  		{{/each}}
+  	{{/transition}}
+
+    {{#transition in="zoomIn" out="bounceOut"}}
+      {{#each carpetas}}
+      <div class="box-item">
+        <div class="box-image-file" style="text-align: center;">
+          <h2 class="box-image" style="background-color: #34495E; margin: 0; color: white; padding-top: 20px;">{{this.nombre}}</h2>
+        </div>
+        <br><br><br><br><br><br>
+        <div class="box-content">
+
+          <a class="bloque">{{this.descripcion}}</a>
+          <br><br>
+        </div>
+        <div class="box-foot">
+
+          <h1><a href="/asuntos/d/{{asuntoId}}/documentos/c/{{this._id}}" class="box-ingresar">Abrir Carpeta</a></h1>
+        </div>
+      </div>
+      {{/each}}
+    {{/transition}}
+</div>
+</template>
+
+<template name="docsasunto">
+   <div style="width: 100%; display: flex; flex-wrap: wrap;">
+      {{#transition in="zoomIn" out="bounceOut"}}
+    		{{#each docs}}
+          {{#unless this.isUploaded}}
+            {{> FS.UploadProgressBar bootstrap=true}}
+          {{/unless}}
+    		<div class="box-item">
+          {{#if isImage}}
+            <div class="box-image-file">
+              <img src="{{this.url}}" class="box-image"/>
+            </div>
+            <br><br><br><br><br><br>
+          {{/if}}
+    			<div class="box-content">
+    				<h1><a href="#" class="box-titulo">{{this.metadata.nombre}}</a></h1>
+    				<a class="bloque">{{this.metadata.descripcion}}</a>
+            <br><br>
+    			</div>
+          <div class="box-footer">
+
+            <a href="{{this.url download=true}}" target="_parent" class="btn nueva-tarea nuevo-evento azul-flat">Descargar</a>
+            {{#if esAdministrador}}
+              {{#FS.DeleteButton class="btn nueva-tarea nuevo-evento rojo-flat"}}Eliminar{{/FS.DeleteButton}}
+            {{/if}}
+          </div>
+          <div class="box-foot">
+          <h1><a href="/documentos/a/{{this._id}}" class="box-ingresar">ver comentarios</a></h1>
+          </div>
+    		</div>
+    		{{/each}}
+    	{{/transition}}
+    
+      {{#transition in="zoomIn" out="bounceOut"}}
+        {{#each carpetas}}
+        <div class="box-item">
+          <div class="box-image-file" style="text-align: center;">
+            <h2 class="box-image" style="background-color: #34495E; margin: 0; color: white; padding-top: 20px;">{{this.nombre}}</h2>
+          </div>
+          <br><br><br><br><br><br>
+          <div class="box-content">
+
+            <a class="bloque">{{this.descripcion}}</a>
+            <br><br>
+          </div>
+          <div class="box-foot">
+            <h1><a href="documentos/c/{{this._id}}" class="box-ingresar">Abrir Carpeta</a></h1>
+          </div>
+        </div>
+        {{/each}}
+      {{/transition}}
+       </div>
+
+
+</template>

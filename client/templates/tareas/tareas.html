@@ -1,0 +1,129 @@
+<template name="tareas">
+	<div class="box-header">
+		{{> tareaNuevo}}
+	</div>
+	<div style="width: 100%; background-color: #F9F9F9; padding-bottom: 10px;">
+		{{> menuTareas}}
+	</div>
+	<div class="box-semi-header">
+		<h1>Tareas próximas</h1>
+	</div>
+	<div class="box">
+
+	{{#transition in="zoomIn" out="bounceOut"}}
+		{{#each tareas}}
+		<div class="box-item" style="height: 280px;">
+			<div class="box-content">
+				<h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
+				<a class="bloque">Asunto {{asunto.nombre}}</a>
+				<a class="bloque"><span>Vence {{dia this.vence}}</span></a>
+				<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
+			</div>
+			<div class="box-foot">
+				<h1><a href="#" class="box-ingresar listo">Listo</a></h1>
+			</div>
+		</div>
+		{{/each}}
+	{{/transition}}
+
+	</div>
+</template>
+
+<template name="tareasGantt">
+		
+		<div id="gantt_here" style="width: 100%; height: 550px;"></div>	
+		
+</template>
+
+<template name="tareasCerradas">
+	<div class="box-header">
+		{{> tareaNuevo}}
+	</div>
+	<div style="width: 100%; background-color: #F9F9F9; padding-bottom: 10px;">
+		{{> menuTareas}}
+	</div>
+	<div class="box-semi-header">
+		<h1>Tareas Cerradas</h1>
+	</div>
+	<div class="box">
+	{{#transition in="zoomIn" out="bounceOut"}}
+		{{#each tareas}}
+		<div class="box-item" style="height: 280px;">
+			<div class="box-content">
+				<h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
+				<a class="bloque">Asunto {{asunto.nombre}}</a>
+				<a class="bloque"><span>Vence {{dia this.vence}}</span></a>
+				<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
+			</div>
+
+		</div>
+		{{/each}}
+	{{/transition}}
+
+	</div>
+</template>
+
+<template name="menuTareas">
+	<div id='cssmenu'>
+	<ul style="margin: 0 auto; padding: 0; text-align: center;">
+	   <li><a href="/tareas"><span>Abiertos</span></a></li>
+	   <li><a href="/tareas/cerradas"><span>Cerrados</span></a></li>
+	   <li><a href="/tareas/gantt"><span>Gantt</span></a></li>
+	</ul>
+	</div>
+</template>
+
+<template name="tareaNuevo">
+	<a href="/tareas/nuevo" class="btn nueva-tarea nuevo-evento verde-flat">+ Tarea</a>
+</template>
+
+<template name="nuevaTarea">
+	<form class="cd-form floating-labels">
+		<fieldset>
+			<legend>Agregar nueva tarea</legend>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Desccripción</label>
+				<input class="company" type="text" name="descripcion" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">¿Cuándo vence?</label>
+				<input class="company" type="text" name="fecha" id="datepicker">
+		    </div>
+
+			<div class="icon">
+				<label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
+				<p class="cd-select icon">
+					<select class="budget asunto">
+						<option value="ninguno">Elige un asunto</option>
+						{{#each asuntos}}
+						<option value="{{_id}}">{{caratula}}</option>
+						{{/each}}
+					</select>
+				</p>
+			</div>
+
+			<div class="icon">
+				<label class="cd-label" for="cd-email">Tipo de tarea</label>
+				<p class="cd-select icon">
+					<select class="budget tipo">
+
+						<option value="General">General</option>
+						<option value="Comunicaciones">Comunicaciones</option>
+						<option value="Escritos">Escritos</option>
+						<option value="Tribunales">Tribunales</option>
+						<option value="Facturacion">Facturación</option>
+
+					</select>
+				</p>
+			</div>
+
+			<div class="centrar-boton">
+		    	<input type="submit" value="Guardar Asunto">
+			</div>
+
+		</fieldset>
+
+	</form>
+</template>

@@ -1,0 +1,114 @@
+<template name="detalleArchivo">
+  <div class="box">
+  {{> datosArchivo}}
+  <div class="col-md-9">
+    <div class="info-calendario" style="width: 100%;">
+      {{> menuArchivoDetalle}}
+      <div class="detalle-contacto">
+        {{> comentarios}}
+        {{> cajaComentario}}
+      </div>
+    </div>
+  </div>
+  </div>
+</template>
+
+<template name="datosArchivo">
+		<div class="col-md-3">
+			<div class="info-calendario">
+				<div class="calendar">
+					<h1>Datos del archivo</h1>
+				</div>
+				 {{#with archivo}}
+				<div class="lista-calendarios">
+
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Nombre <span style="color: #949494;">{{metadata.nombre}}</span> </a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Descripción <span style="color: #949494;">{{metadata.descripcion}}</span> </a>
+								</div>
+								<div class="item-calendario">
+									<a href="" style="color: #2B3E51;">Asunto <span style="color: #949494;">{{metadata.asunto.nombre}}</span></a>
+								</div>
+
+				</div>
+				<div class="body-contacto" style="min-height: 320px;">
+					<p style="margin-left: 10px;">Creado originalmente</p>
+					<p style="margin-left: 10px; color: #949494;">{{dia this.uploadedAt}}</p>
+					<hr>
+					<div style="padding: 15px; width: 100%;">
+					<a  href="{{this.url download=true}}" target="_parent" class="btn nueva-tarea nuevo-evento verde-flat imprimir" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%; margin-bottom: 7.5px;">Descargar archivo</a>
+					{{#if esAdministrador}}
+						<a class="btn nueva-tarea nuevo-evento rojo-flat eliminar" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%; margin-bottom: 7.5px;">Eliminar archivo</a>
+					{{/if}}
+					</div>
+
+				</div>
+				{{/with}}
+				<div class="contacto-foot">
+					<a href="#">Editar</a>
+				</div>
+			</div>
+		</div>
+</template>
+
+<template name="cajaComentario">
+
+  <div class="caja-comentario-tarea">
+        <textarea name="comentario" placeholder="Escriba un comentario"></textarea>
+        <a class="btn nueva-tarea nuevo-evento azul-empresa comentar __enviar">Comentar</a>
+  </div>
+
+    <!--<form class="cd-form floating-labels" style="margin-top: 0px; margin-bottom: 0px; height: 250px; min-width: 700px;">
+      <fieldset>
+        <div class="icon">
+          <input placeholder="Escribe un comentario" class="company" type="text" name="comentario" id="cd-company">
+        </div>
+
+        <input type="submit" value="Enviar comentario" class="__enviar">
+      </fieldset>
+    </form>-->
+
+</template>
+
+<template name="comentarios">
+  <div class="cuadro-tarea-comentarios">
+    {{#transition in="fadeInLeft" out="fadeOutRight"}}
+    {{#each comentarios}}
+      <h5><span>{{creador.nombre}}</span> - {{sucedio this.createdAt}}: <a style="color: #94AAB0;">{{this.comentario}}</a></h5>
+      
+    {{else}}
+      <h2><strong>Sin comentarios</strong></h2>
+    {{/each}}
+    {{/transition}}
+  </div>
+</template>
+
+<template name="datosArchivo2">
+  <div class="box-detalle">
+    <div class="box-asunto">
+      <div class="box-dato">
+        <h4>{{caratula}}</h4>
+        <p>Cliente: {{cliente.nombre}}</p>
+        <p>Juzgado: {{juzgado}}</p>
+
+        <p>Nº Exp.: {{carpeta}}</p>
+      </div>
+      <div class="box-dato">
+        <p>Área: {{area}}</p>
+        <p>Inicio: Junio 20, 2016</p>
+        <h4>Observaciones</h4>
+        <p>{{observaciones}}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="menuArchivoDetalle">
+  <div class="calendar">
+		<a href="" class="btn nueva-tarea nuevo-evento azul-empresa" style="border: none;">Comentarios</a>
+		<a href="" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Versiones</a>
+		<a href="" class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">Historial</a>
+	</div>
+</template>

@@ -1,0 +1,63 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+blaze-html-templates    # Compile .html files into Meteor Blaze views
+reactive-var            # Reactive variable for tracker
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+standard-minifier-css   # CSS minifier run for production mode
+standard-minifier-js    # JS minifier run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+kadira:flow-router
+kadira:blaze-layout
+fullcalendar:fullcalendar
+anti:modals
+aldeed:autoform
+twbs:bootstrap
+yogiben:autoform-modals
+aldeed:simple-schema
+aldeed:collection2
+tsega:bootstrap3-datetimepicker
+aldeed:autoform-bs-datetimepicker
+aldeed:autoform-bs-datepicker
+rajit:bootstrap3-datepicker
+ongoworks:security
+richsilv:pikaday
+check
+audit-argument-checks
+themeteorchef:bert
+webtempest:animate
+alanning:roles
+accounts-password
+accounts-base
+drewy:datetimepicker
+jplack:bootstrap-timepicker
+sarasate:semantic-ui-datetimepicker
+semantic:ui-dropdown
+momentjs:moment
+cfs:standard-packages
+cfs:gridfs
+cfs:ui
+yogiben:autoform-file
+peppelg:bootstrap-3-modal
+meteorhacks:fast-render
+kevohagan:sweetalert
+meteorhacks:ssr
+email
+nilsdannemann:pdfmake
+tap:i18n
+remcoder:chronos
+session
+sahandnayebaziz:stopwatch
+reactive-dict
+dhtmlx:gantt
+dhtmlx:gantt-data

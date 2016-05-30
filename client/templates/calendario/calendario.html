@@ -1,0 +1,85 @@
+<template name="calendario">
+			<div class="box-header" style="padding-left: 18px;">
+				<a class="btn nueva-tarea evento nuevo-evento verde-flat">+ evento</a>
+			</div>
+				
+			<div class="box">
+					<div id="calendario"></div>	
+			</div>
+
+</template>
+
+<template name="evento">
+
+<div id="cal-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar evento</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="cd-form floating-labels" style="margin-top: 0; margin-bottom: 0;">
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Descripción</label>
+				<input class="company" type="text" name="descripcion" id="cd-company">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">¿Cuando inicia?</label>
+				<input class="company" type="text" name="inicio" id="datepicker">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Hora de inicio</label>
+					<input class="" type="number" name="horai" min="1" max="24">
+		    </div>
+				<div class="icon">
+		    	<label class="cd-label" for="cd-company">Mninuto</label>
+					<input class="" type="number" name="minutoi" min="1" max="60">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">¿Cuando vence?</label>
+				<input class="company" type="text" name="fin" id="datepicker2">
+		    </div>
+
+		    <div class="icon">
+		    	<label class="cd-label" for="cd-company">Hora de termino</label>
+					<input  type="number" name="horaf" min="1" max="24">
+		    </div>
+				<div class="icon">
+		    	<label class="cd-label" for="cd-company">Minuto</label>
+					<input  type="number" name="minutof" min="1" max="60">
+		    </div>
+
+		    <div class="icon">
+				<label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
+				<p class="cd-select icon">
+					<select class="budget asunto">
+						<option value="ninguno">Elige un asunto</option>
+						{{#each asuntos}}
+						<option value="{{this._id}}">{{caratula}}</option>
+						{{/each}}
+					</select>
+				</p>
+			</div>
+
+		    <div class="centrar-boton">
+		      	<input type="submit" value="Agregar evento">
+		    </div>
+
+
+			</form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
