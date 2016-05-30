@@ -9,7 +9,7 @@ Template.login.events({
 
     if ( user !== undefined ) {
       Meteor.loginWithPassword(user.email, user.password, function () {
-        FlowRouter.go('/dashboard');
+        FlowRouter.go('/dashboard2');
       });
     } else {
       Bert.alert( 'Ingrese sus datos', 'warning' );

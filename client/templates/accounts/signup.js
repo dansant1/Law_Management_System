@@ -23,11 +23,11 @@ Template.signup.events({
 
             Bert.alert( '¡Bienvenido!', 'success' );
             Meteor.loginWithPassword(email, password, function () {
-                
+
             });
 
             FlowRouter.go('/dashboard2');
-          }
+        }
         });
       } else {
         Bert.alert( 'Ingrese sus datos', 'warning' );
