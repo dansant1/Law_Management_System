@@ -7,12 +7,12 @@ Template.login.events({
       password: template.find( '[name="password"]' ).value
     }
 
-    if ( user !== undefined ) {
-      Meteor.loginWithPassword(user.email, user.password, function () {
-        FlowRouter.go('/dashboard2');
+    if ( user !== undefined )
+      return Meteor.loginWithPassword(user.email, user.password, function (err) {
+            if(err) return Bert.alert('Error en el usuario o contraseña, intentelo nuevamente','danger');
+            FlowRouter.go('/dashboard2');
       });
-    } else {
-      Bert.alert( 'Ingrese sus datos', 'warning' );
-    }
-  }	
+
+    Bert.alert( 'Ingrese sus datos', 'warning' );
+  }
 });
