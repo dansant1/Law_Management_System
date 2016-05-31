@@ -76,6 +76,9 @@ EsquemaClientes = new SimpleSchema({
 	},
 	archivado: {
 		type: Boolean
+	},
+	estatus:{
+		type: String
 	}
 });
 

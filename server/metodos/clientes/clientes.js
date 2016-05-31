@@ -16,7 +16,8 @@ Meteor.methods({
 
 		datos.createdAt = new Date();
 		datos.creadorId = this.userId;
-
+		datos.estatus = "contacto";
+		
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.archivado = false;
 			let clienteId = Clientes.insert(datos);
