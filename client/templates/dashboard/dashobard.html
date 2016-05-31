@@ -63,7 +63,7 @@
 	
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
-		Miembros
+            <a href="/equipo">Equipo</a>
 		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 80px;"></i>
 		</h5>
 	</div>
@@ -2305,6 +2305,8 @@
 		</div>
 </template>
 
+
+
 <template name="botonNuevosContactos">
    <div class="btn-group">
   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
@@ -2316,6 +2318,110 @@
   </ul>
     </div>
 </template>
+
+<template name="equipo">
+    <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" >CRM</a>
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2">
+                    Contactos
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+            Bienvenido
+        </a>
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim asunto-item-activo">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+    </div>
+
+
+    <div>
+        <div class="sidebar-vertical-blanco">
+
+            <button type="button" class="btn dropdown-toggle nuevo-miembro nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+                <i class="fa fa-plus"></i> Nuevo
+            </button>
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/equipo" style="text-decoration:none;" class="no-hover">Todos</a>
+                </h5>
+
+            </div>
+        </div>
+
+        {{#each miembros}}
+            <div >
+                <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+                    <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+                    <a href="/equipo/d/{{this.profile._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+                        <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span>
+
+                        <h5>Por {{this.autor}}</h5>
+
+                    </a>
+                    <div style="display: inline-block; padding-bottom: 25px;">
+
+                        <i class="glyphicon glyphicon-phone"></i>
+                        {{#if this.celular}}
+                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+                                {{this.celular}}
+                            </a>
+                        {{else}}
+                            <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+                                + Celular
+                            </a>
+                        {{/if}}
+                        <i class="glyphicon glyphicon-comment"></i>
+                        {{#if this.email}}
+                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+                                {{this.email}}
+                            </a>
+                        {{else}}
+                            <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+                                + Email
+                            </a>
+                        {{/if}}
+                    </div>
+                </div>
+
+            </div>
+        {{else}}
+            <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+                {{>loader}}
+            </div>
+        {{/each}}
+    </div>
+
+
+</template>
+
 
 <template name="contactos2">
   <!-- Menu -->

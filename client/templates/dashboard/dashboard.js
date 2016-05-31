@@ -1089,6 +1089,32 @@ Template.cantidadClientes.helpers({
 	}
 });
 
+Template.equipo.onCreated(function () {
+		var self = this;
+
+		self.autorun(function () {
+			let bufeteId = Meteor.user().profile.bufeteId;
+			self.subscribe('equipo',bufeteId);
+		})
+});
+
+Template.equipo.helpers({
+
+	email(){
+		return Meteor.user().emails[0].address
+	},
+	miembros(){
+		return Meteor.users.find({},{sort:{createdAt:-1}});
+	}
+
+});
+
+Template.equipo.events({
+	'click .nuevo-miembro': function () {
+		Modal.show('usuarioForm');
+	}
+});
+
 Template.contactos2.onCreated(function () {
 	var self = this;
 
