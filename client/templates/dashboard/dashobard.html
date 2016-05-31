@@ -136,12 +136,18 @@
           				<div class="col-md-6">
           					<div class="form-group">
           						<label>Asignar cliente</label>
-          						 <select class="form-control cliente" id="sel1">
-                       {{#each clientes}}
-                        <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
-                        {{/each}}
-                        
-                        </select>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <select class="form-control cliente" id="sel1">
+                                            {{#each clientes}}
+                                                <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-primary agregar-cliente"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
           					</div>
           				</div>
           				<div class="col-md-6">

@@ -104,6 +104,8 @@ mongo-livedata@1.0.12
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mpowaga:string-template@0.1.0
+mrt:moment@2.8.1
+mrt:moment-timezone@0.2.1
 nilsdannemann:pdfmake@1.0.38
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43

@@ -43,7 +43,6 @@ drewy:datetimepicker
 jplack:bootstrap-timepicker
 sarasate:semantic-ui-datetimepicker
 semantic:ui-dropdown
-momentjs:moment
 cfs:standard-packages
 cfs:gridfs
 cfs:ui
@@ -61,3 +60,4 @@ sahandnayebaziz:stopwatch
 reactive-dict
 dhtmlx:gantt
 dhtmlx:gantt-data
+mrt:moment-timezone

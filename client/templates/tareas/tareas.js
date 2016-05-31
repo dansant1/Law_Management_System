@@ -135,6 +135,7 @@ Template.nuevaTarea.events({
 		if (datos.descripcion !== "" && datos.fecha !== "") {
 			Meteor.call('crearTarea', datos, function (err, result) {
 				if (err) {
+					console.log(err)
 					console.log('algo salio mail :c');
 				} else {
 					template.find('[name="descripcion"]').value = "";

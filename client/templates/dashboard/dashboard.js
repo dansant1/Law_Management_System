@@ -75,7 +75,8 @@ Template.clienteNuevoModal.events({
 			Meteor.call('crearCliente', datos, function (err, result) {
 
 				if (err) {
-					console.log('algo salio mal :(');
+					console.log(err);
+
 				} else {
 
 					template.find('[name="nombre"]').value = "";
@@ -1329,6 +1330,9 @@ Template.asuntoNuevoModal.helpers({
 });
 
 Template.asuntoNuevoModal.events({
+	'click .agregar-cliente': function (event,template) {
+		Modal.show('clienteNuevoModal');
+	},
 	'click .agregar-asunto': function (event, template) {
 			event.preventDefault();
 

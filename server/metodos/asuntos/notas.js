@@ -16,6 +16,7 @@ Meteor.methods({
       datos.autor = creador.nombre + ' ' + creador.apellido;
       let fecha = datos.fecha;
       datos.fecha = new Date(datos.fecha);
+      console.log(datos.fecha)
       let notaId = Notas.insert(datos);
 
       if (notaId) {
