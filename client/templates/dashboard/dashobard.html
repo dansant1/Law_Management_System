@@ -1732,7 +1732,7 @@
 	<div class="lista-asuntos2" style="display: block; padding-top: 0px; padding-left: 15px;">
 		<h3>Asuntos</h3>
 		{{#each asuntos}}
-			<h5><strong>{{this.caratula}}</strong></h5>
+			<h5><strong><a class="asunto-especifico" data-id="{{this._id}}" href="">{{this.caratula}}</a></strong></h5>
 		{{/each}}
 	</div>
 </template>
@@ -2059,6 +2059,7 @@
 				{{email}} 
 				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
 				<a href="/asuntos2" >Todos los asuntos</a>
+                {{expediente}}
 				{{#with expediente}}
 				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
 				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>

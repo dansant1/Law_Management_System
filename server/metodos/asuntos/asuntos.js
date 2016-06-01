@@ -23,7 +23,7 @@ Meteor.methods({
 
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
-
+			
 			
 
 			if (asuntos.inicio !== "") {

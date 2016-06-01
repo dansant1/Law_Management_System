@@ -174,6 +174,13 @@ Template.cuadroAsuntos.helpers({
 	}
 });
 
+Template.cuadroAsuntos.events({
+	'click .asunto-especifico':(event,template)=> {
+		debugger;
+		Session.set('asunto-id',$(event.target).data('id'));
+	}
+})
+
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
 
@@ -954,10 +961,11 @@ Template.detalleCalendario2.helpers({
 Template.detalleConversacion2.onCreated(function () {
 	var self = this;
 
+	var asuntoId = Session.get('asunto-id');
+
 	self.autorun(function() {
-		let asuntoId = FlowRouter.getParam('asuntoId');
-		self.subscribe('expediente', asuntoId);
-    	self.subscribe('conversacionesAsunto', asuntoId);	
+			self.subscribe('expediente', asuntoId);
+    	self.subscribe('conversacionesAsunto', asuntoId);
     	self.subscribe('comentariosDeConversacionesAsunto', asuntoId);
    });
 });
@@ -967,7 +975,7 @@ Template.detalleConversacion2.helpers({
 		return Meteor.user().emails[0].address
 	},
 	conversaciones() {
-		return ConversacionesAsunto.find({}, {sort: {createdAt: -1}});
+		return ConversacionesAsunto.find({asuntoId:Session.get('asunto-id')}, {sort: {createdAt: -1}});
 	},
 	comentarios() {
 		return ComentariosConversacionesAsunto.find({conversacionAsuntoId: Template.parentData(0)._id});
@@ -984,6 +992,8 @@ Template.detalleConversacion2.helpers({
 
 Template.detalleConversacion2.events({
 	'click .enviar-conversacion': function (event, template) {
+		debugger;
+
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			descripcion: template.find('[name="descripcion"]').value,
