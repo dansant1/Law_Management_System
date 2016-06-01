@@ -1,7 +1,6 @@
 // Todas las publicaciones de asuntos
 
 Meteor.publish('asuntos', function (bufeteId) {
-
 	check(bufeteId, String);
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
@@ -16,6 +15,22 @@ Meteor.publish('asuntos', function (bufeteId) {
 	}
 
 });
+
+Meteor.publish('asuntosxequipo',function (miembroId) {
+	check(miembroId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		return Asuntos.find({"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]})
+
+
+	} else {
+
+		this.stop();
+		return;
+
+	}
+})
 
 
 Meteor.publish('asuntosxCliente', function (contactoId) {

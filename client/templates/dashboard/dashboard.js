@@ -148,9 +148,9 @@ Template.asuntosSidebarDashboard.onCreated( function () {
 
 	self.autorun(function() {
 
-		let bufeteId = Meteor.user().profile.bufeteId;
+		let bufeteId = Meteor.user()._id;
 
-    	self.subscribe('asuntos', bufeteId);
+    	self.subscribe('asuntosxequipo', bufeteId);
    });	
 
 });
@@ -176,7 +176,8 @@ Template.cuadroAsuntos.helpers({
 
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
-		return Asuntos.find({}, {sort: {createdAt: -1}});
+
+		return Asuntos.find({})
 	}
 });
 
