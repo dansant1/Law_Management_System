@@ -47,7 +47,7 @@ Template.newsfeed.helpers({
 			return 'rojo-flat';
 		} else if (tipo === "Evento") {
 			return 'verde-flat';
-		} else if (tipo === "Nota") {
+		} else if (tipo === "Hito") {
 			return 'morado-flat';
 		} else if (tipo === "Tarea") {
 			return 'azul-flat';

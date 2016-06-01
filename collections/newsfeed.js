@@ -39,7 +39,7 @@ let EsquemaNewsFeed = new SimpleSchema({
 	},
 	tipo: {
 		type: String,
-		allowedValues: ['Documentos', 'Nota', 'Evento', 'Tarea', 'Expediente', 'Cliente', 'Estado', 'Empresa']
+		allowedValues: ['Documentos', 'Hito', 'Evento', 'Tarea', 'Expediente', 'Cliente', 'Estado', 'Empresa']
 	},
 	asunto: {
 		type: Object,

@@ -46,7 +46,7 @@ Meteor.methods({
 
         NewsFeed.insert({
           descripcion: 'agrego la nota ' + datos.nombre + ' en el asunto ' + asunto.caratula,
-          tipo: 'Nota',
+          tipo: 'Hito',
           creador: {
             nombre: creador.nombre + ' ' + creador.apellido,
             id: datos.creadorId
