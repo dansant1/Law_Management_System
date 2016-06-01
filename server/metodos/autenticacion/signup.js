@@ -29,6 +29,7 @@ Meteor.methods({
 			profile: {
 				nombre: String,
 				apellido: String,
+				telefono: String,
 				bufete: String,
 				bufeteId: String
 			}	

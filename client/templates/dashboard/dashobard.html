@@ -2404,33 +2404,26 @@
                 <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
                     <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
                     <a href="/equipo/d/{{this.profile._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
-                        <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span>
-
-                        <h5>Por {{this.autor}}</h5>
-
-                    </a>
-                    <div style="display: inline-block; padding-bottom: 25px;">
-
+                        <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span><br>
+                        <!--<h5>Por {{this.autor}}</h5>-->
                         <i class="glyphicon glyphicon-phone"></i>
-                        {{#if this.celular}}
+                        {{#if this.profile.telefono}}
                             <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-                                {{this.celular}}
+                                {{this.profile.telefono}}
                             </a>
                         {{else}}
                             <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
                                 + Celular
                             </a>
                         {{/if}}
+
+                    </a>
+                    <div style="display: inline-block; padding-bottom: 25px;">
+
                         <i class="glyphicon glyphicon-comment"></i>
-                        {{#if this.email}}
                             <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
-                                {{this.email}}
+                                {{emails}}
                             </a>
-                        {{else}}
-                            <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
-                                + Email
-                            </a>
-                        {{/if}}
                     </div>
                 </div>
 

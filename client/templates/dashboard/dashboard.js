@@ -1099,9 +1099,12 @@ Template.equipo.onCreated(function () {
 });
 
 Template.equipo.helpers({
-
+	
 	email(){
-		return Meteor.user().emails[0].address
+			return Meteor.user().emails[0].address
+	},
+	emails(){
+		return this.emails[0].address;
 	},
 	miembros(){
 		return Meteor.users.find({},{sort:{createdAt:-1}});

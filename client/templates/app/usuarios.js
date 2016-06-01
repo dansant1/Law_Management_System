@@ -41,6 +41,7 @@ Template.usuarioForm.events({
    			profile: {
    				nombre: template.find( '[name="nombre"]' ).value,
    				apellido: template.find( '[name="apellido"]' ).value,
+					telefono: template.find('[name="telefono"]').value
    			}
 		}
 
@@ -55,6 +56,7 @@ Template.usuarioForm.events({
 				template.find( '[name="password"]' ).value = "";
 				template.find( '[name="nombre"]' ).value = "";
 				template.find( '[name="apellido"]' ).value = "";
+				template.find( '[name="telefono"]').value = "";
 			});
 		} else {
 			Bert.alert( 'Ingrese sus datos', 'warning' );
