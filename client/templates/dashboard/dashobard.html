@@ -836,7 +836,9 @@
     <li><a href="/asuntos2/d/{{this._id}}/">Tareas</a></li>
     <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
     <li role="separator" class="divider"></li>
-    <li class="cerrar-asunto"><a style="color: #e74c3c;">Archivar asunto</a></li>
+    {{#if esAdministrador}}
+          <li class="cerrar-asunto"><a data-id="{{this._id}}" style="color: #e74c3c;">Archivar asunto</a></li>
+    {{/if}}
   </ul>
 		</div>
 

@@ -248,8 +248,19 @@ Template.cuadroAsuntoNuevo.events({
 	}
 });
 
+Template.asuntoItemCuadro.helpers({
+	esAdministrador: () => {
+		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+})
+
 Template.asuntoItemCuadro.events({
-	'click .cerrar-asunto': () => {
+	'click .cerrar-asunto': (event,template) => {
+
 		swal({  title: "¿Segúro que quieres archivar este asunto?",
 				text: "Este asunto ya no estara disponible para el resto de tu equipo",
 				type: "warning",
@@ -260,16 +271,18 @@ Template.asuntoItemCuadro.events({
 				closeOnConfirm: false
 			},
 			function() {
-				/*let asuntoId = FlowRouter.getParam('asuntoId');
+				let asuntoId = $(event.target).data('id');
+				console.log(asuntoId)
 				Meteor.call('cerrarAsunto', asuntoId, function (err) {
 					if (err) {
+						console.log(err)
 						Bert.alert('Hubo un error, vuelve a intentalo', 'warning');
 					} else {
 						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
 					}
 
-				}); */
-				swal("Asunto cerrado", "El asunto ha sido archivado correctamente.", "success");
+				}); 
+				// swal("Asunto cerrado", "El asunto ha sido archivado correctamente.", "success");
 			});
 	},
 	'click .editar-asunto': () => {

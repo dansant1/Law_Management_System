@@ -1,4 +1,11 @@
 Meteor.methods({
+	
+	cerrarAsunto: function (asuntoId) {
+			console.log(asuntoId)
+			check(asuntoId,String);
+			if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) Asuntos.update({_id: asuntoId}, {$set: {abierto: false}});
+
+	},
 	crearAsunto: function (asuntos) {
 
 		check(asuntos, {
