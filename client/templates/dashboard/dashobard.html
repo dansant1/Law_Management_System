@@ -782,13 +782,13 @@
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><a href="#">Por fecha</a></li>
-    <li><a href="#">Abiertos</a></li>
-    <li><a href="#">Archivados</a></li>
+    <li><a class="por-fecha" href="#">Por fecha</a></li>
+    <li><a class="abiertos" href="#">Abiertos</a></li>
+    <li><a class="archivados" href="#">Archivados</a></li>
   </ul>
 		</div>
 
-		<p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> asuntos abiertos</p>
+		<p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> asuntos {{tipo}}</p>
 
 		</div>
 		
@@ -837,7 +837,9 @@
     <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
     <li role="separator" class="divider"></li>
     {{#if esAdministrador}}
-          <li class="cerrar-asunto"><a data-id="{{this._id}}" style="color: #e74c3c;">Archivar asunto</a></li>
+          {{#if estaAbierto}}
+            <li class="cerrar-asunto"><a data-id="{{this._id}}" style="color: #e74c3c;">Archivar asunto</a></li>
+          {{/if}}
     {{/if}}
   </ul>
 		</div>

@@ -216,16 +216,23 @@ Template.asuntos2.helpers({
 		return Meteor.user().emails[0].address
 	},
 	asuntos() {
-		return Asuntos.find({}, {sort: {createdAt: -1}});
+		return Asuntos.find({abierto:Session.get('estado-asunto')}, {sort: {createdAt: -1}});
 	},
 	cantidad() {
-		return Asuntos.find().fetch().length;
-	}
+		return Asuntos.find({abierto:Session.get('estado-asunto')}).fetch().length;
+	},
+	tipo(){
+
+		let estado = Session.get('estado-asunto')? 'abiertos' : 'archivados';
+		return estado;
+ 	}
 });
 
 Template.asuntos2.onCreated( function () {
 	
 	var self = this;
+
+	Session.set('estado-asunto',true);
 
 	self.autorun(function() {
 
@@ -239,7 +246,19 @@ Template.asuntos2.onCreated( function () {
 Template.asuntos2.events({
 	'click .nuevo': () => {
 		Modal.show('asuntoNuevoModal');
+	},
+	'click .por-fecha':() =>{
+
+	},
+	'click .abiertos':() =>{
+		Session.set('estado-asunto',true);
+
+	},
+	'click .archivados':()=>{
+		Session.set('estado-asunto',false);
+
 	}
+
 });
 
 Template.cuadroAsuntoNuevo.events({
@@ -255,6 +274,9 @@ Template.asuntoItemCuadro.helpers({
 		} else {
 			return false;
 		}
+	},
+	estaAbierto: () =>{
+		return this.abierto;
 	}
 })
 

@@ -6,7 +6,7 @@ Meteor.publish('asuntos', function (bufeteId) {
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
-		return Asuntos.find({bufeteId: bufeteId, abierto: true});
+		return Asuntos.find({bufeteId: bufeteId});
 
 	} else {
 
