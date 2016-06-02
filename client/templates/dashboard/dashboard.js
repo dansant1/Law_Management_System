@@ -243,12 +243,17 @@ Template.asuntos2.onCreated( function () {
 
 	Session.set('estado-asunto',true);
 
-	self.autorun(function() {
+	/*self.autorun(function() {
 
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('asuntos', bufeteId);
-   });	
+   	});	*/
+
+   	let id = Meteor.user()._id;
+	let bufeteId = Meteor.user().profile.bufeteId;
+
+    self.subscribe('asuntosxequipo', id,bufeteId);
 
 });
 
@@ -963,10 +968,11 @@ Template.detalleCalendario2.helpers({
 Template.detalleConversacion2.onCreated(function () {
 	var self = this;
 
-	var asuntoId = Session.get('asunto-id');
+	//var asuntoId = Session.get('asunto-id');
+	let asuntoId = FlowRouter.getParam('asuntoId');
 
 	self.autorun(function() {
-			self.subscribe('expediente', asuntoId);
+		self.subscribe('expediente', asuntoId);
     	self.subscribe('conversacionesAsunto', asuntoId);
     	self.subscribe('comentariosDeConversacionesAsunto', asuntoId);
    });
@@ -977,7 +983,7 @@ Template.detalleConversacion2.helpers({
 		return Meteor.user().emails[0].address
 	},
 	conversaciones() {
-		return ConversacionesAsunto.find({asuntoId:Session.get('asunto-id')}, {sort: {createdAt: -1}});
+		return ConversacionesAsunto.find({asuntoId: FlowRouter.getParam('asuntoId')/*Session.get('asunto-id')*/}, {sort: {createdAt: -1}});
 	},
 	comentarios() {
 		return ComentariosConversacionesAsunto.find({conversacionAsuntoId: Template.parentData(0)._id});

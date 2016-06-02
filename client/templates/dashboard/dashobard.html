@@ -37,7 +37,12 @@
 		{{> asuntosSidebarDashboard}}
 
 		<!-- Seccion lista clientes -->	
-		{{> clientesSidebarDashboard}}	
+		{{> clientesSidebarDashboard}}
+
+    <!-- Seccion link facturación -->
+    <div class="sidebar-item">
+      <h5><a href="/facturacion" id="sidebar-a">FACTURACIÓN</a></h5>
+    </div>	
 
 	</div>
 </template>
@@ -64,7 +69,7 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
             <a href="/equipo">Equipo</a>
-		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 80px;"></i>
+		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 100px;"></i>
 		</h5>
 	</div>
 
@@ -2124,7 +2129,6 @@
 				{{email}} 
 				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
 				<a href="/asuntos2" >Todos los asuntos</a>
-                {{expediente}}
 				{{#with expediente}}
 				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
 				<a href="/asuntos2/d/{{asuntoId}}" >{{this.caratula}}</a>
@@ -2350,27 +2354,27 @@
 
 	<div class="cuadros-estadisticos">
 		{{> cantidadClientes}}
-		<div class="cuadro-unit azul-flat">
+		<div class="cuadro-unit" style="background-color: #F9F9F9; border: 1px solid #34495e;">
 			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-tags" style="font-size: 40px;"></i>
-				<h3 style="margin: 0px;">Prospectos</h3>
+				<i class="glyphicon glyphicon-tags" style="font-size: 40px; color: #34495e;"></i>
+				<h3 style="margin: 0px; color: #34495e;">Prospectos</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0;"><strong>4</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px;">Total</h3>
+				<h1 style="margin: 0; color: #9b59b6;"><strong>4</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px; color: #9b59b6;">Total</h3>
 			</div>
 			</div>
 		</div>
-		<div class="cuadro-unit morado-flat">
+		<div class="cuadro-unit" style="background-color: #F9F9F9; border: 1px solid #34495e;">
 			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-user" style="font-size: 40px;"></i>
-				<h3 style="margin: 0px;">Clientes</h3>
+				<i class="glyphicon glyphicon-user" style="font-size: 40px; color: #34495e;"></i>
+				<h3 style="margin: 0px; color: #34495e;">Clientes</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0;"><strong>4</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px;">Abiertas</h3>
+				<h1 style="margin: 0; color: #e74c3c;"><strong>4</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px; color: #e74c3c;">Abiertas</h3>
 			</div>
 			</div>
 		</div>
@@ -2383,15 +2387,15 @@
 </template>
 
 <template name="cantidadClientes">
-	<div class="cuadro-unit verde-flat">
+	<div class="cuadro-unit" style="background-color: #F9F9F9; border: 1px solid #34495e;">
 		<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-user" style="font-size: 40px;"></i>
-				<h3 style="margin: 0px;">Contactos</h3>
+				<i class="glyphicon glyphicon-user" style="font-size: 40px; color: #34495e;"></i>
+				<h3 style="margin: 0px; color: #34495e; ">Contactos</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0;"><strong>{{cantidad}}</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px;">Total</h3>
+				<h1 style="margin: 0; color: #2ecc71;"><strong>{{cantidad}}</strong></h1>
+				<h3 style="margin: 0px; margin-top: 5px; color: #2ecc71;">Total</h3>
 			</div>
 		</div>
 			
