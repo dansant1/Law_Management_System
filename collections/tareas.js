@@ -1,4 +1,4 @@
-Tareas = new Mongo.Collection('tareas');
+  Tareas = new Mongo.Collection('tareas');
 
 if ( Meteor.isServer ) {
   Tareas._ensureIndex( { descripcion: 1, 'asunto.nombre': 1, tipo: 1 } );
