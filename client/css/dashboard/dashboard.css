@@ -7,6 +7,7 @@
     position: fixed;
     outline: 1px solid;
     background: #2c3e50;
+	overflow: overlay;
 }
 
 .contenido-dashboard {	

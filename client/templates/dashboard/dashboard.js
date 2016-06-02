@@ -506,7 +506,10 @@ Template.cuadroAsuntos.events({
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
 
-		return Asuntos.find({})
+		return Asuntos.find({abierto:true})
+	},
+	verificado(){
+		return Asuntos.find({abierto:true}).count()>=3;
 	}
 });
 
