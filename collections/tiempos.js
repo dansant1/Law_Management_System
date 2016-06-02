@@ -60,17 +60,27 @@ EsquemaHoras = new SimpleSchema({
 		type: String
 	},
 	horas: {
-		type: Number,
-		decimal: true
+		type: Number
 	},
-  	precio: {
-    	type: Number,
-    	decimal: true
-  	},
-  	total: {
-  		type: Number,
-  		decimal: true
-  	}
+	minutos: {
+		type: Number,
+		optional: true
+	},
+	tarea: {
+		type: Boolean
+	},
+	horasFacturables: {
+		type: Number
+	},
+	minutosFacturables: {
+		type: Number
+	},
+	cobrable: {
+		type: Boolean
+	},
+	facturado: {
+		type: Boolean
+	}
 });
 
 Horas.attachSchema(EsquemaHoras);

@@ -1,0 +1,230 @@
+<template name="facturacion">
+	 <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>
+                
+                
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+            Bienvenido
+        </a>
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+	<div>
+		  <div class="sidebar-vertical-blanco">
+
+		  	<div class="btn-group">
+  				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+   					Nuevo <span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li class="persona"><a href="#">+ Hora</a></li>
+    				<li class="empresa"><a href="#">+ Gasto</a></li>
+    				<li class="empresa"><a href="#">+ Factura</a></li>
+  				</ul>
+    		</div>
+
+           
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion" style="text-decoration:none;" class="no-hover">Horas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/gastos" style="text-decoration:none;" class="no-hover">Gastos</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/calendario" style="text-decoration:none;" class="no-hover">Calendario</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/reportes" style="text-decoration:none;" class="no-hover">Reportes</a>
+                </h5>
+
+            </div>
+        </div>
+
+		<div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 15px; border-top: none;">
+            <div class="btn-group">
+  				<button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; background: white; color: #34495e;">
+   					<i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li class="empresa"><a href="#">Todos</a></li>
+    				<li class="empresa"><a href="#">Mis horas</a></li>
+    				<li class="persona"><a href="#">Por miembro</a></li>
+    				<li class="persona"><a href="#">Por asunto</a></li>
+  				</ul>
+    		</div>
+        </div>
+
+        <!-- Lista de horas -->
+        <div class="cuadro-tarea-comentarios"  style="padding: 0px; height: 400px;">
+        	
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+			<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+			
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+				</div>
+			
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Tiempo</h5>
+						
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+									
+				</div>
+			</div>
+
+        	</div>
+
+       
+        </div>
+
+	</div>
+
+</template>
