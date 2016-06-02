@@ -47,7 +47,7 @@ Meteor.publish('Subtareas', function (tareaId) {
 Meteor.publish('misTareas', function () {
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-		return Tareas.find({'asignado.id': this.userId, abierto: true});
+		return Tareas.find({'asignado.id': this.userId});
 	} else {
 		this.stop();
 		return;

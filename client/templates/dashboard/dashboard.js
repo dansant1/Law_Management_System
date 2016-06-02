@@ -11,6 +11,9 @@ Template.teamSidebarDahboard.onCreated(function () {
 
 Template.tareas2.onCreated(function () {
 		var self = this;
+
+		Session.set('tipo-tarea',true);
+
 		self.autorun(function () {
 			self.subscribe('misTareas')
 		})
@@ -18,7 +21,21 @@ Template.tareas2.onCreated(function () {
 
 Template.tareas2.helpers({
 	tareas(){
-		return Tareas.find({'asignado.id':Meteor.userId()})
+		return Tareas.find({"$and":[
+			{'asignado.id':Meteor.userId()},
+			{abierto:Session.get('tipo-tarea')}
+		]})
+	},
+	cantidad(){
+		return Tareas.find({"$and":[
+			{'asignado.id':Meteor.userId()},
+			{abierto:Session.get('tipo-tarea')}
+		]}).count()
+	},
+
+	tipo(){
+		let tipo = Session.get('tipo-tarea')? 'abiertas' : 'cerradas';
+		return tipo;
 	}
 })
 
@@ -135,9 +152,9 @@ Template.nuevaTareaModal.helpers({
 });
 
 Template.nuevaTareaModal.events({
-	'submit form': function (events, template) {
+	'click .agregar-tarea': function (events, template) {
 		events.preventDefault();
-
+		debugger;
 		let datos = {
 			descripcion: template.find('[name="descripcion"]').value,
 			fecha: template.find('[name="fecha"]').value,
@@ -161,7 +178,8 @@ Template.nuevaTareaModal.events({
 			Meteor.call('crearTarea', datos, function (err, result) {
 				if (err) {
 					console.log(err)
-					console.log('algo salio mail :c');
+					Bert.alert('Error al tratar de registrar, intentelo de nuevo', 'danger');
+
 				} else {
 					template.find('[name="descripcion"]').value = "";
 					template.find('[name="fecha"]').value = "";
@@ -221,11 +239,11 @@ Template.tareasCerradas.helpers({
 	}
 });
 
-Template.tareas2.helpers({
-	tareas: function () {
-		return Tareas.find({}, {sort: {createdAt: -1}});
+Template.cuadroTareaNueva.events({
+	'click .nuevo'(){
+		Modal.show('nuevaTareaModal')
 	}
-});
+})
 
 Template.tareaItemCuadro.helpers({
 	type: (tipo) => {
@@ -242,17 +260,26 @@ Template.tareaItemCuadro.helpers({
 		}
 	},
 	dia(fecha) {
-		var d = fecha,
+		debugger;
+		console.log(fecha)
+		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
 				ampm = d.getHours() >= 12 ? 'pm' : 'am',
 				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
 				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	}
 })
 
 Template.tareas2.events({
+	'click .abiertos'(){
+		Session.set('tipo-tarea',true)
+	},
+	'click .cerrados'(){
+		Session.set('tipo-tarea',false)
+	},
 	'click .nuevas-tareas'(){
 		Modal.show('nuevaTareaModal')
 	},
@@ -1114,7 +1141,7 @@ Template.calendario2.helpers({
 
 Template.Conversaciones.onCreated(function () {
 	var self = this;
-
+	Session.set('asunto-id',"");
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId
     	self.subscribe('conversaciones', bufeteId);	

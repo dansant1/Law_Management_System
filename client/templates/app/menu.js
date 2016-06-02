@@ -4,7 +4,7 @@ Template.menu.events({
 	},
 
 	'click .agregar-tarea': () =>{
-
+		Modal.show('nuevaTareaModal')
 	},
 	'click .agregar-nota': () =>{
 		Modal.show('notaxasuntosModal')

@@ -549,7 +549,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input class="btn btn-primary" type="submit" value="Guardar Asunto">
+                    <input class="btn btn-primary agregar-tarea" type="submit" value="Guardar Asunto">
                 </div>
             </div>
         </div>
@@ -847,9 +847,9 @@
                     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="por-fecha" href="#">Abiertos</a></li>
-                    <li><a class="abiertos" href="#">Cerrados</a></li>
-                    <li><a class="archivados" href="#">Gant</a></li>
+                    <li><a class="abiertos" href="#">Abiertos</a></li>
+                    <li><a class="cerrados" href="#">Cerrados</a></li>
+                    <li><a class="gant" href="#">Gant</a></li>
                 </ul>
             </div>
 
@@ -879,7 +879,9 @@
         <div class="box-content">
             <h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
             <a class="bloque">Asunto {{asunto.nombre}}</a>
+            {{#if this.vence}}
             <a class="bloque"><span>Vence {{dia this.vence}}</span></a>
+            {{/if}}
             <a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
         </div>
         <div class="box-foot">
