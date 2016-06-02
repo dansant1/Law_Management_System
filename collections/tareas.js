@@ -74,7 +74,8 @@ EsquemaTareas = new SimpleSchema({
     type: Boolean
   },
   asignado: {
-    type: Object
+    type: Object,
+    optional:true
   },
   'asignado.nombre': {
     type: String

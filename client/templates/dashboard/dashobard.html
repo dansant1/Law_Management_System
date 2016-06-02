@@ -511,7 +511,7 @@
                         <fieldset>
 
                             <div class="icon">
-                                <label class="cd-label" for="cd-company">Desccripción</label>
+                                <label class="cd-label" for="cd-company">Descripción</label>
                                 <input class="company" type="text" name="descripcion" id="cd-company">
                             </div>
 
@@ -531,6 +531,18 @@
                                     </select>
                                 </p>
                             </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">¿A que miembro quieres asignarlo?</label>
+                                <p class="cd-select icon">
+                                    <select name="miembro" class="budget miembros">
+                                        <option value="ninguno">Elige un miembro</option>
+                                        {{#each miembros}}
+                                            <option value="{{id}}">{{nombre}} {{apellido}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+
 
                             <div class="icon">
                                 <label class="cd-label" for="cd-email">Tipo de tarea</label>
@@ -554,7 +566,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input class="btn btn-primary agregar-tarea" type="submit" value="Guardar Asunto">
+                    <input class="btn btn-primary agregar-tarea" type="submit" value="Guardar Tarea">
                 </div>
             </div>
         </div>
@@ -2449,7 +2461,7 @@
 				<h3 style="margin: 0px; color: #34495e;">Prospectos</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #9b59b6;"><strong>4</strong></h1>
+				<h1 style="margin: 0; color: #9b59b6;"><strong>{{prospectos}}</strong></h1>
 				<h3 style="margin: 0px; margin-top: 5px; color: #9b59b6;">Total</h3>
 			</div>
 			</div>
@@ -2461,7 +2473,7 @@
 				<h3 style="margin: 0px; color: #34495e;">Clientes</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #e74c3c;"><strong>4</strong></h1>
+				<h1 style="margin: 0; color: #e74c3c;"><strong>{{ contactos}}</strong></h1>
 				<h3 style="margin: 0px; margin-top: 5px; color: #e74c3c;">Abiertas</h3>
 			</div>
 			</div>

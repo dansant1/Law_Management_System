@@ -1,14 +1,18 @@
 Meteor.methods({
 	crearTarea: function (datos) {
 
-		check(datos, {
+		let _check = {
 			descripcion: String,
 			fecha: String,
 			asunto: Object,
 			tipo: String,
 			bufeteId: String,
-			creador: Object
-		});
+			creador: Object,
+		}
+
+		if(datos.asignado) _check.asignado = Object;
+
+		check(datos, _check);
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
