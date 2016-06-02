@@ -148,9 +148,10 @@ Template.asuntosSidebarDashboard.onCreated( function () {
 
 	self.autorun(function() {
 
-		let bufeteId = Meteor.user()._id;
+		let id = Meteor.user()._id;
+		let bufeteId = Meteor.user().profile.bufeteId;
 
-    	self.subscribe('asuntosxequipo', bufeteId);
+    	self.subscribe('asuntosxequipo', id,bufeteId);
    });	
 
 });
@@ -209,7 +210,7 @@ Template.clientesSidebarDashboard.onCreated( function () {
 
 Template.clientesSidebarDashboard.helpers({
 	clientes() {
-		return Clientes.find({}, {sort: {createdAt: -1}});
+		return Clientes.find({estatus:'cliente'}, {sort: {createdAt: -1}});
 	}
 });
 
@@ -1412,7 +1413,7 @@ Template.asuntoNuevoModal.events({
 			event.preventDefault();
 
 			let asunto = {}
-
+			debugger;
 			asunto.cliente = {
 				nombre: $( ".cliente option:selected" ).text(),
 				id: $( ".cliente" ).val()

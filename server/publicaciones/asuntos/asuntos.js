@@ -16,12 +16,18 @@ Meteor.publish('asuntos', function (bufeteId) {
 
 });
 
-Meteor.publish('asuntosxequipo',function (miembroId) {
+Meteor.publish('asuntosxequipo',function (miembroId,bufeteId) {
 	check(miembroId, String);
+	check(bufeteId,String);
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
-		return Asuntos.find({"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]})
+
+		return Asuntos.find({$and:[
+				{"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]},
+				{bufeteId:bufeteId}
+			]
+		});
 
 
 	} else {

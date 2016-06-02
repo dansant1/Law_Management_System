@@ -23,8 +23,9 @@ Meteor.methods({
 
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
-			
-			
+
+			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
+
 
 			if (asuntos.inicio !== "") {
 				asuntos.inicio	= new Date(asuntos.inicio);	
