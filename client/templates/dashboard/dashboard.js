@@ -1401,9 +1401,29 @@ Template.detalleFacturacion.helpers({
 	}
 });
 
+Template.clientes.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+		self.subscribe('clientes', bufeteId);
+	});
+
+
+})
+
 Template.clientes2.helpers({
 	email() {
 		return Meteor.user().emails[0].address
+	},
+	clientes(){
+		return Clientes.find()
+	},
+	prospectos(){
+
+	},
+	contactos(){
+
 	}
 });
 
