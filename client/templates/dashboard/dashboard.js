@@ -285,6 +285,7 @@ Template.asuntoItemCuadro.helpers({
 		}
 	},
 	estaAbierto: () =>{
+		
 		return this.abierto;
 	}
 })
