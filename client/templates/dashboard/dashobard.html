@@ -744,6 +744,70 @@
 	{{> menu}}
 </template>
 
+<template name="tareas2">
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/asuntos2" >Todos los asuntos</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+            Bienvenido
+        </a>
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+    </div>
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;">
+            <a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Tarea</a>
+
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
+                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="por-fecha" href="#">Por fecha</a></li>
+                    <li><a class="abiertos" href="#">Abiertos</a></li>
+                    <li><a class="archivados" href="#">Archivados</a></li>
+                </ul>
+            </div>
+
+            <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> asuntos {{tipo}}</p>
+
+        </div>
+
+        <div  style="float: right; width: 100px; padding: 20px; display: inline-block">
+            <i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
+            <i class="glyphicon glyphicon-th"></i>
+        </div>
+    </div>
+    <div class="lista-asuntos">
+        {{> cuadroAsuntoNuevo}}
+        {{#transition in="zoomIn" out="bounceOut"}}
+            {{#each asuntos}}
+                {{> asuntoItemCuadro}}
+            {{/each}}
+        {{/transition}}
+    </div>
+</template>
+
 <template name="asuntos2">
 	<div class="franja-progreso">
 		<div class="progreso">
