@@ -56,8 +56,7 @@
 										<div class="icon">
 								    	<label class="cd-label" for="cd-company">Fecha</label>
 											<input class="company" type="text" name="fecha" id="datepicker">
-								    </div>
-
+                                        </div>
 										<input type="submit" value="Agregar nota">
 									</fieldset>
 								</form>
@@ -70,4 +69,52 @@
 					</div>
 			</div>
 	</div>
+</template>
+
+<template name="notaxasuntosModal">
+    <div id="nota-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Nueva nota</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                        <fieldset>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">Título</label>
+                                <input class="company" type="text" name="nombre" id="cd-company">
+                            </div>
+
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">Descripción</label>
+                                <textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
+                            </div>
+
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">Fecha</label>
+                                <input class="company" type="text" name="fecha" id="datepicker3">
+                            </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">Asuntos</label>
+                                <select name="asuntoId" id="">
+                                    {{#each asuntos}}
+                                        <option value="{{this._id}}">{{this.caratula}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <input type="submit" value="Agregar nota">
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </template>
