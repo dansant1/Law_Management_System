@@ -16,6 +16,41 @@ Meteor.publish('asuntos', function (bufeteId) {
 
 });
 
+Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
+	check(miembroId,String)
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return Asuntos.find({
+			$and:[
+				{
+					$or:[
+						{
+							"abogados":{
+								"$elemMatch":{id:miembroId}
+							}
+						},
+						{
+							creadorId: miembroId
+						},
+						{
+							"responsable.id":miembroId
+						},
+						{
+							abogados:{
+								$size:0
+							}
+						}
+					]
+				},
+				{
+					bufeteId:bufeteId
+				}
+			]
+		})
+	}
+
+})
+
 Meteor.publish('asuntosxequipo',function (miembroId,bufeteId) {
 	check(miembroId, String);
 	check(bufeteId,String);

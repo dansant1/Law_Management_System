@@ -7,17 +7,12 @@ Meteor.methods({
 			asunto: Object,
 			tipo: String,
 			bufeteId: String,
-			creador: Object,
-<<<<<<< HEAD
+			creador: Object
 		}
 
 		if(datos.asignado) _check.asignado = Object;
 
 		check(datos, _check);
-=======
-			asignado: Object
-		});
->>>>>>> 921048ad723d1037e4b74a453598d95b762ba2c0
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
@@ -71,6 +66,34 @@ Meteor.methods({
 			return;
 
 		}
+	},
+
+	actualizarAsuntoTarea(tareaId,asunto){
+		check(tareaId,String)
+		check(asunto,{
+			nombre: String,
+			id: String
+		});
+
+
+		Tareas.update({_id:tareaId}, {
+			$set: {
+				asunto: asunto
+			}
+		})
+
+	},
+	
+	actualizarFechaTarea(tareaId,fecha){
+		check(tareaId,String)
+		check(fecha,String)
+
+		Tareas.update({_id:tareaId},{
+			$set:{
+				vence: new Date(fecha)
+			}
+		})
+
 	},
 	cerrarTarea: function (tareaId) {
 		check(tareaId, String);

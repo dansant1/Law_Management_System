@@ -516,7 +516,7 @@ Template.empresaNuevoModal.events({
 });
 
 Template.asuntosSidebarDashboard.onCreated( function () {
-	
+
 	var self = this;
 
 	self.autorun(function() {
@@ -1251,11 +1251,53 @@ Template.Conversaciones.helpers({
 	},
 	conversaciones() {
 		return Conversaciones.find({}, {sort: {createdAt: -1}});
-	},
+	}
+	// comentarios() {
+	// 	return ComentariosConversaciones.find({conversacionId: Template.parentData(0)._id});
+	// }
+});
+
+Template.conversacionesxcomentarios.onCreated(function () {
+	
+})
+
+Template.conversacionesxcomentarios.helpers({
 	comentarios() {
 		return ComentariosConversaciones.find({conversacionId: Template.parentData(0)._id});
 	}
 });
+
+Template.conversacionesxcomentarios.events({
+
+	'click .enviar-comentario': function (event, template) {
+		let datos = {
+			comentario: template.find('[name="comentario"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			autor: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			},
+			conversacionId: this._id
+		}
+
+		debugger;
+
+		if (datos.comentario !== "") {
+
+			Meteor.call('agregarComentarioAConversacion', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
+					template.find('[name="comentario"]').value = "";
+				} else {
+					template.find('[name="comentario"]').value = "";
+				}
+			});
+
+		} else {
+			Bert.alert('Ingresa los datos correctamente', 'warning');
+		}
+	}
+})
 
 Template.Conversaciones.events({
 	'click .enviar-conversacion': function (event, template) {
@@ -1280,32 +1322,6 @@ Template.Conversaciones.events({
 			});
 		} else {
 			Bert.alert('Ingresa los datos correctamente', 'warning');
-		}
-	},
-	'click .enviar-comentario': function (event, template) {
-		let datos = {
-			comentario: template.find('[name="comentario"]').value,
-			bufeteId: Meteor.user().profile.bufeteId,
-			autor: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			},
-			conversacionId: this._id
-		}
-
-		if (datos.comentario !== "") {
-			
-			Meteor.call('agregarComentarioAConversacion', datos, function (err, result) {
-				if (err) {
-					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
-					template.find('[name="comentario"]').value = "";
-				} else {
-					template.find('[name="comentario"]').value = "";
-				}
-			});
-
-		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');	
 		}
 	}
 });
@@ -1589,6 +1605,93 @@ Template.contactos2.helpers({
 		return Clientes.find({}, {sort: {createdAt: -1}});
 	}
 });
+
+Template.fechaTareaModal.onCreated(function () {
+	var self = this;
+	self.autorun(function () {
+
+	})
+})
+
+Template.fechaTareaModal.onRendered(function () {
+	var picker = new Pikaday({ field: document.getElementById('datepicker4') });
+})
+
+Template.fechaTareaModal.events({
+	'click .agregar-fecha'(event,template){
+		var fecha = template.find('[name="fecha"]').value;
+		var tareaId = this._id;
+		Meteor.call('actualizarFechaTarea',tareaId, fecha,function (err) {
+				if(err) Bert.alert('Hubo un error por favor intentelo nuevamente','danger')
+				Bert.alert('Se actualizo la fecha correctamente','success')
+				Modal.hide('fechaTareaModal')
+
+		})
+
+	}
+})
+
+Template.asuntoTareaModal.events({
+	
+})
+
+Template.tareaEspecifica.helpers({
+	dia(fecha) {
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	}
+})
+
+Template.tareaEspecifica.events({
+	'click .agregar-fecha-tarea'(){
+		Modal.show('fechaTareaModal',this)
+	},
+	'click .agregar-asunto-tarea'(){
+		Modal.show('asuntoTareaModal',this);
+	}
+})
+
+Template.asuntoTareaModal.onCreated(function () {
+	var self = this;
+
+	self.autorun(function () {
+		let id = Meteor.user()._id;
+		let bufeteId = Meteor.user().profile.bufeteId;
+
+		self.subscribe('asuntosxequipo',id,bufeteId);
+	})
+})
+
+Template.asuntoTareaModal.helpers({
+	asuntos(){
+		return Asuntos.find({abierto:true});
+	}
+})
+
+Template.asuntoTareaModal.onRendered(function () {
+
+})
+
+Template.asuntoTareaModal.events({
+	'click .agregar-asunto-tarea'(event,template){
+		let tareaId = this._id,
+				asunto = {
+					id: template.find("[name='asunto-tarea']").value,
+					nombre: $(template.find('[name="asunto-tarea"]')).find(":selected").html()
+			};
+
+		Meteor.call('actualizarAsuntoTarea',tareaId,asunto,function (err) {
+				if(err) return Bert.alert('Hubo un error al momento de crear, intentelo de nuevo','danger')
+				Bert.alert('Se asigno correctamente el asunto a la tarea','success');
+				Modal.hide('asuntoTareaModal')
+		})
+	}
+})
 
 Template.listaEmpresas.onCreated(function () {
 	var self = this;

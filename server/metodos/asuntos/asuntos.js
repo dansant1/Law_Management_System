@@ -6,6 +6,7 @@ Meteor.methods({
 			if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) Asuntos.update({_id: asuntoId}, {$set: {abierto: false}});
 
 	},
+
 	crearAsunto: function (asuntos) {
 
 		check(asuntos, {
