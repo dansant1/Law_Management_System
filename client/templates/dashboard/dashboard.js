@@ -62,10 +62,11 @@ Template.nuevaTareaModal.onCreated(function () {
 	var self = this;
 
 	self.autorun(function() {
+		let id = Meteor.user()._id;
 
 		let bufeteId = Meteor.user().profile.bufeteId;
 
-		self.subscribe('asuntos', bufeteId);
+		self.subscribe('asuntosxequipo',id, bufeteId);
 	});
 });
 
@@ -168,7 +169,7 @@ Template.nuevaTareaModal.onRendered( () => {
 
 Template.nuevaTareaModal.helpers({
 	asuntos: function () {
-		return Asuntos.find();
+		return Asuntos.find({abiertos:true});
 	},
 	miembros: function () {
 		debugger;
