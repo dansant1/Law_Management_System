@@ -7,7 +7,8 @@ Meteor.methods({
 			asunto: Object,
 			tipo: String,
 			bufeteId: String,
-			creador: Object
+			creador: Object,
+			asignado: Object
 		});
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
