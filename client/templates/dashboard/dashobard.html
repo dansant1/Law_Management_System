@@ -92,8 +92,11 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5>
 		<a href="/asuntos2" id="sidebar-a">asuntos</a>
+    
+    {{#if esAdministrador}}
 		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 90px;"></i>
-		</h5>	
+		{{/if}}
+    </h5>	
 	</div>
 
 	<div class="sidebar-lista">
@@ -1145,8 +1148,10 @@
   </div>
 	<div class="franja-filtros">
 		<div class="progreso" style="padding-top: 15px;">
-			<a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Asunto</a>
-
+			
+      {{#if esAdministrador}}
+      <a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Asunto</a>
+      {{/if}}
 			<div class="btn-group">
   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
@@ -1168,7 +1173,9 @@
 		</div>
 	</div>
 	<div class="lista-asuntos">
+    {{#if esAdministrador}}
 		{{> cuadroAsuntoNuevo}}
+    {{/if}}
 		{{#transition in="zoomIn" out="bounceOut"}}
 			{{#each asuntos}}
 				{{> asuntoItemCuadro}}
@@ -1751,7 +1758,7 @@
 </template>
 
 <template name="cuadroAsuntoNuevo">
-	<div class="asunto-item-cuadro nuevo" style="text-align: center; padding-top: 65px;">
+	<div class="asunto-item-cuadro nuevo-1" style="text-align: center; padding-top: 65px;">
 		<i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 36px;"></i>
 	</div>
 </template>

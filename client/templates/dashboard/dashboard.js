@@ -530,6 +530,16 @@ Template.asuntosSidebarDashboard.onCreated( function () {
 
 });
 
+Template.asuntosSidebarDashboard.helpers({
+	esAdministrador() {
+		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+});
+
 Template.cuadroAsuntos.onCreated( function () {
 	
 	var self = this;
@@ -611,6 +621,13 @@ Template.asuntos2.helpers({
 
 		let estado = Session.get('estado-asunto')? 'abiertos' : 'archivados';
 		return estado;
+ 	},
+ 	esAdministrador() {
+ 		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+			return true;
+		} else {
+			return false;
+		}
  	}
 });
 
@@ -653,7 +670,7 @@ Template.asuntos2.events({
 });
 
 Template.cuadroAsuntoNuevo.events({
-	'click .nuevo': () => {
+	'click .nuevo-1': () => {
 		Modal.show('asuntoNuevoModal');
 	}
 });
@@ -1645,6 +1662,20 @@ Template.tareaEspecifica.helpers({
 				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'],
 				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	esMiTarea() {
+		if (this.asignado.id === Meteor.userId()) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	estaAbierto() {
+		if (this.abierto === true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 })
 
