@@ -829,7 +829,7 @@
 <template name="tareas2">
     <div class="franja-progreso">
         <div class="progreso">
-            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/asuntos2" >Todos los asuntos</a></p>
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
@@ -858,10 +858,10 @@
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;">
-            <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo">+ Tarea</a>
+            <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a>
 
             <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
+                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
                     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -875,13 +875,9 @@
 
         </div>
 
-        <div  style="float: right; width: 100px; padding: 20px; display: inline-block">
-            <i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
-            <i class="glyphicon glyphicon-th"></i>
-        </div>
     </div>
 
-    <div class="lista-asuntos">
+    <!--<div class="lista-asuntos">
         {{> cuadroTareaNueva}}
 
         {{#transition in="zoomIn" out="bounceOut"}}
@@ -889,8 +885,150 @@
                 {{> tareaItemCuadro}}
             {{/each}}
         {{/transition}}
-    </div>
+    </div> -->
+    <div class="lista-tareas">
+    <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;"> 
+    {{#each tareas}}
+      <div class="item-lista-tareas">
+        {{#if esMiTarea}}
+          {{#if estaAbierto}}
+            <i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
+          {{/if}}
+        {{/if}}
+        <a href="/tareas/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a>
+        
+        {{#if this.fecha}}
+        
+       
+        <a href="#"><h5 style="display: inline-block; margin-right: 150px;">{{this.fecha}}</h5></a>
+        {{else}}
+       
+        <a href="#"><h5 style="display: inline-block; margin-right: 150px;">+ vence</h5></a>
+        {{/if}}
+
+        {{#if this.asunto}}
+        <a href="#"><h5 style="display: inline-block;">{{this.asunto.nombre}}</h5></a>
+        {{else}}
+        <a href="#"><h5 style="display: inline-block;">+ asunto</h5></a>
+        {{/if}}
+
+      </div>
+    {{/each}}
+  </div>
 </template>
+
+<template name="tareasDetalle2">
+    
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+            Bienvenido
+        </a>
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+    </div>
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;">
+            <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a>
+
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
+                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="abiertos" href="#">Abiertos</a></li>
+                    <li><a class="cerrados" href="#">Cerrados</a></li>
+                    <li><a class="gant" href="#">Gant</a></li>
+                </ul>
+            </div>
+
+            <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> tareas {{tipo}}</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="detalle-tarea">
+
+    <div class="lista-tareas" style="width: 36%;">
+    <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="border: none; border-bottom: 1px solid #EFEFEF;">
+    {{#each tareas}}
+      <div class="item-lista-tareas">
+        {{#if esMiTarea}}
+        <i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
+        {{/if}}
+        
+        <a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline;">{{this.descripcion}}</h5></a>  
+      </div>
+    
+    {{/each}}
+    </div>
+    <div class="cuadro-detalle-tarea">
+      <div class="item-lista-tareas" style="padding-left: 8px;">
+        {{#with tarea}}
+        <a style="display: inline-block; margin-right: 8px;">
+        <i class="glyphicon glyphicon-ok-sign"></i>
+        
+        {{this.descripcion}}
+        
+        </a>
+        <a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
+        <i class="glyphicon glyphicon-calendar"></i>
+        {{#if hayFecha this.vence}}
+          {{dia}}
+        {{else}}
+          Agregar fecha
+        {{/if}}
+        </a>
+        {{/with}} 
+        <a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
+        <i class="glyphicon glyphicon-paperclip"></i>
+        Adjuntar</a>
+        <a style="display: inline-block; margin-left: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
+        <i class="glyphicon glyphicon-fullscreen"></i>
+        Pantalla completa
+        </a>
+                
+      </div>
+      <div class="cuadro-tarea-comentarios">
+      {{#transition in="bounceIn" out="bounceOut"}}
+        {{#each comentarios}}
+          <p> <a>{{this.creador.nombre}}: </a> {{this.comentario}}</p>
+          <hr>
+        {{/each}}
+      {{/transition}}
+      </div>
+      <div class="caja-comentario-tarea">
+        <textarea name="comentario" placeholder="Escriba un comentario" style="border: none; font-family: 'Open Sans'; font-weight: initial; padding-left: 0px;"></textarea>
+        <a class="btn nueva-tarea nuevo-evento azul-empresa comentar" style="border-bottom: none;">Comentar</a>
+      </div>
+    </div>
+  </div>
+
+</template>
+
 
 <template name="tareaItemCuadro">
     <div class="box-item" style="height: 280px;">
@@ -1165,6 +1303,7 @@
 			</div>
 		</div>
 	</div>
+
 </template>
 
 <template name="fullScreenTareaAsunto">

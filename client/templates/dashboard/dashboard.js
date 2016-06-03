@@ -17,14 +17,16 @@ Template.tareas2.onCreated(function () {
 		self.autorun(function () {
 			self.subscribe('misTareas')
 		})
-})
+});
+
+
 
 Template.tareas2.helpers({
 	tareas(){
 		return Tareas.find({"$and":[
 			{'asignado.id':Meteor.userId()},
 			{abierto:Session.get('tipo-tarea')}
-		]})
+		]}, {sort: {createdAt: -1}})
 	},
 	cantidad(){
 		return Tareas.find({"$and":[
@@ -36,6 +38,23 @@ Template.tareas2.helpers({
 	tipo(){
 		let tipo = Session.get('tipo-tarea')? 'abiertas' : 'cerradas';
 		return tipo;
+	},
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	esMiTarea() {
+		if (this.asignado.id === Meteor.userId()) {
+			return true;
+		} else {
+			false;
+		}
+	},
+	estaAbierto() {
+		if (this.abierto === true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 })
 
@@ -195,11 +214,16 @@ Template.nuevaTareaModal.events({
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 				id: Meteor.userId()
+			},
+			asignado: {
+				id: Meteor.userId(),
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 			}
 		}
 
-		if (datos.asunto.nombre === "Elige un asunto") {
-			datos.asunto.nombre = "Sin asunto";
+		if (datos.asunto.nombre === "Elige un asunto" && datos.asunto.id === "") {
+			datos.asunto.nombre = undefined;
+			datos.asunto.id = undefined;
 		}
 
 		if (datos.descripcion !== "" && datos.fecha !== "") {
@@ -316,7 +340,7 @@ Template.tareas2.events({
 	'click .nuevas-tareas'(){
 		Modal.show('nuevaTareaModal')
 	},
-	'click .listo': function () {
+	'click .cerrar': function () {
 		console.log('listo!');
 
 		Meteor.call('cerrarTarea', this._id, function (err, result) {
@@ -326,6 +350,34 @@ Template.tareas2.events({
 				Bert.alert('Cerraste una tarea', 'success');
 			}
 		});
+
+	},
+	'keyup [name="crear-tarea"]': function (event, template) {
+		
+		let datos = {
+			descripcion: template.find('[name="crear-tarea"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		}
+
+		
+
+		if(event.which == 13){
+        	//$(event.target).blur();
+        	template.find('[name="crear-tarea"]').value = "";
+        	Meteor.call('agregarTarea', datos, function (err, result) {
+        		if (err) {
+        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+        			template.find('[name="crear-tarea"]').value = "";
+        		} else {
+        			template.find('[name="crear-tarea"]').value = "";
+        			Bert.alert('Agregaste una tarea', 'success');
+        		}
+        	});
+    	}
 	}
 });
 
@@ -341,7 +393,7 @@ Template.tareasSidebarDashboard.onCreated(function () {
 
 Template.tareasSidebarDashboard.helpers({
 	tareas() {
-		return Tareas.find({'asignado.id': Meteor.userId()});
+		return Tareas.find({'asignado.id': Meteor.userId(), abierto: true});
 	}
 });
 
@@ -695,7 +747,7 @@ Template.tareasDelAsunto.onCreated( function () {
 
 Template.tareasDelAsunto.helpers({
 	tareas() {
-		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId') }, {sort: {createdAt: -1}});
+		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId'), abierto: true }, {sort: {createdAt: -1}});
 	},
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
@@ -813,7 +865,7 @@ Template.detalleTareaAsunto.onCreated( function () {
 
 Template.detalleTareaAsunto.helpers({
 	tareas() {
-		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId') }, {sort: {createdAt: -1}});
+		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId'), abierto: true }, {sort: {createdAt: -1}});
 	},
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
@@ -1142,6 +1194,9 @@ Template.adjuntarArchivoTarea.events( {
 Template.menuTareas2.helpers({
 	asuntoId() {
 		return FlowRouter.getParam('asuntoId');
+	},
+	email() {
+		return Meteor.user().emails[0].address;
 	}
 });
 
@@ -1176,7 +1231,7 @@ Template.detalleTareaAsunto.events({
 
 Template.calendario2.helpers({
 	email() {
-		return Meteor.user().emails[0].address
+		return Meteor.user().emails[0].address;
 	}
 });
 

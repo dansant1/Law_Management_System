@@ -8,11 +8,16 @@ Meteor.methods({
 			tipo: String,
 			bufeteId: String,
 			creador: Object,
+<<<<<<< HEAD
 		}
 
 		if(datos.asignado) _check.asignado = Object;
 
 		check(datos, _check);
+=======
+			asignado: Object
+		});
+>>>>>>> 921048ad723d1037e4b74a453598d95b762ba2c0
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
