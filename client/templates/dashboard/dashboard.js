@@ -1543,6 +1543,9 @@ Template.clientes2.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
+	cantidad() {
+		return Clientes.find().fetch().length;
+	},
 	clientes(){
 		return Clientes.find({estatus:"cliente"}).count()
 	},
@@ -1570,6 +1573,9 @@ Template.cantidadClientes.onCreated( function () {
 Template.cantidadClientes.helpers({
 	cantidad() {
 		return Clientes.find().fetch().length;
+	},
+	contactos(){
+		return Clientes.find({estatus:"contacto"}).count()
 	}
 });
 
