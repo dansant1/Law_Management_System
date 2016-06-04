@@ -169,7 +169,7 @@ Template.nuevaTareaModal.onRendered( () => {
 
 Template.nuevaTareaModal.helpers({
 	asuntos: function () {
-		return Asuntos.find({abiertos:true});
+		return Asuntos.find({abierto:true});
 	},
 	miembros: function () {
 		debugger;
@@ -215,10 +215,6 @@ Template.nuevaTareaModal.events({
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 				id: Meteor.userId()
-			},
-			asignado: {
-				id: Meteor.userId(),
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 			}
 		}
 
@@ -1654,6 +1650,9 @@ Template.tareaEspecifica.events({
 	},
 	'click .agregar-asunto-tarea'(){
 		Modal.show('asuntoTareaModal',this);
+	},
+	'click .agregar-miembro-tarea'(){
+		Modal.show('miembroTareaModal',this);
 	}
 })
 
@@ -1676,6 +1675,58 @@ Template.asuntoTareaModal.helpers({
 
 Template.asuntoTareaModal.onRendered(function () {
 
+})
+
+Template.miembroTareaModal.onCreated(function () {
+		var self = this;
+
+		if(self.asunto) Session.set('asunto-tarea-id',self.asunto.id);
+		else Session.set('asunto-tarea-id',"");
+
+		self.autorun(function () {
+
+		})
+})
+
+Template.miembroTareaModal.helpers({
+	miembros(){
+		console.log('entro aqui')
+		debugger;
+		if(Session.get("asunto-tarea-id")===""||Session.get("asunto-tarea-id")===undefined) return Meteor.users.find();
+
+		var n = Asuntos.find({_id:Session.get("asunto-tarea-id")}).fetch()[0].abogados.length
+		if(n==0) return Meteor.users.find();
+
+		return Asuntos.find({_id:Session.get("asunto-tarea-id")}).fetch()[0].abogados;
+	},
+	nombre(){
+		if(this.profile!==undefined) return this.profile.nombre;
+		return this.nombre;
+	},
+	apellido(){
+		if(this.profile!==undefined) return this.profile.apellido;
+		return;
+	},
+	id(){
+		if(this.profile!==undefined) return this._id;
+		return this.id;
+	}
+})
+
+Template.miembroTareaModal.events({
+	'click .agregar-miembro-tarea'(event,template){
+		let tareaId = this._id,
+				asignado = {
+					id: template.find("[name='miembro-tarea']").value,
+					nombre: $(template.find('[name="miembro-tarea"]')).find(":selected").html()
+				};
+
+		Meteor.call('actualizarMiembroTarea',tareaId,asignado,function (err) {
+			if(err) return Bert.alert('Hubo un error al momento de crear, intentelo de nuevo','danger')
+			Bert.alert('Se asigno correctamente el miembro a la tarea','success');
+			Modal.hide('asuntoTareaModal')
+		})
+	}
 })
 
 Template.asuntoTareaModal.events({

@@ -894,6 +894,40 @@
   </div>
 </template>
 
+<template name="miembroTareaModal" >
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar asunto</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
+                        <fieldset>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">¿A que miembro quieres asignarlo?</label>
+                                <p class="cd-select icon">
+                                    <select name="miembro-tarea" class="budget miembros">
+                                        <option value="ninguno">Elige un miembro</option>
+                                        {{#each miembros}}
+                                            <option value="{{id}}">{{nombre}} {{apellido}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary agregar-miembro-tarea" type="submit" value="Guardar Asunto">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 
 <template name="asuntoTareaModal">
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -978,6 +1012,11 @@
             <a class="agregar-asunto-tarea" href="#"><h5  style="display: inline-block;">{{this.asunto.nombre}}</h5></a>
         {{else}}
             <a class="agregar-asunto-tarea" href="#"><h5 style="display: inline-block;">+ asunto</h5></a>
+        {{/if}}
+        {{#if this.asignado}}
+            <a class="agregar-miembro-tarea" href="#"><h5  style="display: inline-block;">{{this.asignado.nombre}}</h5></a>
+        {{else}}
+            <a class="agregar-miembro-tarea" href="#"><h5 style="display: inline-block;">Cambiar asignado</h5></a>
         {{/if}}
 
     </div>
@@ -2688,7 +2727,7 @@
 				<h3 style="margin: 0px; color: #34495e;">Clientes</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #e74c3c;"><strong>{{ contactos}}</strong></h1>
+				<h1 style="margin: 0; color: #e74c3c;"><strong>{{ cantidad  }}</strong></h1>
 				<h3 style="margin: 0px; margin-top: 5px; color: #e74c3c;">Abiertas</h3>
 			</div>
 			</div>
@@ -2709,7 +2748,7 @@
 				<h3 style="margin: 0px; color: #34495e; ">Contactos</h3>
 			</div>
 			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #2ecc71;"><strong>{{cantidad}}</strong></h1>
+				<h1 style="margin: 0; color: #2ecc71;"><strong>{{contactos}}</strong></h1>
 				<h3 style="margin: 0px; margin-top: 5px; color: #2ecc71;">Total</h3>
 			</div>
 		</div>

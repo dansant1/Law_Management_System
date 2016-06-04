@@ -83,6 +83,22 @@ Meteor.methods({
 		})
 
 	},
+
+	actualizarMiembroTarea(tareaId,asignado){
+		check(tareaId,String)
+		check(asignado,{
+			nombre: String,
+			id: String
+		});
+
+
+		Tareas.update({_id:tareaId}, {
+			$set: {
+				asignado: asignado
+			}
+		})
+
+	},
 	
 	actualizarFechaTarea(tareaId,fecha){
 		check(tareaId,String)
