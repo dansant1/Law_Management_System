@@ -247,15 +247,7 @@ Template.nuevaTareaModal.events({
 
 });
 
-/*
-Template.tareas.onCreated(function () {
-	var self = this;
 
-	self.autorun(function() {
-		self.subscribe('tareas');
-	});
-});
-*/
 
 Template.tareasCerradas.onCreated(function () {
 	var self = this;
@@ -420,6 +412,9 @@ Template.botonNuevosContactos.events({
 	},
 	'click .empresa': function () {
 		Modal.show('empresaNuevoModal');
+	},
+	'click .caso': function () {
+		Modal.show('casoNuevoModal');
 	}
 });
 
@@ -872,7 +867,6 @@ Template.detalleTareaAsunto.onCreated( function () {
     	self.subscribe('tareasxAsunto', asuntoId);
     	self.subscribe('expediente', asuntoId);
 		let tareaId = FlowRouter.getParam('tareaId');
-    	//self.subscribe('tarea', tareaId);
     	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
    });
 });
@@ -880,6 +874,135 @@ Template.detalleTareaAsunto.onCreated( function () {
 Template.detalleTareaAsunto.helpers({
 	tareas() {
 		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId'), abierto: true }, {sort: {createdAt: -1}});
+	},
+	asuntoId: () => {
+    	return FlowRouter.getParam('asuntoId');
+  	},
+  	email() {
+		return Meteor.user().emails[0].address
+	},
+	expediente: () => {
+		return Asuntos.findOne({_id: FlowRouter.getParam('asuntoId')});
+	},
+	comentarios: () => {
+		return ComentariosDeTareas.find({}, {sort: {createdAt: -1}});
+	},
+	tarea: () => {
+		return Tareas.findOne({ _id: FlowRouter.getParam('tareaId') });
+	},
+	hayFecha: (fecha) => {
+		if (fecha !== undefined) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	dia() {
+		var d = this.vence,
+    	minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
+	},
+	tareaId: () => {
+    	return FlowRouter.getParam('tareaId');
+  	},
+  	esMiTarea() {
+  		if (this.asignado.id === Meteor.userId()) {
+  			return true;
+  		} else {
+  			false
+  		}
+  	}
+});
+
+
+Template.tareasDetalle2.events({
+	'keyup [name="crear-tarea"]': function (event, template) {
+		
+		let datos = {
+			descripcion: template.find('[name="crear-tarea"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		}
+
+		
+
+		if(event.which == 13){
+        	//$(event.target).blur();
+        	template.find('[name="crear-tarea"]').value = "";
+        	Meteor.call('agregarTarea', datos, function (err, result) {
+        		if (err) {
+        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+        			template.find('[name="crear-tarea"]').value = "";
+        		} else {
+        			template.find('[name="crear-tarea"]').value = "";
+        			Bert.alert('Agregaste una tarea', 'success');
+        		}
+        	});
+    	}
+	},
+	'click .cerrar': function () {
+		let tareaId = this._id;
+
+		Meteor.call('cerrarTarea', tareaId,function (err, result) {
+			if (err) {
+				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+			} else {
+				Bert.alert('Completaste la tarea', 'success');
+				FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
+			}
+		});
+	},
+	'click .comentar': function (event, template) {
+
+		let datos = {
+			comentario: template.find('[name="comentario"]').value,
+			tareaId: FlowRouter.getParam('tareaId'),
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			},
+			bufeteId: Meteor.user().profile.bufeteId
+		}
+
+		Meteor.call('agregarComentarioATarea', datos,function (err) {
+			if (err) {
+				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				template.find('[name="comentario"]').value = ""
+			} else {
+				template.find('[name="comentario"]').value = ""
+			}
+		});
+	},
+	'click .agregar-fecha': function () {
+		Modal.show('venceTareaModal');
+	},
+	'click .adjuntar-archivo-tarea': function () {
+		Modal.show('adjuntarArchivoTarea');
+	}
+});
+
+Template.tareasDetalle2.onCreated( function () {
+	var self = this;
+
+	self.autorun(function() {
+		let asuntoId = FlowRouter.getParam('asuntoId');
+    	self.subscribe('misTareas');
+    	//self.subscribe('expediente', asuntoId);
+		let tareaId = FlowRouter.getParam('tareaId');
+    	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
+   });
+});
+
+Template.tareasDetalle2.helpers({
+	tareas() {
+		return Tareas.find({ abierto: true }, {sort: {createdAt: -1}});
 	},
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
@@ -1271,9 +1394,90 @@ Template.Conversaciones.helpers({
 	// }
 });
 
-Template.conversacionesxcomentarios.onCreated(function () {
-	
-})
+
+Template.conversacionesPorAsunto.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let asuntoId = FlowRouter.getParam('asuntoId');
+    	self.subscribe('conversacionesAsunto', asuntoId);
+    	self.subscribe('comentariosDeConversacionesAsunto', asuntoId);
+   });
+});
+
+Template.conversacionesPorAsunto.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	conversaciones() {
+		return ConversacionesAsunto.find({asuntoId: FlowRouter.getParam('asuntoId')/*Session.get('asunto-id')*/}, {sort: {createdAt: -1}});
+	},
+	comentarios() {
+		return ComentariosConversacionesAsunto.find({conversacionAsuntoId: Template.parentData(0)._id});
+	},
+	asuntoId() {
+		return FlowRouter.getParam('asuntoId');
+	}
+});
+
+
+
+Template.conversacionesPorAsunto.events({
+	'click .enviar-conversacion': function (event, template) {
+		debugger;
+
+		let datos = {
+			nombre: template.find('[name="nombre"]').value,
+			descripcion: template.find('[name="descripcion"]').value,
+			asuntoId: FlowRouter.getParam('asuntoId'),
+			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+		}
+
+		if (datos.nombre !== "" && datos.descripcion !== "" ) {
+			Meteor.call('agregarConversacionAsunto', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
+					template.find('[name="nombre"]').value = "";
+					template.find('[name="descripcion"]').value = "";
+				} else {
+					Bert.alert('Agregaste un conversacion', 'success');
+					template.find('[name="nombre"]').value = "";
+					template.find('[name="descripcion"]').value = "";
+				}
+			});
+		} else {
+			Bert.alert('Ingresa los datos correctamente', 'warning');
+		}
+	},
+	'click .enviar-comentario': function (event, template) {
+		let datos = {
+			comentario: template.find('[name="comentario"]').value,
+			asuntoId: FlowRouter.getParam('asuntoId'),
+			autor: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			},
+			conversacionAsuntoId: this._id
+		}
+
+		if (datos.comentario !== "") {
+			
+			Meteor.call('agregarComentarioAConversacionAsunto', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
+					template.find('[name="comentario"]').value = "";
+				} else {
+					template.find('[name="comentario"]').value = "";
+				}
+			});
+
+		} else {
+			Bert.alert('Ingresa los datos correctamente', 'warning');	
+		}
+	}
+});
+
+
 
 Template.conversacionesxcomentarios.helpers({
 	comentarios() {
@@ -1613,7 +1817,7 @@ Template.contactos2.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-    	self.subscribe('clientes', bufeteId);
+    	self.subscribe('contactos', bufeteId);
    });
 });
 
@@ -1622,16 +1826,47 @@ Template.contactos2.helpers({
 		return Meteor.user().emails[0].address
 	},
 	clientes() {
-		return Clientes.find({}, {sort: {createdAt: -1}});
+		return Clientes.find({estatus: 'contacto'}, {sort: {createdAt: -1}});
 	}
 });
 
-Template.fechaTareaModal.onCreated(function () {
+Template.Prospectos.onCreated(function () {
 	var self = this;
-	self.autorun(function () {
 
-	})
-})
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+    	self.subscribe('prospectos', bufeteId);
+   });
+});
+
+Template.Prospectos.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	clientes() {
+		return Clientes.find({estatus: 'prospecto'}, {sort: {createdAt: -1}});
+	}
+});
+
+Template.clientesOficial.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+    	self.subscribe('clientesOficial', bufeteId);
+   });
+});
+
+Template.clientesOficial.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	clientes() {
+		return Clientes.find({estatus: 'cliente'}, {sort: {createdAt: -1}});
+	}
+});
+
+
 
 Template.fechaTareaModal.onRendered(function () {
 	var picker = new Pikaday({ field: document.getElementById('datepicker4') });
@@ -1641,6 +1876,74 @@ Template.fechaTareaModal.events({
 	'click .agregar-fecha'(event,template){
 		var fecha = template.find('[name="fecha"]').value;
 		var tareaId = this._id;
+		Meteor.call('actualizarFechaTarea',tareaId, fecha,function (err) {
+				if(err) Bert.alert('Hubo un error por favor intentelo nuevamente','danger')
+				Bert.alert('Se actualizo la fecha correctamente','success')
+				Modal.hide('fechaTareaModal')
+
+		})
+
+	}
+});
+
+Template.casoNuevoModal.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+    	self.subscribe('clientes', bufeteId);
+   });
+});
+
+Template.casoNuevoModal.helpers({
+	contactos() {
+		return Clientes.find({}, {sort: {createdAt: -1}});
+	}
+});
+
+Template.casoNuevoModal.events({
+	'click .guardar-caso': function (event, template) {
+		let datos = {
+			nombre: template.find('[name="nombre"]').value,
+			descripcion: template.find('[name="descripcion"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			createdAt: new Date(),
+			contacto: {
+				nombre: $( ".cliente option:selected" ).text(),
+				id: $( ".cliente" ).val()
+			},
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		};
+
+		if (datos.nombre !== "") {
+			Meteor.call('agregarCaso', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentelo', 'warning');
+					template.find('[name="nombre"]').value = "";
+					template.find('[name="descripcion"]').value = "";
+				} else {
+					Bert.alert('Agregaste un nuevo caso', 'success');
+					template.find('[name="nombre"]').value = "";
+					template.find('[name="descripcion"]').value = "";
+				}
+			});
+		} else {
+			Bert.alert('Por favor completa los datos correctamente', 'warning');
+		}
+	}
+});
+
+Template.venceTareaModal.onRendered(function () {
+	var picker = new Pikaday({ field: document.getElementById('datepicker4') });
+})
+
+Template.venceTareaModal.events({
+	'click .agregar-fecha'(event,template){
+		var fecha = template.find('[name="fecha"]').value;
+		var tareaId = FlowRouter.getParam('tareaId');
 		Meteor.call('actualizarFechaTarea',tareaId, fecha,function (err) {
 				if(err) Bert.alert('Hubo un error por favor intentelo nuevamente','danger')
 				Bert.alert('Se actualizo la fecha correctamente','success')
@@ -1829,7 +2132,48 @@ Template.detalleClientes2.helpers({
 	}
 });
 
+Template.casos.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+		
+    	self.subscribe('casos2', bufeteId);
+   });
+});
+
 Template.casos.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	casos() {
+		return Casos.find({}, {sort: {createdAt: -1} });
+	},
+	dia(fecha) {
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	}
+});
+
+Template.casoDetalle.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+		
+    	self.subscribe('casos2', bufeteId);
+   });
+});
+
+Template.casoDetalle.helpers({
+	caso() {
+		return Casos.findOne({_id: FlowRouter.getParam('casoId')});
+	},
 	email() {
 		return Meteor.user().emails[0].address
 	}
@@ -2083,4 +2427,169 @@ Template.asuntoNuevoModal.events({
 			}
 		}
 	
+});
+
+// Mi Ccalendario Personal
+
+let isPast = ( date ) => {
+  let today = moment().format();
+  return moment( today ).isAfter( date );
+};
+
+Template.miCalendario.onRendered( () => {
+	 $( '#calendario' ).fullCalendar({
+	 	lang: 'es',
+	 	header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+    	defaultView: 'agendaWeek',
+    	events( start, end, timezone, callback ) {
+
+      		let data = MiCalendario.find().fetch().map( ( event ) => {
+        		event.editable = true //!isPast( event.start );
+        		return event;
+      		});
+
+    		if ( data ) {
+        		callback( data );
+      		}
+    	},
+    	eventRender( event, element ) {
+      		element.find( '.fc-content' ).html(
+        		`<h4>${ event.title }</h4>
+         		<p class="type-${ event.type }">#${ event.type }</p>
+        		`
+      		);
+    	},
+    	eventDrop( event, delta, revert ) {
+
+      			let date = event.start.format();
+
+      			console.log(delta);
+      			
+        		
+        		let update = {
+          			_id: event._id,
+          			start: date,
+          			end: date,
+          			bufeteId: Meteor.user().profile.bufeteId
+        		};
+
+        		Meteor.call( 'editEvent', update, ( error ) => {
+          			if ( error ) {
+            		Bert.alert( error.reason, 'danger' );
+          			}
+        		});
+      		
+
+    	},
+    	dayClick( date ) {
+      		Session.set( 'eventModal', { type: 'add', date: date.format() } );
+      		$( '#add-edit-event-modal' ).modal( 'show' );
+    	},
+    	eventClick( event ) {
+      		Session.set( 'eventModal', { type: 'edit', event: event._id } );
+      		$( '#add-edit-event-modal' ).modal( 'show' );
+    	},
+    	editable: true
+	 });
+
+	 Tracker.autorun( () => {
+    	MiCalendario.find().fetch();
+    	$( '#calendario' ).fullCalendar( 'refetchEvents' );
+  	});
+});
+
+Template.miCalendario.onCreated( () => {
+	let template = Template.instance();
+  	template.subscribe('miCalendario');
+});
+
+Template.miCalendario.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+let closeModal = () => {
+  $( '#add-edit-event-modal' ).modal( 'hide' );
+  $( '.modal-backdrop' ).fadeOut();
+};
+
+
+Template.addEditEventModal.events({
+  'submit form' ( event, template ) {
+    event.preventDefault();
+
+    let eventModal = Session.get( 'eventModal' ),
+        submitType = eventModal.type === 'edit' ? 'editEvent' : 'addEvent',
+        eventItem  = {
+          title: template.find( '[name="title"]' ).value,
+          start: template.find( '[name="start"]' ).value,
+          end: template.find( '[name="end"]' ).value,
+          type: template.find( '[name="type"] option:selected' ).value,
+          bufeteId: Meteor.user().profile.bufeteId
+        };
+
+    if ( submitType === 'editEvent' ) {
+      eventItem._id   = eventModal.event;
+    }
+
+    Meteor.call( submitType, eventItem, ( error ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'danger' );
+      } else {
+        Bert.alert( `Event ${ eventModal.type }ed!`, 'success' );
+        closeModal();
+      }
+    });
+  },
+   'click .delete-event' ( event, template ) {
+    	let eventModal = Session.get( 'eventModal' );
+    	
+    	if ( confirm( '¿Seguro que deseas eliminar este evento? Esto sera permanente.' ) ) {
+      		Meteor.call( 'removeEvent', eventModal.event, ( error ) => {
+        		if ( error ) {
+          			Bert.alert( error.reason, 'danger' );
+        		} else {
+          			Bert.alert( 'Event deleted!', 'success' );
+          			closeModal();
+        		}
+      		});
+    	}
+  	}
+});
+
+Template.addEditEventModal.helpers({
+  modalType( type ) {
+    let eventModal = Session.get( 'eventModal' );
+    if ( eventModal ) {
+      return eventModal.type === type;
+    }
+  },
+  modalLabel() {
+    let eventModal = Session.get( 'eventModal' );
+
+    if ( eventModal ) {
+      return {
+        button: eventModal.type === 'edit' ? 'Edit' : 'Add',
+        label: eventModal.type === 'edit' ? 'Edit' : 'Add an'
+      };
+    }
+  },
+  selected( v1, v2 ) {
+    return v1 === v2;
+  },
+  event() {
+    let eventModal = Session.get( 'eventModal' );
+
+    if ( eventModal ) {
+      return eventModal.type === 'edit' ? MiCalendario.findOne( eventModal.event ) : {
+        start: eventModal.date,
+        end: eventModal.date
+      };
+    }
+  }
 });

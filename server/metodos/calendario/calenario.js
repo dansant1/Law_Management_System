@@ -33,3 +33,57 @@ Meteor.methods({
 		}
 	}
 });
+
+
+Meteor.methods({
+  addEvent( event ) {
+    check( event, {
+      title: String,
+      start: String,
+      end: String,
+      type: String,
+      bufeteId: String
+    });
+
+    event.userId = this.userId;
+
+    try {
+      return MiCalendario.insert( event );
+    } catch ( exception ) {
+      throw new Meteor.Error( '500', `${ exception }` );
+    }
+  }
+});
+
+Meteor.methods({
+  editEvent( event ) {
+    check( event, {
+      _id: String,
+      title: Match.Optional( String ),
+      start: String,
+      end: String,
+      type: Match.Optional( String ),
+      bufeteId: String
+    });
+
+    try {
+      return MiCalendario.update( event._id, {
+        $set: event
+      });
+    } catch ( exception ) {
+      throw new Meteor.Error( '500', `${ exception }` );
+    }
+  }
+});
+
+Meteor.methods({
+  removeEvent( event ) {
+    check( event, String );
+
+    try {
+      return MiCalendario.remove( event );
+    } catch ( exception ) {
+      throw new Meteor.Error( '500', `${ exception }` );
+    }
+  }
+});

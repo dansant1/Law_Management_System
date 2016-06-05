@@ -40,9 +40,11 @@
 		{{> clientesSidebarDashboard}}
 
     <!-- Seccion link facturación -->
-    <div class="sidebar-item">
-      <h5><a href="/facturacion" id="sidebar-a">FACTURACIÓN</a></h5>
-    </div>	
+   <div class="sidebar-titulo" style="margin-top: 0;">
+    <h5 class="sidebar-item">
+    <a href="/facturacion" style="text-decoration:none;">Facturación</a>
+    </h5>
+  </div>
 
 	</div>
 </template>
@@ -798,12 +800,51 @@
             </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-default guardar-contacto btn-primary" data-dismiss="modal">Guardar empresa</button>
+                    <button type="button" class="btn btn-default guardar-contacto btn-primary" data-dismiss="modal">Guardar contacto</button>
                 </div>
         </div>
       </div>
   </div>
 
+</template>
+
+<template name="casoNuevoModal">
+  <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Nuevo Caso</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label for="sel1">Adjunta un contacto</label>
+            <select class="form-control cliente" id="sel1">
+            {{#each contactos}}
+              <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
+            {{/each}}
+            </select>
+        </div>        
+
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Nombre del caso</span>
+          <input type="text" class="form-control" placeholder="nombre" name="nombre" aria-describedby="basic-addon1">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Descripción</span>
+          <input type="text" class="form-control" name="descripcion" placeholder="opcional" aria-describedby="basic-addon1">
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary guardar-caso"  data-dismiss="modal">Guardar caso</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </template>
 
 <template name="itemClientes">
@@ -880,15 +921,6 @@
 
     </div>
 
-    <!--<div class="lista-asuntos">
-        {{> cuadroTareaNueva}}
-
-        {{#transition in="zoomIn" out="bounceOut"}}
-            {{#each tareas}}
-                {{> tareaItemCuadro}}
-            {{/each}}
-        {{/transition}}
-    </div> -->
     <div class="lista-tareas">
     <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;"> 
     {{#each tareas}}
@@ -903,7 +935,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar asunto</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Asignar tarea</h4>
                 </div>
                 <div class="modal-body">
                     <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
@@ -925,7 +957,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input class="btn btn-primary agregar-miembro-tarea" type="submit" value="Guardar Asunto">
+                    <input class="btn btn-primary agregar-miembro-tarea" type="submit" value="Asignar">
                 </div>
             </div>
         </div>
@@ -994,6 +1026,33 @@
     </div>
 </template>
 
+<template name="venceTareaModal">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar fecha</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
+                        <fieldset>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
+                                <input class="company" type="text" name="fecha" id="datepicker4">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary agregar-fecha" type="submit" value="Guardar fecha">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <template name="tareaEspecifica" >
     <div class="item-lista-tareas">
         {{#if esMiTarea}}
@@ -1014,9 +1073,10 @@
         {{#if this.asunto}}
             <a class="agregar-asunto-tarea" href="#"><h5  style="display: inline-block;">{{this.asunto.nombre}}</h5></a>
         {{else}}
-            <a class="agregar-asunto-tarea" href="#"><h5 style="display: inline-block;">+ asunto</h5></a>
+            <a class="agregar-asunto-tarea" href="#"><h5 style="display: inline-block; margin-right: 25px;">+ asunto</h5></a>
         {{/if}}
         {{#if this.asignado}}
+            <i class="glyphicon glyphicon-user"></i>
             <a class="agregar-miembro-tarea" href="#"><h5  style="display: inline-block;">{{this.asignado.nombre}}</h5></a>
         {{else}}
             <a class="agregar-miembro-tarea" href="#"><h5 style="display: inline-block;">Cambiar asignado</h5></a>
@@ -1089,7 +1149,7 @@
         <i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
         {{/if}}
         
-        <a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline;">{{this.descripcion}}</h5></a>  
+        <a href="/tareas/{{this._id}}"><h5 style="display: inline;">{{this.descripcion}}</h5></a>  
       </div>
     
     {{/each}}
@@ -1108,14 +1168,14 @@
         {{#if hayFecha this.vence}}
           {{dia}}
         {{else}}
-          Agregar fecha
+          <a class="agregar-fecha">Agregar fecha</a>
         {{/if}}
         </a>
         {{/with}} 
         <a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
         <i class="glyphicon glyphicon-paperclip"></i>
         Adjuntar</a>
-        <a style="display: inline-block; margin-left: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
+        <a style="display: inline-block; margin-left: 8px;" href="/tareas/{{tareaId}}/f">
         <i class="glyphicon glyphicon-fullscreen"></i>
         Pantalla completa
         </a>
@@ -2100,15 +2160,6 @@
       CRM
     </a>
   </div>
-
-	<!--<div class="franja-filtros" style="padding-left: 18px;">
-		<a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="width: 160px; text-align: left;">
-			Conversaciones
-		</a> 
-		<a href="/calendario2" class="menu-asunto-aim" style="margin-left: 0px; text-align: left;">
-			Calendario
-		</a>
-	</div> -->
 	
 	<div class="contenedor-conversacion">
 		<div>
@@ -2129,6 +2180,94 @@
 		{{>cuadroAsuntos}}	
 	</div>
 </template>
+
+<template name="cuadroAsuntos">
+  <div class="lista-asuntos2" style="display: block; padding-top: 0px; padding-left: 15px;">
+    <h3>Asuntos</h3>
+        <h5><strong><a class="asunto-especifico" data-id="" href="/conversaciones">La Firma</a></strong></h5>
+    {{#each asuntos}}
+      <h5><strong><a class="asunto-especifico" data-id="{{this._id}}" href="/conversaciones/{{this._id}}">{{this.caratula}}</a></strong></h5>
+    {{/each}}
+  </div>
+</template>
+
+<template name="conversacionesPorAsunto">
+    <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > Conversaciones</a></p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Conversación
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim ">
+      Equipo
+    </a>
+
+      <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+  
+  <div class="contenedor-conversacion">
+    <div>
+      <div class="form-conversacion" style="margin-bottom: 30px;">
+        <input type="text" name="nombre" placeholder="Tema">
+        <textarea name="descripcion" placeholder="Empieza una conversación en el asunto"></textarea>
+        <div class="div-conversacion">
+          <button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
+        </div>
+      </div>
+  
+      {{#each conversaciones}}
+           <div class="form-conversacion" style="padding-left: 15px; padding-right: 15px; padding-top: 0px;  margin-bottom: 25px;">
+        <h3>{{this.nombre}}</h3>
+        <h5>Por <strong style="color: #34495e;">{{this.autor}}</strong></h5>
+        <h5>{{this.descripcion}}</h5>
+
+        <div >
+            {{#transition in="bounceIn" out="bounceOut"}}
+                {{#each comentarios}}
+                    <h5 style="border-bottom: 1px solid #EFEFEF; padding: 5px 0px;"><a >{{this.autor.nombre}}: </a> {{this.comentario}}</h5>
+                {{/each}}
+            {{/transition}}
+        </div>
+        <div>
+            <textarea name="comentario" placeholder="Escribe un comentario" style="padding: 0px; padding-top: 10px; display: block; " class="area-comentario"></textarea>
+
+            <button type="button" class="enviar-comentario boton-post" style="width: 120px;">Comentar</button>
+            <a style="display: inline-block; margin-left: 8px; margin-right: 8px;" class="adjuntar-archivo-tarea">
+                <h5 style="display:inline-block;"> <i class="glyphicon glyphicon-paperclip"></i>Adjuntar</h5>
+            </a>
+            <br><br>
+        </div>
+
+    </div>
+      {{/each}}
+    </div>
+    
+    {{>cuadroAsuntos}}  
+  </div>
+</template>
+
 
 <template name="conversacionesxcomentarios">
     <div class="form-conversacion" style="padding-left: 15px; padding-right: 15px; padding-top: 0px;  margin-bottom: 25px;">
@@ -2156,15 +2295,7 @@
     </div>
 </template>
 
-<template name="cuadroAsuntos">
-	<div class="lista-asuntos2" style="display: block; padding-top: 0px; padding-left: 15px;">
-		<h3>Asuntos</h3>
-        <h5><strong><a class="asunto-especifico" data-id="" href="">TODOS</a></strong></h5>
-		{{#each asuntos}}
-			<h5><strong><a class="asunto-especifico" data-id="{{this._id}}" href="">{{this.caratula}}</a></strong></h5>
-		{{/each}}
-	</div>
-</template>
+
 
 
 <template name="contenidoDashboard2">
@@ -2705,12 +2836,15 @@
 		<a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
 			Contactos
 		</a>
-		<a href="/clientes2/ventas" class="menu-asunto-aim" style="margin-left: 10px;">
+		<a href="/clientes2/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
 			Prospectos
 		</a>
-        <a href="clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-          Clientes
-        </a>
+    <a href="clientes2/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Clientes
+    </a>
+    <a href="clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
 	</div>
 
 	<div class="cuadros-estadisticos">
@@ -2773,6 +2907,7 @@
   <ul class="dropdown-menu">
     <li class="persona"><a href="#">Persona</a></li>
     <li class="empresa"><a href="#">Empresa</a></li>
+    <li class="caso"><a href="#">Caso</a></li>
   </ul>
     </div>
 </template>
@@ -2931,7 +3066,7 @@
     </a>
 
     <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
+      Casos
     </a>
   </div>
 
@@ -2991,9 +3126,251 @@
   </div>
   
   </div>
-  {{else}}
-  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    {{>loader}}
+  {{/each}}
+  </div>
+ 
+
+</template>
+
+<template name="Prospectos">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim ">
+      Equipo
+    </a>
+
+      <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style=" margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Prospectos
+    </a>
+    
+    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Clientes
+    </a>
+
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div>
+     <div class="sidebar-vertical-blanco">
+   
+    {{>botonNuevosContactos}}
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+  {{#each clientes}}
+  <div >
+   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      <span style="color: #2B3E51;">{{this.nombre}} {{this.apellido}}</span>
+   
+      <h5>Por {{this.autor}}</h5>
+      
+    </a>
+    <div style="display: inline-block; padding-bottom: 25px;">
+    
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      + Celular
+    </a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+      + Email
+    </a>
+    {{/if}}
+     </div>
+  </div>
+  
+  </div>
+  {{/each}}
+  </div>
+ 
+
+</template>
+
+<template name="clientesOficial">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2">
+        Contactos
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim ">
+      Equipo
+    </a>
+
+      <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style=" margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Prospectos
+    </a>
+    
+    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Clientes
+    </a>
+
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div>
+     <div class="sidebar-vertical-blanco">
+   
+    {{>botonNuevosContactos}}
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+  
+  {{#each clientes}}
+  <div >
+   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      <span style="color: #2B3E51;">{{this.nombre}} {{this.apellido}}</span>
+   
+      <h5>Por {{this.autor}}</h5>
+      
+    </a>
+    <div style="display: inline-block; padding-bottom: 25px;">
+    
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      + Celular
+    </a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+      + Email
+    </a>
+    {{/if}}
+     </div>
+  </div>
+  
   </div>
   {{/each}}
   </div>
@@ -3349,6 +3726,198 @@
       Casos
     </a>
   </div>
+
+  <div>
+      <div class="sidebar-vertical-blanco">
+
+      {{>botonNuevosContactos}}
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/clientes2/" style="text-decoration:none;" class="no-hover">Todos</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Personas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/clientes2/casos" style="text-decoration:none;" class="no-hover">Casos</a>
+                </h5>
+
+            </div>
+        </div>
+
+    <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 15px; border-top: none;">
+            <div class="btn-group">
+          <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; background: white; color: #34495e;">
+            <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="empresa"><a href="#">Todos</a></li>
+            <li class="empresa"><a href="#">Abiertos</a></li>
+            <li class="persona"><a href="#">Resueltos</a></li>
+            <li class="persona"><a href="#">No resueltos</a></li>
+          </ul>
+        </div>
+        </div>
+
+        <!-- Lista de Casos -->
+
+        
+        <div class="cuadro-tarea-comentarios"  style="padding: 0px; height: 400px;">
+          {{#each casos}}
+          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+      
+      <div style="display: flex; width: 80%; height: 85px;">
+        <div style="margin: 25px; margin-top: 0px;">
+          <h5 style="color: #7f8c8d;">{{this.contacto.nombre}} ─ {{this.creador.nombre}} </h5>
+          <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"><a href="/clientes2/casos/{{this._id}}" style="color: #34495e;">{{this.nombre}}</a></h1>  
+        </div>
+      
+        <div style="margin: 25px; margin-top: 0px;">
+          <h5 style="color: #7f8c8d;">{{dia this.createdAt}}</h5>
+            
+            <h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">{{this.estatus}}</h1>
+                  
+        </div>
+      </div>
+
+          </div>
+          {{/each}}
+        </div>
+
+      
+
+  </div>
+
+
+</template>
+
+<template name="casoDetalle">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}} 
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+        <a href="/clientes2/casos">
+        Casos
+        </a>
+       
+      </p>
+    </div>
+  </div>
+  
+ <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim">
+     Equipo
+    </a>
+
+     <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Prospectos
+    </a>
+    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Clientes
+    </a>
+    <a href="/clientes2/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div style="display: flex; flex-wrap;">
+    <div class="sidebar-vertical-blanco">
+    {{>botonNuevosContactos}}
+
+    <div class="sidebar-titulo">
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+      
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/casos" style="text-decoration:none;" class="no-hover">Casos</a>
+      </h5>
+  </div>
+  </div>
+  
+   {{#with caso}}
+  
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    
+    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.nombre}} de {{this.contacto.nombre}}
+    </a>
+    <i class="glyphicon glyphicon-queen"></i>
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.estatus}}
+    </a>
+    
+    <i class="glyphicon glyphicon-user"></i>
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.creador.nombre}}
+    </a>
+   
+  </div>
+  {{/with}}
+
+  </div>
+  <div style="display: flex; flex-wrap;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+    <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim asunto-item-activo">
+      Actividad
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
+      Notas
+    </a>
+    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Tareas
+    </a>
+  </div>
+
+  </div>
+
 
 </template>
 
@@ -4048,4 +4617,94 @@
     </div>
   </div>
 
+</template>
+
+<!-- Calendario personal -->
+
+<template name="miCalendario">
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > calendario</a></p>
+    </div>
+  </div>
+   <div class="franja-filtros" style="padding-left: 18px;">
+    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
+      Bienvenido
+    </a> 
+    <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim  asunto-item-activo" style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim">
+     Equipo
+    </a>
+
+         <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="box">
+     {{> addEditEventModal }}
+    <div id="calendario"></div>
+  </div>
+
+</template>
+
+<template name="addEditEventModal">
+  <div class="modal fade" id="add-edit-event-modal" tabindex="-1" role="dialog" aria-labelledby="add-edit-event-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="add-edit-event">{{modalLabel.label}} Evento</h4>
+      </div>
+      <form id="add-edit-event-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                <label for="type">Tipo</label>
+                <select name="type" class="form-control">
+                  <option selected="{{selected event.type 'Birthday' }}" value="Birthday">Birthday</option>
+                  <option selected="{{selected event.type 'Corporate' }}" value="Corporate">Corporate</option>
+                  <option selected="{{selected event.type 'Miscellaneous' }}" value="Miscellaneous">Miscellaneous</option>
+                  <option selected="{{selected event.type 'Wedding' }}" value="Wedding">Wedding</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-3">
+                <label for="start">Empieza</label>
+                <input disabled type="text" name="start" class="form-control" value="{{event.start}}">
+              </div>
+              <div class="col-xs-12 col-sm-3">
+                <label for="end">Finaliza</label>
+                <input disabled type="text" name="end" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="title">Descripción</label>
+            <input type="text" name="title" class="form-control" value="{{event.title}}">
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          {{#if modalType 'edit'}}
+            <button class="btn btn-danger pull-left delete-event">Eliminar evento</button>
+          {{/if}}
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">{{modalLabel.button}} Evento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 </template>

@@ -12,6 +12,50 @@ Meteor.publish('clientes', function (bufeteId) {
 	}
 });
 
+Meteor.publish('contactos', function (bufeteId) {
+  
+  check(bufeteId, String);
+
+  if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+    return Clientes.find({bufeteId: bufeteId, estatus: 'contacto'});
+
+  } else {
+    this.stop();
+    return;
+  }
+});
+
+
+Meteor.publish('prospectos', function (bufeteId) {
+  
+  check(bufeteId, String);
+
+  if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+    return Clientes.find({bufeteId: bufeteId, estatus: 'prospecto'});
+
+  } else {
+    this.stop();
+    return;
+  }
+});
+
+
+Meteor.publish('clientesOficial', function (bufeteId) {
+  
+  check(bufeteId, String);
+
+  if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+    return Clientes.find({bufeteId: bufeteId, estatus: 'cliente'});
+
+  } else {
+    this.stop();
+    return;
+  }
+});
+
 
 Meteor.publish('empresas', function (bufeteId) {
   
