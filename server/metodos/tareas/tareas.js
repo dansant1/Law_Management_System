@@ -17,7 +17,9 @@ Meteor.methods({
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
 			datos.createdAt = new Date();
-			datos.vence	= new Date(datos.fecha);
+			datos.vence	= new Date(datos.fecha+" GMT-0500");
+			console.log('Paso por aqui')
+			console.log(datos.vence)
 			datos.abierto = true;
 
 			let tarea = Tareas.insert(datos);
