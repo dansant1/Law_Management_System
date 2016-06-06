@@ -67,3 +67,6 @@ d3js:d3
 random
 chart:chart
 okgrow:analytics
+kadira:debug
+meteorhacks:kadira
+meteorhacks:kadira-profiler

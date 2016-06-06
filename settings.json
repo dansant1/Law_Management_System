@@ -10,6 +10,10 @@
       		"Mixpanel": { "token": "6413b5fae3f7ec417e4193306d3a56d1", "people": true }
     	}
   	},
-  	"private": {}
+  	"private": {},
+  	"kadira": {
+  		"appId": "3uADFTkDNqXRehSgf", 
+  		"appSecret": "22d05cf9-5fef-417b-808c-900695342b72"
+  	}
 }
 
