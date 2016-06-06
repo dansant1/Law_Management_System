@@ -1342,6 +1342,17 @@
 			<i class="glyphicon glyphicon-th"></i>
 		</div>
 	</div>
+    <div class="buscador row">
+        <div class="col-md-push-1 col-md-2">
+            <select class="form-control tipo-busqueda" name="tipo">
+                <option value="asuntos">Asuntos</option>
+                <option value="clientes">Clientes</option>
+            </select>
+        </div>
+        <div class="col-md-8 col-md-push-1 ">
+            <input type="text" placeholder="Escriba el nombre del {{tipo_busqueda}}  " name="consulta" class="form-control buscador-asuntos">
+        </div>
+    </div>
 	<div class="lista-asuntos" style="min-height: 400px;">
     {{#if esAdministrador}}
 		{{> cuadroAsuntoNuevo}}

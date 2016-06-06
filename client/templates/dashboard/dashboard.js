@@ -609,8 +609,18 @@ Template.asuntos2.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
+	tipo_busqueda(){
+
+		if(Session.get('tipo-busqueda')=="Clientes") return "cliente"
+		return "asunto"
+
+	},
 	asuntos() {
-		return Asuntos.find({abierto:Session.get('estado-asunto')}, {sort: {createdAt: -1}});
+		debugger;
+		var regexCaratula = new RegExp(".*"+ Session.get('caratula-asunto') +".*","i")
+		var regexNombre = new RegExp(".*"+Session.get('nombre-cliente')+".*","i");
+
+		return Asuntos.find({caratula:regexCaratula,abierto:Session.get('estado-asunto'),"cliente.nombre":regexNombre}, {sort: {createdAt: -1}});
 	},
 	cantidad() {
 		return Asuntos.find({abierto:Session.get('estado-asunto')}).fetch().length;
@@ -634,7 +644,8 @@ Template.asuntos2.onCreated( function () {
 	var self = this;
 
 	Session.set('estado-asunto',true);
-
+	Session.set('nombre-cliente',"")
+	Session.set('caratula-asunto',"")
 	/*self.autorun(function() {
 
 		let bufeteId = Meteor.user().profile.bufeteId;
@@ -662,9 +673,30 @@ Template.asuntos2.events({
 	},
 	'click .archivados':()=>{
 		Session.set('estado-asunto',false);
+	},
+	'keyup .buscador-asuntos'(event,template){
+		debugger;
+		var query = template.find("[name='consulta']").value;
+		var tipo = template.find("[name='tipo']").value
+
+		if(tipo==="clientes") Session.set("nombre-cliente",query)
+		else Session.set("caratula-asunto",query);
+
+	},
+	'change .tipo-busqueda'(event,template){
+		debugger;
+		var tipo = template.find("[name='tipo']").value;
+
+		if(tipo==="clientes") {
+			Session.set("caratula-asunto","");
+			Session.set("tipo-busqueda","Clientes")
+		}
+		else{
+			Session.set("nombre-cliente","")
+			Session.set("tipo-busqueda","Asuntos")
+		}
 
 	}
-
 });
 
 Template.cuadroAsuntoNuevo.events({
