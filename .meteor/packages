@@ -63,3 +63,5 @@ dhtmlx:gantt-data
 mrt:moment-timezone
 meteorhacks:aggregate
 percolate:synced-cron
+d3js:d3
+random

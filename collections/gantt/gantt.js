@@ -6,6 +6,12 @@ TasksCollection.allow({
       /* user and doc checks ,
       return true to allow insert */
       return true; 
+    },
+    update: function (userId,doc) {
+      return true;
+    },
+    remove: function (userId,doc) {
+      return true;
     }
 });
 
@@ -14,5 +20,11 @@ LinksCollection.allow({
       /* user and doc checks ,
       return true to allow insert */
       return true; 
+    },
+    update: function (userId,doc) {
+      return true;
+    },
+    remove: function (userId,doc) {
+      return true;
     }
 });

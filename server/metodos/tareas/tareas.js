@@ -150,7 +150,7 @@ Meteor.methods({
 
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.createdAt = new Date();
-			datos.creadorId = thia.userId;
+			datos.creadorId = this.userId;
 			Subtareas.insert(datos);
 		} else {
 			return;

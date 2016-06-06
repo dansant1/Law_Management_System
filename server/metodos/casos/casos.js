@@ -50,5 +50,41 @@ Meteor.methods({
 		} else {
 			return;
 		}
+	},
+	'agregarNotaCaso': function (datos) {
+		check(datos, {			
+			descripcion: String,
+			bufeteId: String,
+			createdAt: Date,
+			caso: Object,
+			creador: Object
+		});
+
+
+		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+			
+
+			let casoNota = NotasCasos.insert(datos);
+			
+			if (casoNota) {
+				
+				NewsFeedCasos.insert({
+					descripcion: datos.creador.nombre + " agrego una nota al caso " + datos.caso.nombre,
+					creador: {
+						nombre: datos.creador.nombre,
+						id: datos.creador.id
+					},
+					caso: {
+						nombre: datos.caso.nombre,
+						id: datos.caso.id
+					},
+					bufeteId: datos.bufeteId,
+					createdAt: new Date()
+				});
+			}
+
+		} else {
+			return;
+		}
 	}
 });

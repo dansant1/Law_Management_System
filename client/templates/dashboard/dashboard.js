@@ -1047,6 +1047,48 @@ Template.tareasDetalle2.helpers({
   	}
 });
 
+Template.cuadroSubTareas.onCreated( function () {
+	var self = this;
+
+	self.autorun(function() {  	
+		let tareaId = FlowRouter.getParam('tareaId');
+    	self.subscribe('Subtareas', tareaId);
+   });
+});
+
+Template.cuadroSubTareas.helpers({
+	subtareas() {
+		return Subtareas.find({}, {sort: {createdAt: -1}});
+	}
+});
+
+Template.cuadroSubTareas.events({
+	'keyup [name="crear-subtarea"]': function (event, template) {
+		
+		let datos = {
+			descripcion: template.find('[name="crear-subtarea"]').value,
+			tareaId: FlowRouter.getParam('tareaId'),
+			bufeteId: Meteor.user().profile.bufeteId
+		}
+
+		
+
+		if(event.which == 13){
+        	//$(event.target).blur();
+        	template.find('[name="crear-subtarea"]').value = "";
+        	Meteor.call('crearSubtarea', datos, function (err, result) {
+        		if (err) {
+        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+        			template.find('[name="crear-subtarea"]').value = "";
+        		} else {
+        			template.find('[name="crear-subtarea"]').value = "";
+        			Bert.alert('Agregaste una sub tarea', 'success');
+        		}
+        	});
+    	}
+	}
+});
+
 function subirArchivoTarea (event, template) {
     let datos = {
       nombre: template.find('[name="nombre"]').value,
@@ -1318,6 +1360,21 @@ Template.fullScreenTareaAsuntoDocs.helpers({
     	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
+	}
+});
+
+Template.cuadroArchivosTareas.onCreated( function () {
+	var self = this;
+
+	self.autorun(function() {
+		let tareaId = FlowRouter.getParam('tareaId');
+		self.subscribe('archivosDeTareas', tareaId);
+   });
+});
+
+Template.cuadroArchivosTareas.helpers({
+	archivos: () => {
+		return DocumentosTareas.find({}, {sort: {createdAt: -1}});
 	}
 });
 
@@ -1747,18 +1804,15 @@ Template.clientes2.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
-	cantidad() {
-		return Clientes.find().fetch().length;
-	},
 	clientes(){
-		return Clientes.find({estatus:"cliente"}).count()
+		return Clientes.find({estatus:"cliente"}).fetch().length;
 	},
 	prospectos(){
-		return Clientes.find({estatus:"prospecto"}).count()
+		return Clientes.find({estatus:"prospecto"}).fetch().length;
 	
 	},
 	contactos(){
-		return Clientes.find({estatus:"contacto"}).count()
+		return Clientes.find({estatus:"contacto"}).fetch().length;
 	}
 });
 
@@ -2167,6 +2221,8 @@ Template.casoDetalle.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 		
     	self.subscribe('casos2', bufeteId);
+    	let casoId = FlowRouter.getParam('casoId');
+    	self.subscribe('newsCasos', casoId);
    });
 });
 
@@ -2176,8 +2232,137 @@ Template.casoDetalle.helpers({
 	},
 	email() {
 		return Meteor.user().emails[0].address
+	},
+	news() {
+		return NewsFeedCasos.find({}, {sort: {createdAt: -1}});
+	},
+	dia(fecha) {
+		debugger;
+		
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	casoId() {
+		return FlowRouter.getParam('casoId');
 	}
 });
+
+Template.casoNotas.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+		let casoId = FlowRouter.getParam('casoId');
+    	self.subscribe('casos2', bufeteId);
+    	self.subscribe('casosNotas', casoId);
+    	
+   });
+});
+
+Template.casoNotas.helpers({
+	caso() {
+		return Casos.findOne({_id: FlowRouter.getParam('casoId')});
+	},
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	dia(fecha) {
+		debugger;
+		
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	casoId() {
+		return FlowRouter.getParam('casoId');
+	},
+	notas() {
+		return NotasCasos.find({}, {sort: {createdAt: -1}});
+	}
+});
+
+Template.casoNotas.events({
+	'click .agregar-nota': (event, template) => {
+		let datos = {
+			descripcion: template.find('[name="descripcion"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			createdAt: new Date(),
+			caso: {
+				nombre: $('a.caso-nombre').text(),
+				id: FlowRouter.getParam('casoId')
+			},
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		}
+
+		if (datos.descripcion !== "") {
+			
+			Meteor.call('agregarNotaCaso', datos, function (err, result) {
+				if (err) {
+					template.find('[name="descripcion"]').value = "";
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					template.find('[name="descripcion"]').value = "";
+					Bert.alert('Agregaste una nota en el caso', 'success');
+				}
+			});
+
+		} else {
+			template.find('[name="descripcion"]').value = "";
+			Berta.alert('Por favor ingresa los datos correctamente', 'warning');
+		}
+	}
+});
+
+Template.casoTareas.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let bufeteId = Meteor.user().profile.bufeteId;
+		
+    	self.subscribe('casos2', bufeteId);
+    	
+    	
+   });
+});
+
+Template.casoTareas.helpers({
+	caso() {
+		return Casos.findOne({_id: FlowRouter.getParam('casoId')});
+	},
+	email() {
+		return Meteor.user().emails[0].address
+	},
+	dia(fecha) {
+		debugger;
+		
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	casoId() {
+		return FlowRouter.getParam('casoId');
+	}
+});
+
 
 Template.detalleClientes2.events({
 	'click .enviar-conversacion': function (event, template) {
@@ -2593,3 +2778,452 @@ Template.addEditEventModal.helpers({
     }
   }
 });
+
+// Logica del NewsFeed para CRM
+
+Template.newsCRM.onCreated(function () {
+	var self = this;
+
+	this.limite = new ReactiveVar(7);
+
+
+	self.autorun(function () {
+
+		let bufeteId = Meteor.user().profile.bufeteId;
+
+		self.subscribe('newsCRM', bufeteId, self.limite.get());
+	});
+
+});
+
+Template.newsCRM.helpers({
+	dia() {
+		var d = new Date(),
+    	minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	esAdministrador: () => {
+		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	news: () => {
+		return NewsFeedCasos.find({}, {sort: {createdAt: -1} });
+	},
+	haynews: () => {
+		if ( NewsFeedCasos.find().fetch().length > 8 ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	sucedio(createdAt) {
+
+		var d =  createdAt,
+        dformat = [	d.getDate().padLeft(),
+        			(d.getMonth()+1).padLeft(),
+                    d.getFullYear()].join('/')+
+                    ' ' +
+                  [ d.getHours().padLeft(),
+                    d.getMinutes().padLeft()].join(':');
+
+    	return dformat;
+	}
+});
+
+
+
+// Logica del Gantt
+
+Template.Gantt.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+    	self.subscribe('TareasGantt');
+    	self.subscribe('LinksGantt');
+   });
+});
+
+
+Template.Gantt.onRendered(() => {
+	
+	// Cambiamos a español
+	gantt.locale = {
+    date: {
+        month_full: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
+        month_short: ["Ene", "Feb", "Mar", "Abr", "Mayo", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
+        day_full: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+        day_short: ["Dom", "Lun", "Mar", "Mierc", "Jue", "Vier", "Sab"]
+    },
+    labels:{
+        new_task:"Tarea nueva",
+        icon_save:"agregar",
+        icon_cancel:"cancelar",
+        icon_details:"detalles",
+        icon_edit:"Modificar",
+        icon_delete:"Eliminar",
+        confirm_closing:"",//Vos modifications seront perdus, êtes-vous sûr ?
+        confirm_deleting:"¿Seguro que deseas eliminar la tarea?",
+ 
+        section_description:"Descripción",
+        section_time:"Periodo",
+        section_type:"Tipo",
+ 
+        /* grid columns */
+ 
+        column_text :  "Asuntos",
+        column_start_date : "Inició",
+        column_duration : "Duración",
+        column_add : "",
+ 
+ 
+        /* link confirmation */
+ 
+        type_task: "Tarea",
+        type_project: "Projecto",
+        type_milestone: "Hito",
+ 
+ 
+        minutes: "Minutos",
+        hours: "Horas",
+        days: "Dias",
+        weeks: "Semanas",
+        months: "Meses",
+        years: "Años"
+    	}
+	};
+
+
+	// Inicializamos el Gantt
+	gantt.init("diagrama");
+
+	// Conectamos la base de datos
+	gantt.meteor({tasks: TasksCollection.find(), links: LinksCollection.find()},
+				{tasks: TasksCollection, links: LinksCollection}
+		);
+
+});
+
+Template.Gantt.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+// logica de cliente para hacer el chart tipo pie
+
+Template.pieChart.onCreated(function () {
+	
+	var self = this;
+
+	self.autorun(function() {
+    	self.subscribe('slices');
+    	
+   });
+
+	Session.setDefault('pieChartSort','none');
+	Session.setDefault('pieChartSortModifier',undefined);
+});
+
+Template.pieChart.events({
+	'click #add':function(){
+		Meteor.call('add-slice', function (error, result) {
+			
+		});
+	},
+	'click #remove':function(){
+		Meteor.call('remove-slice', function (error, result) {
+			
+		});
+	},
+	'click #randomize':function(){
+		Meteor.call('random-slice', function (error, result) {
+			
+		});
+	},
+	'click #toggleSort':function(){
+		if(Session.equals('pieChartSort', 'none')){
+			Session.set('pieChartSort','asc');
+			Session.set('pieChartSortModifier',{sort:{value:1}});
+		}else if(Session.equals('pieChartSort', 'asc')){
+			Session.set('pieChartSort','desc');
+			Session.set('pieChartSortModifier',{sort:{value:-1}});
+		}else{
+			Session.set('pieChartSort','none');
+			Session.set('pieChartSortModifier',{});
+		}
+	}
+});
+
+Template.pieChart.onRendered(function(){
+	//Width and height
+	var w = 200;
+	var h = 200;
+
+	var outerRadius = w / 2;
+	var innerRadius = 0;
+	var arc = d3.svg.arc()
+					.innerRadius(innerRadius)
+					.outerRadius(outerRadius);
+	
+	var pie = d3.layout.pie()
+		.sort(null)
+		.value(function(d) {
+			return d.value;
+		});
+	
+	//Easy colors accessible via a 10-step ordinal scale
+	var color = d3.scale.category10();
+
+	//Create SVG element
+	var svg = d3.select("#pieChart")
+				.attr("width", w)
+				.attr("height", h);
+	
+	var key = function(d){ 
+		return d.data._id;
+	};
+
+	Deps.autorun(function(){
+		var modifier = {fields:{value:1}};
+		var sortModifier = Session.get('pieChartSortModifier');
+		if(sortModifier && sortModifier.sort)
+			modifier.sort = sortModifier.sort;
+		
+		var dataset = Slices.find({},modifier).fetch();
+		
+		var arcs = svg.selectAll("g.arc")
+					  .data(pie(dataset), key);
+
+		var newGroups = 
+			arcs
+				.enter()
+				.append("g")
+				.attr("class", "arc")
+				.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+		
+		//Draw arc paths
+		newGroups
+			.append("path")
+			.attr("fill", function(d, i) {
+				return color(i);
+			})
+			.attr("d", arc);
+		
+		//Labels
+		newGroups
+			.append("text")
+			.attr("transform", function(d) {
+				return "translate(" + arc.centroid(d) + ")";
+			})
+			.attr("text-anchor", "middle")
+			.text(function(d) {
+				return d.value;
+			});
+
+		arcs
+			.transition()
+			.select('path')
+			.attrTween("d", function(d) {
+				this._current = this._current || d;
+				var interpolate = d3.interpolate(this._current, d);
+				this._current = interpolate(0);
+				return function(t) {
+					return arc(interpolate(t));
+				};
+			});
+		
+		arcs
+			.transition()
+			.select('text')
+			.attr("transform", function(d) {
+				return "translate(" + arc.centroid(d) + ")";
+			})
+			.text(function(d) {
+				return d.value;
+			});
+
+		arcs
+			.exit()
+	 		.remove();
+	});
+});
+
+
+// Logica de cliente para hacer el chart de tipo bar
+
+Template.barChart.onCreated(function () {
+	
+	var self = this;
+
+	self.autorun(function() {
+    	self.subscribe('bars');
+    	
+   	});
+
+
+	Session.setDefault('barChartSort','none');
+	Session.setDefault('barChartSortModifier',undefined);
+});
+
+Template.barChart.events({
+	'click #add':function(){
+		Meteor.call('add-bar', function (error, result) {});
+	},
+	'click #remove':function(){
+		Meteor.call('remove-bar', function (error, result) {});
+	},
+	'click #randomize':function(){
+		Meteor.call('random-bar', function (error, result) {});
+	},
+	'click #toggleSort':function(){
+		if(Session.equals('barChartSort', 'none')){
+			Session.set('barChartSort','asc');
+			Session.set('barChartSortModifier',{sort:{value:1}});
+		}else if(Session.equals('barChartSort', 'asc')){
+			Session.set('barChartSort','desc');
+			Session.set('barChartSortModifier',{sort:{value:-1}});
+		}else{
+			Session.set('barChartSort','none');
+			Session.set('barChartSortModifier',{});
+		}
+	},
+	'click rect':function(event, template){
+		//alert('you clicked a bar for document with _id=' + $(event.currentTarget).data("id"));
+	}
+});
+
+
+Template.barChart.rendered = function(){
+	//Width and height
+	var w = 500;
+	var h = 250;
+	
+	var xScale = d3.scale.ordinal()
+					.rangeRoundBands([0, w], 0.05);
+
+	var yScale = d3.scale.linear()
+					.range([0, h]);
+	
+	//Define key function, to be used when binding data
+	var key = function(d) {
+		return d._id;
+	};
+	
+	//Create SVG element
+	var svg = d3.select("#barChart")
+				.attr("width", w)
+				.attr("height", h);
+
+	Deps.autorun(function(){
+		var modifier = {fields:{value:1}};
+		var sortModifier = Session.get('barChartSortModifier');
+		if(sortModifier && sortModifier.sort)
+			modifier.sort = sortModifier.sort;
+		
+		var dataset = Bars.find({},modifier).fetch();
+
+		//Update scale domains
+		xScale.domain(d3.range(dataset.length));
+		yScale.domain([0, d3.max(dataset, function(d) { return d.value; })]);
+
+		//Select…
+		var bars = svg.selectAll("rect")
+			.data(dataset, key);
+		
+		//Enter…
+		bars.enter()
+			.append("rect")
+			.attr("x", w)
+			.attr("y", function(d) {
+				return h - yScale(d.value);
+			})
+			.attr("width", xScale.rangeBand())
+			.attr("height", function(d) {
+				return yScale(d.value);
+			})
+			.attr("fill", function(d) {
+				return "rgb(0, 0, " + (d.value * 10) + ")";
+			})
+			.attr("data-id", function(d){
+				return d._id;
+			});
+
+		//Update…
+		bars.transition()
+			// .delay(function(d, i) {
+			// 	return i / dataset.length * 1000;
+			// }) // this delay will make transistions sequential instead of paralle
+			.duration(500)
+			.attr("x", function(d, i) {
+				return xScale(i);
+			})
+			.attr("y", function(d) {
+				return h - yScale(d.value);
+			})
+			.attr("width", xScale.rangeBand())
+			.attr("height", function(d) {
+				return yScale(d.value);
+			}).attr("fill", function(d) {
+				return "rgb(0, 0, " + (d.value * 10) + ")";
+			});
+
+		//Exit…
+		bars.exit()
+			.transition()
+			.duration(500)
+			.attr("x", -xScale.rangeBand())
+			.remove();
+
+
+
+		//Update all labels
+
+		//Select…
+		var labels = svg.selectAll("text")
+			.data(dataset, key);
+		
+		//Enter…
+		labels.enter()
+			.append("text")
+			.text(function(d) {
+				return d.value;
+			})
+			.attr("text-anchor", "middle")
+			.attr("x", w)
+			.attr("y", function(d) {
+				return h - yScale(d.value) + 14;
+			})						
+		   .attr("font-family", "sans-serif")
+		   .attr("font-size", "11px")
+		   .attr("fill", "white");
+
+		//Update…
+		labels.transition()
+			// .delay(function(d, i) {
+			// 	return i / dataset.length * 1000;
+			// }) // this delay will make transistions sequential instead of paralle
+			.duration(500)
+			.attr("x", function(d, i) {
+				return xScale(i) + xScale.rangeBand() / 2;
+			}).attr("y", function(d) {
+				return h - yScale(d.value) + 14;
+			}).text(function(d) {
+				return d.value;
+			});
+
+		//Exit…
+		labels.exit()
+			.transition()
+			.duration(500)
+			.attr("x", -xScale.rangeBand())
+			.remove();
+
+	});
+};

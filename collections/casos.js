@@ -104,6 +104,15 @@ EsquemaNotasCasos = new SimpleSchema({
 	createdAt: {
 		type: Date
 	},
+	caso: {
+		type: Object
+	},
+	'caso.nombre': {
+		type: String
+	},
+	'caso.id': {
+		type: String
+	},
 	creador: {
 		type: Object
 	},

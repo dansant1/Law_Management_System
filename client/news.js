@@ -1,7 +1,7 @@
 Template.newsfeed.onCreated(function () {
 	var self = this;
 
-	this.limite = new ReactiveVar(10);
+	this.limite = new ReactiveVar(7);
 
 
 	self.autorun(function () {

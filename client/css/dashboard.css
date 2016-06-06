@@ -25,7 +25,7 @@
 
 .contenido-dashboard {	
 	width: 82%;
-    min-height: 800px;
+    min-height: 500px;
     position: absolute;
     right: 0;
     background: #F9F9F9;
@@ -241,7 +241,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	min-height: 250px;
+	min-height: 175px;
 	margin: 15 auto;
 }
 
@@ -257,5 +257,10 @@
 	color: white;
 	text-align: center;
 	
+}
+
+.cuadro-pie {
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 }
 
