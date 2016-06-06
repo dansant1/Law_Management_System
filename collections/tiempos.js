@@ -80,6 +80,9 @@ EsquemaHoras = new SimpleSchema({
 	},
 	facturado: {
 		type: Boolean
+	},
+	bloqueado: {
+		type: Boolean
 	}
 });
 
@@ -153,3 +156,88 @@ EsquemaGastos = new SimpleSchema({
 });
 
 Gastos.attachSchema(EsquemaGastos);
+
+
+// Bases de datos para el modulo Facturacion
+
+Cobros = new Mongo.Collection('cobros');
+
+Cobros.allow({
+	insert: () => {
+		return false;
+	},
+	update: () => {
+		return false;
+	},
+	remove: () => {
+		return false;
+	}
+});
+
+Cobros.deny({
+	insert: () => {
+		return true;
+	},
+	update: () => {
+		return true;
+	},
+	remove: () => {
+		return true;
+	}
+});
+
+EsquemaCobros = new SimpleSchema({
+  	descripcion: {
+    	type: String
+  	},
+  	cliente: {
+  		type: Object
+  	},
+  	'cliente.nombre': {
+  		type: String
+  	},
+  	'cliente.id': {
+  		type: String
+  	},
+	bufeteId: {
+		type: String
+	},
+	fecha: {
+		type: String
+	},
+	createdAt: {
+		type: Date
+	},
+	estado: {
+		type: String
+	},
+	creador: {
+		type: Object
+	},
+	'creador.nombre': {
+		type: String
+	},
+	'creador.id': {
+		type: String
+	},
+  	asunto: {
+  		type: Object
+  	},
+  	'asunto.nombre': {
+  		type: String
+  	},
+  	'asunto.id': {
+  		type: String
+  	},
+  	moneda: {
+  		type: String
+  	},
+  	tipoTarifa: {
+  		type: String
+  	},
+  	numero: {
+  		type: Number
+  	}
+});
+
+Cobros.attachSchema(EsquemaCobros);

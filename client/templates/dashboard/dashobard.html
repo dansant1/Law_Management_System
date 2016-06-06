@@ -118,13 +118,13 @@
     <i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 74px;"></i>
     </h5> 
   </div>
-
+{{#if hayTareas}}
   <div class="sidebar-lista">
     {{#each tareas}}
       {{> itemTareas}}
     {{/each}}
   </div>
-
+{{/if}}
 </template>
 
 <template name="itemTareas">
@@ -911,7 +911,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="abiertos" href="#">Abiertos</a></li>
                     <li><a class="cerrados" href="#">Cerrados</a></li>
-                    <li><a class="gant" href="#">Gant</a></li>
+                    <li><a class="gant" href="/diagrama">Gantt</a></li>
                 </ul>
             </div>
 
@@ -4962,10 +4962,7 @@
   </div>
 
   
-  {{else}}
-  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    {{>loader}}
-  </div>
+  
   {{/with}}
   </div>
   <div style="display: flex; flex-wrap;">
@@ -4990,9 +4987,7 @@
   </div>
 
   <div style="display: flex; flex-wrap;">
-    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
-      
-       
+    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">    
 
     </div>
   </div>
@@ -5008,9 +5003,7 @@
     </div>
   </div>
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a> 
+   
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -5119,20 +5112,21 @@
 
 <template name="pieChart">
     
-    <div class="cuadro-pie" style="display: block; width: 31%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center;">
+    <div class="cuadro-pie" style="display: block; width: 31%; height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center;">
       <h2 style="margin-top: 10px; margin-bottom: 15px;">Contactos</h2>
-      <svg id="pieChart" style="margin: 0 auto; display: block"></svg>
-      <br>
+      <!--<svg id="pieChart" style="margin: 0 auto; display: block"></svg>-->
+      <canvas id="myChart4" width="200" height="200"></canvas>
+      <br><br>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> CONTACTOS </a>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #8e44ad;"> </span> PROSPECTOS </a>
       <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> CLIENTES </a>
-      <br>
+     <!-- <br>
       <br>
       <input type="button" id="add" value="sumar" style="display: inline;" />
     <input type="button" id="remove" value="eliminar" style="display: inline;" />
     <input type="button" id="randomize" value="Random" style="display: inline;"/>
     <input type="button" id="toggleSort" value="Toggle" style="display: inline;"/>
-     
+     -->
 
     </div>
 </template>
@@ -5141,16 +5135,145 @@
 <template name="barChart">
   <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
     
-     <h2 style="margin-top: 10px; margin-bottom: 15px;">Ventas</h2>
+    <h2 style="color: #34495e; margin-top: 12px;">Ventas</h2>
+   
+    <canvas id="myChart" width="600" height="240"></canvas> 
 
-    <svg id="barChart" style="margin: 0 auto; display: block"></svg>
-
-    <br>
+   <!-- <br>
     <br>
     <input type="button" id="add" value="sumar" style="display: inline;"/>
     <input type="button" id="remove" value="eliminar" style="display: inline;"/>
     <input type="button" id="randomize" value="Random" style="display: inline;"/>
-    <input type="button" id="toggleSort" value="Toggle" style="display: inline;"/>
+    <input type="button" id="toggleSort" value="Toggle" style="display: inline;"/> -->
 
   </div>
+</template>
+
+<template name="lineaChartFacturacion">
+ <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+  <div class="box">
+    <canvas id="myChart4" width="400" height="400"></canvas>
+    <!--<canvas id="#pie-chart" width="400" height="400"></canvas>-->
+  </div>
+</template>
+
+<template name="resumenFacturacion">
+  <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 4px;">
+        
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+      <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/facturacion" class="menu-asunto-aim asunto-item-activo">
+      Resúmen
+    </a>
+    <a href="#" class="menu-asunto-aim" style="margin-left: 0px;">
+      Horas
+    </a>
+    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+      Gastos
+    </a>
+    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+      Cobros
+    </a>
+    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+      Avanzado
+    </a>
+    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+      Configuración
+    </a>
+  </div>
+
+    <div class="box">
+      {{> charts}}
+    </div>
+</template>
+
+<template name="charts">
+  <div class="cuadro-pie" style="display: block; width: 95.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+    <h2 style="color: #34495e;">Ventas semestrales</h2>
+    <br>
+    <canvas id="myChart" width="825" height="400"></canvas>    
+  </div>
+  <br>
+  <!--<div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+    <canvas id="myChart2" width="400" height="400"></canvas>
+  </div>
+  <br>
+  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+     <canvas id="myChart3" width="400" height="400"></canvas> 
+  </div>
+  <br>
+  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+   <canvas id="myChart4" width="400" height="400"></canvas>    
+  </div>
+  <br>
+  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+     <canvas id="myChart5" width="400" height="400"></canvas>    
+  </div> -->
+   
 </template>
