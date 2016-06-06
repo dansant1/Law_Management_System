@@ -3093,33 +3093,37 @@ Template.pieChart.onRendered(function(){
 	 		.remove();
 	});*/
 
-	var ctx4 = document.getElementById("myChart4").getContext("2d");
+		function chartLine(){
 
-	var data4 = [
-    {
-        value: random(),
-        color:"#2ecc71",
-        highlight: "#e74c3c",
-        label: "Contactos"
-    },
-    {
-        value: random(),
-        color: "#9b59b6",
-        highlight: "#2ecc71",
-        label: "Prospectos"
-    },
-    {
-        value: random(),
-        color: "#e74c3c",
-        highlight: "#9b59b6",
-        label: "Clientes"
-    }]
+			var ctx4 = document.getElementById("myChart4").getContext("2d");
 
-    let myPieChart = new Chart(ctx4).Pie(data4,{
-        animateScale: true
-    });
+			var data4 = [
+				{
+						value: Clientes.find({estatus:"contacto"}).count(),
+						color:"#2ecc71",
+						highlight: "#e74c3c",
+						label: "Contactos"
+				},
+				{
+						value: Clientes.find({estatus:'prospecto'}).count(),
+						color: "#9b59b6",
+						highlight: "#2ecc71",
+						label: "Prospectos"
+				},
+				{
+						value: Clientes.find({estatus:'cliente'}).count(),
+						color: "#e74c3c",
+						highlight: "#9b59b6",
+						label: "Clientes"
+				}]
 
+				let myPieChart = new Chart(ctx4).Pie(data4,{
+						animateScale: true
+				});
 
+		}
+
+		Tracker.autorun(chartLine);
 });
 
 function random() {
