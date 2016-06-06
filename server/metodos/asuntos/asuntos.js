@@ -27,9 +27,21 @@ Meteor.methods({
 
 			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
 
+			asuntos.abogados = [];
+			Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},
+					{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
+						asuntos.abogados.push(
+							{
+								id:cliente._id,
+								nombre: cliente.profile.nombre + " " + cliente.profile.apellido
+							}
+					);
+			});
+
+			console.log(asuntos.abogados)
 
 			if (asuntos.inicio !== "") {
-				asuntos.inicio	= new Date(asuntos.inicio);	
+				asuntos.inicio	= new Date(asuntos.inicio);
 			} else {
 				asuntos.inicio = "";
 			}
@@ -38,7 +50,7 @@ Meteor.methods({
 
 			if (asuntos.carpeta === "" || asuntos.carpeta === undefined) {
 				asuntos.carpeta = "0"
-			} 
+			}
 
 			asuntos.creadorId = this.userId;
 			asuntos.abierto = true;
@@ -65,7 +77,7 @@ Meteor.methods({
 				if (fecha !== "") {
 					Eventos.insert(evento);
 				}
-				
+
 				NewsFeed.insert({
 					descripcion: 'creó el asunto ' + asuntos.caratula + ' [' + asuntos.carpeta + ']',
 					tipo: 'Expediente',

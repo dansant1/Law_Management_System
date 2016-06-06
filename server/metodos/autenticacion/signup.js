@@ -44,7 +44,6 @@ Meteor.methods({
 	
 	},
 	agregarUsuarioEquipo: function (datos) {
-
 		check(datos, {
 			email: String,
 			password: String,
@@ -53,13 +52,15 @@ Meteor.methods({
 				apellido: String,
 				telefono: String,
 				bufete: String,
-				bufeteId: String
+				bufeteId: String,
+				tipo: String
 			}	
 		});
 
+	
 		let usuarioId = Accounts.createUser(datos);
 
-		Roles.addUsersToRoles(usuarioId, ['abogado'], 'bufete');
+		Roles.addUsersToRoles(usuarioId, ['abogado',datos.profile.tipo], 'bufete');
 	
 
 	}

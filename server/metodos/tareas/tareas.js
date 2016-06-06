@@ -108,7 +108,7 @@ Meteor.methods({
 
 		Tareas.update({_id:tareaId},{
 			$set:{
-				vence: new Date(fecha)
+				vence: new Date(fecha+" GMT-0500")
 			}
 		})
 

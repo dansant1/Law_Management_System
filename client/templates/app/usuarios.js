@@ -41,7 +41,8 @@ Template.usuarioForm.events({
    			profile: {
    				nombre: template.find( '[name="nombre"]' ).value,
    				apellido: template.find( '[name="apellido"]' ).value,
-					telefono: template.find('[name="telefono"]').value
+					telefono: template.find('[name="telefono"]').value,
+					tipo: template.find('[name="tipo"]').value
    			}
 		}
 

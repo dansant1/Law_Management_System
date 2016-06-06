@@ -59,7 +59,8 @@ Meteor.publish('asuntosxequipo',function (miembroId,bufeteId) {
 		let projection = { limit: 3, sort: { nombre: 1 }}
 
 		return Asuntos.find({$and:[
-				{"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]},
+			// {"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]},
+				{"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId}]},
 				{bufeteId:bufeteId}
 			]
 		},projection);
