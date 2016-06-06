@@ -114,6 +114,7 @@ nilsdannemann:pdfmake@1.0.38
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43
 observe-sequence@1.0.11
+okgrow:analytics@1.0.6
 ongoworks:security@2.0.1
 ordered-dict@1.0.7
 peppelg:bootstrap-3-modal@1.0.4

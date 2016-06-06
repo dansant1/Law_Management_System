@@ -17,13 +17,21 @@ Template.signup.events({
         if ( err ) {
             Bert.alert( err.reason, 'warning' );
           } else {
-
             let email     = user.email,
                 password  = user.password;
+            analytics.identify( result.userId, {
+              email: email,
+              name: user.profile.nombre + " " + user.profile.apellido
+            });
+
+            
 
             Bert.alert( '¡Bienvenido!', 'success' );
             Meteor.loginWithPassword(email, password, function () {
-
+                analytics.identify( Meteor.userId(), {
+                  email: Meteor.user().emails[0].address,
+                  name: Meteor.user().profile.name
+                });
             });
 
             FlowRouter.go('/dashboard2');

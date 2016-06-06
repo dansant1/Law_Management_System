@@ -1,0 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Open%20Sans:300,400,500,600,700);
+
+
+h1 {
+	color: black;
+}
+
+a#marca-bunqr {
+	color: #34495e;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	font-size: 25px;
+}

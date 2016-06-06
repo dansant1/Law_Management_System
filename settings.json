@@ -4,6 +4,12 @@
 			{ 	"ROOT_URL": "https://app.grupoddv.pw", 
 				"MONGO_URL": "mongodb://danieldelgadilloh:developer24@waffle.modulusmongo.net:27017/wiWy3jiv" 
 			} 
-		}
+		},
+	"public": {
+    	"analyticsSettings": {
+      		"Mixpanel": { "token": "6413b5fae3f7ec417e4193306d3a56d1", "people": true }
+    	}
+  	},
+  	"private": {}
 }
 

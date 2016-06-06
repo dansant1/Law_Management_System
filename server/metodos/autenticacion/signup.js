@@ -17,8 +17,30 @@ Meteor.methods({
 		datos.profile.bufeteId = bufeteId;
 
 		let usuarioId = Accounts.createUser(datos);
+		Accounts.sendVerificationEmail( usuarioId );
 
 		Roles.addUsersToRoles(usuarioId, ['administrador'], 'bufete');
+
+		Meteor.defer(function() {
+  			SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
+
+			var emailData = {
+  				nombre: datos.profile.nombre + " " + datos.profile.apellido
+			};
+
+			Email.send({
+  				to: datos.email,
+  				from: "daniel@grupoddv.pw",
+  				subject: "Bienvenido a BUNQR",
+  				html: SSR.render( 'htmlEmail', emailData )
+			});
+		}); 
+
+
+
+		return {
+			userId: usuarioId
+		}
 	
 	},
 	agregarUsuarioEquipo: function (datos) {
