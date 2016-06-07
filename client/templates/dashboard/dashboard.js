@@ -2939,6 +2939,12 @@ Template.Gantt.onRendered(() => {
 	};
 
 
+
+	gantt.config.start_date = new Date(new Date().getFullYear(),0,1);
+
+	gantt.config.end_date = new Date(new Date().getFullYear(), 11, 31)
+
+
 	// Inicializamos el Gantt
 	gantt.init("diagrama");
 
@@ -2946,8 +2952,10 @@ Template.Gantt.onRendered(() => {
 	gantt.meteor({tasks: TasksCollection.find(), links: LinksCollection.find()},
 				{tasks: TasksCollection, links: LinksCollection}
 		);
-
+	gantt.showDate(new Date())
 });
+
+//usage
 
 Template.Gantt.helpers({
 	email() {

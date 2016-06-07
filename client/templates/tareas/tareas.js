@@ -75,9 +75,8 @@ Template.tareasGantt.onRendered(() => {
 	
 	gantt.config.scale_height = 44;
 
-	
 
-	//gantt.config.scale_unit = "week"; 
+	//gantt.config.scale_unit = "week";
 	//gantt.config.date_scale = "Week #%W";
 
 	gantt.templates.scale_cell_class = function(date) {
@@ -91,6 +90,8 @@ Template.tareasGantt.onRendered(() => {
         	return "weekend" ;
     	}
 	};
+
+	gantt.config.start_date = new Date();
 
 	gantt.init("gantt_here");
 
