@@ -61,7 +61,6 @@ reactive-dict
 dhtmlx:gantt
 dhtmlx:gantt-data
 mrt:moment-timezone
-meteorhacks:aggregate
 percolate:synced-cron
 d3js:d3
 random
@@ -71,3 +70,4 @@ kadira:debug
 meteorhacks:kadira
 meteorhacks:kadira-profiler
 underscore
+jcbernack:reactive-aggregate

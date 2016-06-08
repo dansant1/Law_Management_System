@@ -83,7 +83,8 @@ EsquemaHoras = new SimpleSchema({
 		type: Boolean
 	},
 	bloqueado: {
-		type: Boolean
+		type: Boolean,
+		optional:true
 	}
 });
 

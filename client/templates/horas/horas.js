@@ -176,7 +176,7 @@ Template.agregarHoras.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('equipo', bufeteId);
-		self.subscribe('asuntos', bufeteId);
+		// self.subscribe('asuntos', bufeteId);
    });
 });
 
@@ -199,8 +199,16 @@ Template.agregarHoras.events({
 			bufeteId: Meteor.user().profile.bufeteId,
 			horas: template.find('[name="horas"]').value,
 			minutos: template.find('[name="minutos"]').value,
-			precio: template.find('[name="precio"]').value
+			precio: template.find('[name="precio"]').value,
+			cobrado: $(".cobrado").is(":checked"),
+			tarea: $(".es-tarea").is(":checked"),
+			creador: {
+				id: Meteor.user()._id,
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+			}
 		}
+
+
 
 		datos.asunto = {
 			nombre: $( ".asunto option:selected" ).text(),
@@ -281,7 +289,7 @@ Template.agregarGasto.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('equipo', bufeteId);
-		self.subscribe('asuntos', bufeteId);
+		// self.subscribe('asuntosx', bufeteId);
    });
 });
 

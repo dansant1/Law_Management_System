@@ -107,135 +107,29 @@
 
         <!-- Lista de horas -->
         <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
-        	
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
 
-        	</div>
-
+            {{#each horas}}
 
         	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
 			
 			<div style="display: flex; width: 80%; height: 85px;">
 				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
+					<h5 style="color: #7f8c8d;">{{ this.asunto.nombre}}</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">{{this.descripcion}}</h1>
 				</div>
 			
 				<div style="margin: 25px; margin-top: 0px;">
 					<h5 style="color: #7f8c8d;">Tiempo</h5>
 						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">{{this.horas}}:{{this.minutos}}</h1>
 									
 				</div>
 			</div>
 
         	</div>
+            {{/each}}
 
 
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
-
-        	</div>
-
-
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
-
-        	</div>
-
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
-
-        	</div>
-
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
-
-        	</div>
-
-			<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Daños y Perjuicios</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Redactar minuta</h1>	
-				</div>
-			
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">05:45</h1>
-									
-				</div>
-			</div>
-
-        	</div>
 
        
         </div>

@@ -3430,7 +3430,7 @@ Template.barChart.onCreated(function () {
 
 	self.autorun(function() {
     	self.subscribe('bars');
-    	
+    	self.subscribe('estadisticasCasos')
    	});
 
 

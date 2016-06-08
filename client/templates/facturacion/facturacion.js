@@ -1,6 +1,17 @@
+Template.facturacion.onRendered(function(){
+	var self = this;
+	var bufeteId = Meteor.user().profile.bufeteId
+	self.autorun(function(){
+				self.subscribe('horas',bufeteId)
+	})
+})
+
 Template.facturacion.helpers({
 	email() {
 		return Meteor.user().emails[0].address
+	},
+	horas(){
+		return Horas.find();
 	}
 });
 
