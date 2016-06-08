@@ -12,10 +12,12 @@ Meteor.methods({
 		datos.estatus = "abierto";
 
 
-		
+
 
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
-			
+
+			// datos._id = new Meteor.Collection.ObjectID();
+
 			if ( Clientes.findOne({_id: datos.contacto.id}).estatus === "contacto" ) {
 				Clientes.update({_id: datos.contacto.id}, {
 					$set: {
@@ -25,9 +27,9 @@ Meteor.methods({
 			}
 
 			let caso = Casos.insert(datos);
-			
+
 			if (caso) {
-				
+
 				NewsFeedCasos.insert({
 					descripcion: datos.creador.nombre + " agrego un nuevo caso para el contacto " + datos.contacto.nombre,
 					creador: {
@@ -52,7 +54,7 @@ Meteor.methods({
 		}
 	},
 	'agregarNotaCaso': function (datos) {
-		check(datos, {			
+		check(datos, {
 			descripcion: String,
 			bufeteId: String,
 			createdAt: Date,
@@ -62,12 +64,12 @@ Meteor.methods({
 
 
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
-			
+
 
 			let casoNota = NotasCasos.insert(datos);
-			
+
 			if (casoNota) {
-				
+
 				NewsFeedCasos.insert({
 					descripcion: datos.creador.nombre + " agrego una nota al caso " + datos.caso.nombre,
 					creador: {

@@ -1,9 +1,9 @@
-{ 
-	"galaxy.meteor.com": 
-		{ "env": 
-			{ 	"ROOT_URL": "https://app.grupoddv.pw", 
-				"MONGO_URL": "mongodb://danieldelgadilloh:developer24@waffle.modulusmongo.net:27017/wiWy3jiv" 
-			} 
+{
+	"galaxy.meteor.com":
+		{ "env":
+			{ 	"ROOT_URL": "https://app.grupoddv.com",
+				"MONGO_URL": "mongodb://danieldelgadilloh:developer24@waffle.modulusmongo.net:27017/wiWy3jiv"
+			}
 		},
 	"public": {
     	"analyticsSettings": {
@@ -12,8 +12,7 @@
   	},
   	"private": {},
   	"kadira": {
-  		"appId": "3uADFTkDNqXRehSgf", 
+  		"appId": "3uADFTkDNqXRehSgf",
   		"appSecret": "22d05cf9-5fef-417b-808c-900695342b72"
   	}
 }
-

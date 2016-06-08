@@ -3428,10 +3428,11 @@ Template.barChart.onCreated(function () {
 	
 	var self = this;
 
+
 	self.autorun(function() {
-    	self.subscribe('bars');
-    	self.subscribe('estadisticasCasos')
-   	});
+		self.subscribe('estadisticasCasos')
+		self.subscribe('bars');
+	});
 
 
 	Session.setDefault('barChartSort','none');
