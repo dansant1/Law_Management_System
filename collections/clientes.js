@@ -62,6 +62,9 @@ EsquemaClientes = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Email,
         optional: true
 	},
+	nombreCompleto:{
+		type:String
+	},
 	bufeteId: {
 		type: String
 	},

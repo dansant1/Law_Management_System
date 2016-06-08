@@ -198,6 +198,7 @@ Template.agregarHoras.events({
 			fecha: template.find('[name="fecha"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
 			horas: template.find('[name="horas"]').value,
+			minutos: template.find('[name="minutos"]').value,
 			precio: template.find('[name="precio"]').value
 		}
 
@@ -215,6 +216,7 @@ Template.agregarHoras.events({
 
 			Meteor.call('agregarHora', datos, function (err, result) {
 				if (err) {
+					console.log(err)
 					Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
 				} else {
 					$('#agregar-modal').modal('hide');

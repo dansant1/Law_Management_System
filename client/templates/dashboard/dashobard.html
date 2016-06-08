@@ -3193,7 +3193,9 @@
       </h5>
   </div>
   </div>
-  
+  <div class="">
+      <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto">
+  </div>
   {{#each clientes}}
   <div >
    <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
@@ -3251,6 +3253,7 @@
       </p>
     </div>
   </div>
+
 
   <div class="franja-filtros" style="padding-left: 18px;">
     <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
@@ -3316,6 +3319,9 @@
       </h5>
   </div>
   </div>
+      <div class="">
+          <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del prospecto  " name="consulta" class="form-control buscador-prospectos">
+      </div>
   
   {{#each clientes}}
   <div >
@@ -3421,7 +3427,8 @@
   </div>
 
   <div>
-     <div class="sidebar-vertical-blanco">
+
+    <div class="sidebar-vertical-blanco">
    
     {{>botonNuevosContactos}}
     <div class="sidebar-titulo">
@@ -3437,9 +3444,11 @@
       <h5 class="sidebar-item" style=" padding-left: 20px;">
         <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
       </h5>
+      </div>
   </div>
-  </div>
-  
+      <div class="">
+          <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del cliente  " name="consulta" class="form-control buscador-clientes">
+      </div>
   {{#each clientes}}
   <div >
    <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
@@ -5246,7 +5255,7 @@
     <a href="/facturacion" class="menu-asunto-aim asunto-item-activo">
       Resúmen
     </a>
-    <a href="#" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
       Horas
     </a>
     <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">

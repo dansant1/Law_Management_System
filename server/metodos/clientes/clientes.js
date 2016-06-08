@@ -1,4 +1,4 @@
-Meteor.methods({
+ Meteor.methods({
 	crearCliente: function (datos) {
 		check(datos, {
 			nombre: String,
@@ -14,6 +14,7 @@ Meteor.methods({
 			autor: String
 		});
 
+		datos.nombreCompleto = datos.nombre + " " + datos.apellido;
 		datos.createdAt = new Date();
 		datos.creadorId = this.userId;
 		datos.estatus = "contacto";

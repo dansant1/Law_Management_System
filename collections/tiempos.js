@@ -67,7 +67,8 @@ EsquemaHoras = new SimpleSchema({
 		optional: true
 	},
 	tarea: {
-		type: Boolean
+		type: Boolean,
+		optional:true
 	},
 	horasFacturables: {
 		type: Number

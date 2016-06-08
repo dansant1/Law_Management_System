@@ -45,10 +45,53 @@ Meteor.publish('prospectos', function (bufeteId) {
 Meteor.publish('clientesOficial', function (bufeteId) {
   
   check(bufeteId, String);
+  var self = this
 
   if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
     return Clientes.find({bufeteId: bufeteId, estatus: 'cliente'});
+
+/*    clientes = Clientes.aggregate([
+      {$project:{
+        fullname:{
+          $concat:["$nombre"," ","$apellido"],
+        },
+        nombre:"$nombre",
+        apellido:"$apellido",
+        direccion:"$direccion",
+        telefono:"$telefono",
+        celular:"$celular",
+        email:"$email",
+        provincia:"$provincia",
+        pais:"$pais",
+        bufeteId:"$bufeteId",
+        autor:"$autor",
+        creadorId:"$creadorId",
+        estatus:"$estatus",
+        archivado:"$archivado"
+      }}
+    ]);
+
+    _(clientes).each(function(cliente){
+        self.added('clientes',Random.id(),{
+        fullname: cliente.fullname,
+        nombre: cliente.nombre,
+        apellido:cliente.apellido,
+        direccion:cliente.direccion,
+        telefono:cliente.telefono,
+        celular:cliente.celular,
+        email:cliente.email,
+        provincia:cliente.provincia,
+        pais:cliente.pais,
+        bufeteId:cliente.bufeteId,
+        autor:cliente.autor,
+        creadorId:cliente.creadorId,
+        estatus:cliente.estatus,
+        archivado:cliente.archivado
+      })
+    })*/
+
+
 
   } else {
     this.stop();
