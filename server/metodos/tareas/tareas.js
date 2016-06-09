@@ -101,7 +101,7 @@ Meteor.methods({
 		})
 
 	},
-	
+
 	actualizarFechaTarea(tareaId,fecha){
 		check(tareaId,String)
 		check(fecha,String)
@@ -127,7 +127,7 @@ Meteor.methods({
 		}
 	},
 	agregarComentarioATarea: function (datos) {
-		check(datos, {	
+		check(datos, {
 			comentario: String,
 			tareaId: String,
 			creador: Object,
@@ -135,9 +135,35 @@ Meteor.methods({
 		});
 
 
+
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+			// console.log('Entro aqui');
 			datos.createdAt = new Date();
 			ComentariosDeTareas.insert(datos);
+
+			let tarea = Tareas.find({_id:datos.tareaId}).fetch()[0];
+			if(tarea.asunto){
+
+				let asunto = Asuntos.find({_id:tarea.asunto.id}).fetch()[0];
+
+				for (var i = 0; i < asunto.abogados.length; i++) {
+					let miembro = Meteor.users.find({_id:asunto.abogados[i].id}).fetch()[0];
+
+					//if(miembro._id===datos.creador.id) return;
+
+					var fechaFormateada = datos.createdAt.getDate() + "/" + (datos.createdAt.getMonth()+1) + "/" + datos.createdAt.getFullYear();
+
+					Email.send({
+						to: miembro.emails[0].address,
+						from: "notificacion@bunqr.pw",
+						subject: 'Notificacion BUNQR',
+						html: datos.creador.nombre + " comento la tarea " + tarea.descripcion + " a las " + fechaFormateada + " en el asunto " + asunto.caratula
+					})
+				}
+			}
+
+
 		} else {
 			return;
 		}
@@ -221,7 +247,7 @@ Meteor.methods({
 				return {
 					_id: tarea
 				}
-				
+
 			} else {
 				return;
 			}
