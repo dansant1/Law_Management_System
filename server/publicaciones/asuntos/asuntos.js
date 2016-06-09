@@ -34,11 +34,6 @@ Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
 						},
 						{
 							"responsable.id":miembroId
-						},
-						{
-							abogados:{
-								$size:0
-							}
 						}
 					]
 				},
@@ -56,7 +51,7 @@ Meteor.publish('asuntosxequipo',function (miembroId,bufeteId) {
 	check(bufeteId,String);
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-		let projection = { limit: 3, sort: { nombre: 1 }}
+		let projection = { sort: { nombre: 1 }}
 
 		return Asuntos.find({$and:[
 			// {"$or":[{"abogados":{"$elemMatch":{id:miembroId}} },{creadorId:miembroId},{abogados:{$size:0}}]},

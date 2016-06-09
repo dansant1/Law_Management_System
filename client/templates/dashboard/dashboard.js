@@ -342,7 +342,7 @@ Template.tareas2.events({
 
 	},
 	'keyup [name="crear-tarea"]': function (event, template) {
-		
+
 		let datos = {
 			descripcion: template.find('[name="crear-tarea"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
@@ -352,7 +352,7 @@ Template.tareas2.events({
 			}
 		}
 
-		
+
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -441,7 +441,7 @@ Template.clienteNuevoModal.events({
 			pais: template.find('[name="pais"]').value || "",
 			bufeteId: Meteor.user().profile.bufeteId,
 			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
-		} 
+		}
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
@@ -486,7 +486,7 @@ Template.empresaNuevoModal.events({
 			pais: template.find('[name="pais"]').value || "",
 			bufeteId: Meteor.user().profile.bufeteId,
 			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
-		} 
+		}
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearEmpresa', datos, function (err, result) {
@@ -496,7 +496,7 @@ Template.empresaNuevoModal.events({
 				} else {
 
 					template.find('[name="nombre"]').value = "";
-					
+
 					template.find('[name="direccion"]').value = "";
 					template.find('[name="telefono"]').value = "";
 					template.find('[name="celular"]').value = "";
@@ -524,7 +524,7 @@ Template.asuntosSidebarDashboard.onCreated( function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('asuntosxequipo', id,bufeteId);
-   });	
+   });
 
 });
 
@@ -539,7 +539,7 @@ Template.asuntosSidebarDashboard.helpers({
 });
 
 Template.cuadroAsuntos.onCreated( function () {
-	
+
 	var self = this;
 
 	self.autorun(function() {
@@ -547,7 +547,7 @@ Template.cuadroAsuntos.onCreated( function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('asuntos', bufeteId);
-   });	
+   });
 
 });
 
@@ -566,8 +566,7 @@ Template.cuadroAsuntos.events({
 
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
-
-		return Asuntos.find({abierto:true})
+		return Asuntos.find({abierto:true},{limit:3})
 	},
 	verificado(){
 		return Asuntos.find({abierto:true}).count()>=3;
@@ -581,7 +580,7 @@ Template.asuntosSidebarDashboard.events({
 });
 
 Template.clientesSidebarDashboard.onCreated( function () {
-	
+
 	var self = this;
 
 	self.autorun(function() {
@@ -589,7 +588,7 @@ Template.clientesSidebarDashboard.onCreated( function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('clientes', bufeteId);
-   });	
+   });
 
 });
 
@@ -640,7 +639,7 @@ Template.asuntos2.helpers({
 });
 
 Template.asuntos2.onCreated( function () {
-	
+
 	var self = this;
 
 	Session.set('estado-asunto',true);
@@ -714,7 +713,7 @@ Template.asuntoItemCuadro.helpers({
 		}
 	},
 	estaAbierto: () =>{
-		
+
 		return this.abierto;
 	}
 })
@@ -742,7 +741,7 @@ Template.asuntoItemCuadro.events({
 						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
 					}
 
-				}); 
+				});
 				// swal("Asunto cerrado", "El asunto ha sido archivado correctamente.", "success");
 			});
 	},
@@ -783,7 +782,7 @@ Template.detalleAsunto2.helpers({
 });
 
 Template.tareasDelAsunto.onCreated( function () {
-	
+
 	var self = this;
 
 	self.autorun(function() {
@@ -811,7 +810,7 @@ Template.tareasDelAsunto.helpers({
 
 Template.tareasDelAsunto.events({
 	'keyup [name="crear-tarea"]': function (event, template) {
-		
+
 		let datos = {
 			descripcion: template.find('[name="crear-tarea"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
@@ -824,7 +823,7 @@ Template.tareasDelAsunto.events({
 			}
 		}
 
-		
+
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -855,7 +854,7 @@ Template.tareasDelAsunto.events({
 
 Template.detalleTareaAsunto.events({
 	'keyup [name="crear-tarea"]': function (event, template) {
-		
+
 		let datos = {
 			descripcion: template.find('[name="crear-tarea"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
@@ -868,7 +867,7 @@ Template.detalleTareaAsunto.events({
 			}
 		}
 
-		
+
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -960,7 +959,7 @@ Template.detalleTareaAsunto.helpers({
 
 Template.tareasDetalle2.events({
 	'keyup [name="crear-tarea"]': function (event, template) {
-		
+
 		let datos = {
 			descripcion: template.find('[name="crear-tarea"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
@@ -970,7 +969,7 @@ Template.tareasDetalle2.events({
 			}
 		}
 
-		
+
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -1089,7 +1088,7 @@ Template.tareasDetalle2.helpers({
 Template.cuadroSubTareas.onCreated( function () {
 	var self = this;
 
-	self.autorun(function() {  	
+	self.autorun(function() {
 		let tareaId = FlowRouter.getParam('tareaId');
     	self.subscribe('Subtareas', tareaId);
    });
@@ -1103,14 +1102,14 @@ Template.cuadroSubTareas.helpers({
 
 Template.cuadroSubTareas.events({
 	'keyup [name="crear-subtarea"]': function (event, template) {
-		
+
 		let datos = {
 			descripcion: template.find('[name="crear-subtarea"]').value,
 			tareaId: FlowRouter.getParam('tareaId'),
 			bufeteId: Meteor.user().profile.bufeteId
 		}
 
-		
+
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -1473,7 +1472,7 @@ Template.Conversaciones.onCreated(function () {
 	Session.set('asunto-id',"");
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId
-    	self.subscribe('conversaciones', bufeteId);	
+    	self.subscribe('conversaciones', bufeteId);
     	self.subscribe('comentariosDeConversaciones', bufeteId);
    });
 });
@@ -1557,7 +1556,7 @@ Template.conversacionesPorAsunto.events({
 		}
 
 		if (datos.comentario !== "") {
-			
+
 			Meteor.call('agregarComentarioAConversacionAsunto', datos, function (err, result) {
 				if (err) {
 					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
@@ -1568,7 +1567,7 @@ Template.conversacionesPorAsunto.events({
 			});
 
 		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');	
+			Bert.alert('Ingresa los datos correctamente', 'warning');
 		}
 	}
 });
@@ -1658,7 +1657,7 @@ Template.detalleCalendario2.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
-		
+
    });
 });
 
@@ -1746,7 +1745,7 @@ Template.detalleConversacion2.events({
 		}
 
 		if (datos.comentario !== "") {
-			
+
 			Meteor.call('agregarComentarioAConversacionAsunto', datos, function (err, result) {
 				if (err) {
 					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
@@ -1757,7 +1756,7 @@ Template.detalleConversacion2.events({
 			});
 
 		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');	
+			Bert.alert('Ingresa los datos correctamente', 'warning');
 		}
 	}
 });
@@ -1768,7 +1767,7 @@ Template.detalleNotas2.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
-		
+
    });
 });
 
@@ -1790,7 +1789,7 @@ Template.asuntoInformacion.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
-		
+
    });
 });
 
@@ -1812,7 +1811,7 @@ Template.detalleFacturacion.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
-		
+
    });
 });
 
@@ -1848,7 +1847,7 @@ Template.clientes2.helpers({
 	},
 	prospectos(){
 		return Clientes.find({estatus:"prospecto"}).fetch().length;
-	
+
 	},
 	contactos(){
 		return Clientes.find({estatus:"contacto"}).fetch().length;
@@ -1886,7 +1885,7 @@ Template.equipo.onCreated(function () {
 });
 
 Template.equipo.helpers({
-	
+
 	email(){
 			return Meteor.user().emails[0].address
 	},
@@ -1902,6 +1901,9 @@ Template.equipo.helpers({
 Template.equipo.events({
 	'click .nuevo-miembro': function () {
 		Modal.show('usuarioForm');
+	},
+	'click .nueva-area':function () {
+		Modal.show('areaForm');
 	}
 });
 
@@ -2073,7 +2075,7 @@ Template.venceTareaModal.events({
 })
 
 Template.asuntoTareaModal.events({
-	
+
 })
 
 Template.tareaEspecifica.helpers({
@@ -2255,7 +2257,7 @@ Template.casos.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-		
+
     	self.subscribe('casos2', bufeteId);
    });
 });
@@ -2283,7 +2285,7 @@ Template.casoDetalle.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-		
+
     	self.subscribe('casos2', bufeteId);
     	let casoId = FlowRouter.getParam('casoId');
     	self.subscribe('newsCasos', casoId);
@@ -2302,7 +2304,7 @@ Template.casoDetalle.helpers({
 	},
 	dia(fecha) {
 		debugger;
-		
+
 		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
@@ -2325,7 +2327,7 @@ Template.casoNotas.onCreated(function () {
 		let casoId = FlowRouter.getParam('casoId');
     	self.subscribe('casos2', bufeteId);
     	self.subscribe('casosNotas', casoId);
-    	
+
    });
 });
 
@@ -2338,7 +2340,7 @@ Template.casoNotas.helpers({
 	},
 	dia(fecha) {
 		debugger;
-		
+
 		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
@@ -2373,7 +2375,7 @@ Template.casoNotas.events({
 		}
 
 		if (datos.descripcion !== "") {
-			
+
 			Meteor.call('agregarNotaCaso', datos, function (err, result) {
 				if (err) {
 					template.find('[name="descripcion"]').value = "";
@@ -2396,10 +2398,10 @@ Template.casoTareas.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-		
+
     	self.subscribe('casos2', bufeteId);
-    	
-    	
+
+
    });
 });
 
@@ -2412,7 +2414,7 @@ Template.casoTareas.helpers({
 	},
 	dia(fecha) {
 		debugger;
-		
+
 		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
@@ -2466,7 +2468,7 @@ Template.detalleClientes2.events({
 		}
 
 		if (datos.comentario !== "") {
-			
+
 			Meteor.call('agregarComentarioAConversacionNota', datos, function (err, result) {
 				if (err) {
 					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
@@ -2477,7 +2479,7 @@ Template.detalleClientes2.events({
 			});
 
 		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');	
+			Bert.alert('Ingresa los datos correctamente', 'warning');
 		}
 	}
 });
@@ -2489,7 +2491,7 @@ Template.detalleClientesInfo.onCreated(function () {
 	self.autorun(function() {
 		let _id = FlowRouter.getParam('_id');
     	self.subscribe('contacto', _id);
-    	
+
    });
 });
 
@@ -2511,7 +2513,7 @@ Template.detalleClientesCasos.onCreated(function () {
 	self.autorun(function() {
 		let _id = FlowRouter.getParam('_id');
     	self.subscribe('contacto', _id);
-    	
+
    });
 });
 
@@ -2533,7 +2535,7 @@ Template.detalleClientesAsuntos.onCreated(function () {
 	self.autorun(function() {
 		let _id = FlowRouter.getParam('_id');
     	self.subscribe('contacto', _id);
-    	
+
    });
 });
 
@@ -2555,7 +2557,7 @@ Template.detalleClientesFacturacion.onCreated(function () {
 	self.autorun(function() {
 		let _id = FlowRouter.getParam('_id');
     	self.subscribe('contacto', _id);
-    	
+
    });
 });
 
@@ -2637,7 +2639,7 @@ Template.asuntoNuevoModal.events({
 
 			asunto.bufeteId = Meteor.user().profile.bufeteId;
 
-		
+
 			if (asunto.caratula !== "") {
 
 				Meteor.call('crearAsunto', asunto, function (err, result) {
@@ -2655,15 +2657,15 @@ Template.asuntoNuevoModal.events({
 						template.find( '[name="observaciones"]' ).value = "";
 						template.find( '[name="fecha"]' ).value = "";
 						Bert.alert('Creaste un asunto', 'success');
-						FlowRouter.go('/asuntos2/d/' + result.asuntoId);	
+						FlowRouter.go('/asuntos2/d/' + result.asuntoId);
 					}
-					
-				
+
+
 				});
 
 				//console.log(asunto);
 
-				
+
 
 			} else {
 				Bert.alert( 'Ingrese los datos correctamente', 'warning' );
@@ -2675,7 +2677,7 @@ Template.asuntoNuevoModal.events({
 				template.find( '[name="fecha"]' ).value = "";
 			}
 		}
-	
+
 });
 
 // Mi Ccalendario Personal
@@ -2717,8 +2719,8 @@ Template.miCalendario.onRendered( () => {
       			let date = event.start.format();
 
       			console.log(delta);
-      			
-        		
+
+
         		let update = {
           			_id: event._id,
           			start: date,
@@ -2731,7 +2733,7 @@ Template.miCalendario.onRendered( () => {
             		Bert.alert( error.reason, 'danger' );
           			}
         		});
-      		
+
 
     	},
     	dayClick( date ) {
@@ -2797,7 +2799,7 @@ Template.addEditEventModal.events({
   },
    'click .delete-event' ( event, template ) {
     	let eventModal = Session.get( 'eventModal' );
-    	
+
     	if ( confirm( '¿Seguro que deseas eliminar este evento? Esto sera permanente.' ) ) {
       		Meteor.call( 'removeEvent', eventModal.event, ( error ) => {
         		if ( error ) {
@@ -2916,7 +2918,7 @@ Template.Gantt.onCreated(function () {
 
 
 Template.Gantt.onRendered(() => {
-	
+
 	// Cambiamos a español
 	gantt.locale = {
     date: {
@@ -2934,26 +2936,26 @@ Template.Gantt.onRendered(() => {
         icon_delete:"Eliminar",
         confirm_closing:"",//Vos modifications seront perdus, êtes-vous sûr ?
         confirm_deleting:"¿Seguro que deseas eliminar la tarea?",
- 
+
         section_description:"Descripción",
         section_time:"Periodo",
         section_type:"Tipo",
- 
+
         /* grid columns */
- 
+
         column_text :  "Asuntos",
         column_start_date : "Inició",
         column_duration : "Duración",
         column_add : "",
- 
- 
+
+
         /* link confirmation */
- 
+
         type_task: "Tarea",
         type_project: "Projecto",
         type_milestone: "Hito",
- 
- 
+
+
         minutes: "Minutos",
         hours: "Horas",
         days: "Dias",
@@ -2964,8 +2966,7 @@ Template.Gantt.onRendered(() => {
 	};
 
 	gantt.attachEvent("onAfterTaskAdd", function(id,item){
-		console.log(id)
-		console.log(item)
+
 	});
 
 
@@ -2996,12 +2997,12 @@ Template.Gantt.helpers({
 // logica de cliente para hacer el chart tipo pie
 
 Template.pieChart.onCreated(function () {
-	
+
 	var self = this;
 
 	self.autorun(function() {
     	self.subscribe('slices');
-    	
+
    });
 
 	Session.setDefault('pieChartSort','none');
@@ -3011,17 +3012,17 @@ Template.pieChart.onCreated(function () {
 Template.pieChart.events({
 	'click #add':function(){
 		Meteor.call('add-slice', function (error, result) {
-			
+
 		});
 	},
 	'click #remove':function(){
 		Meteor.call('remove-slice', function (error, result) {
-			
+
 		});
 	},
 	'click #randomize':function(){
 		Meteor.call('random-slice', function (error, result) {
-			
+
 		});
 	},
 	'click #toggleSort':function(){
@@ -3048,13 +3049,13 @@ Template.pieChart.onRendered(function(){
 	var arc = d3.svg.arc()
 					.innerRadius(innerRadius)
 					.outerRadius(outerRadius);
-	
+
 	var pie = d3.layout.pie()
 		.sort(null)
 		.value(function(d) {
 			return d.value;
 		});
-	
+
 	//Easy colors accessible via a 10-step ordinal scale
 	var color = d3.scale.category10();
 
@@ -3062,8 +3063,8 @@ Template.pieChart.onRendered(function(){
 	var svg = d3.select("#pieChart")
 				.attr("width", w)
 				.attr("height", h);
-	
-	var key = function(d){ 
+
+	var key = function(d){
 		return d.data._id;
 	};
 
@@ -3072,19 +3073,19 @@ Template.pieChart.onRendered(function(){
 		var sortModifier = Session.get('pieChartSortModifier');
 		if(sortModifier && sortModifier.sort)
 			modifier.sort = sortModifier.sort;
-		
+
 		var dataset = Slices.find({},modifier).fetch();
-		
+
 		var arcs = svg.selectAll("g.arc")
 					  .data(pie(dataset), key);
 
-		var newGroups = 
+		var newGroups =
 			arcs
 				.enter()
 				.append("g")
 				.attr("class", "arc")
 				.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
-		
+
 		//Draw arc paths
 		newGroups
 			.append("path")
@@ -3092,7 +3093,7 @@ Template.pieChart.onRendered(function(){
 				return color(i);
 			})
 			.attr("d", arc);
-		
+
 		//Labels
 		newGroups
 			.append("text")
@@ -3115,7 +3116,7 @@ Template.pieChart.onRendered(function(){
 					return arc(interpolate(t));
 				};
 			});
-		
+
 		arcs
 			.transition()
 			.select('text')
@@ -3172,7 +3173,7 @@ function random() {
 
 Template.charts.onRendered(function() {
     // Get the context of the canvas element we want to select
-   
+
     /*var ctx2 = document.getElementById("myChart2").getContext("2d");
     var ctx3 = document.getElementById("myChart3").getContext("2d");
     var ctx4 = document.getElementById("myChart4").getContext("2d");
@@ -3400,8 +3401,8 @@ Template.charts.onRendered(function() {
     }
 
     Tracker.autorun(chartLine);
-    
-   
+
+
 });
 
 Template.charts.helpers({
@@ -3425,7 +3426,7 @@ Template.lineaChartFacturacion.helpers({
 // Logica de cliente para hacer el chart de tipo bar
 
 Template.barChart.onCreated(function () {
-	
+
 	var self = this;
 
 
@@ -3519,7 +3520,7 @@ Template.barChart.onRendered(function(){
 
     };
 
-  
+
     // Set the data
     var data = {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre","Noviembre","Diciembre"],

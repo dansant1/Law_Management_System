@@ -25,6 +25,34 @@
 {{/if}}
 </template>
 
+<template name="areaForm">
+	<div class="modal fade">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Agregar area</h4>
+	                </div>
+
+	                <div class="modal-body">
+						<form class="cd-form floating-labels" style="margin-top: 0; margin-bottom: 0;">
+							<fieldset>
+								<div class="icon">
+									<input class="company" type="text" name="nombre" id="cd-company" placeholder="Ingrese el nombre del area">
+								</div>
+								<input type="submit" class="btn btn-primary"  value="Agregar" />
+
+							</fieldset>
+						</form>
+	                </div>
+
+
+	            </div>
+	        </div>
+	    </div>
+
+</template>
+
 <template name="usuarioForm">
 
 	<div class="modal fade">
@@ -61,6 +89,13 @@
                                                             <option value="secretario">Secretario</option>
                                                         </select>
                                                     </div>
+													<div class="icon">
+														<select class="areas" name="">
+															{{#each areas}}
+																<option value="{{this._id}}">{{this.nombre}}</option>
+															{{/each}}
+														</select>
+													</div>
 													<div class="icon">
 													<input class="company" type="password" name="password" id="cd-company" placeholder="Ingrese su contraseña">
 													</div>

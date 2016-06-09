@@ -9,6 +9,22 @@ Template.usuarios.onCreated(function () {
    });
 });
 
+Template.areaForm.events({
+	'submit form'(event,template){
+		event.preventDefault();
+		debugger;
+		var data={
+			nombre: template.find("[name='nombre']").value,
+			bufeteId: Meteor.user().profile.bufeteId
+		}
+
+		Meteor.call('agregarArea',data,function (err) {
+			if(err) return Bert.alert('Hubo un error al agregar la area','danger')
+			Bert.alert('Se añadio la area correctamente','success')
+		})
+	}
+})
+
 Template.usuarioNuevo.events({
 	'click .__user': () => {
 		Modal.show('usuarioForm');
@@ -31,6 +47,20 @@ Template.usuarioNuevo.helpers({
 	}
 });
 
+Template.usuarioForm.onRendered(function () {
+	var self = this;
+	let bufeteId = Meteor.user().profile.bufeteId
+	self.autorun(function () {
+		self.subscribe('areas',bufeteId);
+	})
+})
+
+Template.usuarioForm.helpers({
+	areas(){
+		return Areas.find()
+	}
+})
+
 Template.usuarioForm.events({
 	'submit form': (event, template) => {
 		event.preventDefault();
@@ -42,7 +72,11 @@ Template.usuarioForm.events({
    				nombre: template.find( '[name="nombre"]' ).value,
    				apellido: template.find( '[name="apellido"]' ).value,
 					telefono: template.find('[name="telefono"]').value,
-					tipo: template.find('[name="tipo"]').value
+					tipo: template.find('[name="tipo"]').value,
+				area:{
+					id:template.find('.areas').value,
+					nombre: template.find('.areas option:selected').innerHTML
+				}
    			}
 		}
 

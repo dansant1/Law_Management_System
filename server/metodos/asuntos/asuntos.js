@@ -1,5 +1,5 @@
 Meteor.methods({
-	
+
 	cerrarAsunto: function (asuntoId) {
 			console.log(asuntoId)
 			check(asuntoId,String);
@@ -38,10 +38,9 @@ Meteor.methods({
 					);
 			});
 
-			console.log(asuntos.abogados)
 
 			if (asuntos.inicio !== "") {
-				asuntos.inicio	= new Date(asuntos.inicio);
+				asuntos.inicio	= new Date(asuntos.inicio + " GMT-0500");
 			} else {
 				asuntos.inicio = "";
 			}
@@ -57,7 +56,18 @@ Meteor.methods({
 
 			let asuntoId = Asuntos.insert(asuntos);
 
+
 			if (asuntoId) {
+
+				// TasksCollection.insert({
+				// 	text: asuntos.caratula,
+				// 	start_date : new Date(asuntos.inicio + " GMT-0500"),
+				// 	end_date : new Date(asuntos.inicio + " GMT-0500"),
+				// 	duration:0,
+				// 	parent:0,
+				// 	asuntoId:asuntoId
+				// });
+
 
 				// Creamos el evento de inicio de expediente (asunto)
 				let evento = {

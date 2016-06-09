@@ -34,14 +34,14 @@ Meteor.methods({
   				subject: "Bienvenido a BUNQR",
   				html: SSR.render( 'htmlEmail', emailData )
 			});
-		}); 
+		});
 
 
 
 		return {
 			userId: usuarioId
 		}
-	
+
 	},
 	agregarUsuarioEquipo: function (datos) {
 		check(datos, {
@@ -53,15 +53,16 @@ Meteor.methods({
 				telefono: String,
 				bufete: String,
 				bufeteId: String,
-				tipo: String
-			}	
+				tipo: String,
+				area:Object
+			}
 		});
 
-	
+
 		let usuarioId = Accounts.createUser(datos);
 
 		Roles.addUsersToRoles(usuarioId, ['abogado',datos.profile.tipo], 'bufete');
-	
+
 
 	}
 });
