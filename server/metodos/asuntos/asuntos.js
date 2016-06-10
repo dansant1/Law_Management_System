@@ -61,10 +61,6 @@ Meteor.methods({
 
 				// TasksCollection.insert({
 				// 	text: asuntos.caratula,
-				// 	start_date : new Date(asuntos.inicio + " GMT-0500"),
-				// 	end_date : new Date(asuntos.inicio + " GMT-0500"),
-				// 	duration:0,
-				// 	parent:0,
 				// 	asuntoId:asuntoId
 				// });
 

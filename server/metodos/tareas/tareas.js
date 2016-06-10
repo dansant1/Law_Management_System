@@ -102,6 +102,9 @@ Meteor.methods({
 			}
 		})
 
+		var tareas = Tareas.find({_id:tareaId,vence:{$exists:true},asignado:{$exists:true}}).fetch()
+		if(tareas.length!=0) scheduleMail(tareas[0],tareas[0]._id);
+
 	},
 
 	actualizarFechaTarea(tareaId,fecha){
@@ -113,6 +116,9 @@ Meteor.methods({
 				vence: new Date(fecha+" GMT-0500")
 			}
 		})
+
+		var tareas = Tareas.find({_id:tareaId,vence:{$exists:true},asignado:{$exists:true}}).fetch()
+		if(tareas.length!=0) scheduleMail(tareas[0],tareas[0]._id);
 
 	},
 	cerrarTarea: function (tareaId) {
