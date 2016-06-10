@@ -1,6 +1,8 @@
 Meteor.methods({
 	crearTarea: function (datos) {
 
+
+
 		let _check = {
 			descripcion: String,
 			fecha: String,
@@ -18,8 +20,6 @@ Meteor.methods({
 
 			datos.createdAt = new Date();
 			datos.vence	= new Date(datos.fecha+" GMT-0500");
-			console.log('Paso por aqui')
-			console.log(datos.vence)
 			datos.abierto = true;
 
 			let tarea = Tareas.insert(datos);
@@ -38,7 +38,9 @@ Meteor.methods({
 					color: '#34495e'
 				}
 
+				scheduleMail(datos,tarea);
 				Eventos.insert(evento);
+
 				NewsFeed.insert({
 					descripcion: 'asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
 					tipo: 'Tarea',
