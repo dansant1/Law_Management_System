@@ -9,6 +9,7 @@ scheduleMail= function(tarea,tareaId) {
 		addTask(tareaId, tarea);
 	}
 	return true;
+
 }
 
 addTask = function(id, tarea) {

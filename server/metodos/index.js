@@ -3,6 +3,7 @@ Meteor.startup(function() {
 
     Tareas.find({asignado:{$exists:true},vence:{$exists:true}}).forEach(function(tarea) {
 
+
             let date = new Date(tarea.vence);
             date.setDate(date.getDate()-1);
 
