@@ -3539,3 +3539,57 @@ Template.barChart.onRendered(function(){
 	let ctx  = document.getElementById("myChart").getContext("2d");
 	var myLineChart = new Chart(ctx).Bar(data, options);
 });
+
+Template.detalleMiembroEquipo.onCreated(function () {
+	var self = this;
+
+
+	self.autorun(function() {
+		let miembroId = FlowRouter.getParam('miembroId')
+		self.subscribe('miembroDelEquipo', miembroId)
+		
+	});
+
+});
+
+Template.detalleMiembroEquipo.helpers({
+	miembro() {
+		return Meteor.users.findOne({_id: FlowRouter.getParam('miembroId')});
+	},
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+Template.facturacionConfiguracion.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+Template.formularioParaCrearTarifa.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+
+Template.formularioParaCrearTarifa.events({
+	
+});
+
+Template.cobros.onRendered(function () {
+	
+});
+
+Template.cobros.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+Template.cobros.events({
+	'click .generar-cobros': function () {
+		Modal.show('generarCobroModal');
+	}
+});

@@ -5292,20 +5292,923 @@
     <canvas id="myChart" width="825" height="400"></canvas>
   </div>
   <br>
-  <!--<div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
-    <canvas id="myChart2" width="400" height="400"></canvas>
-  </div>
-  <br>
-  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
-     <canvas id="myChart3" width="400" height="400"></canvas>
-  </div>
-  <br>
-  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
-   <canvas id="myChart4" width="400" height="400"></canvas>
-  </div>
-  <br>
-  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
-     <canvas id="myChart5" width="400" height="400"></canvas>
-  </div> -->
 
+</template>
+
+<!-- Contenido del modulo dashboard -->
+
+<template name="mainDashboard">
+  <div style="width: 96%; margin: 10px auto; display: flex; flex-wrap: wrap;">
+    {{>tareasHoyDashboard}}
+    {{>agendaHoyDashboard}}  
+  </div>
+  <div style="width: 96%; margin: 10px auto; display: flex; flex-wrap: wrap;">
+     <div style="width: 50%; text-align: center;">
+    {{>borradoresFacturaDashboard}}
+
+    {{>facturasEsperaPagoDashboard}}
+    {{>facturasAtrasadasDashboard}}
+    </div>
+    {{>hitosHorasDashboard}}
+    
+  </div>
+</template>
+
+<template name="tareasHoyDashboard">
+  <div style="width: 49%; min-height: 100px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19); margin: 0 auto;">
+    <div style="border-right: 1px solid #7f8c8d; width: 45%; display: inline-block; min-height: 100px; padding: 25px; padding-top: 40px;">
+      <div style="display: inline-block;"><h3 style="margin: 0; margin-right: 15px;">0</h3></div>
+      <div style="display: inline-block;"><h3 style="margin: 0;">Tareas de hoy</h3></div>
+    </div>
+    <div style="width: 45%; min-height: 100px; display: inline-block; padding: 25px;">
+      <div>
+        <ul>
+          <li><i class="glyphicon glyphicon-ok" style="display: inline-block; margin-right: 5px;"></i>Tarea 1</li>
+          <li><i class="glyphicon glyphicon-ok" style="display: inline-block; margin-right: 5px;"></i>Tarea 2</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="agendaHoyDashboard">
+  <div style="width: 49%; min-height: 100px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19); margin: 0 auto;">
+    <div style="border-right: 1px solid #7f8c8d; width: 45%; display: inline-block; min-height: 100px; padding: 25px; padding-top: 40px;">
+      <div style="display: inline-block;"><h3 style="margin: 0; margin-right: 15px;">0</h3></div>
+      <div style="display: inline-block;"><h3 style="margin: 0;">Agenda hoy</h3></div>
+    </div>
+    <div style="width: 45%; min-height: 100px; display: inline-block; padding: 25px;">
+      <div>
+        <ul>
+          <li><i class="glyphicon glyphicon-ok" style="display: inline-block; margin-right: 5px;"></i>Evento 1</li>
+          <li><i class="glyphicon glyphicon-ok" style="display: inline-block; margin-right: 5px;"></i>Evento 2</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="borradoresFacturaDashboard">
+    <div style="width: 100%; height: 100px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19); margin: 0 auto; display: inline-block;  margin-top: 10px;">
+    <div style="border-right: 1px solid #7f8c8d; width: 40%; display: inline-block; min-height: 100px; padding: 25px; padding-top: 30px;">
+      <div style=""><h5 style="margin: 0; margin-right: 15px;">Facturas en borrador</h5></div>
+      <div style=""><h3 style="margin: 0; color: #34495e;">2</h3></div>
+    </div>
+    <div style="width: 50%; display: inline-block;">
+      <div style=""><h5 style="margin: 0px; margin-right: 15px;">Total en facturas en borrador</h5></div>
+      <div style=""><h3 style="margin: 0px; color: #34495e; ">S/ 2, 785</h3></div>
+    </div>
+  </div>
+  
+</template>
+
+<template name="facturasEsperaPagoDashboard">
+   <div style="width: 100%; height: 100px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19); margin: 0 auto; display: inline-block;  margin-top: 10px;">
+    <div style="border-right: 1px solid #7f8c8d; width: 40%; display: inline-block; min-height: 100px;  padding-top: 30px;">
+      <div style=""><h5 style="margin: 0; margin-right: 15px;">Facturas a la espera de pago</h5></div>
+      <div style=""><h3 style="margin: 0; color: #34495e;">2</h3></div>
+    </div>
+    <div style="width: 50%; display: inline-block;">
+      <div style=""><h5 style="margin: 0px; margin-right: 15px;">Total en facturas a la espera de pago</h5></div>
+      <div style=""><h3 style="margin: 0px; color: #34495e; ">S/ 2, 458</h3></div>
+    </div>
+  </div>
+</template>
+
+<template name="facturasAtrasadasDashboard">
+    <div style="width: 100%; height: 100px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19); margin: 0 auto; display: inline-block;  margin-top: 10px;">
+    <div style="border-right: 1px solid #7f8c8d; width: 40%; display: inline-block; min-height: 100px; padding: 25px; padding-top: 30px;">
+      <div style=""><h5 style="margin: 0; margin-right: 15px;">Facturas fuera de fecha</h5></div>
+      <div style=""><h3 style="margin: 0; color: #e74c3c;">2</h3></div>
+    </div>
+    <div style="width: 50%; display: inline-block;">
+      <div style=""><h5 style="margin: 0px; margin-right: 15px;">Total en facturas fuera de fecha</h5></div>
+      <div style=""><h3 style="margin: 0px; color: #e74c3c; ">S/ 2, 785</h3></div>
+    </div>
+  </div>
+</template>
+
+<template name="hitosHorasDashboard">
+  <div style="width: 48%; height: 320px; background-color: white; border-radius: 5px; box-shadow:  0 2px 5px rgba(77, 77, 77, 0.19); margin-top: 10px; margin: 10 auto; text-align: center; margin-left: 10px;">
+      <h3 style="text-align: center">Metricas de la firma</h3>
+      <div style="width: 100%; text-align: center">
+        <h4 style="display: inline-block; width: 70px;"><a href="#">Hoy</a></h4>
+        <h4 style="display: inline-block; width: 70px;"><a href="#">Semana</a></h4>
+        <h4 style="display: inline-block; width: 70px;"><a href="#">Mes</a></h4>
+        <h4 style="display: inline-block; width: 70px;"><a href="#">Año</a></h4>
+      </div>
+     
+  </div>
+</template>
+
+<template name="detalleMiembroEquipo">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        
+        <a href="/equipo">
+        Equipo
+        </a>
+        {{#with miembro}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2">
+        {{this.profile.nombre}} {{this.profile.apellido}}
+        </a>
+        {{/with}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2">
+        Información
+        </a>
+      </p>
+    </div>
+  </div>
+
+ <div class="franja-filtros" style="padding-left: 18px;">
+    
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim  asunto-item-activo">
+     Equipo
+    </a>
+
+     <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+      CRM
+    </a>
+    <a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+      Facturación
+    </a>
+  </div>
+
+ 
+
+  <div style="display: flex; flex-wrap;">
+     <div class="sidebar-vertical-blanco">
+    <div class="btn-group">
+       <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+         Nuevo <span class="caret"></span>
+       </button>
+       <ul class="dropdown-menu">
+         <li class="nuevo-miembro"><a href="#">Miembro</a></li>
+         <li class="nueva-area"><a href="#">Area</a></li>
+       </ul>
+         </div>
+
+    <div class="sidebar-titulo">
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/equipo" style="text-decoration:none;" class="no-hover">Miembros</a>
+      </h5>
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/areas" style="text-decoration:none;" class="no-hover">Areas</a>
+      </h5>
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/administracion" style="text-decoration:none;" class="no-hover">Configuración</a>
+      </h5>
+  </div>
+  </div>
+
+   {{#with miembro}}
+
+   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+    <a  class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      {{this.profile.nombre}} {{this.profile.apellido}}
+    </a>
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.profile.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">+ Celular</a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a  class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      + Email
+    </a>
+    {{/if}}
+  </div>
+
+
+  {{else}}
+  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+    {{>loader}}
+  </div>
+  {{/with}}
+
+  </div>
+ 
+
+  <div style="width: 80%;">
+   {{#with miembro}}
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+
+        <a class="menu-asunto-aim" style="width: 200px;">
+         <h5>Nombre y apellido </h5>{{this.profile.nombre}} {{this.profile.apellido}}
+        </a>
+        {{#if this.profile.telefono}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Telefono </h5>{{this.profile.telefono}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Telefono </h5> + Telefono
+        </a>
+        {{/if}}
+        {{#if this.profile.celular}}
+        <a class="menu-asunto-aim" style="width: 200px;">
+         <h5>Celular </h5>{{this.profile.celular}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Celular </h5> + Celular
+        </a>
+        {{/if}}
+
+  </div>
+
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+        {{#if this.profile.identificacion}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Identificación </h5>{{this.profile.identificacion}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Identificación </h5> + Identificacion
+        </a>
+        {{/if}}
+        {{#if this.email}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Email </h5>{{this.email}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Email </h5> + Email
+        </a>
+        {{/if}}
+        
+
+  </div>
+
+  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+        {{#if this.profile.direccion}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Dirección </h5>{{this.profile.direccion}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Dirección </h5> + Dirección
+        </a>
+        {{/if}}
+        {{#if this.profile.provincia}}
+        <a class="menu-asunto-aim" style="width: 200px;">
+         <h5>Provincia </h5>{{this.profile.provincia}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>Provincia </h5> + provincia
+        </a>
+        {{/if}}
+        {{#if this.profile.pais}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>País </h5>{{this.profile.pais}}
+        </a>
+        {{else}}
+        <a  class="menu-asunto-aim" style="width: 200px;">
+         <h5>País </h5> + País
+        </a>
+        {{/if}}
+
+  </div>
+  {{/with}}
+  </div>
+
+</template>
+
+<!-- Administracion de usuario - configuracion -->
+
+<template name="administracionDeUsuarios">
+  
+</template>
+
+<!-- Configuracion de facturacion -->
+
+<template name="facturacionConfiguracion">
+  <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+        <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+    <div>
+       <div class="sidebar-vertical-blanco">
+
+        <div class="btn-group">
+          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+            Nuevo <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+            <li class="empresa"><a href="#">+ Cobro</a></li>
+            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
+            <li class="empresa"><a href="/facturacion/cambio/nuevo">+ Tipo de cambio</a></li>
+          </ul>
+        </div>
+
+           
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/tarifas" style="text-decoration:none;" class=" no-hover">Tarifas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Tipo de cambio</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Facturas</a>
+                </h5>
+
+            </div>
+        </div>
+
+         <!-- Lista de tarifas -->
+        <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
+
+            <!--{{#each horas}} -->
+
+          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+      
+      <div style="display: flex; width: 80%; height: 85px;">
+        <div style="margin: 25px; margin-top: 0px;">
+          <h5 style="color: #7f8c8d;">Tarifa</h5>
+          <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Tarifa base</h1>
+        </div>
+      </div>
+
+          </div>
+            <!--{{/each}} -->
+       
+        </div>
+
+    </div>
+</template>
+
+<!-- Formulario para crear una tarifa -->
+
+<template name="formularioParaCrearTarifa">
+   <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+        <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+    <div>
+
+   
+
+       <div class="sidebar-vertical-blanco">
+
+        <div class="btn-group">
+          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+            Nuevo <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+            <li class="empresa"><a href="#">+ Cobro</a></li>
+            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
+            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
+          </ul>
+        </div>
+
+           
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion" style="text-decoration:none;" class=" no-hover">Tarifas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Tipo de cambio</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Facturas</a>
+                </h5>
+
+            </div>
+        </div> 
+
+         <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 5px; border-top: none; padding-left: 25px;">
+           <h1 style="margin: 0; margin-top: 5px; color: #2980B9;">Nueva tarifa</h1>
+        </div> 
+
+        <div class="cuadro-tarea-horas" style="padding: 0px; height: 715px;">
+         <div class="franja-filtros" style="width: 80%; margin-left: 220px; padding-top: 15px; border-top: none;height: 715px;">
+          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style="border-radius: 5px; width: 90%; margin: 0 auto; border: 3px solid #2C3E50; display: block; height: 50px; padding-left: 15px; margin-bottom: 20px;"> 
+    <table class="table" style="width: 90%; margin: 0 auto;">
+    <thead>
+      <tr>
+        <th >Categoría</th>
+        <th style="text-align: center;">Sol (S/)</th>
+        <th style="text-align: center;">Dólar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Administrador</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+      <tr>
+        <td>Asociado senior</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+      <tr>
+        <td>Asociado junior</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+       <tr>
+        <td>Procurador</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+       <tr>
+        <td>Socio</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+    </tbody>
+  </table>
+<br><br>
+<table class="table" style="width: 90%; margin: 0 auto;">
+    <thead>
+      <tr>
+        <th >Miembro</th>
+        <th style="text-align: center;">Sol (S/)</th>
+        <th style="text-align: center;">Dólar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>usuario 1</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+      <tr>
+        <td>usuario 1</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+      <tr>
+        <td>usuario 1</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+       <tr>
+        <td>usuario 1</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+       <tr>
+        <td>usuario 1</td>
+        <td><input type="number" min="0"></td>
+        <td><input type="number" min="0"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br>
+  <button class="btn nueva-tarea azul-flat" style="border: none; margin-left: 50px;">Guardar tarifa</button>
+  <br><br>
+         </div>
+        
+        </div>
+       
+        </div>
+
+  
+</template>
+
+<template name="cobros">
+   <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+        <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim " style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+    
+    <div class="sidebar-vertical-blanco">
+
+        <div class="btn-group">
+          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+            Nuevo <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+            <li class="empresa"><a href="#">+ Cobro</a></li>
+            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
+            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
+          </ul>
+        </div>
+
+           
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion" style="text-decoration:none;" class=" no-hover">Clientes</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Borradores</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">En revisión</a>
+                </h5>
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Espera de pago</a>
+                </h5>
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Pagados</a>
+                </h5>
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Todos</a>
+                </h5>
+
+            </div>
+        </div> 
+          <!-- Recuadro que cubre la lista de clientes facturables --> 
+         <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
+          <!-- Cuadro para generar los clientes y asuntos seleccionados -->
+          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; ">
+
+            <input type="checkbox" style="display: inline-block; margin-left: 25px; margin-right: 10px;"><label style="display: inline-block; margin-right: 25px;">Seleccionar a todos</label>
+            <button class="btn nueva-tarea verde-flat generar-cobros">Generar cobro</button>
+          </div>
+          <!--Inicio de la descripcion de la table-->
+          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; text-align: center;">
+            <h4 style="display: inline-block; width: 30%">Nombre</h4>
+            <h4 style="display: inline-block; width: 30%">Horas</h4>
+            <h4 style="display: inline-block; width: 30%">Monto</h4>
+          </div> <!-- Fin de la descripcion de la table -->
+
+          <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
+      
+            <div style="display: flex; text-align:center;">
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
+                
+                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
+              
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
+              
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
+            
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
+              </div>
+      
+        
+            </div>
+
+          </div>
+
+           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
+      
+            <div style="display: flex; text-align:center;">
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
+                
+                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
+              
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
+              
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
+            
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
+              </div>
+      
+        
+            </div>
+
+          </div>
+
+           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
+      
+            <div style="display: flex; text-align:center;">
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
+                
+                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
+              
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
+              
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
+            
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
+              </div>
+      
+        
+            </div>
+
+          </div>
+
+
+           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
+      
+            <div style="display: flex; text-align:center;">
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
+                
+                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
+              
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
+              
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
+            
+              </div>
+
+              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
+                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
+                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
+              </div>
+      
+        
+            </div>
+
+          </div>
+         
+       
+        </div> <!-- Fin de cuadro que cubre los clientes facturables -->
+
+</template>
+
+<template name="generarCobroModal">
+  <div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Generar cobro</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="email">Fecha de inicio</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">Fecha de vencimiento</label>
+              <input type="date" class="form-control">
+            </div>
+ 
+            <h4>Nivel de detalle</h4>  
+            <div class="checkbox">
+              <label><input type="checkbox"> Todos los detalles</label>
+              <label><input type="checkbox"> Resúmen de actividades</label>
+              <label><input type="checkbox"> Agregado</label>
+            </div>
+            <hr>
+            <h4>Configurar</h4>  
+            <div class="checkbox">
+              <label><input type="checkbox"> Todos los detalles</label>
+              <label><input type="checkbox"> Resúmen de actividades</label>
+              <label><input type="checkbox"> Agregado</label>
+            </div>
+            <button type="submit" class="btn btn-default">Generar cobros</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
