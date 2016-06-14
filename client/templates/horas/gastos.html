@@ -1,8 +1,8 @@
 
 
 <template name="agregarGasto">
-	
-	
+
+
 	 <div id="gasto-modal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -18,12 +18,12 @@
                         	<label class="cd-label" for="cd-company">Descripción</label>
                         	<input class="company" type="text" name="descripcion" id="cd-company">
                       	</div>
-						
+
 						<div class="icon">
 		    				<label class="cd-label" for="cd-company">Fecha</label>
 							<input class="company" type="text" name="fecha" id="datepicker">
 		    			</div>
-						
+
 						<div class="icon">
                         	<label class="cd-label" for="cd-company">Adjuntar recibo</label>
                          	<input type="file" class="archivos" value="haz click para subir un documento">
@@ -68,4 +68,146 @@
             </div>
         </div>
     </div>
-</template>	
+</template>
+
+<template name="gastos">
+	<!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+         <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+	<div>
+		  <div class="sidebar-vertical-blanco">
+
+		  	<div class="btn-group">
+  				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+   					Nuevo <span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+                    <li class="empresa"><a href="#">+ Cobro</a></li>
+                    <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
+                    <li class="empresa"><a href="/facturacion/cambio/nuevo">+ Tipo de cambio</a></li>
+  				</ul>
+    		</div>
+
+
+
+            <div class="sidebar-titulo">
+
+                <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion" style="text-decoration:none;" class=" no-hover">Horas</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/gastos" style="text-decoration:none;" class=" no-hover">Gastos</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/calendario" style="text-decoration:none;" class="no-hover">Calendario</a>
+                </h5>
+
+                 <h5 class="sidebar-item" style=" padding-left: 20px;">
+                    <a href="/facturacion/reportes" style="text-decoration:none;" class="no-hover">Reportes</a>
+                </h5>
+
+            </div>
+        </div>
+
+		<div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 15px; border-top: none;">
+            <div class="btn-group">
+  				<button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; background: white; color: #34495e;">
+   					<i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li class="empresa"><a href="#">Todos</a></li>
+    				<li class="empresa"><a href="#">Mis horas</a></li>
+    				<li class="persona"><a href="#">Por miembro</a></li>
+    				<li class="persona"><a href="#">Por asunto</a></li>
+  				</ul>
+    		</div>
+        </div>
+
+        <!-- Lista de horas -->
+        <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
+
+            {{#each gastos}}
+
+        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
+
+			<div style="display: flex; width: 80%; height: 85px;">
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">{{ this.asunto.nombre}}</h5>
+					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">{{this.descripcion}}</h1>
+				</div>
+
+				<div style="margin: 25px; margin-top: 0px;">
+					<h5 style="color: #7f8c8d;">Precio</h5>
+
+						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">S./ {{this.monto}}</h1>
+
+				</div>
+			</div>
+
+        	</div>
+            {{/each}}
+
+
+
+
+        </div>
+
+	</div>
+
+</template>
