@@ -13,7 +13,7 @@ Meteor.publish('casos2', function (bufeteId) {
 
 Meteor.publish('estadisticasCasos',function(){
 	var self = this;
-/*	var casos = Casos.aggregate([{
+	var casos = Casos.aggregate([{
 		// assuming our Reports collection have the fields: hours, books
 		"$project": {
 			year:{
@@ -39,7 +39,7 @@ Meteor.publish('estadisticasCasos',function(){
 				id: caso._id,
 				count:caso.count
 			})
-	})*/
+	})
 
 	// ReactiveAggregate(this, Casos, [{
 	// 	// assuming our Reports collection have the fields: hours, books

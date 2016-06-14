@@ -5300,7 +5300,7 @@
 <template name="mainDashboard">
   <div style="width: 96%; margin: 10px auto; display: flex; flex-wrap: wrap;">
     {{>tareasHoyDashboard}}
-    {{>agendaHoyDashboard}}  
+    {{>agendaHoyDashboard}}
   </div>
   <div style="width: 96%; margin: 10px auto; display: flex; flex-wrap: wrap;">
      <div style="width: 50%; text-align: center;">
@@ -5310,7 +5310,7 @@
     {{>facturasAtrasadasDashboard}}
     </div>
     {{>hitosHorasDashboard}}
-    
+
   </div>
 </template>
 
@@ -5361,7 +5361,7 @@
       <div style=""><h3 style="margin: 0px; color: #34495e; ">S/ 2, 785</h3></div>
     </div>
   </div>
-  
+
 </template>
 
 <template name="facturasEsperaPagoDashboard">
@@ -5399,7 +5399,7 @@
         <h4 style="display: inline-block; width: 70px;"><a href="#">Mes</a></h4>
         <h4 style="display: inline-block; width: 70px;"><a href="#">Año</a></h4>
       </div>
-     
+
   </div>
 </template>
 
@@ -5410,7 +5410,7 @@
       <p>
         {{email}}
         <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-        
+
         <a href="/equipo">
         Equipo
         </a>
@@ -5429,7 +5429,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5454,7 +5454,7 @@
     </a>
   </div>
 
- 
+
 
   <div style="display: flex; flex-wrap;">
      <div class="sidebar-vertical-blanco">
@@ -5519,7 +5519,7 @@
   {{/with}}
 
   </div>
- 
+
 
   <div style="width: 80%;">
    {{#with miembro}}
@@ -5568,7 +5568,7 @@
          <h5>Email </h5> + Email
         </a>
         {{/if}}
-        
+
 
   </div>
 
@@ -5610,7 +5610,7 @@
 <!-- Administracion de usuario - configuracion -->
 
 <template name="administracionDeUsuarios">
-  
+
 </template>
 
 <!-- Configuracion de facturacion -->
@@ -5622,7 +5622,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>            
+                <a href="/clientes2" > Facturación</a>
             </p>
         </div>
     </div>
@@ -5687,7 +5687,7 @@
           </ul>
         </div>
 
-           
+
 
             <div class="sidebar-titulo">
 
@@ -5712,7 +5712,7 @@
             <!--{{#each horas}} -->
 
           <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-      
+
       <div style="display: flex; width: 80%; height: 85px;">
         <div style="margin: 25px; margin-top: 0px;">
           <h5 style="color: #7f8c8d;">Tarifa</h5>
@@ -5722,7 +5722,7 @@
 
           </div>
             <!--{{/each}} -->
-       
+
         </div>
 
     </div>
@@ -5737,7 +5737,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>            
+                <a href="/clientes2" > Facturación</a>
             </p>
         </div>
     </div>
@@ -5788,7 +5788,7 @@
     </div>
     <div>
 
-   
+
 
        <div class="sidebar-vertical-blanco">
 
@@ -5801,11 +5801,11 @@
             <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
             <li class="empresa"><a href="#">+ Cobro</a></li>
             <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
+            <li class="empresa cambio"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
           </ul>
         </div>
 
-           
+
 
             <div class="sidebar-titulo">
 
@@ -5822,15 +5822,15 @@
                 </h5>
 
             </div>
-        </div> 
+        </div>
 
          <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 5px; border-top: none; padding-left: 25px;">
            <h1 style="margin: 0; margin-top: 5px; color: #2980B9;">Nueva tarifa</h1>
-        </div> 
+        </div>
 
         <div class="cuadro-tarea-horas" style="padding: 0px; height: 715px;">
          <div class="franja-filtros" style="width: 80%; margin-left: 220px; padding-top: 15px; border-top: none;height: 715px;">
-          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style="border-radius: 5px; width: 90%; margin: 0 auto; border: 3px solid #2C3E50; display: block; height: 50px; padding-left: 15px; margin-bottom: 20px;"> 
+          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style="border-radius: 5px; width: 90%; margin: 0 auto; border: 3px solid #2C3E50; display: block; height: 50px; padding-left: 15px; margin-bottom: 20px;">
     <table class="table" style="width: 90%; margin: 0 auto;">
     <thead>
       <tr>
@@ -5839,31 +5839,31 @@
         <th style="text-align: center;">Dólar</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Administrador</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
+    <tbody class="roles">
+      <tr class="administrador">
+        <td><span>Administrador</span></td>
+        <td><input class="valor-soles" type="number" min="0"></td>
+        <td><input class="valor-dolares" type="number" min="0"></td>
       </tr>
-      <tr>
-        <td>Asociado senior</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
+      <tr class="socio-senior">
+        <td><span>Asociado senior</span></td>
+        <td><input class="valor-soles" type="number" min="0"></td>
+        <td><input class="valor-dolares" type="number" min="0"></td>
       </tr>
-      <tr>
-        <td>Asociado junior</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
+      <tr class="socio-junior">
+        <td><span>Asociado junior</span></td>
+        <td><input class="valor-soles" type="number" min="0"></td>
+        <td><input class="valor-dolares" type="number" min="0"></td>
       </tr>
-       <tr>
-        <td>Procurador</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
+       <tr class="socio-procurador">
+        <td><span>Procurador</span></td>
+        <td><input class="valor-soles" type="number" min="0"></td>
+        <td><input class="valor-dolares" type="number" min="0"></td>
       </tr>
-       <tr>
-        <td>Socio</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
+       <tr class="socio">
+        <td><span>Socio</span></td>
+        <td><input class="valor-soles" type="number" min="0"></td>
+        <td><input class="valor-dolares" type="number" min="0"></td>
       </tr>
     </tbody>
   </table>
@@ -5876,44 +5876,31 @@
         <th style="text-align: center;">Dólar</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>usuario 1</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
-      </tr>
-      <tr>
-        <td>usuario 1</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
-      </tr>
-      <tr>
-        <td>usuario 1</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
-      </tr>
-       <tr>
-        <td>usuario 1</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
-      </tr>
-       <tr>
-        <td>usuario 1</td>
-        <td><input type="number" min="0"></td>
-        <td><input type="number" min="0"></td>
-      </tr>
+    <tbody class="miembros-roles">
+		{{#each miembros}}
+			{{#if this.roles}}
+		      <tr class="{{rol}}">
+				<td style="display:none;">
+					<h1>{{this._id}}</h1>
+				</td>
+		        <td><span>{{this.profile.nombre}} {{this.profile.apellido}}</span></td>
+		        <td><input type="number" class="valor-soles-miembro"  min="0"></td>
+		        <td><input type="number" class="valor-dolares-miembro" min="0"></td>
+		      </tr>
+			{{/if}}
+	  	{{/each}}
     </tbody>
   </table>
   <br><br>
-  <button class="btn nueva-tarea azul-flat" style="border: none; margin-left: 50px;">Guardar tarifa</button>
+  <button class="btn registrar-tarifa nueva-tarea azul-flat" style="border: none; margin-left: 50px;">Guardar tarifa</button>
   <br><br>
          </div>
-        
-        </div>
-       
+
         </div>
 
-  
+        </div>
+
+
 </template>
 
 <template name="cobros">
@@ -5923,7 +5910,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>            
+                <a href="/clientes2" > Facturación</a>
             </p>
         </div>
     </div>
@@ -5972,7 +5959,7 @@
             Configuración
         </a>
     </div>
-    
+
     <div class="sidebar-vertical-blanco">
 
         <div class="btn-group">
@@ -5988,7 +5975,7 @@
           </ul>
         </div>
 
-           
+
 
             <div class="sidebar-titulo">
 
@@ -6015,8 +6002,8 @@
                 </h5>
 
             </div>
-        </div> 
-          <!-- Recuadro que cubre la lista de clientes facturables --> 
+        </div>
+          <!-- Recuadro que cubre la lista de clientes facturables -->
          <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
           <!-- Cuadro para generar los clientes y asuntos seleccionados -->
           <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; ">
@@ -6032,25 +6019,25 @@
           </div> <!-- Fin de la descripcion de la table -->
 
           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-      
+
             <div style="display: flex; text-align:center;">
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-                
+
                 <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-              
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-              
+
                 <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-            
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
@@ -6059,32 +6046,32 @@
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
               </div>
-      
-        
+
+
             </div>
 
           </div>
 
            <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-      
+
             <div style="display: flex; text-align:center;">
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-                
+
                 <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-              
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-              
+
                 <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-            
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
@@ -6093,32 +6080,32 @@
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
               </div>
-      
-        
+
+
             </div>
 
           </div>
 
            <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-      
+
             <div style="display: flex; text-align:center;">
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-                
+
                 <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-              
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-              
+
                 <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-            
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
@@ -6127,33 +6114,33 @@
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
               </div>
-      
-        
+
+
             </div>
 
           </div>
 
 
            <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-      
+
             <div style="display: flex; text-align:center;">
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-                
+
                 <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-              
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-              
+
                 <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-            
+
               </div>
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
@@ -6162,13 +6149,13 @@
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
               </div>
-      
-        
+
+
             </div>
 
           </div>
-         
-       
+
+
         </div> <!-- Fin de cuadro que cubre los clientes facturables -->
 
 </template>
@@ -6191,15 +6178,15 @@
               <label for="email">Fecha de vencimiento</label>
               <input type="date" class="form-control">
             </div>
- 
-            <h4>Nivel de detalle</h4>  
+
+            <h4>Nivel de detalle</h4>
             <div class="checkbox">
               <label><input type="checkbox"> Todos los detalles</label>
               <label><input type="checkbox"> Resúmen de actividades</label>
               <label><input type="checkbox"> Agregado</label>
             </div>
             <hr>
-            <h4>Configurar</h4>  
+            <h4>Configurar</h4>
             <div class="checkbox">
               <label><input type="checkbox"> Todos los detalles</label>
               <label><input type="checkbox"> Resúmen de actividades</label>
