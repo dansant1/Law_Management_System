@@ -8,7 +8,7 @@ Template.listaHoras.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('horas', bufeteId);
-		
+
    });
 });
 
@@ -21,7 +21,7 @@ Template.listaHorasxAsunto.onCreated(function () {
 		let asuntoId = FlowRouter.getParam('asuntoId');
 
     	self.subscribe('horasxAsunto', bufeteId, asuntoId);
-		
+
    });
 });
 
@@ -46,7 +46,7 @@ Template.horas.events({
 	let horas = Horas.find().map(function (i) {
 		externalDataRetrievedFromServer.push({"Fecha": i.fecha, "Responsable": i.responsable.nombre,"Descripción": i.descripcion, "Horas": i.horas, "Costo (S/)": i.precio,"Total (S/)": i.total});
 	});
-	
+
 
 	function buildTableBody(data, columns) {
     	var body = [];
@@ -80,7 +80,7 @@ Template.horas.events({
 			pageSize: 'A4',
 			pageMargins: [ 30, 25, 30, 25 ],
     		content: [
-    				{ 
+    				{
 						stack: [
 							'Susana Valladares Caballero',
 							{ text: 'Lima, Perú', style: 'subheader' },
@@ -116,7 +116,7 @@ Template.horas.events({
 					fontSize: 18,
 					bold: true,
 					alignment: 'right',
-					margin: [50,45,0,18]		
+					margin: [50,45,0,18]
 				},
 				subheader: {
 					fontSize: 14
@@ -127,8 +127,8 @@ Template.horas.events({
 				}
 			}
 		}
- 
-		// Inicio del proceso de genereacion de pdf  
+
+		// Inicio del proceso de genereacion de pdf
 		pdfMake.createPdf(dd).open();
 
 		swal(	"¡Listo!",
@@ -199,7 +199,7 @@ Template.agregarHoras.events({
 			bufeteId: Meteor.user().profile.bufeteId,
 			horas: template.find('[name="horas"]').value,
 			minutos: template.find('[name="minutos"]').value,
-			precio: template.find('[name="precio"]').value,
+			// precio: template.find('[name="precio"]').value,
 			cobrado: $(".cobrado").is(":checked"),
 			tarea: $(".es-tarea").is(":checked"),
 			creador: {

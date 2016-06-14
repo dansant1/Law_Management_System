@@ -4,24 +4,24 @@
 	</div>
   <div style="width: 100%; background-color: #F9F9F9;">
         <div style="margin: 0 auto;">
-          {{> menuHoras}}  
-        </div>       
+          {{> menuHoras}}
+        </div>
   </div>
   <div class="box-semi-header">
     <br>
     <h1>Lista de Horas</h1>
-    
+
   </div>
 	<div class="box">
     <div class="box-news" style="margin-top: 20px; padding-left: 0; padding-right: 0;">
       <a class="btn nueva-tarea horas nuevo-evento verde-flat" id="generate-pdf" style="margin-left: 15px; margin-bottom: 15px;">Generar factura</a>
       {{> listaHoras}}
-    </div>		
+    </div>
 	</div>
-	
+
 </template>
 
-<template name="listaHoras">     	
+<template name="listaHoras">
  		  {{#if Template.subscriptionsReady}}
       {{#if hayhoras}}
   		<table class="table table-striped">
@@ -57,9 +57,9 @@
 
 </template>
 
-<template name="listaHorasxAsunto"> 
+<template name="listaHorasxAsunto">
       <div style="width: 100%; display: block; padding: 10px; margin-bottom: 10px;">
-        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Horas</a>  
+        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Horas</a>
       </div>
       {{#if Template.subscriptionsReady}}
       {{#if hayhoras}}
@@ -68,7 +68,7 @@
             <tr>
               <th>FECHA</th>
               <th>RESPONSABLE</th>
-              
+
               <th>DETALLE</th>
               <th>MONTO</th>
             </tr>
@@ -79,7 +79,7 @@
             <tr>
               <td>{{fecha}}</td>
               <td>{{responsable.nombre}}</td>
-              
+
               <td>{{descripcion}}</td>
               <td>{{total}}</td>
             </tr>
@@ -96,7 +96,7 @@
 
 </template>
 
-<template name="listaGastos">	
+<template name="listaGastos">
   		<table class="table table-striped">
     		<thead>
       			<tr>
@@ -123,9 +123,9 @@
   		</table>
 </template>
 
-<template name="listaGastosxAsunto"> 
+<template name="listaGastosxAsunto">
       <div style="width: 100%; display: block; padding: 10px; margin-bottom: 10px;">
-        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Gasto</a>  
+        <a class="btn nueva-tarea horas nuevo-evento verde-flat">+ Gasto</a>
       </div>
       {{#if Template.subscriptionsReady}}
       {{#if haygastos}}
@@ -133,7 +133,7 @@
         <thead>
             <tr>
               <th>FECHA</th>
-              <th>RESPONSABLE</th>     
+              <th>RESPONSABLE</th>
               <th>DETALLE</th>
               <th>MONTO</th>
             </tr>
@@ -143,7 +143,7 @@
         {{#each gastos}}
             <tr>
               <td>{{fecha}}</td>
-              <td>{{responsable.nombre}}</td>           
+              <td>{{responsable.nombre}}</td>
               <td>{{descripcion}}</td>
               <td>{{monto}}</td>
             </tr>
@@ -180,7 +180,7 @@
                         	<label class="cd-label" for="cd-company">Descripción</label>
                         	<input class="company" type="text" name="descripcion" id="cd-company">
                       	</div>
-						
+
 						<div class="icon">
 		    				<label class="cd-label" for="cd-company">Fecha</label>
 							<input class="company" type="text" name="fecha" id="datepicker">
@@ -226,11 +226,6 @@
                             <input class="cobrado " style="opacity:100" type="checkbox"  name="" >
                         </div>
 
-                      	<div class="icon">
-                        	<label class="cd-label" for="cd-company">Precio</label>
-                        	<input  type="number" step="0.10" min="1" name="precio" id="cd-company">
-                      	</div>
-
                       	<input type="submit" value="Agregar horas">
                     </fieldset>
                   </form>
@@ -244,6 +239,3 @@
         </div>
     </div>
 </template>
-
-
-

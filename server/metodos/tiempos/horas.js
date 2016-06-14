@@ -8,7 +8,7 @@ Meteor.methods({
 			asunto: Object,
 			horas: String,
 			minutos:String,
-			precio: String,
+			// precio: String,
 			cobrado:Boolean,
 			tarea:Boolean,
 			creador:Object
@@ -33,7 +33,7 @@ Meteor.methods({
 
 			datos.horas = parseInt(datos.horas);
 			datos.minutos = parseInt(datos.minutos)
-			datos.precio = parseInt(datos.precio);
+			// datos.precio = parseInt(datos.precio);
 			datos.horasFacturables = datos.horas;
 			datos.minutosFacturables = datos.minutos;
 			datos.tarea = datos.tarea? true : false;
@@ -62,8 +62,8 @@ Meteor.methods({
 
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
-			
-			
+
+
 			datos.monto = parseInt(datos.monto);
 
 			datos.creadorId = this.userId;
