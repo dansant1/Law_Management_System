@@ -11,9 +11,14 @@ Meteor.publish('casos2', function (bufeteId) {
 
 });
 
-Meteor.publish('estadisticasCasos',function(){
+Meteor.publish('estadisticasCasos',function(bufeteId){
+	check(bufeteId,String)
 	var self = this;
 	var casos = Casos.aggregate([{
+		"$match":{
+			bufeteId:bufeteId
+		}
+	},{
 		// assuming our Reports collection have the fields: hours, books
 		"$project": {
 			year:{
@@ -21,12 +26,14 @@ Meteor.publish('estadisticasCasos',function(){
 			},
 			month: {
 				'$month': '$createdAt'
-			}
+			},
+			estatus: "$estatus"
 		}
 	}, {
 		"$group": {
 			_id:{
-				month:"$month"
+				month:"$month",
+				estatus:"$estatus"
 			},
 			count:{
 				'$sum':1

@@ -3429,9 +3429,7 @@ Template.barChart.onCreated(function () {
 
 	var self = this;
 
-
 	self.autorun(function() {
-		self.subscribe('estadisticasCasos')
 		self.subscribe('bars');
 	});
 
@@ -3469,75 +3467,122 @@ Template.barChart.events({
 
 
 Template.barChart.onRendered(function(){
+	let self = this;
+
+	let bufeteId = Meteor.user().profile.bufeteId;
+	self.autorun(function() {
+		self.subscribe('estadisticasCasos',bufeteId)
+	});
 
 	// Set the options
-    var options = {
+	function barchart () {
 
-        ///Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
+		var options = {
 
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
+			///Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines: true,
 
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
+			//String - Colour of the grid lines
+			scaleGridLineColor: "rgba(0,0,0,.05)",
 
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
+			//Number - Width of the grid lines
+			scaleGridLineWidth: 1,
 
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
 
-        //Boolean - Whether the line is curved between points
-        bezierCurve: true,
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
 
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension: 0.4,
+			//Boolean - Whether the line is curved between points
+			bezierCurve: true,
 
-        //Boolean - Whether to show a dot for each point
-        pointDot: true,
+			//Number - Tension of the bezier curve between points
+			bezierCurveTension: 0.4,
 
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 4,
+			//Boolean - Whether to show a dot for each point
+			pointDot: true,
 
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
+			//Number - Radius of each point dot in pixels
+			pointDotRadius: 4,
 
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 20,
+			//Number - Pixel width of point dot stroke
+			pointDotStrokeWidth: 1,
 
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
+			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			pointHitDetectionRadius: 20,
 
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
+			//Boolean - Whether to show a stroke for datasets
+			datasetStroke: true,
 
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill: true,
+			//Number - Pixel width of dataset stroke
+			datasetStrokeWidth: 2,
 
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+			//Boolean - Whether to fill the dataset with a colour
+			datasetFill: true,
 
-    };
+			display:true,
+
+			//String - A legend template
+			legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+		};
 
 
-    // Set the data
-    var data = {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre","Noviembre","Diciembre"],
-        datasets: [{
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }]
-    };
+		var data_cerrado = [],
+			data_abierto=[],
+			data_no_resuelto=[];
 
-	let ctx  = document.getElementById("myChart").getContext("2d");
-	var myLineChart = new Chart(ctx).Bar(data, options);
+		for (var i = 1; i <= 12; i++) {
+			let caso = Casos.find({"id.month":i,"id.estatus":"cerrado"});
+			if(caso.count()!=0) data_cerrado.push(caso.fetch()[0].count)
+			else data_cerrado.push(0)
+		}
+
+		for (var i = 1; i <= 12; i++) {
+			let caso = Casos.find({"id.month":i,"id.estatus":"abierto"});
+			if(caso.count()!=0) data_abierto.push(caso.fetch()[0].count)
+			else data_abierto.push(0)
+		}
+
+		for (var i = 1; i <= 12; i++) {
+			let caso = Casos.find({"id.month":i,"id.estatus":"no resuelto"});
+			if(caso.count()!=0) data_no_resuelto.push(caso.fetch()[0].count)
+			else data_no_resuelto.push(0)
+		}
+
+		debugger;
+
+
+	    // Set the data
+	    var data = {
+	        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre","Noviembre","Diciembre"],
+	        datasets: [{
+	            label: "Abiertos",
+	            fillColor: "rgba(151,187,205,0.2)",
+	            pointHighlightStroke: "rgba(151,187,195,1)",
+	            data: data_abierto
+	        },{
+	            label: "Cerrados",
+	            fillColor: "rgba(151,111,205,0.2)",
+	            pointHighlightStroke: "rgba(151,187,205,1)",
+	            data: data_cerrado
+	        },{
+	            label: "No resueltos",
+	            fillColor: "rgba(151,177,205,0.2)",
+	            pointHighlightStroke: "rgba(151,127,205,1)",
+	            data: data_no_resuelto
+	        }]
+	    };
+
+		let ctx  = document.getElementById("myChart").getContext("2d");
+		var myLineChart = new Chart(ctx).Bar(data, options);
+	}
+
+	setTimeout(function () {
+		Tracker.autorun(barchart)
+	},1000)
+
 });
 
 Template.detalleMiembroEquipo.onCreated(function () {
