@@ -425,6 +425,20 @@ Template.botonNuevosContactos.events({
 	}
 });
 
+Template.clienteNuevoModal.onRendered(function () {
+	var self = this;
+	let bufeteId = Meteor.user().profile.bufeteId;
+	self.autorun(function () {
+		self.subscribe('tarifas',bufeteId)
+	})
+})
+
+Template.clienteNuevoModal.helpers({
+	tarifas(){
+		return Tarifas.find();
+	}
+})
+
 Template.clienteNuevoModal.events({
 	'click .guardar-contacto': function (event, template) {
 		event.preventDefault();
@@ -3699,6 +3713,7 @@ Template.formularioParaCrearTarifa.events({
 
 		tarifa.roles = tarifas_roles;
 		tarifa.miembros = tarifas_miembros;
+		tarifa.bufeteId = Meteor.user().profile.bufeteId;
 
 		Meteor.call('registrarTarifa',tarifa,function (err) {
 			if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
