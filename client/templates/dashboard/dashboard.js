@@ -442,7 +442,7 @@ Template.clienteNuevoModal.helpers({
 Template.clienteNuevoModal.events({
 	'click .guardar-contacto': function (event, template) {
 		event.preventDefault();
-
+		debugger;
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			apellido: template.find('[name="apellido"]').value || "",
@@ -454,7 +454,33 @@ Template.clienteNuevoModal.events({
 			provincia: template.find('[name="provincia"]').value || "",
 			pais: template.find('[name="pais"]').value || "",
 			bufeteId: Meteor.user().profile.bufeteId,
-			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+			facturacion:{
+				ruc: template.find("[name='ruc']").value || "",
+				direccion: template.find("[name='direccion']").value || "",
+				telefono: template.find("[name='telefono-facturacion']").value || "",
+				solicitante:{
+					nombre: template.find("[name='nombre-solicitante']").value || "",
+					telefono: template.find("[name='telefono-solicitante']").value || "",
+					correo: template.find("[name='correo-solicitante']").value || ""
+				},
+				tarifa:{
+					id:template.find("[name='tarifa']").value,
+					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+				},
+				forma_cobro: template.find("[name='forma-cobro']").value,
+				descuento:{
+					tipo:template.find("[name='tipo-descuento']").value,
+					valor:template.find("[name='valor-descuento']").value
+				},
+				cobranza: template.find("[name='cobranza']").value,
+				alertas:{
+					horas: template.find("[name='horas']").value,
+					monto: template.find("[name='monto']").value,
+					horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
+					monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
+				}
+			}
 		}
 
 		if (datos.nombre !== "") {

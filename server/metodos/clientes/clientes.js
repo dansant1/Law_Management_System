@@ -11,14 +11,15 @@
 			celular: String,
 			provincia: String,
 			pais: String,
-			autor: String
+			autor: String,
+            facturacion:Object
 		});
 
 		datos.nombreCompleto = datos.nombre + " " + datos.apellido;
 		datos.createdAt = new Date();
 		datos.creadorId = this.userId;
 		datos.estatus = "contacto";
-		
+
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.archivado = false;
 			let clienteId = Clientes.insert(datos);
@@ -50,7 +51,7 @@
 Meteor.methods({
 	crearEmpresa: function (datos) {
 		check(datos, {
-			nombre: String,			
+			nombre: String,
 			bufeteId: String,
 			email: String,
 			identificacion: String,
