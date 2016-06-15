@@ -101,7 +101,7 @@ Meteor.methods({
 							to: encargados[i].emails[0].address,
 							from: "daniel@grupoddv.pw",
 							subject: "Notificacion de horas de trabajo",
-							html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + horas[0].total + " horas. Saludos"
+							html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + asunto.facturacion.alertas.horas + " horas. Saludos"
 						});
 					}
 				})
