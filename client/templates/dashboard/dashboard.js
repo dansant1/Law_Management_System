@@ -2734,22 +2734,17 @@ Template.asuntoNuevoModal.events({
 			if (asunto.caratula !== "") {
 
 				Meteor.call('crearAsunto', asunto, function (err, result) {
-					if (err) {
-						Bert.alert('Hubo un error, vuelva a intentarlo', 'warning');
-						template.find( '[name="caratula"]' ).value = "";
-						template.find( '[name="carpeta"]' ).value = "";
-						template.find( '[name="juzgado"]' ).value = "";
-						template.find( '[name="observaciones"]' ).value = "";
-						template.find( '[name="fecha"]' ).value = "";
-					} else {
-						template.find( '[name="caratula"]' ).value = "";
-						template.find( '[name="carpeta"]' ).value = "";
-						template.find( '[name="juzgado"]' ).value = "";
-						template.find( '[name="observaciones"]' ).value = "";
-						template.find( '[name="fecha"]' ).value = "";
-						Bert.alert('Creaste un asunto', 'success');
-						FlowRouter.go('/asuntos2/d/' + result.asuntoId);
-					}
+
+					if(err) return Bert.alert('Error al crear el asunto','danger');
+					if(result.error) return Bert.alert(result.error,'danger')
+					Modal.hide('asuntoNuevoModal')
+					template.find( '[name="caratula"]' ).value = "";
+					template.find( '[name="carpeta"]' ).value = "";
+					template.find( '[name="juzgado"]' ).value = "";
+					template.find( '[name="observaciones"]' ).value = "";
+					template.find( '[name="fecha"]' ).value = "";
+					Bert.alert('Creaste un asunto', 'success');
+					FlowRouter.go('/asuntos2/d/' + result.asuntoId);
 
 
 				});

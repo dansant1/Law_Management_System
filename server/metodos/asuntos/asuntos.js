@@ -35,7 +35,7 @@ Meteor.methods({
 			if(!asuntos.facturacion)
 				if(cliente.facturacion) asuntos.facturacion = cliente.facturacion
 				else return{
-
+					error:'No existen facturacion para asignar intentelo nuevamente'
 				}
 
 			asuntos.abogados = [];

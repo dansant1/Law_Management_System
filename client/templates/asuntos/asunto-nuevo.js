@@ -64,27 +64,23 @@ Template.asuntoForm.events({
 
 		asunto.bufeteId = Meteor.user().profile.bufeteId;
 
-		
-		if (asunto.caratula !== "" && asunto.carpeta !== "" && asunto.juzgado !== "" && asunto.inicio !== "") {
 
-			Meteor.call('crearAsunto', asunto, function (err, result) {
+		if (asunto.caratula !== "" && asunto.carpeta !== "" && asunto.juzgado !== "" && asunto.inicio !== "")
+			return Meteor.call('crearAsunto', asunto, function (err, result) {
+				if(err) return Bert.alert('Error al crear el asunto','danger');
+				if(result.error) return Bert.alert(result.error,'danger')
+
 				FlowRouter.go('/asuntos/d/' + result.asuntoId);
+
+				template.find( '[name="caratula"]' ).value = "";
+				template.find( '[name="carpeta"]' ).value = "";
+				template.find( '[name="juzgado"]' ).value = "";
+				template.find( '[name="observaciones"]' ).value = "";
+				template.find( '[name="fecha"]' ).value = "";
 			});
 
-			template.find( '[name="caratula"]' ).value = "";
-			template.find( '[name="carpeta"]' ).value = "";
-			template.find( '[name="juzgado"]' ).value = "";
-			template.find( '[name="observaciones"]' ).value = "";
-			template.find( '[name="fecha"]' ).value = "";
+		Bert.alert( 'Ingrese los datos', 'warning' );
 
-		} else {
-			Bert.alert( 'Ingrese los datos', 'warning' );
 
-			template.find( '[name="caratula"]' ).value = "";
-			template.find( '[name="carpeta"]' ).value = "";
-			template.find( '[name="juzgado"]' ).value = "";
-			template.find( '[name="observaciones"]' ).value = "";
-			template.find( '[name="fecha"]' ).value = "";
-		}
 	}
 });
