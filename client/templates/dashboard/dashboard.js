@@ -454,34 +454,44 @@ Template.clienteNuevoModal.events({
 			provincia: template.find('[name="provincia"]').value || "",
 			pais: template.find('[name="pais"]').value || "",
 			bufeteId: Meteor.user().profile.bufeteId,
-			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-			facturacion:{
-				ruc: template.find("[name='ruc']").value || "",
-				direccion: template.find("[name='direccion']").value || "",
-				telefono: template.find("[name='telefono-facturacion']").value || "",
-				solicitante:{
-					nombre: template.find("[name='nombre-solicitante']").value || "",
-					telefono: template.find("[name='telefono-solicitante']").value || "",
-					correo: template.find("[name='correo-solicitante']").value || ""
-				},
-				tarifa:{
-					id:template.find("[name='tarifa']").value,
-					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
-				},
-				forma_cobro: template.find("[name='forma-cobro']").value,
-				descuento:{
-					tipo:template.find("[name='tipo-descuento']").value,
-					valor:template.find("[name='valor-descuento']").value
-				},
-				cobranza: template.find("[name='cobranza']").value,
-				alertas:{
-					horas: template.find("[name='horas']").value,
-					monto: template.find("[name='monto']").value,
-					horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
-					monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
+			autor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+		}
+
+		if(template.find("[name='ruc']").value!=""
+			&& template.find("[name='direccion']").value!=""
+			&& template.find("[name='telefono-facturacion']").value != ""
+			&& template.find("[name='tarifa']").value!=""
+			&& template.find("[name='tipo-descuento']").value!=""
+			&& template.find("[name='valor-descuento']").value!=""
+			&& template.find("[name='cobranza']").value!=""){
+
+				datos.facturacion = {
+					ruc: template.find("[name='ruc']").value || "",
+					direccion: template.find("[name='direccion']").value || "",
+					telefono: template.find("[name='telefono-facturacion']").value || "",
+					solicitante:{
+						nombre: template.find("[name='nombre-solicitante']").value || "",
+						telefono: template.find("[name='telefono-solicitante']").value || "",
+						correo: template.find("[name='correo-solicitante']").value || ""
+					},
+					tarifa:{
+						id:template.find("[name='tarifa']").value,
+						nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+					},
+					forma_cobro: template.find("[name='forma-cobro']").value,
+					descuento:{
+						tipo:template.find("[name='tipo-descuento']").value,
+						valor:template.find("[name='valor-descuento']").value
+					},
+					cobranza: template.find("[name='cobranza']").value,
+					alertas:{
+						horas: template.find("[name='horas']").value,
+						monto: template.find("[name='monto']").value,
+						horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
+						monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
+					}
 				}
 			}
-		}
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
@@ -2610,7 +2620,7 @@ Template.detalleClientesFacturacion.helpers({
 	},
 	contactoId() {
 		return FlowRouter.getParam('_id');
-	}
+	},
 });
 
 
@@ -2623,6 +2633,7 @@ Template.asuntoNuevoModal.onCreated(function () {
 
     	self.subscribe('equipo', bufeteId);
 		self.subscribe('clientes', bufeteId);
+		self.subscribe('tarifas',bufeteId)
    });
 });
 
@@ -2636,7 +2647,11 @@ Template.asuntoNuevoModal.helpers({
 	},
 	clientes: () => {
 		return Clientes.find();
+	},
+	tarifas(){
+		return Tarifas.find();
 	}
+
 });
 
 Template.asuntoNuevoModal.events({
@@ -2657,6 +2672,42 @@ Template.asuntoNuevoModal.events({
 			asunto.carpeta	= template.find( '[name="carpeta"]' ).value;
 
 			asunto.abogados = [];
+			if(template.find("[name='ruc']").value!=""
+				&& template.find("[name='direccion']").value!=""
+			 	&& template.find("[name='telefono-facturacion']").value != ""
+			 	&& template.find("[name='tarifa']").value!=""
+				&& template.find("[name='tipo-descuento']").value!=""
+				&& template.find("[name='valor-descuento']").value!=""
+				&& template.find("[name='cobranza']").value!=""){
+
+					asunto.facturacion = {
+						ruc: template.find("[name='ruc']").value || "",
+						direccion: template.find("[name='direccion']").value || "",
+						telefono: template.find("[name='telefono-facturacion']").value || "",
+						solicitante:{
+							nombre: template.find("[name='nombre-solicitante']").value || "",
+							telefono: template.find("[name='telefono-solicitante']").value || "",
+							correo: template.find("[name='correo-solicitante']").value || ""
+						},
+						tarifa:{
+							id:template.find("[name='tarifa']").value,
+							nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+						},
+						forma_cobro: template.find("[name='forma-cobro']").value,
+						descuento:{
+							tipo:template.find("[name='tipo-descuento']").value,
+							valor:template.find("[name='valor-descuento']").value
+						},
+						cobranza: template.find("[name='cobranza']").value,
+						alertas:{
+							horas: template.find("[name='horas']").value,
+							monto: template.find("[name='monto']").value,
+							horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
+							monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
+						}
+					}
+				}
+
 
 			$('#integrantes :checked').each(function() {
        			asunto.abogados.push({

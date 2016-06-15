@@ -29,6 +29,9 @@ Meteor.methods({
 				abierto:true
 			})
 
+
+
+
 			datos.fecha = new Date(datos.fecha + " GMT-0500");
 
 			datos.horas = parseInt(datos.horas);
@@ -45,6 +48,51 @@ Meteor.methods({
 			datos.facturado = false;
 
 			Horas.insert(datos);
+
+			// var horas = Horas.aggregate({
+			// 		$match:{
+			// 			bufeteId:datos.bufeteId
+			// 		}
+			// 	},{
+			// 		$group:{
+			// 			_id:"",
+			// 			total:{
+			// 				$sum:'$horas'
+			// 			}
+			// 		}
+			// 	});
+			//
+			// let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0];
+			// if(asunto.facturacion.alertas.horas<horas.total){
+			// 	let encargados = Meteor.users.find({
+			// 		$or:[
+			// 			{
+			// 				"roles.bufete":{
+			// 					$elemMatch:'administrador'
+			// 				}
+			// 			},
+			// 			{
+			// 				"roles.bufete":{
+			// 					$elemMatch:'encargado comercial'
+			// 				}
+			// 			}
+			//
+			// 		]
+			// 		, bufeteId:datos.bufeteId
+			// 	}).fetch();
+			//
+			// 	Meteor.defer(function () {
+			// 		for (var i = 0; i < encargados.length; i++) {
+			// 			Email.send({
+			// 				to: encargados[i].emails[0].address,
+			// 				from: "daniel@grupoddv.pw",
+			// 				subject: "",
+			// 				html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + horas.total + " horas. Saludos";
+			// 			});
+			// 		}
+			// 	})
+			// }
+
 
 		} else {
 			return;

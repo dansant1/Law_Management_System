@@ -9,7 +9,7 @@ Meteor.methods({
 
 	crearAsunto: function (asuntos) {
 
-		check(asuntos, {
+		let dataCheck = {
 			cliente: Object,
 			caratula: String,
 			carpeta: String,
@@ -19,13 +19,24 @@ Meteor.methods({
 			observaciones: String,
 			inicio: String,
 			responsable: Object,
-			bufeteId: String
-		});
+			bufeteId: String,
+
+		}
+
+		if(asuntos.facturacion) dataCheck.facturacion = Object
+
+		check(asuntos, dataCheck);
 
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
 
 			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
+			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
+			if(!asuntos.facturacion)
+				if(cliente.facturacion) asuntos.facturacion = cliente.facturacion
+				else return{
+
+				}
 
 			asuntos.abogados = [];
 			Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},

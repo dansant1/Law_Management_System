@@ -63,7 +63,8 @@ EsquemaClientes = new SimpleSchema({
         optional: true
 	},
 	facturacion:{
-		type:Object
+		type:Object,
+		optional:true 
 	},
 	'facturacion.ruc':{
 		type:String

@@ -1,7 +1,8 @@
  Meteor.methods({
 	crearCliente: function (datos) {
-		check(datos, {
-			nombre: String,
+
+        let dataCheck = {
+            nombre: String,
 			apellido: String,
 			bufeteId: String,
 			email: String,
@@ -11,9 +12,12 @@
 			celular: String,
 			provincia: String,
 			pais: String,
-			autor: String,
-            facturacion:Object
-		});
+			autor: String
+        }
+
+        if(datos.facturacion) dataCheck.facturacion = Object
+
+		check(datos, dataCheck);
 
 		datos.nombreCompleto = datos.nombre + " " + datos.apellido;
 		datos.createdAt = new Date();
