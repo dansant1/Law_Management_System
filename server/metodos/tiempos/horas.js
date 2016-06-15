@@ -49,49 +49,63 @@ Meteor.methods({
 
 			Horas.insert(datos);
 
-			// var horas = Horas.aggregate({
-			// 		$match:{
-			// 			bufeteId:datos.bufeteId
-			// 		}
-			// 	},{
-			// 		$group:{
-			// 			_id:"",
-			// 			total:{
-			// 				$sum:'$horas'
-			// 			}
-			// 		}
-			// 	});
+			var horas = Horas.aggregate({
+					$match:{
+						bufeteId:datos.bufeteId
+					}
+				},{
+					$group:{
+						_id:"",
+						total:{
+							$sum:'$horas'
+						}
+					}
+				});
+			console.log(horas);
+			let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0];
+			console.log(asunto.facturacion.alertas.horas);
+
+			// let totalHoras = Horas.find({bufeteId:datos.bufeteId}).fetch()
 			//
-			// let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0];
-			// if(asunto.facturacion.alertas.horas<horas.total){
-			// 	let encargados = Meteor.users.find({
-			// 		$or:[
-			// 			{
-			// 				"roles.bufete":{
-			// 					$elemMatch:'administrador'
-			// 				}
-			// 			},
-			// 			{
-			// 				"roles.bufete":{
-			// 					$elemMatch:'encargado comercial'
-			// 				}
-			// 			}
-			//
-			// 		]
-			// 		, bufeteId:datos.bufeteId
-			// 	}).fetch();
-			//
-			// 	Meteor.defer(function () {
-			// 		for (var i = 0; i < encargados.length; i++) {
-			// 			Email.send({
-			// 				to: encargados[i].emails[0].address,
-			// 				from: "daniel@grupoddv.pw",
-			// 				subject: "",
-			// 				html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + horas.total + " horas. Saludos";
-			// 			});
-			// 		}
-			// 	})
+			// for (var i = 0; i < totalHoras.length; i++) {
+			// 	totalHoras
 			// }
+
+			if(asunto.facturacion.alertas.horas<horas[0].total){
+				// console.log('Entro aqui');
+				let encargados = Meteor.users.find({
+					$and:[
+						{
+							$or:[
+								{
+									"roles.bufete":'administrador'
+								},
+								{
+									"roles.bufete":'encargado comercial'
+								}
+							]
+						},
+						{
+							'profile.bufeteId':datos.bufeteId
+						}
+					]
+				}).fetch();
+
+				// db.users.find({$or:[{'roles.bufete':'encargado comercial'},{'roles.bufete':'encargado comercial'}]})
+				Meteor.defer(function () {
+					console.log(encargados.length);
+					for (var i = 0; i < encargados.length; i++) {
+						console.log('se envio el correo');
+						console.log(encargados[i].emails[0].address);
+						Email.send({
+							to: encargados[i].emails[0].address,
+							from: "daniel@grupoddv.pw",
+							subject: "Notificacion de horas de trabajo",
+							html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + horas[0].total + " horas. Saludos"
+						});
+					}
+				})
+			}
 
 
 		} else {
