@@ -153,6 +153,9 @@ EsquemaAsuntos = new SimpleSchema({
 		type:Number,
 		decimal:true
 	},
+	'facturacion.tipo_moneda':{
+		type:String
+	},
 	abierto: {
 		type: Boolean
 	}

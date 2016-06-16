@@ -2698,6 +2698,7 @@ Template.asuntoNuevoModal.events({
 							tipo:template.find("[name='tipo-descuento']").value,
 							valor:template.find("[name='valor-descuento']").value
 						},
+						tipo_moneda: template.find("[name='tipo-moneda']").value,
 						cobranza: template.find("[name='cobranza']").value,
 						alertas:{
 							horas: template.find("[name='horas']").value,
