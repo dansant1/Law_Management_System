@@ -64,7 +64,7 @@ EsquemaClientes = new SimpleSchema({
 	},
 	facturacion:{
 		type:Object,
-		optional:true 
+		optional:true
 	},
 	'facturacion.ruc':{
 		type:String
@@ -100,6 +100,9 @@ EsquemaClientes = new SimpleSchema({
 		type:String
 	},
 	'facturacion.tarifa.nombre':{
+		type:String
+	},
+	'facturacion.tipo_moneda':{
 		type:String
 	},
 	'facturacion.descuento.tipo':{

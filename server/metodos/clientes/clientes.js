@@ -16,7 +16,7 @@
         }
 
         if(datos.facturacion) dataCheck.facturacion = Object
-
+        console.log(datos.facturacion);
 		check(datos, dataCheck);
 
 		datos.nombreCompleto = datos.nombre + " " + datos.apellido;

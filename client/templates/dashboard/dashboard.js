@@ -478,6 +478,7 @@ Template.clienteNuevoModal.events({
 						id:template.find("[name='tarifa']").value,
 						nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
 					},
+					tipo_moneda: template.find("[name='tipo-moneda']").value,
 					forma_cobro: template.find("[name='forma-cobro']").value,
 					descuento:{
 						tipo:template.find("[name='tipo-descuento']").value,
@@ -492,6 +493,7 @@ Template.clienteNuevoModal.events({
 					}
 				}
 			}
+		console.log(datos.facturacion);
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
