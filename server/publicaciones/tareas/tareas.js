@@ -20,6 +20,27 @@ Meteor.publish('tareasxAsunto', function (asuntoId) {
 
 });
 
+Meteor.publish('tareasxhoy', function () {
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		let hoy = new Date()
+	    hoy.setHours(0,0,0,0);
+
+	    let mañana = new Date();
+	    mañana.setDate(mañana.getDate()+1)
+	    mañana.setHours(0,0,0,0)
+
+		return Tareas.find({vence:{$gte:hoy,$lt:mañana}, 'asignado.id': this.userId});
+
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+
+
 Meteor.publish('tareasCerradas', function () {
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {

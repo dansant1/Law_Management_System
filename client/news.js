@@ -7,13 +7,29 @@ Template.newsfeed.onCreated(function () {
 	self.autorun(function () {
 
 		let bufeteId = Meteor.user().profile.bufeteId;
-
+		self.subscribe('tareasxhoy');
 		self.subscribe('news', bufeteId, self.limite.get());
+		self.subscribe('eventosxhoy')
 	});
 
 });
 
 Template.newsfeed.helpers({
+	eventos(){
+
+	},
+	eventos(){
+		return MiCalendario.find();
+	},
+	totalEventos(){
+		return MiCalendario.find().count()
+	},
+	tareas(){
+		return Tareas.find();
+	},
+	totalTareas(){
+		return Tareas.find().count()
+	},
 	dia() {
 		var d = new Date(),
     	minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
@@ -94,6 +110,6 @@ Template.newsfeed.events({
 	'click .cargar': (event, template) => {
 		let cargar = template.limite.get() + 10;
 		template.limite.set(cargar);
-		
+
 	}
 });

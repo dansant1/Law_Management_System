@@ -3,7 +3,26 @@
 
     <div class="box">
 
-        
+        <div class="box-news" style="width: 45%">
+            <h3>Tareas por vencer hoy</h3>
+            <h4>Tienes {{totalTareas}} tarea(s) pendiente(s)</h4>
+            <br>
+            {{#each tareas}}
+                <ul>
+                    <li>{{this.descripcion}}</li>
+                </ul>
+            {{/each}}
+        </div>
+        <div class="box-news" style="width: 45%">
+            <h3>Eventos por vencer hoy</h3>
+            <h4>Tienes {{totalEventos}} evento(s) pendiente(s)</h4>
+            <br>
+            {{#each eventos}}
+                <ul>
+                    <li>{{this.title}}</li>
+                </ul>
+            {{/each}}
+        </div>
 
         <div class="box-news" style="width: 100%;">
             <div class="asunto">
@@ -16,9 +35,9 @@
                             <p class="asunto-trata">
                                 <a href="" class="asunto-usuario" style="color: #23527C;">{{creador.nombre}} </a>
                                 {{descripcion}}
-                            </p>   
+                            </p>
                             <span class="asunto-fecha asunto-trata" style="position: absolute; right: 50px;">{{sucedio this.createdAt}}</span>
-                            
+
                         </div>
                     {{else}}
                     <h1>Aún no tienes notificaciones.</h1>
