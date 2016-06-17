@@ -2282,7 +2282,6 @@ Template.detalleClientes2.onCreated(function () {
 		let _id = FlowRouter.getParam('_id');
     	self.subscribe('contacto', _id);
     	self.subscribe('conversacionesNota', _id, Meteor.user().profile.bufeteId);
-    	self.subscribe('comentariosDeConversacionesNota', _id);
    });
 });
 
@@ -2298,9 +2297,6 @@ Template.detalleClientes2.helpers({
 	},
 	notas() {
 		return ConversacionesNota.find({}, {sort: {createdAt: -1}});
-	},
-	comentarios() {
-		return ComentariosNotas.find({notaId: Template.parentData(0)._id});
 	}
 });
 
@@ -2481,6 +2477,54 @@ Template.casoTareas.helpers({
 	}
 });
 
+Template.notaCliente.onRendered(function () {
+
+	let self = this;
+	self.autorun(function () {
+		let _id = FlowRouter.getParam('_id');
+		self.subscribe('comentariosDeConversacionesNota', _id);
+	})
+
+
+})
+
+Template.notaCliente.helpers({
+
+	comentarios() {
+		debugger;
+		return ComentariosNotas.find({notaId: Template.parentData(0)._id});
+	}
+})
+
+Template.notaCliente.events({
+
+	'click .enviar-comentario': function (event, template) {
+		let datos = {
+			comentario: template.find('[name="comentario"]').value,
+			contactoId: FlowRouter.getParam('_id'),
+			autor: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			},
+			notaId: this._id
+		}
+
+		if (datos.comentario !== "") {
+
+			Meteor.call('agregarComentarioAConversacionNota', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
+					template.find('[name="comentario"]').value = "";
+				} else {
+					template.find('[name="comentario"]').value = "";
+				}
+			});
+
+		} else {
+			Bert.alert('Ingresa los datos correctamente', 'warning');
+		}
+	}
+})
 
 Template.detalleClientes2.events({
 	'click .enviar-conversacion': function (event, template) {
@@ -2504,32 +2548,6 @@ Template.detalleClientes2.events({
 					template.find('[name="descripcion"]').value = "";
 				}
 			});
-		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');
-		}
-	},
-	'click .enviar-comentario': function (event, template) {
-		let datos = {
-			comentario: template.find('[name="comentario"]').value,
-			contactoId: FlowRouter.getParam('_id'),
-			autor: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			},
-			notaId: this._id
-		}
-
-		if (datos.comentario !== "") {
-
-			Meteor.call('agregarComentarioAConversacionNota', datos, function (err, result) {
-				if (err) {
-					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
-					template.find('[name="comentario"]').value = "";
-				} else {
-					template.find('[name="comentario"]').value = "";
-				}
-			});
-
 		} else {
 			Bert.alert('Ingresa los datos correctamente', 'warning');
 		}
@@ -3698,8 +3716,37 @@ Template.detalleMiembroEquipo.helpers({
 Template.facturacionConfiguracion.helpers({
 	email() {
 		return Meteor.user().emails[0].address
+	},
+	tarifas(){
+		return Tarifas.find();
 	}
 });
+
+Template.facturacionConfiguracion.onRendered(function () {
+	let self = this;
+	let bufeteId = Meteor.user().profile.bufeteId;
+	self.autorun(function () {
+		self.subscribe('tarifas',bufeteId);
+	})
+})
+
+Template.cambioConfiguracion.onRendered(function () {
+	let self = this;
+	let bufeteId = Meteor.user().profile.bufeteId;
+	self.autorun(function () {
+		self.subscribe('cambios',bufeteId)
+	})
+})
+
+Template.cambioConfiguracion.helpers({
+	email(){
+		return Meteor.user().emails[0].address
+	},
+	cambio(){
+		return Cambio.find();
+	}
+
+})
 
 Template.formularioParaCrearTarifa.onRendered(function () {
 
