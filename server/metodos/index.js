@@ -14,6 +14,22 @@ Meteor.startup(function() {
     		}
 	});
 
+
+
+
+    SyncedCron.add({
+        name: Random.id(),
+        schedule: function(parser) {
+            return parser.recur().on('20:00:00').time();
+        },
+        job: function() {
+
+            enviarNotificacionTareasYEventos();
+            return;
+        }
+    });
+
+
     SyncedCron.start();
 
 });

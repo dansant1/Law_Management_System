@@ -18,11 +18,11 @@ let MiCalendarioSchema = new SimpleSchema({
     label: '¿De que trata el evento?'
   },
   'start': {
-    type: String,
+    type: Date,
     label: '¿Cuando empieza el evento?'
   },
   'end': {
-    type: String,
+    type: Date,
     label: '¿Cuando finaliza el evento?'
   },
   'type': {

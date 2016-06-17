@@ -11,7 +11,7 @@ Meteor.methods({
 		});
 
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
-			
+
 			datos.createdAt = new Date();
 			datos.color = '#2ECC71';
 			//console.log(datos);
@@ -45,6 +45,9 @@ Meteor.methods({
       bufeteId: String
     });
 
+
+	event.start = new Date(event.start.split("T")[0] + " " + event.start.split("T")[1] + " GMT-0500");
+	event.end = new Date(event.end.split("T")[0] + " " + event.end.split("T")[1] + " GMT-0500");
     event.userId = this.userId;
 
     try {
@@ -65,6 +68,10 @@ Meteor.methods({
       type: Match.Optional( String ),
       bufeteId: String
     });
+
+	event.start = new Date(event.start.split("T")[0] + " " + event.start.split("T")[1] + " GMT-0500");
+	event.end = new Date(event.end.split("T")[0] + " " + event.end.split("T")[1] + " GMT-0500");
+	event.userId = this.userId;
 
     try {
       return MiCalendario.update( event._id, {
