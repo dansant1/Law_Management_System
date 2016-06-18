@@ -2966,7 +2966,7 @@
 		{{#each documentos}}
 			<div class="item-lista-tareas">
 				<i class="glyphicon glyphicon-file i-hover"> </i>
-				<a href="/asuntos2/d/{{asuntoId}}/documentos/{{this._id}}">{{this.metadata.descripcion}}</a>
+				<a href="/asuntos2/d/{{asuntoId}}/documentos/{{this._id}}">{{this.metadata.nombre}}</a>
 			</div>
 		{{/each}}
 		</div>
@@ -2976,7 +2976,7 @@
 				<a style="display: inline-block; margin-right: 8px;">
 				<i class="glyphicon glyphicon-file"></i>
 
-				{{this.metadata.descripcion}}
+				{{this.metadata.nombre}}
 
 				</a>
 

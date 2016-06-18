@@ -1265,6 +1265,7 @@ Template.fullScreenTareaAsunto.onCreated( function () {
     	self.subscribe('expediente', asuntoId);
 		let tareaId = FlowRouter.getParam('tareaId');
     	//self.subscribe('tarea', tareaId);
+		self.subscribe('docs')
     	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
    });
 });
@@ -1319,6 +1320,7 @@ Template.asuntosDocs3.onCreated( function () {
 	var self = this;
 
 	self.autorun(function() {
+		// alert('da')
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
    });
@@ -1359,7 +1361,7 @@ Template.asuntosDocsDetalle.onCreated( function () {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
     	let bufeteId = Meteor.user().profile.bufeteId;
-    	self.subscribe('docs', bufeteId);
+		self.subscribe('docsAsunto', asuntoId);
    });
 });
 
@@ -1404,6 +1406,7 @@ Template.fullScreenTareaAsuntoDocs.onCreated( function () {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('tareasxAsunto', asuntoId);
     	self.subscribe('expediente', asuntoId);
+		self.subscribe('docs')
 		let tareaId = FlowRouter.getParam('tareaId');
 		self.subscribe('archivosDeTareas', tareaId);
    });

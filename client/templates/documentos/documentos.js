@@ -64,8 +64,8 @@ function subirArchivo (event, template) {
               descripcion: datos.descripcion,
               nombre: datos.nombre,
               asunto: {
-                nombre: $( ".asunto option:selected" ).text(),
-                id: $( ".asunto option:selected" ).val()
+                nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula,
+                id: FlowRouter.getParam('asuntoId')
               }
             };
 
