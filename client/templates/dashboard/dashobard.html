@@ -1242,6 +1242,7 @@
 <template name="appDashboard">
 	{{> menuDashboard}}
 	<div class="contenido-dashboard">
+		<!--{{>chatFB}}-->
 		{{>Template.dynamic template=content}}
 	</div>
 
@@ -1259,9 +1260,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-            Bienvenido
-        </a>
+       
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1285,6 +1284,7 @@
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;">
             <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a>
+            {{>botonNuevoTareas}}
 
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
@@ -1322,9 +1322,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-            Bienvenido
-        </a>
+       
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1537,9 +1535,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-            Bienvenido
-        </a>
+       
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1563,7 +1559,7 @@
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;">
             <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a>
-
+			{{>botonNuevoTareas}}
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
                     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
@@ -1574,6 +1570,8 @@
                     <li><a class="gant" href="#">Gant</a></li>
                 </ul>
             </div>
+
+
 
             <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> tareas {{tipo}}</p>
 
@@ -1679,9 +1677,7 @@
 		</div>
 	</div>
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -1843,7 +1839,7 @@
 
 	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
 		<a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Tarea</a>
-
+		{{>botonNuevoTareas}}
 		<div class="btn-group">
   			<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
@@ -2583,9 +2579,7 @@
 		</div>
 	</div>
 	 <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2620,9 +2614,7 @@
 	</div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2686,9 +2678,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2792,9 +2782,7 @@
 		</div>
 	</div>
 	<div class="franja-filtros" style="padding-left: 18px;">
-		<a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-			Bienvenido
-		</a>
+		
 		<a href="/dashboard2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
 			Actividad
 		</a>
@@ -2816,7 +2804,9 @@
     </a>
 	</div>
 
+  {{>mainDashboard}}
   {{>newsfeed}}
+
 </template>
 
 <template name="contenidoDashboard2Bienvenido">
@@ -2837,9 +2827,7 @@
 	</div>
 
 	<div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim asunto-item-activo" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3308,9 +3296,7 @@
 	</div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -3436,9 +3422,7 @@
     </div>
 
     <div class="franja-filtros" style="padding-left: 18px;">
-        <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-            Bienvenido
-        </a>
+        
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
         </a>
@@ -3488,7 +3472,7 @@
             <div >
                 <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
                     <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
-                    <a href="/equipo/d/{{this.profile._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+                    <a href="/equipo/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
                         <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span><br>
                         <!--<h5>Por {{this.autor}}</h5>-->
                         <i class="glyphicon glyphicon-phone"></i>
@@ -3513,10 +3497,7 @@
                 </div>
 
             </div>
-        {{else}}
-            <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-                {{>loader}}
-            </div>
+        
         {{/each}}
     </div>
 
@@ -3541,9 +3522,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3667,9 +3646,7 @@
 
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3793,9 +3770,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3995,10 +3970,7 @@
   </div>
 
   </div>
-  {{else}}
-  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    {{>loader}}
-  </div>
+  
   {{/each}}
   </div>
 
@@ -4029,9 +4001,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4214,9 +4184,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4348,9 +4316,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4494,9 +4460,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4637,9 +4601,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4767,9 +4729,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5002,9 +4962,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+    
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5157,9 +5115,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5311,9 +5267,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    <a href="/dashboard2/bienvenido" class="menu-asunto-aim" style=" text-align: left;">
-      Bienvenido
-    </a>
+   
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -6730,4 +6684,155 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="trelloLikeTareas">
+ <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 18px;">
+       
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+    </div>
+	<div class="cuerpo-trello">
+		<section class="list">
+ 
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+ 
+  <article class="card2">
+        <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+   
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+   
+    <div class="detail">1/2</div>
+  </article>
+  
+  <article class="card2">
+   
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+ 
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+   
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+<section class="list">
+  
+  <article class="card2">
+    
+    <div class="detail">1/2</div>
+  </article>
+</section>
+	</div>
+</template>
+
+<template name="botonNuevoTareas">
+	<div class="btn-group">
+  				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+   					Nuevo <span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li class="persona agregar-hora"><a href="#">+ Tarea</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">+ Workflow</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">+ Estado</a></li>
+  				</ul>
+    		</div>
 </template>
