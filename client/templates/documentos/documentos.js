@@ -14,7 +14,7 @@ Template.documentos.onCreated(function () {
 
 Template.documentos.helpers({
     docs: () => {
-        let result = Documentos.find({});
+        let result = Documentos.find({'metadata.version':{$exists:false}});
         return result;
     },
     /*carpetas: () => {

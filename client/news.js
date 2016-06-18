@@ -16,16 +16,19 @@ Template.newsfeed.onCreated(function () {
 
 Template.newsfeed.helpers({
 	eventos(){
-
-	},
-	eventos(){
 		return MiCalendario.find();
 	},
 	totalEventos(){
 		return MiCalendario.find().count()
 	},
 	tareas(){
-		return Tareas.find();
+		let hoy = new Date();
+		hoy.setHours(0,0,0,0);
+		let mañana = new Date();
+		mañana.setDate(mañana.getDate()+1);
+		mañana.setHours(0,0,0,0)
+
+		return Tareas.find({'vence':{$gte:hoy,$lt:mañana},'asignado.id': Meteor.userId(), abierto: true});
 	},
 	totalTareas(){
 		return Tareas.find().count()

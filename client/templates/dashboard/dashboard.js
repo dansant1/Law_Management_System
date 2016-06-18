@@ -383,7 +383,14 @@ Template.tareasSidebarDashboard.onCreated(function () {
 
 Template.tareasSidebarDashboard.helpers({
 	tareas() {
-		return Tareas.find({'asignado.id': Meteor.userId(), abierto: true});
+
+		let hoy = new Date();
+		hoy.setHours(0,0,0,0);
+		let mañana = new Date();
+		mañana.setDate(mañana.getDate()+1);
+		mañana.setHours(0,0,0,0)
+
+		return Tareas.find({'vence':{$gte:hoy,$lt:mañana},'asignado.id': Meteor.userId(), abierto: true});
 	},
 	hayTareas() {
 		if (Tareas.find({'asignado.id': Meteor.userId(), abierto: true}).fetch().length > 0) {
