@@ -22,7 +22,8 @@ Meteor.methods({
         nombre: String,
         asunto: Object,
         creador: Object,
-        bufeteId: String
+        bufeteId: String,
+        version: String
       });
 
       NewsFeed.insert({

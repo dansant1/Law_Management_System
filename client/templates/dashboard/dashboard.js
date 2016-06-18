@@ -1365,6 +1365,80 @@ Template.asuntosDocsDetalle.onCreated( function () {
    });
 });
 
+Template.cuadroVersionesDocumentos.onCreated(function () {
+	// let self = this;
+	// self.autorun(function () {
+	// 	self.subscribe('docsVersion',FlowRouter.getParam('docId'));
+	// })
+})
+
+Template.cuadroVersionesDocumentos.helpers({
+	versiones(){
+		return Documentos.find({'metadata.version':{$exists:true},'metadata.version':FlowRouter.getParam('documentoId')})
+	}
+})
+
+Template.asuntosDocsDetalle.events({
+	'click .adjuntar-archivo-version'(event,template){
+		$(template.find("[name='archivo']")).click()
+	},
+	'change [name="archivo"]'(event,template){
+
+		let archivo = template.find('[name="archivo"]');
+
+	    if ('files' in archivo) {
+
+	          for (var i = 0; i < archivo.files.length; i++) {
+
+				var documento = Documentos.find({_id:FlowRouter.getParam('documentoId')}).fetch()[0];
+
+	            var filei = archivo.files[i];
+
+	            var doc = new FS.File(filei);
+
+	            doc.metadata = {
+	              	creadorId: Meteor.userId(),
+	              	bufeteId: Meteor.user().profile.bufeteId,
+	              	subdoc: false,
+	              	descripcion: documento.metadata.descripcion,
+	              	nombre: documento.metadata.nombre,
+	              	asunto: {
+		                nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula,
+		                id: FlowRouter.getParam('asuntoId')
+					},
+					version: FlowRouter.getParam('documentoId')
+	            };
+
+	            Documentos.insert(doc, function (err, fileObj) {
+	              if (err) return Bert.alert('Hubo un problema', 'warning');
+				  let data = {
+					nombre: documento.metadata.nombre,
+					asunto: {
+						nombre: documento.metadata.asunto.nombre,
+						id: doc.metadata.asunto.id
+					},
+					creador: {
+						nombre: Meteor.user().profile.nombre + ' ' + Meteor.user().profile.apellido,
+						id: Meteor.userId()
+					},
+					bufeteId: Meteor.user().profile.bufeteId,
+					version: FlowRouter.getParam('documentoId')
+				  }
+					Meteor.call('agregarDocNews', data, function (err) {
+						if (err) return	Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+						template.find('[name="nombre"]').value = "";
+						template.find('[name="descripcion"]').value = "";
+						$('#doc-modal').modal('hide');
+						Bert.alert('Subiste el archivo', 'success');
+
+					});
+
+				})
+			}
+	    }
+	}
+})
+
 Template.asuntosDocsDetalle.helpers({
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
@@ -1392,7 +1466,7 @@ Template.asuntosDocsDetalle.helpers({
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
 	},
 	documentos() {
-		return Documentos.find({}, {sort: {createdAt: -1}});
+		return Documentos.find({'metadata.version':{$exists:false}}, {sort: {createdAt: -1}});
 	},
 	archivo() {
 		return Documentos.findOne({_id: FlowRouter.getParam('documentoId')});

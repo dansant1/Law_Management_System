@@ -2980,8 +2980,8 @@
 
 				</a>
 
-
-				<a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
+				<input type="file" name="archivo" value="" style="display:none;">
+				<a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-version">
 				<i class="glyphicon glyphicon-paperclip"></i>
 				Nueva versión</a>
 				<a style="display: inline-block; margin-left: 8px;" href="/asuntos2/d/{{asuntoId}}/tarea/{{tareaId}}/f">
@@ -2998,10 +2998,27 @@
 				</div>
 				{{/with}}
 			</div>
+			{{> cuadroVersionesDocumentos}}
 			{{>comentarios}}
 			{{> cajaComentario}}
 		</div>
 	</div>
+</template>
+
+<template name="cuadroVersionesDocumentos">
+
+		<div class="" style="overflow-y: scroll;overflow-x: hidden;height:50px;">
+
+	        {{#each versiones}}
+	          <div class="item-lista-tareas">
+	            <i class="glyphicon glyphicon-folder-open i-hover"> </i>
+	            <a style="display: inline-block; width: 100px;" href="{{this.url download=true}}" target="_parent">{{this.metadata.nombre}}</a>
+	            {{#FS.DeleteButton class="btn"}}Eliminar{{/FS.DeleteButton}}
+	          </div>
+	        {{/each}}
+		</div>
+
+
 </template>
 
 <template name="detalleCalendario2">

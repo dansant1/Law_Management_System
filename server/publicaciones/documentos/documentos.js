@@ -11,6 +11,22 @@ Meteor.publish('docs', function (bufeteId) {
   }
 });
 
+Meteor.publish('docsVersion',function (docId) {
+    check(docId, String);
+    if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+      return Documentos.find({
+        'metadata.version':{
+            $exists:true
+        },
+        'metadata.version':docId
+      });
+    } else {
+      this.stop();
+      return;
+    }
+
+})
+
 Meteor.publish('docsAsunto', function (asuntoId) {
   check(asuntoId, String);
   if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
