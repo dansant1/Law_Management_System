@@ -1686,7 +1686,7 @@ Template.menuTareas2.helpers({
 });
 
 Template.menuTareas2.events({
-	'click .nueva-tarea'(event,template){
+	'click .task'(event,template){
 		Modal.show('nuevaTareaAsuntoModal')
 	}
 })

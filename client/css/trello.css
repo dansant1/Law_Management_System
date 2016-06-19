@@ -1,8 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+
 .cuerpo-trello {
   width: 100%;
   min-height: 462.3px;
 
-  background-color: #3498db;
+  background-color: #F9F9F9;
   overflow: auto;
   padding: 5px;
   font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
@@ -10,9 +12,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  -webkit-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
--moz-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 }
 [draggable] {
   position: relative;
@@ -24,10 +23,12 @@ box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 }
 .list {
   background-color: #E3E3E3;
-  border-radius: 3px;
+  border-radius: 5px;
+  min-height: 155px;
   margin: 5px 5px;
   padding: 10px;
   min-width: 230px;
+  
 }
 .list>header {
   font-weight: bold;
@@ -38,6 +39,7 @@ box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 .list article {
   border-radius: 3px;
   margin-top: 5px;
+  min-height: 80px
 }
 
 .list .card2 {
@@ -45,10 +47,36 @@ box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
   border-bottom: 1px solid #CCC;
   padding: 6px 8px;
   cursor: pointer;
+
 }
 .list .card2:hover {
   background-color: #F0F0F0;
 }
+
+.list > h3 {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.card2 > h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card2 {
+  border-left: 3.3px solid #e74c3c;
+}
+
+.kanban-input {
+  border: none;
+  background-color: #E3E3E3;
+  display: block;
+  margin-bottom: 10px;
+}
+
 .detail {
   font-size: 12px;
   color: #939393;

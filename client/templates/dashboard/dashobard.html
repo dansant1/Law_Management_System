@@ -1837,10 +1837,11 @@
 		</a>
 	</div>
 
-	<div style="width: 100%; padding-left: 30px; padding-top: 15px;">
-		<a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Tarea</a>
-		{{>botonNuevoTareas}}
-		<div class="btn-group">
+	<div class="franja-filtros">
+		<div class="progreso" style="padding-top: 15px;">
+		
+    	{{>botonNuevoTareas}}
+			<div class="btn-group">
   			<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
   			</button>
@@ -1850,7 +1851,21 @@
    	 			<li><a href="#">Archivados</a></li>
   			</ul>
 		</div>
+
+		</div>
+
+		<div  style="float: right; width: 100px; padding: 20px; display: inline-block">
+			<a href="/asuntos2/d/{{asuntoId}}">
+				<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
+			</a>
+			<a href="/asuntos2/d/{{asuntoId}}/t/k">
+				<i class="glyphicon glyphicon-th"></i>
+			</a>
+		</div>
 	</div>
+
+
+	
 
 </template>
 
@@ -6689,148 +6704,205 @@
 <template name="trelloLikeTareas">
  <div class="franja-progreso">
         <div class="progreso">
-            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Todos los asuntos</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+				<a href="/tareas/t/r">Kanban</a>
+            </p>
         </div>
     </div>
-    <div class="franja-filtros" style="padding-left: 18px;">
-       
-        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
-            Actividad
-        </a>
-        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
-            Calendario
-        </a>
-        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
-            Tareas
-        </a>
-        <a href="/equipo" class="menu-asunto-aim ">
-            Equipo
-        </a>
+    {{> menuTareas2}}
+    	
 
-        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
-            Asuntos
-        </a>
-        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
-            CRM
-        </a>
-    </div>
 	<div class="cuerpo-trello">
-		<section class="list">
- 
+	
+	<section class="list">
+ <h3>General</h3>
+ <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
-    
-    <div class="detail">1/2</div>
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
+
+    <div class="detail">
+		<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
     
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
 </section>
+
 <section class="list">
- 
+  <h3>General</h3>
+  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
-        <div class="detail">1/2</div>
-  </article>
-</section>
-<section class="list">
-  
-  <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
     
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-  <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   <article class="card2">
+   <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
+  
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
+  </article>
+  <article class="card2">
+   <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   
   <article class="card2">
+   <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
 </section>
+
 <section class="list">
- 
+  <h3>General</h3>
+  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
     
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
 </section>
+
 <section class="list">
+  <h3>General</h3>
+  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
+  <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
+    
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
+  </article>
+  <article class="card2">
+   <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
   
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-</section>
-<section class="list">
-  
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-</section>
-<section class="list">
-  
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-</section>
-<section class="list">
-  
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
+    
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
+  </article>
+  <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
   <article class="card2">
+    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
     
-    <div class="detail">1/2</div>
-  </article>
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
+    <div class="detail">
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		1/2
+		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
+    </div>
   </article>
 </section>
-<section class="list">
-  
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-</section>
-<section class="list">
-  
-  <article class="card2">
-    
-    <div class="detail">1/2</div>
-  </article>
-</section>
+
+
 	</div>
 </template>
 
 <template name="botonNuevoTareas">
 	<div class="btn-group">
-  				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+  				<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 0px;">
    					Nuevo <span class="caret"></span>
   				</button>
   				<ul class="dropdown-menu">
-    				<li class="persona agregar-hora"><a href="#">+ Tarea</a></li>
+    				<li class="persona agregar-hora task"><a href="#">+ Tarea</a></li>
                     <li class="empresa agregar-gasto"><a href="#">+ Workflow</a></li>
                     <li class="empresa agregar-gasto"><a href="#">+ Estado</a></li>
   				</ul>
