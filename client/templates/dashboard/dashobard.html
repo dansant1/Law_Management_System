@@ -5,7 +5,7 @@
 	{{#if currentUser}}
 		{{> sidebarDashobard}}
 		{{> appDashboard}}
-		{{>chatLikeFB}}
+	<!--	{{>chatLikeFB}} -->
 		
 	{{else}}
 		{{> login}}
@@ -5644,16 +5644,16 @@
     <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
       Horas
     </a>
-    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+    <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
       Gastos
     </a>
-    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+    <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
       Cobros
     </a>
-    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
-      Avanzado
+    <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Reportes
     </a>
-    <a href="#" class="menu-asunto-aim" style="margin-left: 10px;">
+    <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
       Configuración
     </a>
   </div>
@@ -6510,8 +6510,13 @@
          <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
           <!-- Cuadro para generar los clientes y asuntos seleccionados -->
           <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; ">
+				
+			<span class="fh-checkbox">
+    			<input type="checkbox" id="checkbox-id" name="mycheckbox">
+    			<label for="checkbox-id">Seleccionar todos</label>
+			</span>
 
-            <input type="checkbox" style="display: inline-block; margin-left: 25px; margin-right: 10px;"><label style="display: inline-block; margin-right: 25px;">Seleccionar a todos</label>
+           
             <button class="btn nueva-tarea verde-flat generar-cobros">Generar cobro</button>
           </div>
           <!--Inicio de la descripcion de la table-->
@@ -6561,7 +6566,10 @@
 
               <div style="margin: 25px; margin-top: 0px; display: inline-block;">
 
-                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
+                <span class="fh-checkbox">
+    				<input type="checkbox" id="asunto-id" name="mycheckbox">
+    				<label for="asunto-id"><h3 style="margin: 0;">Asunto 1</h3></label>
+				</span>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
                   <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>

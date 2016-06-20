@@ -139,3 +139,280 @@
 	</div>
 
 </template>
+
+<template name="reportesFacturacion">
+    <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>            
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+         <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+
+    <div class="lista-reportes">
+        <div class="item-reporte reporte-asunto">
+            <h4> <i class="glyphicon glyphicon-equalizer"></i>Reporte de asunto</h4>
+            <p>Obtén información detalle del tiempo puesto en un asunto en específico</p>
+        </div>
+        <div class="item-reporte reporte-cliente">
+             <h4> <i class="glyphicon glyphicon-stats"></i>Reporte de Cliente</h4>
+             <p>Obtén un reporte detallado del tiempo gastado trabajando para un cliente específico</p>
+        </div>
+        <div class="item-reporte reporte-usuario">
+             <h4> <i class="glyphicon glyphicon-home"></i>Reporte de usuario</h4>
+             <p>Este reporte muestra la actividad de un miembro en un intervalo de tiempo específico</p>
+        </div>
+        <div class="item-reporte reporte-actividad">
+             <h4> <i class="glyphicon glyphicon-signal"></i>Reporte de actividad</h4>
+             <p>Ordena las horas ingresadas por cliente, asunto, usuario e intervalo de tiempo</p>
+        </div>
+        <div class="item-reporte reporte-esfuerzo">
+             <h4> <i class="glyphicon glyphicon-blackboard"></i>Reporte de esfuerzo</h4>
+             <p>Reporte personalizado que permite filtrar por asunto, usuario e intervalo de tiempo</p>
+        </div>
+    </div>
+
+</template>
+
+<template name="reporteAsuntoModal">
+     <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="custom-modal">
+                    <h4><i class="glyphicon glyphicon-equalizer"></i></h4>    
+                    <h3>Reporte de asunto</h3>
+                    <form class="form-inline">
+                        <br>
+                       
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Asunto</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Intervalo</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="boton-generar-reporte">Generar reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="reporteClienteModal">
+     <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="custom-modal">
+                    <h4><i class="glyphicon glyphicon-stats"></i></h4>    
+                    <h3>Reporte de cliente</h3>
+                    <form class="form-inline">
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                       
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Intervalo</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="boton-generar-reporte">Generar reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="reporteUsuarioModal">
+     <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="custom-modal">
+                    <h4><i class="glyphicon glyphicon-home"></i></h4>    
+                    <h3>Reporte de usuario</h3>
+                    <form class="form-inline">
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Intervalo</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="boton-generar-reporte">Generar reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="reporteActividadModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="custom-modal">
+                    <h4><i class="glyphicon glyphicon-signal"></i></h4>    
+                    <h3>Reporte de actividad</h3>
+                    <form class="form-inline">
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Asunto</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Intervalo</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="boton-generar-reporte">Generar reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="reporteEsfuerzoModal">
+     <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="custom-modal">
+                    <h4><i class="glyphicon glyphicon-blackboard"></i></h4>    
+                    <h3>Reporte de esfuerzo</h3>
+                    <form class="form-inline">
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Asunto</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Intervalo</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="boton-generar-reporte">Generar reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

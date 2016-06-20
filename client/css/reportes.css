@@ -1,0 +1,86 @@
+.lista-reportes {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.item-reporte {
+	width: 45%;
+	height: 140px;
+	border-radius: 3px;
+	border: 1px solid #efefef;
+	background-color: white;
+	margin: 15px; 
+	text-align: center;	
+	padding: 25px 25px 5px;
+}
+
+.item-reporte > p {
+	color: #7f8c8d;
+	font-size: 14px;
+	margin-top: 20px;
+}
+
+.item-reporte > h4 {
+	font-size: 22px;
+	color: #34495e;
+}
+
+.item-reporte > h4 > i {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.item-reporte:hover {
+	cursor: pointer;
+}
+
+ #custom-modal {
+ 	padding: 18px;
+ 	text-align: center;
+ }
+
+#custom-modal > h4, h3 {
+	margin: 0;
+	
+}
+
+#custom-modal > h4 > i {
+	font-size: 30px;
+	color: #34495e;
+}
+
+.cerrar-modal {
+ 	color: #9E9E9F;
+ 	text-align: left;
+}
+
+.cerrar-modal:hover {
+	cursor: pointer;
+}
+
+.label-reporte {
+	text-transform: uppercase;
+	color: #7f8c8d;
+}
+
+.boton-generar-reporte {
+	display: block;
+	width: 200px;
+	height: 50px;
+	background-color: #27ae60;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	text-align: center;	
+	margin: 0 auto;
+	font-family: 'Open Sans', 'Sans Serif';
+	font-weight: initial;
+}
+
+.boton-generar-reporte:hover {
+	background-color: #2ecc71;
+	
+}

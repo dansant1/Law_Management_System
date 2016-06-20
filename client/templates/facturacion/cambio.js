@@ -8,8 +8,14 @@ Template.agregarTipoCambio.events({
         }
 
         Meteor.call('insertarCambio',data,function (err) {
-            if(err) return Bert.alert('No se añadio correctamente, intentelo nuevamente','danger');
-            Bert.alert('Se añadio correctamente el cambio','success')
+            if(err) {
+                return Bert.alert('No se añadio correctamente, intentelo nuevamente','danger');
+                template.find("[name='cambio']").value = "";   
+            } else {
+                Bert.alert('Se añadio correctamente el cambio','success');
+                template.find("[name='cambio']").value = "";
+            }
+            
         })
     }
 })
