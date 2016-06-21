@@ -16,10 +16,10 @@
       </div>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
-    
+
 
       <ul class="nav navbar-nav navbar-right">
-  
+
 
         <div class="btn-group" style="display: inline-block; margin-top: 15px; margin-left: 15px;">
             <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,17 +32,17 @@
               <li><a class="agregar-cliente" href="#"><strong>+ CLIENTE</strong></a></li>
             </ul>
         </div>
-    
+
         <div class="btn-group" style="display: inline-block; margin-top: 15px; margin-left: 20px; margin-right: 15px;">
             <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="glyphicon glyphicon-question-sign"></i> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li><a href="#" target="_parent">Ayuda</a></li>
-              <li><a href="#" target="_parent">FAQ</a></li>      
+              <li><a href="#" target="_parent">FAQ</a></li>
             </ul>
         </div>
-        
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false"> {{#with nombre}}
               Hola, {{profile.nombre}}
@@ -56,8 +56,8 @@
           </ul>
         </li>
 
-       
-     
+
+
       </ul>
 
     </div>
@@ -67,10 +67,11 @@
 
 <template name="cronometro2">
   <div class="cuadro-crono">
-          <button class="boton-lateral"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
-          <button class="boton-play"><i class="glyphicon glyphicon-pause"></i></button>
-          <button class="boton-lateral"><i class="glyphicon glyphicon-forward" style="position: relative; right: -1px; top: 3px;"></i></button> 
-          <button class="boton-lateral" style="background-color: #34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: -1px; top: 3px;"></i></button>  
-          <button class="boton-lateral" style="margin-left: 5px; ;background-color: #34495e;"><i class="glyphicon glyphicon-open" style="position: relative; right: -1px; top: 3px;  color: white;"></i></button>      
+          <button class="boton-lateral boton-disminuir"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
+          <button class="boton-principal boton-play"><i class="glyphicon glyphicon-pause"></i></button>
+          <button class="boton-lateral boton-aumentar"><i class="glyphicon glyphicon-forward" style="position: relative; right: -1px; top: 3px;"></i></button>
+          <button class="boton-lateral boton-resetear"><i class="glyphicon glyphicon-refresh" style="position: relative; right: -1px; top: 3px;"></i></button>
+          <button class="boton-lateral boton-agregar-hora" style="background-color: #34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: -1px; top: 3px;"></i></button>
+          <button class="boton-lateral" style="margin-left: 5px; ;background-color: #34495e;"><i class="glyphicon glyphicon-open" style="position: relative; right: -1px; top: 3px;  color: white;"></i></button>
         </div>
 </template>

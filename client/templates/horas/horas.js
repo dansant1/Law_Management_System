@@ -161,6 +161,10 @@ Template.nuevoHoras.events({
 });
 
 Template.agregarHoras.onRendered(function () {
+	if(Session.get("cronometro-pausado")){
+		$("#agregar-horas-modal").find("[name='horas']").val(chronometer.hours);
+		$("#agregar-horas-modal").find("[name='minutos']").val(chronometer.minutes);
+	}
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });
 });
 
@@ -207,12 +211,13 @@ Template.agregarHoras.events({
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 			}
 		}
+		debugger;
 
 
 
 		datos.asunto = {
-			nombre: $( ".asunto option:selected" ).text(),
-			id: $( ".asunto" ).val()
+			nombre: template.find( ".asunto option:selected" ).innerHTML,
+			id: template.find(".asunto").value
 		}
 
 		datos.responsable = {
@@ -280,6 +285,52 @@ Template.listaGastosxAsunto.helpers({
 		}
 	}
 });
+
+Template.agregarDescripcionHorasModal.events({
+	'click .agregar-descripcion'(event,template){
+		event.preventDefault();
+		let id = this._id;
+		let descripcion = template.find("[name='descripcion']").value
+		let datos = {
+			id: id,
+			descripcion: descripcion
+		}
+
+		Meteor.call('actualizarDescripcion',datos,function (err) {
+			if(err) return Bert.alert('Hubo un error al actualizar la descripcion','danger')
+			Bert.alert('Se actualizo la descripcion correctamente','success')
+			Modal.hide('agregarDescripcionHorasModal')
+		})
+
+	}
+})
+
+Template.agregarAsuntoHorasModal.helpers({
+	asunto(){
+		return Asuntos.find();
+	}
+})
+
+Template.agregarAsuntoHorasModal.events({
+	'click .agregar-asunto'(event,template){
+		event.preventDefault();
+		var data = {}
+		let id = this._id;
+		let asunto = {
+			id: template.find(".asunto").value,
+			nombre: template.find(".asunto :selected").innerHTML
+		}
+
+		data.id = id;
+		data.asunto = asunto;
+
+		Meteor.call('actualizarAsunto',data,function (err) {
+			if(err) return Bert.alert('Hubo un error al actualizar el asunto','danger')
+			Bert.alert('Se actualizo el asunto correctamente','success')
+			Modal.hide('agregarAsuntoHorasModal')
+		})
+	}
+})
 
 Template.agregarGasto.onCreated(function () {
 	var self = this;

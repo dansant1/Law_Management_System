@@ -164,8 +164,77 @@
 	<a class="btn nueva-tarea gastos nuevo-evento verde-flat">+ Gastos</a>
 </template>
 
+<template name="agregarDescripcionHorasModal">
+	<div id="agregar-horas-modal" class="modal fade">
+	   <div class="modal-dialog">
+		   <div class="modal-content">
+
+			   <div class="modal-header">
+				   <h4 class="modal-title">Agregar Descripcion</h4>
+			   </div>
+
+			   <div class="modal-body">
+				 <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;" novalidate>
+				   <fieldset>
+					   <div class="icon">
+						   <label class="cd-label" for="cd-company">Descripción</label>
+						   <input class="company" type="text" name="descripcion" id="cd-company">
+					   </div>
+				   </fieldset>
+				 </form>
+			   </div>
+
+			   <div class="modal-footer">
+				   <button type="button" class="btn btn-primary agregar-descripcion">Añadir</button>
+				   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			   </div>
+
+		   </div>
+	   </div>
+   </div>
+
+</template>
+
+<template name="agregarAsuntoHorasModal">
+	<div id="agregar-horas-modal" class="modal fade">
+	   <div class="modal-dialog">
+		   <div class="modal-content">
+
+			   <div class="modal-header">
+				   <h4 class="modal-title">Agregar Asunto</h4>
+			   </div>
+
+			   <div class="modal-body">
+				 <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;" novalidate>
+				   <fieldset>
+					   <div class="icon">
+						   <label class="cd-label" for="cd-email">Asunto</label>
+						   <p class="cd-select icon">
+							   <select class="budget asunto">
+								   {{#each asunto}}
+								   <option value="{{_id}}">{{caratula}}</option>
+								   {{/each}}
+							   </select>
+						   </p>
+					   </div>
+				   </fieldset>
+				 </form>
+			   </div>
+
+			   <div class="modal-footer">
+				   <button type="button" class="btn btn-primary agregar-asunto">Agregar</button>
+				   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			   </div>
+
+		   </div>
+	   </div>
+   </div>
+
+</template>
+
+
 <template name="agregarHoras">
-	 <div id="agregar-modal" class="modal fade">
+	 <div id="agregar-horas-modal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -174,7 +243,7 @@
                 </div>
 
                 <div class="modal-body">
-                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;" novalidate>
                     <fieldset>
                       	<div class="icon">
                         	<label class="cd-label" for="cd-company">Descripción</label>

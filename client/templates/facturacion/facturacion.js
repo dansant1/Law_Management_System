@@ -21,6 +21,18 @@ Template.facturacion.events({
 	},
 	'click .agregar-gasto'(){
 		Modal.show('agregarGasto')
+	},
+	'click .agregar-descripcion'(){
+		Modal.show('agregarDescripcionHorasModal',this);
+	},
+	'click .agregar-asunto'(){
+		Modal.show('agregarAsuntoHorasModal',this)
+	},
+	'click .cambiar-facturado'(){
+		
+	},
+	'click .cambiar-tarea'(){
+
 	}
 });
 

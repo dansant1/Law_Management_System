@@ -5,7 +5,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>            
+                <a href="/clientes2" > Facturación</a>
             </p>
         </div>
     </div>
@@ -70,7 +70,7 @@
   				</ul>
     		</div>
 
-           
+
 
             <div class="sidebar-titulo">
 
@@ -113,18 +113,37 @@
             {{#each horas}}
 
         	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-			
+
 			<div style="display: flex; width: 80%; height: 85px;">
 				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">{{ this.asunto.nombre}}</h5>
-					<h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">{{this.descripcion}}</h1>
+                    {{#if this.asunto.nombre}}
+		               <h5 style="color: #7f8c8d;"><a href="#" class="agregar-asunto">{{ this.asunto.nombre}}</a></h5>
+                    {{else}}
+                        <h5 style="color: #7f8c8d;"> <a class="agregar-asunto" href="#">+ Asunto</a> </h5>
+                    {{/if}}
+                    {{#if this.descripcion}}
+                        <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a class="agregar-descripcion" href="#">{{this.descripcion}}</a> </h1>
+                    {{else}}
+                        <h5 style="color: #7f8c8d;"> <a href="#" class="agregar-descripcion">+ Descripcion</a> </h5>
+                    {{/if}}
+                    <!-- {{#if this.facturado}}
+                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-facturado">Facturado</a> </h5>
+                    {{else}}
+                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-facturado">No esta facturado</a> </h5>
+                    {{/if}}
+                    {{#if this.tarea}}
+                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-tarea">Es una tarea</a> </h5>
+                    {{else}}
+                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-tarea">No es una tarea</a> </h5>
+                    {{/if}} -->
+
 				</div>
-			
+
 				<div style="margin: 25px; margin-top: 0px;">
 					<h5 style="color: #7f8c8d;">Tiempo</h5>
-						
+
 						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">{{this.horas}}:{{this.minutos}}</h1>
-									
+
 				</div>
 			</div>
 
@@ -133,7 +152,7 @@
 
 
 
-       
+
         </div>
 
 	</div>
@@ -147,7 +166,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>            
+                <a href="/clientes2" > Facturación</a>
             </p>
         </div>
     </div>
@@ -227,11 +246,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="custom-modal">
-                    <h4><i class="glyphicon glyphicon-equalizer"></i></h4>    
+                    <h4><i class="glyphicon glyphicon-equalizer"></i></h4>
                     <h3>Reporte de asunto</h3>
                     <form class="form-inline">
                         <br>
-                       
+
                         <div class="row">
                             <div class="form-group">
                                 <label>Asunto</label>
@@ -265,7 +284,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="custom-modal">
-                    <h4><i class="glyphicon glyphicon-stats"></i></h4>    
+                    <h4><i class="glyphicon glyphicon-stats"></i></h4>
                     <h3>Reporte de cliente</h3>
                     <form class="form-inline">
                         <br>
@@ -276,7 +295,7 @@
                             </div>
                         </div>
                         <br>
-                       
+
                         <div class="row">
                             <div class="form-group">
                                 <label>Usuario</label>
@@ -303,7 +322,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="custom-modal">
-                    <h4><i class="glyphicon glyphicon-home"></i></h4>    
+                    <h4><i class="glyphicon glyphicon-home"></i></h4>
                     <h3>Reporte de usuario</h3>
                     <form class="form-inline">
                         <br>
@@ -333,7 +352,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="custom-modal">
-                    <h4><i class="glyphicon glyphicon-signal"></i></h4>    
+                    <h4><i class="glyphicon glyphicon-signal"></i></h4>
                     <h3>Reporte de actividad</h3>
                     <form class="form-inline">
                         <br>
@@ -377,7 +396,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="custom-modal">
-                    <h4><i class="glyphicon glyphicon-blackboard"></i></h4>    
+                    <h4><i class="glyphicon glyphicon-blackboard"></i></h4>
                     <h3>Reporte de esfuerzo</h3>
                     <form class="form-inline">
                         <br>

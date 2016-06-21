@@ -66,3 +66,113 @@ Template.menu.helpers({
 		return Meteor.users.findOne({});
 	}
 });
+
+Template.cronometro2.onRendered(function () {
+	if(localStorage.startCr=="1"){
+
+		chronometer.seconds = Number(localStorage.seconds)
+		chronometer.minutes = Number(localStorage.minutes)
+		chronometer.hours = Number(localStorage.hours)
+		chronometer.element = ".hora-crono";
+
+		if(localStorage.pause!="0")	{
+			$(".boton-play").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
+			$(".boton-play").removeClass("boton-play").addClass("boton-stop")
+			chronometer.timer();
+		}
+
+
+		$(".hora-crono")[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+
+
+		//
+		// function timer() {
+		// 	localStorage.startCr =  1;
+		// 	localStorage.seconds = seconds;
+		// 	localStorage.minutes = minutes;
+		// 	localStorage.hours = hours;
+		//     t = setTimeout(add, 1000);
+		// }
+		//
+		//
+		// function add() {
+		//     seconds++;
+		//     if (seconds >= 60) {
+		//         seconds = 0;
+		//         minutes++;
+		//         if (minutes >= 60) {
+		//             minutes = 0;
+		//             hours++;
+		//         }
+		//     }
+		//
+		// 	$(".hora-crono")[0].textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
+		//
+		//     timer();
+		// }
+		//
+		// timer();
+
+	}
+
+})
+
+
+Template.cronometro2.events({
+	'click .boton-play'(){
+		$(".boton-play").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
+		$(".boton-play").removeClass("boton-play").addClass("boton-stop")
+		chronometer.element = ".hora-crono";
+		chronometer.timer();
+		Session.set("cronometro-pausado",false);
+
+	},
+	'click .boton-stop'(){
+		$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+		$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
+		chronometer.stop();
+		Session.set("cronometro-pausado",true);
+		Modal.show('agregarHoras');
+
+	},
+
+	'click .boton-resetear'(){
+
+		chronometer.reset();
+		if(!$(".boton-principal").hasClass("boton-play")){
+			$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+			return $(".boton-stop").removeClass("boton-stop").addClass("boton-play")
+		}
+
+	},
+	'click .boton-disminuir'(){
+		chronometer.removeMinutes(5)
+	},
+	'click .boton-aumentar'(){
+		chronometer.addMinutes(5)
+	},
+	'click .boton-agregar-hora'(){
+		if(localStorage.startCr=="1"){
+			var datos = {
+				bufeteId : Meteor.user().profile.bufeteId,
+				horas: chronometer.hours+"",
+				minutos: chronometer.minutes+"",
+				fecha: new Date(),
+				creador: {
+					id: Meteor.user()._id,
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+				}
+			}
+
+			return Meteor.call('agregarHoraSinDetalles',datos,function (err) {
+				if(err) return Bert.alert('Error al momento de crear las horas','danger');
+				Bert.alert('Se creo las horas correctamente','success');
+				FlowRouter.go('/facturacion/horas')
+			})
+		}
+
+		Bert.alert('Inicie el cronometro para guardar las horas','danger');
+
+	}
+
+})

@@ -26,7 +26,8 @@ Horas.deny({
 
 EsquemaHoras = new SimpleSchema({
   	descripcion: {
-    	type: String
+    	type: String,
+		optional:true
   	},
 	bufeteId: {
 		type: String
@@ -35,7 +36,8 @@ EsquemaHoras = new SimpleSchema({
 		type: String
 	},
 	responsable: {
-		type: Object
+		type: Object,
+		optional:true
 	},
 	'responsable.nombre': {
 		type: String
@@ -77,7 +79,8 @@ EsquemaHoras = new SimpleSchema({
 		type: Number
 	},
 	cobrable: {
-		type: Boolean
+		type: Boolean,
+		optional:true
 	},
 	facturado: {
 		type: Boolean

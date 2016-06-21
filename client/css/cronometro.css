@@ -33,6 +33,27 @@
 	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
 }
 
+.boton-stop:hover {
+	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
+}
+
+.boton-stop > i {
+	position: relative;
+	left: 1px;
+	font-size: 21px;
+}
+
+.boton-stop {
+	width: 35px;
+	height: 35px;
+	border-radius: 70%;
+	background-color: white;
+	border: none;
+	text-align: center;
+	margin-top: 4.1px;
+	padding-top: 3px;
+}
+
 .boton-play:hover {
 	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
 }
