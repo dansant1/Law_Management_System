@@ -6,7 +6,7 @@
 		{{> sidebarDashobard}}
 		{{> appDashboard}}
 	<!--	{{>chatLikeFB}} -->
-		
+
 	{{else}}
 		{{> login}}
 	{{/if}}
@@ -773,6 +773,17 @@
                                     </select>
                                 </p>
                             </div>
+							<div class="icon">
+                                <label class="cd-label" for="cd-email">¿A que miembro quieres asignarlo?</label>
+                                <p class="cd-select icon">
+                                    <select name="etapa" class="budget etapas">
+                                        <option value="ninguno">Elige una etapa</option>
+                                        {{#each etapas}}
+                                            <option value="{{this._id}}">{{this.nombre}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
 
 
                             <div class="icon">
@@ -1262,7 +1273,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-       
+
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1324,7 +1335,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-       
+
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1418,13 +1429,24 @@
                 <div class="modal-body">
                     <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
                         <fieldset>
-                            <div class="icon">
+							<div class="icon">
                                 <label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
                                 <p class="cd-select icon">
                                     <select class="budget asunto" name="asunto-tarea">
                                         <option value="ninguno">Elige un asunto</option>
                                         {{#each asuntos}}
                                             <option value="{{_id}}">{{caratula}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">Etapa</label>
+                                <p class="cd-select icon">
+                                    <select class="budget etapa" name="etapa-tarea">
+                                        <option value="ninguno">Elige una etapa</option>
+                                        {{#each etapas}}
+                                            <option value="{{this._id}}">{{this.nombre}}</option>
                                         {{/each}}
                                     </select>
                                 </p>
@@ -1524,6 +1546,10 @@
         {{else}}
             <a class="agregar-miembro-tarea" href="#"><h5 style="display: inline-block;">Cambiar asignado</h5></a>
         {{/if}}
+		{{#if this.etapa}}
+			<i class="glyphicon glyphicon-user"></i>
+			<a class="agregar-miembro-tarea" href="#"><h5  style="display: inline-block;">{{this.etapa.nombre}}</h5></a>
+		{{/if}}
 
     </div>
 
@@ -1537,7 +1563,7 @@
         </div>
     </div>
     <div class="franja-filtros" style="padding-left: 18px;">
-       
+
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
         </a>
@@ -1679,7 +1705,7 @@
 		</div>
 	</div>
   <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -1794,6 +1820,27 @@
 	</div>
 </template>
 
+<template name="detalleEtapaAsunto2">
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>{{email}}
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			<a href="/asuntos2" > Todos los asuntos </a>
+			<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+			{{#with expediente}}
+			<a> {{this.caratula}} </a>
+			{{/with}}
+			</p>
+		</div>
+	</div>
+
+	{{> menuTareas2}}
+
+	{{> etapasAsunto}}
+
+</template>
+
+
 <template name="detalleAsunto2">
 	<div class="franja-progreso">
 		<div class="progreso">
@@ -1810,7 +1857,7 @@
 
 	{{> menuTareas2}}
 
-	{{> tareasDelAsunto}}
+	{{> tareasEtapaAsunto}}
 
 </template>
 
@@ -1841,7 +1888,7 @@
 
 	<div class="franja-filtros">
 		<div class="progreso" style="padding-top: 15px;">
-		
+
     	{{>botonNuevoTareas}}
 			<div class="btn-group">
   			<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
@@ -1867,9 +1914,58 @@
 	</div>
 
 
-	
+
 
 </template>
+
+<template name="etapasAsunto">
+	<div class="lista-tareas">
+    <input type="text" name="crear-etapa" class="item-lista-tareas" placeholder="Escriba una nueva etapa y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
+		<div style="margin-left:25px;">
+			{{#each tareasSinEtapas}}
+				<p><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a></p>
+			{{/each}}
+		</div>
+
+		{{#each etapas}}
+			{{> etapa}}
+		{{/each}}
+	</div>
+
+</template>
+
+<template name="etapa">
+	<div class="item-lista-tareas">
+		<a href="/asuntos2/d/{{asuntoId}}/etapa/{{this._id}}"><h3 style="display: inline-block; margin-right: 350px;">{{this.nombre}}</h3></a>
+		<div style="margin-left:25px;">
+			{{#each tareas}}
+				<p><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a></p>
+			{{/each}}
+		</div>
+
+	</div>
+</template>
+
+<template name="tareasEtapaAsunto">
+	<div class="lista-tareas">
+    <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
+		{{#each tareas}}
+			<div class="item-lista-tareas">
+	        {{#if esMiTarea}}
+					<i class="glyphicon glyphicon-ok-sign i-hover cerrar"> </i>
+	        {{/if}}
+			{{#if this.descripcion}}
+				<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a>
+			{{else}}
+				<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">+Descripcion</h5></a>
+			{{/if}}
+		        <i class="glyphicon glyphicon-user"> </i>
+		        <a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline;">{{this.asignado.nombre}}</h5></a>
+			</div>
+		{{/each}}
+	</div>
+</template>
+
 
 <template name="tareasDelAsunto">
 	<div class="lista-tareas">
@@ -2596,7 +2692,7 @@
 		</div>
 	</div>
 	 <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2631,7 +2727,7 @@
 	</div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2695,7 +2791,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -2799,7 +2895,7 @@
 		</div>
 	</div>
 	<div class="franja-filtros" style="padding-left: 18px;">
-		
+
 		<a href="/dashboard2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
 			Actividad
 		</a>
@@ -2844,7 +2940,7 @@
 	</div>
 
 	<div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3313,7 +3409,7 @@
 	</div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
     </a>
@@ -3439,7 +3535,7 @@
     </div>
 
     <div class="franja-filtros" style="padding-left: 18px;">
-        
+
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
         </a>
@@ -3514,7 +3610,7 @@
                 </div>
 
             </div>
-        
+
         {{/each}}
     </div>
 
@@ -3539,7 +3635,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3663,7 +3759,7 @@
 
 
   <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3787,7 +3883,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -3987,7 +4083,7 @@
   </div>
 
   </div>
-  
+
   {{/each}}
   </div>
 
@@ -4018,7 +4114,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4201,7 +4297,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4333,7 +4429,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4477,7 +4573,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4618,7 +4714,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4746,7 +4842,7 @@
   </div>
 
  <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -4979,7 +5075,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-    
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5132,7 +5228,7 @@
   </div>
 
    <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -5284,7 +5380,7 @@
   </div>
 
   <div class="franja-filtros" style="padding-left: 18px;">
-   
+
     <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
       Actividad
     </a>
@@ -6510,13 +6606,13 @@
          <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
           <!-- Cuadro para generar los clientes y asuntos seleccionados -->
           <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; ">
-				
+
 			<span class="fh-checkbox">
     			<input type="checkbox" id="checkbox-id" name="mycheckbox">
     			<label for="checkbox-id">Seleccionar todos</label>
 			</span>
 
-           
+
             <button class="btn nueva-tarea verde-flat generar-cobros">Generar cobro</button>
           </div>
           <!--Inicio de la descripcion de la table-->
@@ -6721,10 +6817,10 @@
         </div>
     </div>
     {{> menuTareas2}}
-    	
+
 
 	<div class="cuerpo-trello">
-	
+
 	<section class="list">
  <h3>General</h3>
  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
@@ -6732,7 +6828,7 @@
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
 
     <div class="detail">
-		<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+		<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6742,9 +6838,9 @@
   </article>
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6759,9 +6855,9 @@
   <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6771,9 +6867,9 @@
   </article>
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-   
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6783,9 +6879,9 @@
   </article>
   <article class="card2">
    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-  
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6795,9 +6891,9 @@
   </article>
   <article class="card2">
    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-   
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6805,12 +6901,12 @@
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
     </div>
   </article>
-  
+
   <article class="card2">
    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-   
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6825,9 +6921,9 @@
   <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6842,9 +6938,9 @@
   <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6854,9 +6950,9 @@
   </article>
   <article class="card2">
    <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-  
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6866,9 +6962,9 @@
   </article>
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6878,9 +6974,9 @@
   </article>
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-   
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6890,9 +6986,9 @@
   </article>
   <article class="card2">
     <h4>Redactar minuta <i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;"></i> Daniel Delgadillo</h4>
-    
+
     <div class="detail">
-    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i> 
+    	<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
 		1/2
 		</p>
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> 20 Junio</p>
@@ -6912,6 +7008,7 @@
    					Nuevo <span class="caret"></span>
   				</button>
   				<ul class="dropdown-menu">
+					<li class="persona agregar-etapa"> <a href="#">+ Etapa</a> </li>
     				<li class="persona agregar-hora task"><a href="#">+ Tarea</a></li>
                     <li class="empresa agregar-gasto"><a href="#">+ Workflow</a></li>
                     <li class="empresa agregar-gasto"><a href="#">+ Estado</a></li>

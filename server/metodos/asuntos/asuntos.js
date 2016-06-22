@@ -121,6 +121,18 @@ Meteor.methods({
 			return;
 		}
 	},
+	'agregarEtapaAsunto':function (datos) {
+		check(datos,Object)
+
+		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
+
+			Etapas.insert(datos);
+
+		} else {
+			return;
+		}
+
+	},
 	'crearEstado': function (datos) {
 		check(datos, {
 			nombre: String,

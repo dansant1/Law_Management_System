@@ -46,6 +46,21 @@ Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
 
 })
 
+Meteor.publish('etapasxasunto',function (asuntoId) {
+	check(asuntoId,String)
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		return Etapas.find({'asunto.id':asuntoId});
+
+	} else {
+
+		this.stop();
+		return;
+
+	}
+
+})
+
 Meteor.publish('asuntosxequipo',function (miembroId,bufeteId) {
 	check(miembroId, String);
 	check(bufeteId,String);
@@ -86,6 +101,38 @@ Meteor.publish('asuntosxCliente', function (contactoId) {
 	}
 
 });
+
+Meteor.publish('etapa',function (etapaId) {
+	check(etapaId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		return Etapas.find({_id: etapaId});
+
+	} else {
+
+		this.stop();
+    	return;
+
+	}
+
+})
+
+Meteor.publish('etapasxbufete',function (bufeteId) {
+	check(bufeteId,String)
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		return Etapas.find({bufeteId: bufeteId});
+
+	} else {
+
+		this.stop();
+    	return;
+
+	}
+
+})
 
 Meteor.publish('expediente', function (asuntoId) {
 

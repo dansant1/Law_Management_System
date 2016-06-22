@@ -19,52 +19,118 @@ Template.tareas2.onCreated(function () {
 		})
 });
 
+Template.etapa.onCreated(function () {
+
+})
+
+Template.etapa.helpers({
+	tareas(){
+		return Tareas.find({'etapa.id':this._id,'etapa':{$exists:true}})
+	},
+	asuntoId(){
+		return FlowRouter.getParam('asuntoId')
+	},
+	tareasSinEtapas(){
+		return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
+	}
+})
+
+Template.etapasAsunto.onRendered(function () {
+	let self = this;
+	let asuntoId = FlowRouter.getParam('asuntoId');
+	self.autorun(function () {
+		Meteor.subscribe('etapasxasunto',asuntoId);
+	})
+})
+
+Template.etapasAsunto.helpers({
+	asunto(){
+		return FlowRouter.getParam('asuntoId')
+	},
+	etapas(){
+		return Etapas.find()
+	}
+})
+
+Template.etapasAsunto.events({
+	'keyup [name="crear-etapa"]': function (event, template) {
+
+
+
+		if(event.which == 13){
+			debugger;
+
+			let datos = {
+				nombre: template.find("[name='crear-etapa']").value,
+				asunto: {
+					id: FlowRouter.getParam('asuntoId'),
+					nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula
+				},
+				bufeteId: Meteor.user().profile.bufeteId,
+				creador: {
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+					id: Meteor.userId()
+				}
+			}
+
+			//$(event.target).blur();
+			Meteor.call('agregarEtapaAsunto', datos, function (err, result) {
+				if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+
+				Bert.alert('Agregaste una tarea', 'success');
+
+				template.find('[name="crear-etapa"]').value = "";
+			});
+		}
+	}
+})
+
 Template.chatFB.onRendered(function () {
 	 Array.remove = function(array, from, to) {
                 var rest = array.slice((to || from) + 1 || array.length);
                 array.length = from < 0 ? array.length + from : from;
                 return array.push.apply(array, rest);
             };
-        
+
             //this variable represents the total number of popups can be displayed according to the viewport width
             var total_popups = 0;
-            
+
             //arrays of popups ids
             var popups = [];
-        	
+
         	 function register_popup(id, name)
             {
-                
+
                 for(var iii = 0; iii < popups.length; iii++)
-                {   
+                {
                     //already registered. Bring it to front.
                     if(id == popups[iii])
                     {
                         Array.remove(popups, iii);
-                    
+
                         popups.unshift(id);
-                        
+
                         calculate_popups();
-                        
-                        
+
+
                         return;
                     }
-                }               
-                
+                }
+
                 var element = '<div class="popup-box chat-popup" id="'+ id +'">';
                 element = element + '<div class="popup-head">';
                 element = element + '<div class="popup-head-left">'+ name +'</div>';
                 element = element + '<div class="popup-head-right"><a href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div>';
                 element = element + '<div style="clear: both"></div></div><div class="popup-messages"></div></div>';
-                
-                document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML + element;  
-        
+
+                document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML + element;
+
                 popups.unshift(id);
-                        
+
                 calculate_popups();
-                
+
             }
-            
+
 
             //this is used to close a popup
             function close_popup(id)
@@ -74,21 +140,21 @@ Template.chatFB.onRendered(function () {
                     if(id == popups[iii])
                     {
                         Array.remove(popups, iii);
-                        
+
                         document.getElementById(id).style.display = "none";
-                        
+
                         calculate_popups();
-                        
+
                         return;
                     }
-                }   
+                }
             }
-        
+
             //displays the popups. Displays based on the maximum number of popups that can be displayed on the current viewport width
             function display_popups()
             {
                 var right = 220;
-                
+
                 var iii = 0;
                 for(iii; iii < total_popups; iii++)
                 {
@@ -100,16 +166,16 @@ Template.chatFB.onRendered(function () {
                         element.style.display = "block";
                     }
                 }
-                
+
                 for(var jjj = iii; jjj < popups.length; jjj++)
                 {
                     var element = document.getElementById(popups[jjj]);
                     element.style.display = "none";
                 }
             }
-            
+
             //creates markup for a new popup. Adds the id to popups array.
-           
+
             //calculate the total number of popups suitable and then populate the toatal_popups variable.
             function calculate_popups()
             {
@@ -124,11 +190,11 @@ Template.chatFB.onRendered(function () {
                     //320 is width of a single popup box
                     total_popups = parseInt(width/320);
                 }
-                
+
                 display_popups();
-                
+
             }
-            
+
             //recalculate when window is loaded and also when window is resized.
             window.addEventListener("resize", calculate_popups);
             window.addEventListener("load", calculate_popups);
@@ -331,8 +397,12 @@ Template.nuevaTareaModal.events({
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 				id: Meteor.userId()
+			},
+			etapa:{
+				id: template.find("[name='etapa']")
 			}
 		}
+
 
 		if (datos.asunto.nombre === "Elige un asunto" && datos.asunto.id === "") {
 			datos.asunto.nombre = undefined;
@@ -535,6 +605,7 @@ Template.teamSidebarDahboard.events({
 		Modal.show('usuarioForm');
 	}
 });
+
 
 Template.botonNuevosContactos.events({
 	'click .persona': function () {
@@ -930,10 +1001,65 @@ Template.detalleAsunto2.onCreated( function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-    	let asuntoId = FlowRouter.getParam('asuntoId');
-    	self.subscribe('expediente', asuntoId);
+    	let etapaId = FlowRouter.getParam('etapaId');
+    	self.subscribe('etapa', etapaId);
+		// self.subscribe('tareasxAsunto',FlowRouter.getParam(''))
    });
 });
+
+Template.tareasEtapaAsunto.events({
+	'keyup [name="crear-tarea"]'(event,template){
+		if(event.which == 13){
+			debugger;
+
+			let datos = {
+				descripcion: template.find("[name='crear-tarea']").value,
+				asunto: {
+					nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula,
+					id: FlowRouter.getParam('asuntoId')
+				},
+				bufeteId: Meteor.user().profile.bufeteId,
+				etapa:{
+					id: FlowRouter.getParam('etapaId'),
+					nombre: Etapas.find({_id:FlowRouter.getParam('etapaId')}).fetch()[0].nombre
+				},
+				asignado: {
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+					id: Meteor.userId()
+				},
+				creador: {
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+					id: Meteor.userId()
+				}
+			}
+
+			if (datos.asunto.nombre === "Elige un asunto" && datos.asunto.id === "") {
+				datos.asunto.nombre = undefined;
+				datos.asunto.id = undefined;
+			}
+
+			if (datos.descripcion !== "" && datos.fecha !== "") {
+				Meteor.call('crearTareaEtapa', datos, function (err, result) {
+
+					if (err) return Bert.alert('Error al tratar de registrar, intentelo de nuevo', 'danger');
+
+					template.find("[name='crear-tarea']").value="";
+					Modal.hide('nuevaTareaAsuntoModal')
+					Bert.alert('Agregaste una tarea', 'success');
+				});
+			} else {
+				Bert.alert('Ingresa los datos', 'warning');
+			}
+
+		}
+	}
+})
+
+Template.tareasEtapaAsunto.helpers({
+	tareas(){
+		return Tareas.find({'etapa.id':FlowRouter.getParam('etapaId')});
+	}
+})
 
 Template.detalleAsunto2.helpers({
   	asuntoId: () => {
@@ -969,7 +1095,7 @@ Template.tareasDelAsunto.onCreated( function () {
 
 Template.tareasDelAsunto.helpers({
 	tareas() {
-		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId'), abierto: true }, {sort: {createdAt: -1}});
+		return Tareas.find({ 'asunto.id': FlowRouter.getParam('asuntoId'), 'etapa.id':FlowRouter.getParam('etapaId'),abierto: true }, {sort: {createdAt: -1}});
 	},
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
@@ -1688,6 +1814,28 @@ Template.menuTareas2.helpers({
 Template.menuTareas2.events({
 	'click .task'(event,template){
 		Modal.show('nuevaTareaAsuntoModal')
+	},
+	'click .agregar-etapa'(event,template){
+		Modal.show('agregarEtapaModal');
+	}
+})
+
+Template.agregarEtapaModal.events({
+	'submit form'(event,template){
+		event.preventDefault();
+		let datos = {}
+		datos.nombre = template.find("[name='etapa']").value;
+		datos.bufeteId = Meteor.user().profile.bufeteId;
+		datos.asunto= {
+			id: FlowRouter.getParam('asuntoId'),
+			nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula
+		}
+
+		Meteor.call('agregarEtapaAsunto',datos,function (err) {
+			if(err) return Bert.alert('No se pudo añadir los datos correctamente','danger');
+			Bert.alert('Se añadio la etapa correctamente','success')
+			Modal.hide('agregarEtapaModal')
+		})
 	}
 })
 
@@ -1698,6 +1846,9 @@ Template.nuevaTareaAsuntoModal.onRendered(function () {
 Template.nuevaTareaAsuntoModal.helpers({
 	miembros(){
 		return Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].abogados
+	},
+	etapas(){
+		return Etapas.find({'asunto.id':FlowRouter.getParam('asuntoId')});
 	}
 })
 
@@ -1722,6 +1873,12 @@ Template.nuevaTareaAsuntoModal.events({
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 				id: Meteor.userId()
+			}		}
+
+		if(template.find("[name='etapa']").value!=""){
+			datos.etapa={
+				id: template.find("[name='etapa']").value,
+				nombre: template.find("[name='etapa'] :selected").innerHTML
 			}
 		}
 
@@ -1731,7 +1888,7 @@ Template.nuevaTareaAsuntoModal.events({
 		}
 
 		if (datos.descripcion !== "" && datos.fecha !== "") {
-			Meteor.call('crearTarea', datos, function (err, result) {
+				Meteor.call('crearTarea', datos, function (err, result) {
 				if (err) {
 					console.log(err)
 					Bert.alert('Error al tratar de registrar, intentelo de nuevo', 'danger');
@@ -2393,9 +2550,6 @@ Template.venceTareaModal.events({
 	}
 })
 
-Template.asuntoTareaModal.events({
-
-})
 
 Template.tareaEspecifica.helpers({
 	dia(fecha) {
@@ -2437,11 +2591,11 @@ Template.tareaEspecifica.events({
 
 Template.asuntoTareaModal.onCreated(function () {
 	var self = this;
-
+	Session.get('asunto-id',"")
 	self.autorun(function () {
 		let id = Meteor.user()._id;
 		let bufeteId = Meteor.user().profile.bufeteId;
-
+		self.subscribe('etapasxbufete',bufeteId)
 		self.subscribe('asuntosxequipo',id,bufeteId);
 	})
 })
@@ -2449,6 +2603,11 @@ Template.asuntoTareaModal.onCreated(function () {
 Template.asuntoTareaModal.helpers({
 	asuntos(){
 		return Asuntos.find({abierto:true});
+	},
+	etapas(){
+		if(Session.get("asunto-tarea-id")===""||Session.get("asunto-id")===undefined) return Etapas.find({});
+
+		return Etapas.find({'asunto.id':Session.get("asunto-id")})
 	}
 })
 
@@ -2510,17 +2669,27 @@ Template.miembroTareaModal.events({
 
 Template.asuntoTareaModal.events({
 	'click .agregar-asunto-tarea'(event,template){
-		let tareaId = this._id,
-				asunto = {
-					id: template.find("[name='asunto-tarea']").value,
-					nombre: $(template.find('[name="asunto-tarea"]')).find(":selected").html()
-			};
+		debugger;
+		let datos = {
+			tareaId : this._id,
+			asunto : {
+				id: template.find("[name='asunto-tarea']").value,
+				nombre: $(template.find('[name="asunto-tarea"]')).find(":selected").html()
+			},
+			etapa:{
+				id: template.find("[name='etapa-tarea']").value,
+				nombre: $(template.find('[name="etapa-tarea"]')).find(":selected").html()
+			}
+		}
 
-		Meteor.call('actualizarAsuntoTarea',tareaId,asunto,function (err) {
+		Meteor.call('actualizarAsuntoTarea',datos,function (err) {
 				if(err) return Bert.alert('Hubo un error al momento de crear, intentelo de nuevo','danger')
 				Bert.alert('Se asigno correctamente el asunto a la tarea','success');
 				Modal.hide('asuntoTareaModal')
 		})
+	},
+	'change [name="asunto-tarea"]'(event,template){
+		Session.set("asunto-id",event.target.value);
 	}
 })
 

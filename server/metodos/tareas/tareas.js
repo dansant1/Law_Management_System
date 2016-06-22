@@ -1,19 +1,16 @@
 Meteor.methods({
 	crearTarea: function (datos) {
 
-
-
 		let _check = {
-			descripcion: String,
-			fecha: String,
 			asunto: Object,
-			tipo: String,
 			bufeteId: String,
 			creador: Object
 		}
-
+		if(datos.tipo) 	_check.tipo = String;
+		if(datos.fecha)  _check.fecha = String;
+		if(datos.descripcion) _check.descripcion = String;
 		if(datos.asignado) _check.asignado = Object;
-
+		if(datos.etapa) _check.etapa = Object;
 		check(datos, _check);
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
@@ -72,17 +69,35 @@ Meteor.methods({
 		}
 	},
 
-	actualizarAsuntoTarea(tareaId,asunto){
-		check(tareaId,String)
-		check(asunto,{
-			nombre: String,
-			id: String
-		});
+	crearTareaEtapa:function (datos) {
+		check(datos,Object)
+
+		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+			datos.createdAt = new Date();
+			datos.vence	= new Date();
+			datos.abierto = true;
+
+			let tarea = Tareas.insert(datos);
+			// Modulo para crear evento sobre que se ha creado una tarea
 
 
-		Tareas.update({_id:tareaId}, {
+
+		} else {
+
+			return;
+
+		}
+	},
+
+	actualizarAsuntoTarea(datos){
+		check(datos,Object)
+
+
+		Tareas.update({_id:datos.tareaId}, {
 			$set: {
-				asunto: asunto
+				asunto: datos.asunto,
+				etapa: datos.etapa
 			}
 		})
 

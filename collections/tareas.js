@@ -30,7 +30,8 @@ Tareas.deny({
 
 EsquemaTareas = new SimpleSchema({
 	descripcion: {
-		type: String
+		type: String,
+        optional:true
 	},
 	vence: {
     type: Date,
@@ -76,6 +77,16 @@ EsquemaTareas = new SimpleSchema({
   asignado: {
     type: Object,
     optional:true
+  },
+  etapa:{
+    type: Object,
+    optional:true
+  },
+  'etapa.nombre':{
+      type:String
+  },
+  'etapa.id':{
+    type:String
   },
   'asignado.nombre': {
     type: String
