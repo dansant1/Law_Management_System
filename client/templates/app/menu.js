@@ -132,18 +132,15 @@ Template.cronometro2.events({
 		$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 		chronometer.stop();
 		Session.set("cronometro-pausado",true);
-		Modal.show('agregarHoras');
 
 	},
 
 	'click .boton-resetear'(){
-
 		chronometer.reset();
 		if(!$(".boton-principal").hasClass("boton-play")){
 			$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
 			return $(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 		}
-
 	},
 	'click .boton-disminuir'(){
 		chronometer.removeMinutes(5)
@@ -152,6 +149,15 @@ Template.cronometro2.events({
 		chronometer.addMinutes(5)
 	},
 	'click .boton-agregar-hora'(){
+		$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+		$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
+		chronometer.stop();
+		Session.set("cronometro-pausado",true);
+
+		Modal.show('agregarHoras');
+
+	},
+	'click .boton-guardar-hora'(){
 		if(localStorage.startCr=="1"){
 			var datos = {
 				bufeteId : Meteor.user().profile.bufeteId,
