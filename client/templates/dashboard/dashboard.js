@@ -1012,7 +1012,7 @@ Template.detalleEtapaAsunto2.onCreated(function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
-		
+
    });
 });
 
@@ -1862,6 +1862,15 @@ Template.tablat.helpers({
 });
 
 Template.tablat.events({
+	'click .agregar-fecha-tarea'(){
+		Modal.show('fechaTareaModal',this)
+	},
+	'click .agregar-asunto-tarea'(){
+		Modal.show('asuntoTareaModal',this);
+	},
+	'click .agregar-miembro-tarea'(){
+		Modal.show('miembroTareaModal',this);
+	},
 	'keyup [name="crear-tarea-simple"]': function (event, template) {
 
 		let datos = {
@@ -4408,7 +4417,7 @@ Template.trelloLikeTareas.events({
 			let datos = {
 			etapa: {
 				nombre: this.nombre,
-				id: this._id 
+				id: this._id
 			},
 			bufeteId: Meteor.user().profile.bufeteId,
 			creador: {
@@ -4420,7 +4429,7 @@ Template.trelloLikeTareas.events({
 			}
 
 			$( ".kanban-input" ).each(function( index ) {
-			
+
 			if ( $( this ).val()  !== "") {
 				datos.descripcion = $( this ).val();
 				$( this ).val("");
@@ -4428,7 +4437,7 @@ Template.trelloLikeTareas.events({
 
 			});
 
-        	
+
         	template.find('[name="tarea-nueva"]').value = "";
         	Meteor.call('crearTareaKanban', datos, function (err, result) {
 				debugger;

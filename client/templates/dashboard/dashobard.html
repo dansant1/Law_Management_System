@@ -1840,7 +1840,7 @@
 
 	{{> menuTareas2}}
 
-	{{> etapasAsunto}} 
+	{{> etapasAsunto}}
 
 
 
@@ -1893,11 +1893,11 @@
 					</span>
 				 <span class="co-name">
 				{{#if this.asunto}}
-					{{this.asunto.nombre}} 
+					{{this.asunto.nombre}}
 						<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
 					{{this.etapa.nombre}}
 				{{else}}
-					+ asunto
+					<a class="agregar-asunto-tarea" href="#">+ asunto</a>
 				{{/if}}
 				 </span></th>
 				 <td>
@@ -1907,32 +1907,38 @@
 				 	</h5>
 				 	{{else}}
 					<h5>
-						+ vencimiento
+						<a class="agregar-fecha-tarea" href="#">+ vencimiento</a>
 					</h5>
-					{{/if}}				 	
+					{{/if}}
 				 </td>
 				 <td>
-				 	<img src="/contactos/contacto.jpg" alt="{{this.asignado.nombre}}" class="item-mienbro">
+					 {{#if this.asignado}}
+				 		<img src="/contactos/contacto.jpg" alt="{{this.asignado.nombre}}" class="item-mienbro">
+					{{else}}
+						<h5>
+							<a href="#"  class="agregar-miembro-tarea">Cambiar asignado</a>
+						</h5>
+					{{/if}}
 				 </td>
 				 <td>1h 28m</td>
 				 <td>
 				 	<div class="btn-group">
-	 
+
   <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-   
+
     <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
     <li role="separator" class="divider"></li>
-    
+
             <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
-         
+
   </ul>
 		</div>
 				 </td>
-				 
-			</tr>      
+
+			</tr>
 			   {{/each}}
 	 </tbody>
 </table>
@@ -6910,8 +6916,8 @@
 <template name="trelloLikeTareas">
  <div class="franja-progreso">
         <div class="progreso">
-            <p>{{email}} 
-            <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> 
+            <p>{{email}}
+            <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
             <a href="/asuntos2" >Todos los asuntos</a>
             <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
 			{{#with expediente}}
@@ -6939,7 +6945,7 @@
     	<input type="checkbox" id="{{this._id}}" name="mycheckbox">
     	<label for="{{this._id}}"> {{this.descripcion}}</label>
 	</span>
- 
+
     	{{#if this.asignado.nombre}}
     	<i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;">
     	</i> {{this.asignado.nombre}}
