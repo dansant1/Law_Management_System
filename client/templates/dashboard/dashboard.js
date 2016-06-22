@@ -19,9 +19,7 @@ Template.tareas2.onCreated(function () {
 		})
 });
 
-Template.etapa.onCreated(function () {
 
-})
 
 Template.etapa.helpers({
 	tareas(){
@@ -1000,11 +998,31 @@ Template.detalleAsunto2.onCreated( function () {
 	var self = this;
 
 	self.autorun(function() {
+		let asuntoId = FlowRouter.getParam('asuntoId');
 		let bufeteId = Meteor.user().profile.bufeteId;
     	let etapaId = FlowRouter.getParam('etapaId');
     	self.subscribe('etapa', etapaId);
-		// self.subscribe('tareasxAsunto',FlowRouter.getParam(''))
+    	self.subscribe('expediente', asuntoId);
    });
+});
+
+Template.detalleEtapaAsunto2.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+		let asuntoId = FlowRouter.getParam('asuntoId');
+    	self.subscribe('expediente', asuntoId);
+		
+   });
+});
+
+Template.detalleEtapaAsunto2.helpers({
+	email() {
+		return Meteor.user().emails[0].address;
+	},
+	expediente: () => {
+		return Asuntos.findOne({_id: FlowRouter.getParam('asuntoId')});
+	}
 });
 
 Template.tareasEtapaAsunto.events({
@@ -1123,8 +1141,6 @@ Template.tareasDelAsunto.events({
 				id: FlowRouter.getParam('asuntoId')
 			}
 		}
-
-
 
 		if(event.which == 13){
         	//$(event.target).blur();
@@ -1512,7 +1528,6 @@ Template.fullScreenTareaAsunto.onCreated( function () {
     	self.subscribe('tareasxAsunto', asuntoId);
     	self.subscribe('expediente', asuntoId);
 		let tareaId = FlowRouter.getParam('tareaId');
-    	//self.subscribe('tarea', tareaId);
 		self.subscribe('docs')
     	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
    });
@@ -1568,7 +1583,6 @@ Template.asuntosDocs3.onCreated( function () {
 	var self = this;
 
 	self.autorun(function() {
-		// alert('da')
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('expediente', asuntoId);
    });
@@ -1613,12 +1627,7 @@ Template.asuntosDocsDetalle.onCreated( function () {
    });
 });
 
-Template.cuadroVersionesDocumentos.onCreated(function () {
-	// let self = this;
-	// self.autorun(function () {
-	// 	self.subscribe('docsVersion',FlowRouter.getParam('docId'));
-	// })
-})
+
 
 Template.cuadroVersionesDocumentos.helpers({
 	versiones(){
@@ -1818,7 +1827,69 @@ Template.menuTareas2.events({
 	'click .agregar-etapa'(event,template){
 		Modal.show('agregarEtapaModal');
 	}
-})
+});
+
+Template.tablat.onCreated(function () {
+	var self = this;
+
+		//Session.set('tipo-tarea',true);
+
+		self.autorun(function () {
+			self.subscribe('misTareas')
+		})
+});
+
+Template.tablat.helpers({
+	tareas(){
+		return Tareas.find({"$and":[
+			{'asignado.id':Meteor.userId()},
+			{abierto:Session.get('tipo-tarea')},
+			{}
+		]}, {sort: {createdAt: -1}})
+	},
+	dia(fecha) {
+		debugger;
+		console.log(fecha)
+		var d = new Date(fecha),
+				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+				ampm = d.getHours() >= 12 ? 'pm' : 'am',
+				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	}
+});
+
+Template.tablat.events({
+	'keyup [name="crear-tarea-simple"]': function (event, template) {
+
+		let datos = {
+			descripcion: template.find('[name="crear-tarea-simple"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		}
+
+
+
+		if(event.which == 13){
+        	//$(event.target).blur();
+        	template.find('[name="crear-tarea-simple"]').value = "";
+        	Meteor.call('agregarTarea', datos, function (err, result) {
+        		if (err) {
+        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+        			template.find('[name="crear-tarea-simple"]').value = "";
+        		} else {
+        			template.find('[name="crear-tarea-simple"]').value = "";
+        			Bert.alert('Agregaste una tarea', 'success');
+        		}
+        	});
+    	}
+	}
+});
 
 Template.agregarEtapaModal.events({
 	'submit form'(event,template){
@@ -2151,11 +2222,8 @@ Template.detalleCalendario2.helpers({
 
 Template.detalleConversacion2.onCreated(function () {
 	var self = this;
-
-	//var asuntoId = Session.get('asunto-id');
-	let asuntoId = FlowRouter.getParam('asuntoId');
-
 	self.autorun(function() {
+		let asuntoId = FlowRouter.getParam('asuntoId');
 		self.subscribe('expediente', asuntoId);
     	self.subscribe('conversacionesAsunto', asuntoId);
     	self.subscribe('comentariosDeConversacionesAsunto', asuntoId);
@@ -2361,7 +2429,6 @@ Template.equipo.onCreated(function () {
 });
 
 Template.equipo.helpers({
-
 	email(){
 			return Meteor.user().emails[0].address
 	},
@@ -2425,7 +2492,6 @@ Template.Prospectos.helpers({
 	},
 	clientes() {
 		var regexNombre = new RegExp(".*"+Session.get('nombre-prospecto')+".*","i");
-
 		return Clientes.find({nombreCompleto:regexNombre,estatus: 'prospecto'}, {sort: {createdAt: -1}});
 	}
 });
@@ -2450,7 +2516,6 @@ Template.clientesOficial.helpers({
 		return Meteor.user().emails[0].address
 	},
 	clientes() {
-
 		var regexNombre = new RegExp(".*"+Session.get('nombre-cliente')+".*","i");
 		return Clientes.find({nombreCompleto:regexNombre, estatus: 'cliente'}, {sort: {createdAt: -1}});
 	}
@@ -2544,8 +2609,7 @@ Template.venceTareaModal.events({
 				if(err) Bert.alert('Hubo un error por favor intentelo nuevamente','danger')
 				Bert.alert('Se actualizo la fecha correctamente','success')
 				Modal.hide('fechaTareaModal')
-
-		})
+		});
 
 	}
 })
@@ -2611,9 +2675,6 @@ Template.asuntoTareaModal.helpers({
 	}
 })
 
-Template.asuntoTareaModal.onRendered(function () {
-
-})
 
 Template.miembroTareaModal.onCreated(function () {
 		var self = this;
@@ -2769,7 +2830,6 @@ Template.casoDetalle.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-
     	self.subscribe('casos2', bufeteId);
     	let casoId = FlowRouter.getParam('casoId');
     	self.subscribe('newsCasos', casoId);
@@ -2925,7 +2985,6 @@ Template.notaCliente.onRendered(function () {
 })
 
 Template.notaCliente.helpers({
-
 	comentarios() {
 		debugger;
 		return ComentariosNotas.find({notaId: Template.parentData(0)._id});
@@ -4283,9 +4342,6 @@ Template.formularioParaCrearTarifa.events({
 	}
 });
 
-Template.cobros.onRendered(function () {
-
-});
 
 Template.cobros.helpers({
 	email() {
@@ -4299,8 +4355,91 @@ Template.cobros.events({
 	}
 });
 
+
+Template.trelloLikeTareas.onCreated(function () {
+	let self = this;
+
+	self.autorun(function () {
+		let asuntoId = FlowRouter.getParam('asuntoId');
+		self.subscribe('etapasTrello', asuntoId);
+		self.subscribe('tareasTrello', asuntoId);
+		self.subscribe('expediente', asuntoId);
+	})
+});
+
 Template.trelloLikeTareas.helpers({
 	email() {
 		return Meteor.user().emails[0].address
+	},
+	etapas() {
+		return Etapas.find({});
+	},
+	tareas(etapaId) {
+		return Tareas.find({'etapa.id': etapaId, abierto: true}, {sort: {createdAt: -1}});
+	},
+	borde(tipo) {
+		if (tipo === "General") {
+			return 'borde-general'
+		} else if (tipo === "Comunicaciones") {
+			return 'borde-comunicaciones'
+		} else if (tipo === "Escritos") {
+			return 'borde-escritos'
+		} else if (tipo === "Tribunales") {
+			return 'borde-tribunales'
+		} else if (tipo === "Facturacion") {
+			return 'borde-facturacion'
+		} else {
+			return 'borde-normal'
+		}
+	},
+	expediente: () => {
+		return Asuntos.findOne({_id: FlowRouter.getParam('asuntoId')});
+	},
+	asuntoId() {
+		return FlowRouter.getParam('asuntoId');
+	}
+});
+
+Template.trelloLikeTareas.events({
+	'keyup [name="tarea-nueva"]': function (event, template) {
+
+		if(event.which == 13) {
+
+			let datos = {
+			etapa: {
+				nombre: this.nombre,
+				id: this._id 
+			},
+			bufeteId: Meteor.user().profile.bufeteId,
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+			},
+			asunto: {
+				id: FlowRouter.getParam('asuntoId')
+			}
+			}
+
+			$( ".kanban-input" ).each(function( index ) {
+			
+			if ( $( this ).val()  !== "") {
+				datos.descripcion = $( this ).val();
+				$( this ).val("");
+			}
+
+			});
+
+        	
+        	template.find('[name="tarea-nueva"]').value = "";
+        	Meteor.call('crearTareaKanban', datos, function (err, result) {
+				debugger;
+        		if (err) {
+        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+        			template.find('[name="tarea-nueva"]').value = "";
+        		} else {
+        			template.find('[name="tarea-nueva"]').value = "";
+        			Bert.alert('Agregaste una tarea', 'success');
+        		}
+        	});
+    	}
 	}
 });

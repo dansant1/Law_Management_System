@@ -39,7 +39,7 @@ Meteor.methods({
 				Eventos.insert(evento);
 
 				NewsFeed.insert({
-					descripcion: 'asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
+					descripcion: datos.asignado.nombre + 'asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
 					tipo: 'Tarea',
 					creador: {
 						nombre: datos.creador.nombre,
@@ -281,6 +281,51 @@ Meteor.methods({
 
 			return;
 
+		}
+	},
+	crearTareaKanban: function (datos) {
+		check(datos, {
+			descripcion: String,
+			etapa: Object,
+			bufeteId: String,
+			creador: Object,
+			asunto: Object
+		});
+
+		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+			datos.creador.id = this.userId,
+			datos.asignado = {
+				nombre: datos.creador.nombre,
+				id: this.userId
+			}
+
+			datos.asunto.nombre = Asuntos.findOne({_id: datos.asunto.id}).caratula;
+
+
+			datos.abierto = true;
+			datos.tipo = 'General';
+			datos.createdAt = new Date();
+
+
+			let tarea = Tareas.insert(datos);
+
+			if (tarea) {
+				NewsFeed.insert({
+					descripcion: " " + datos.asignado.nombre + ' asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
+					tipo: 'Tarea',
+					creador: {
+						nombre: datos.creador.nombre,
+						id: datos.creador.id
+					},
+					asunto: {
+						nombre: datos.asunto.nombre,
+						id: datos.asunto.id
+					},
+					bufeteId: datos.bufeteId,
+					createdAt: datos.createdAt
+				});
+			}
 		}
 	}
 });

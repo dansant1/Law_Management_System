@@ -75,3 +75,29 @@ Meteor.publish('misTareas', function () {
 	}
 
 });
+
+Meteor.publish('etapasTrello', function (asuntoId) {
+
+	check(asuntoId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return Etapas.find({'asunto.id': asuntoId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+Meteor.publish('tareasTrello', function (asuntoId) {
+
+	check(asuntoId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return Tareas.find({'asunto.id': asuntoId, abierto: true});
+	} else {
+		this.stop();
+		return;
+	}
+
+});

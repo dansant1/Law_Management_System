@@ -24,7 +24,7 @@
 .list {
   background-color: #E3E3E3;
   border-radius: 5px;
-  min-height: 155px;
+  min-height: 165px;
   margin: 5px 5px;
   padding: 10px;
   min-width: 230px;
@@ -66,8 +66,29 @@
   margin-bottom: 10px;
 }
 
-.card2 {
+
+.borde-general {
   border-left: 3.3px solid #e74c3c;
+}
+
+.borde-facturacion {
+  border-left: 3.3px solid #2ecc71;
+}
+
+.borde-escritos {
+  border-left: 3.3px solid #1abc9c; 
+}
+
+.borde-tribunales {
+  border-left: 3.3px solid #8e44ad; 
+}
+
+.borde-comunicaciones {
+  border-left: 3.3px solid #f1c40f; 
+}
+
+.borde-normal {
+  border-left: 3.3px solid #34495e; 
 }
 
 .kanban-input {

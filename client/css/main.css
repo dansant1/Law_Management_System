@@ -13,6 +13,8 @@ body {
 	overflow: auto;
 }
 
+*:focus { outline:0 !important; }
+
 .weekend{ background: #34495E!important; color:white !important;}
 
 ::-moz-selection {

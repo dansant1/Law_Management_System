@@ -12,10 +12,10 @@
   .fh-radio > [type="radio"]:checked + label,
   .fh-radio > [type="radio"]:not(:checked) + label {
     display: inline-block;
-    margin-right: 7px;
+    margin-right: 10px;
     margin-top: 7px;
     margin-bottom: 7px;
-    padding-left: 22px;
+    padding-left: 25px;
     padding-top: 2px;
     position: relative;
     cursor: pointer; }
@@ -28,13 +28,13 @@
       left: 0;
       width: 20px;
       height: 20px;
-      border: 2px solid #849fbb;
+      border: 2px solid #3498db;
       border-radius: 4px;
       color: #849fbb; }
     .fh-checkbox > [type="checkbox"]:checked + label:hover:before, .fh-checkbox > [type="checkbox"]:not(:checked) + label:hover:before,
     .fh-radio > [type="radio"]:checked + label:hover:before,
     .fh-radio > [type="radio"]:not(:checked) + label:hover:before {
-      background-color: #849fbb; }
+      background-color: #3498db; }
   .fh-checkbox > [type="checkbox"]:checked:focus + label:before, .fh-checkbox > [type="checkbox"]:not(:checked):focus + label:before,
   .fh-radio > [type="radio"]:checked:focus + label:before,
   .fh-radio > [type="radio"]:not(:checked):focus + label:before {
@@ -64,8 +64,8 @@
 .fh-checkbox > [type="checkbox"]:checked + label:before {
   content: "\f00c";
   color: #FFF;
-  background-color: #57cb85;
-  border-color: #57cb85; }
+  background-color: #3498db;
+  border-color: #3498db; }
 
 .fh-checkbox > [type="checkbox"]:not(:checked) + label:before {
   content: ""; }

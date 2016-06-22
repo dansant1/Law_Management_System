@@ -1,0 +1,151 @@
+/* Styles for the tables test page */
+
+
+
+/* Test page styles */
+.docs {
+   margin: 3% 5%;
+   font-size: 1.2em;
+}
+.docs h3 {
+   font-size: 1.2em;
+   font-weight: bold;
+   margin: .5em 0;
+}
+.docs p {
+   margin: 0 0 1em;
+}
+
+
+
+.a11y-only {
+   position: absolute;
+   left: -999em;
+}
+
+.table-wrapper {
+   position: relative;
+  
+   margin: 0;
+   font: 62.5%/1.3 Helvetica, sans-serif;
+}
+.table-menu-wrapper {
+   position: absolute;
+   top: -3em;
+   right: 0;
+}
+.table-menu {
+   position: absolute;
+   background-color: #fff;
+   padding: 10px;
+   border: 1px solid #ccc;
+   font-size: 1.2em;
+   width: 12em;
+   right: 0;
+   left: auto;
+}
+.table-menu-hidden {
+   left: -999em;
+   right: auto;
+}
+.table-menu-btn {
+   text-decoration: none;
+   color: #333;
+   font-size: 1.2em;
+   background: #eee url(../_img/icon-menu.png) no-repeat 5px center;
+   padding: .3em 10px .3em 20px;
+   border: 1px solid #ccc;
+}
+.table-menu li {
+   padding: .3em 0;
+}
+
+
+
+/* Table styles */
+table {
+	width: 100%;
+	font-size: 1.6em;
+}
+thead th {
+
+	white-space: nowrap;
+	border-bottom: 3px solid #EFEFEF;
+	color: #888;
+   margin-bottom: 6px;
+   height: 60px;
+   
+}
+th, td {
+   padding: .5em 1em;
+	background-color: #fff;
+	text-align: right;
+}
+th:first-child, 
+td:first-child {
+   text-align: left;
+}
+tbody th, td {
+	border-bottom: 1px solid #e6e6e6;
+}
+.co-name {
+   display: block;
+   font-size: .9em;
+   opacity: .4;
+}
+
+.enhanced th,
+.enhanced td {
+   display: none;
+}
+
+.legacy-ie .enhanced th.essential, 
+.legacy-ie .enhanced td.essential {
+	display: inline;
+   color: #34495e;
+}
+.enhanced th.essential, 
+.enhanced td.essential {
+   display: table-cell;
+}
+
+th > h3 {
+   color: #34495e;
+}
+
+.tarea-input {
+   width: 100%;
+   background-color: white;
+   height: 75px;
+}
+
+.tarea-input > input {
+   display: block;
+   width: 100%;
+   height: 60px;
+   padding: 15px;
+   border: none;
+   border-bottom: 1px solid #EFEFEF;
+}
+
+@media screen and (min-width: 500px) {
+	.legacy-ie .enhanced th.optional, 
+	.legacy-ie .enhanced td.optional {
+		display: inline;
+	}
+	.enhanced th.optional, 
+	.enhanced td.optional {
+		display: table-cell;
+	}
+}
+
+@media screen and (min-width: 800px) {
+   .legacy-ie .enhanced th, 
+   .legacy-ie .enhanced td {
+      display: inline;
+   }
+   .enhanced th, 
+   .enhanced td {
+      display: table-cell;
+   }
+}
