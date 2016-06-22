@@ -2044,9 +2044,30 @@
 	<div class="item-lista-tareas">
 		<a href="/asuntos2/d/{{asuntoId}}/etapa/{{this._id}}"><h3 style="display: inline-block; margin-right: 350px;">{{this.nombre}}</h3></a>
 		<div style="margin-left:25px;">
-			{{#each tareas}}
-				<p><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a></p>
-			{{/each}}
+			<input type="text" name="crear-tarea-etapa" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
+			<table>
+				{{#each tareas}}
+					<tr>
+						<td>
+							<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block;">{{this.descripcion}}</h5></a>
+						</td>
+						<td>
+							{{#if this.vence}}
+								<a class="agregar-fecha-tarea" href="#"> <h5>{{ dia this.vence}}</h5></a>
+							{{else}}
+								<a class="agregar-fecha-tarea" href="#"> <h5>+ Fecha</h5></a>
+							{{/if}}
+						</td>
+						<td>
+							{{#if this.vence}}
+								<a href="#" class="agregar-miembro-tarea"> <h5>{{this.asignado.nombre}}</h5></a>
+							{{else}}
+								<a href="#" class="agregar-miembro-tarea"><h5>+ Asignado</h5></a>
+							{{/if}}
+						</td>
+					</tr>
+				{{/each}}
+			</table>
 		</div>
 
 	</div>

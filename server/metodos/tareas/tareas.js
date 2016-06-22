@@ -209,11 +209,14 @@ Meteor.methods({
 	},
 	agregarTarea: function (datos) {
 
-		check(datos, {
+		let _check = {
 			descripcion: String,
 			bufeteId: String,
 			creador: Object
-		});
+		}
+		if(datos.etapa) _check.etapa = Object;
+
+		check(datos, _check );
 
 		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 

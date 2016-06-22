@@ -30,6 +30,50 @@ Template.etapa.helpers({
 	},
 	tareasSinEtapas(){
 		return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
+	},
+	dia(date) {
+		var d = new Date(),
+    	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+})
+
+Template.etapa.events({
+	'click .agregar-fecha-tarea'(event,template){
+		Modal.show('fechaTareaModal',this)
+	},
+	'click .agregar-miembro-tarea'(){
+		Modal.show('miembroTareaModal',this);
+	},
+
+	'keyup [name="crear-tarea-etapa"]'(event,template){
+		let datos = {
+			descripcion: template.find('[name="crear-tarea-etapa"]').value,
+			bufeteId: Meteor.user().profile.bufeteId,
+			etapa: {
+				id: this._id,
+				nombre: Etapas.find({_id:this._id}).fetch()[0].nombre
+			},
+			creador: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			}
+		}
+
+
+		debugger;
+		if(event.which == 13){
+        	//$(event.target).blur();
+        	Meteor.call('agregarTarea', datos, function (err, result) {
+        		if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+    			template.find('[name="crear-tarea-etapa"]').value = "";
+    			Bert.alert('Agregaste una tarea', 'success');
+        	});
+    	}
 	}
 })
 
