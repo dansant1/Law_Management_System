@@ -193,7 +193,7 @@ Template.agregarHoras.helpers({
 	}
 });
 
-Template.agregarHoras.events({
+	Template.agregarHoras.events({
 	'submit form': function (event, template) {
 		event.preventDefault();
 
@@ -228,13 +228,11 @@ Template.agregarHoras.events({
 		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "" && datos.descripcion !== "") {
 
 			Meteor.call('agregarHora', datos, function (err, result) {
-				if (err) {
-					console.log(err)
-					Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
-				} else {
-					$('#agregar-modal').modal('hide');
-					Bert.alert('Agregaste horas', 'success');
-				}
+				if (err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
+
+				if(Session.get("cronometro-pausado")) chronometer.reset();
+				$('#agregar-modal').modal('hide');
+				Bert.alert('Agregaste horas', 'success');
 			});
 
 		} else {

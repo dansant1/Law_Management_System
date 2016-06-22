@@ -158,6 +158,7 @@ Template.cronometro2.events({
 
 	},
 	'click .boton-guardar-hora'(){
+
 		if(localStorage.startCr=="1"){
 			var datos = {
 				bufeteId : Meteor.user().profile.bufeteId,
@@ -169,6 +170,8 @@ Template.cronometro2.events({
 					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 				}
 			}
+
+			chronometer.reset();
 
 			return Meteor.call('agregarHoraSinDetalles',datos,function (err) {
 				if(err) return Bert.alert('Error al momento de crear las horas','danger');
