@@ -215,6 +215,7 @@ Meteor.methods({
 			creador: Object
 		}
 		if(datos.etapa) _check.etapa = Object;
+		if(datos.asunto) _check.asunto = Object;
 
 		check(datos, _check );
 

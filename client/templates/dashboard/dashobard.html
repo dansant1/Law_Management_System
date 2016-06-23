@@ -1920,7 +1920,14 @@
 						</h5>
 					{{/if}}
 				 </td>
-				 <td>1h 28m</td>
+
+				 <td>
+					 {{#if this.horas}}
+					 	<a href="#">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
+					 {{else}}
+					 	<a href="#">+ Horas</a>
+					 {{/if}}
+				 </td>
 				 <td>
 				 	<div class="btn-group">
 

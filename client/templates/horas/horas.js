@@ -165,8 +165,15 @@ Template.agregarHoras.onRendered(function () {
 		$("#agregar-horas-modal").find("[name='horas']").val(chronometer.hours);
 		$("#agregar-horas-modal").find("[name='minutos']").val(chronometer.minutes);
 	}
+	Meteor.typeahead.inject();
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });
+
+	$('#tarea-typeahead').bind('typeahead:selected', function(obj, datum, name) {
+		Session.set("tarea-hora-id",datum.id)
+	});
 });
+
+
 
 Template.agregarGasto.onRendered(function () {
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });
@@ -190,13 +197,33 @@ Template.agregarHoras.helpers({
 	},
 	responsable: () => {
 		return Meteor.users.find({});
+	},
+	tareas(){
+		return Tareas.find().fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
+	},
+	selected(event, suggestion, datasetName) {
+	    // event - the jQuery event object
+	    // suggestion - the suggestion object
+	    // datasetName - the name of the dataset the suggestion belongs to
+	    // TODO your event handler here
+	    console.log(suggestion.id);
 	}
 });
 
-	Template.agregarHoras.events({
+Template.agregarHoras.events({
+	'change #tarea-select'(event,template){
+		if($(event.target).is(":checked")){
+			$(template.find(".descripcion-tarea")).addClass('hide');
+			$(template.find(".buscar-tarea")).removeClass('hide')
+		}else {
+			$(template.find(".descripcion-tarea")).removeClass('hide');
+			$(template.find(".buscar-tarea")).addClass('hide')
+		}
+
+	},
 	'submit form': function (event, template) {
 		event.preventDefault();
-
+		debugger;
 		let datos = {
 			descripcion: template.find('[name="descripcion"]').value,
 			fecha: template.find('[name="fecha"]').value,
@@ -211,8 +238,8 @@ Template.agregarHoras.helpers({
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 			}
 		}
-		debugger;
 
+		if($(".es-tarea").is(":checked")) datos.tareaId = Session.get('tarea-hora-id');
 
 
 		datos.asunto = {
@@ -225,7 +252,7 @@ Template.agregarHoras.helpers({
 			id: $( ".responsable" ).val()
 		}
 
-		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "" && datos.descripcion !== "") {
+		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "") {
 
 			Meteor.call('agregarHora', datos, function (err, result) {
 				if (err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');

@@ -85,6 +85,19 @@ EsquemaTareas = new SimpleSchema({
   'etapa.nombre':{
       type:String
   },
+  'horas':{
+      type:String,
+      optional:true
+  },
+  'horas.id':{
+      type:String
+  },
+  'horas.hora':{
+      type:Number
+  },
+  'horas.minutos':{
+      type:Number
+  },
   'etapa.id':{
     type:String
   },

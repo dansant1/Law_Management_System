@@ -54,6 +54,10 @@ Template.etapa.events({
 		let datos = {
 			descripcion: template.find('[name="crear-tarea-etapa"]').value,
 			bufeteId: Meteor.user().profile.bufeteId,
+			asunto:{
+				id:FlowRouter.getParam('asuntoId'),
+				nombre: Asuntos.find({_id:FlowRouter.getParam('asuntoId')}).fetch()[0].caratula
+			},
 			etapa: {
 				id: this._id,
 				nombre: Etapas.find({_id:this._id}).fetch()[0].nombre

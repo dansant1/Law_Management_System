@@ -1,6 +1,5 @@
 Meteor.startup(function() {
-
-
+    
     Tareas.find({asignado:{$exists:true},vence:{$exists:true}}).forEach(function(tarea) {
 
 

@@ -221,7 +221,7 @@ calcularTotal = function (datos) {
 
 Meteor.methods({
 	'agregarHora': function (datos) {
-		check(datos, {
+		let _check = {
 			descripcion: String,
 			bufeteId: String,
 			fecha: String,
@@ -233,21 +233,23 @@ Meteor.methods({
 			cobrado:Boolean,
 			tarea:Boolean,
 			creador:Object
-		});
+		}
+		if(datos.tareaId) _check.tareaId = String;
+		check(datos,_check );
 
 
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
-			if(datos.tarea) Tareas.insert({
-				descripcion:datos.descripcion,
-				vence:new Date(datos.fecha+" GMT-0500"),
-				responsable:datos.responsable,
-				asunto:datos.asunto,
-				bufeteId:datos.bufeteId,
-				createdAt: new Date(),
-				creador: datos.creador,
-				abierto:true
-			})
+			//  Tareas.insert({
+			// 	descripcion:datos.descripcion,
+			// 	vence:new Date(datos.fecha+" GMT-0500"),
+			// 	responsable:datos.responsable,
+			// 	asunto:datos.asunto,
+			// 	bufeteId:datos.bufeteId,
+			// 	createdAt: new Date(),
+			// 	creador: datos.creador,
+			// 	abierto:true
+			// })
 
 
 
@@ -267,7 +269,20 @@ Meteor.methods({
 			datos.createdAt = new Date();
 			datos.facturado = false;
 
-			Horas.insert(datos);
+			let horaId = Horas.insert(datos);
+			console.log(horaId);
+			if(datos.tarea){
+				Tareas.update({_id:datos.tareaId},{
+					$set:{
+						horas:{
+							id: horaId,
+							horas: datos.horas,
+							minutos: datos.minutos
+						}
+					}
+				})
+			}
+
 			calcularTotal(datos);
 
 
