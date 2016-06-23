@@ -75,13 +75,13 @@ calcularTotal = function (datos) {
 
 
 	totalHoras.forEach(function (hora) {
-		console.log(hora);
+		// console.log(hora);
 		let suma = 0;
 		let costoResponsable = {}
 		let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
 
 		tarifa.miembros.forEach(function (miembro) {
-			console.log(miembro);
+			// console.log(miembro);
 			if(miembro.id==hora.responsable.id){
 				if(tipo_moneda=="soles") suma += hora.horas*miembro.soles;
 				else suma += hora.horas*(miembro.soles/cambio)
@@ -143,7 +143,7 @@ calcularTotal = function (datos) {
 		totalContable+= costoResponsable.total;
 	})
 
-	console.log(horasNoFacturadas);
+	// console.log(horasNoFacturadas);
 
 	console.log("[total monto] " + totalContable);
 	if(horas[0])	console.log("[total horas] " + horas[0].total);
@@ -231,10 +231,10 @@ Meteor.methods({
 			minutos:String,
 			// precio: String,
 			cobrado:Boolean,
-			tarea:Boolean,
+			esTarea:Boolean,
 			creador:Object
 		}
-		if(datos.tareaId) _check.tareaId = String;
+		if(datos.tarea) _check.tarea = Object;
 		check(datos,_check );
 
 
@@ -261,27 +261,33 @@ Meteor.methods({
 			// datos.precio = parseInt(datos.precio);
 			datos.horasFacturables = datos.horas;
 			datos.minutosFacturables = datos.minutos;
-			datos.tarea = datos.tarea? true : false;
+			datos.esTarea = datos.esTarea? true : false;
 			datos.cobrable = datos.cobrado;
 
 			// datos.total = datos.horas * datos.precio;
 			datos.creadorId = this.userId;
 			datos.createdAt = new Date();
 			datos.facturado = false;
+			console.log(datos.tarea);
+			if(datos.esTarea) datos.descripcion = datos.tarea.nombre;
 
+			let tarea = datos.tarea;
+			let horas = {
+				hora:datos.horas,
+				minutos:datos.minutos
+			}
 			let horaId = Horas.insert(datos);
-			console.log(horaId);
-			if(datos.tarea){
-				Tareas.update({_id:datos.tareaId},{
+			console.log(tarea);
+			if(datos.esTarea)
+				Tareas.update({_id:tarea.id},{
 					$set:{
 						horas:{
 							id: horaId,
-							horas: datos.horas,
-							minutos: datos.minutos
+							hora: horas.hora,
+							minutos: horas.minutos
 						}
 					}
 				})
-			}
 
 			calcularTotal(datos);
 

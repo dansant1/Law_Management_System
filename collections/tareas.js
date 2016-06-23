@@ -86,7 +86,7 @@ EsquemaTareas = new SimpleSchema({
       type:String
   },
   'horas':{
-      type:String,
+      type:Object,
       optional:true
   },
   'horas.id':{

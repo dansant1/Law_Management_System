@@ -68,7 +68,7 @@ EsquemaHoras = new SimpleSchema({
 		type: Number,
 		optional: true
 	},
-	tarea: {
+	esTarea: {
 		type: Boolean,
 		optional:true
 	},

@@ -1,0 +1,34 @@
+<template name="horaTareaModal">
+    <div id="agregar-horas-modal" class="modal fade">
+       <div class="modal-dialog">
+           <div class="modal-content">
+
+               <div class="modal-header">
+                   <h4 class="modal-title">Agregar Hora</h4>
+               </div>
+
+               <div class="modal-body">
+                 <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;" novalidate>
+                   <fieldset>
+
+                       <div class="icon">
+                           <label class="cd-label" for="cd-company">Tiempo horas</label>
+                           <input class="company" type="number" step="1" min="1" name="horas" id="cd-company">
+                       </div>
+                       <div class="icon">
+                           <label class="cd-label" for="cd-company">Tiempo minutos</label>
+                           <input class="company" type="number" step="1" min="1" name="minutos" id="cd-company">
+                       </div>
+                       <input type="submit" value="Agregar horas">
+                   </fieldset>
+                 </form>
+               </div>
+
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+               </div>
+
+           </div>
+       </div>
+   </div>
+</template>

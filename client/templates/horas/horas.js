@@ -169,7 +169,7 @@ Template.agregarHoras.onRendered(function () {
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });
 
 	$('#tarea-typeahead').bind('typeahead:selected', function(obj, datum, name) {
-		Session.set("tarea-hora-id",datum.id)
+		Session.set("tarea-hora",datum)
 	});
 });
 
@@ -198,8 +198,8 @@ Template.agregarHoras.helpers({
 	responsable: () => {
 		return Meteor.users.find({});
 	},
-	tareas(){
-		return Tareas.find().fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
+	tareasHoras(){
+		return Tareas.find({horas:{$exists:false}}).fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
 	},
 	selected(event, suggestion, datasetName) {
 	    // event - the jQuery event object
@@ -232,14 +232,18 @@ Template.agregarHoras.events({
 			minutos: template.find('[name="minutos"]').value,
 			// precio: template.find('[name="precio"]').value,
 			cobrado: $(".cobrado").is(":checked"),
-			tarea: $(".es-tarea").is(":checked"),
+			esTarea: $(".es-tarea").is(":checked"),
 			creador: {
 				id: Meteor.user()._id,
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 			}
 		}
 
-		if($(".es-tarea").is(":checked")) datos.tareaId = Session.get('tarea-hora-id');
+		if($(".es-tarea").is(":checked")) datos.tarea = {
+			id: Session.get('tarea-hora').id,
+			nombre: Session.get('tarea-hora').value
+		}
+
 
 
 		datos.asunto = {
