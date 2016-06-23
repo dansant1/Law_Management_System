@@ -2,11 +2,13 @@
 
 .cuerpo-trello {
   width: 100%;
-  min-height: 462.3px;
-
-  background-color: #F9F9F9;
+  min-height: 300px;
+  
+  margin-top: 0;
+  background-color: white;
   overflow: auto;
   padding: 5px;
+  padding-left: 15px;
   font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #393939;
   display: flex;

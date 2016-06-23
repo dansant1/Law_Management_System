@@ -1731,15 +1731,18 @@
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
       CRM
     </a>
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
+    </a>
   </div>
 	<div class="franja-filtros">
 		<div class="progreso" style="padding-top: 15px;">
 
       {{#if esAdministrador}}
-      <a class="btn nueva-tarea nuevo-evento verde-flat nuevo">+ Asunto</a>
+      <a class="btn nueva-tarea nuevo-evento azul-flat nuevo" style="border-bottom: none;">+ Asunto</a>
       {{/if}}
 			<div class="btn-group">
-  <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none;">
+  <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -1754,26 +1757,27 @@
 		</div>
 
 		<div  style="float: right; width: 100px; padding: 20px; display: inline-block">
-			<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
-			<i class="glyphicon glyphicon-th"></i>
+			<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1; font-size: 22px;"></i>
+			<i class="glyphicon glyphicon-th" style="font-size: 22px;"></i>
 		</div>
 	</div>
-
-
-	<div class="lista-asuntos" style="min-height: 400px;">
-    <div style="display: block; width: 100%">
-      <div class="buscador " style="width: 100%; background: white;">
-        <div class="col-md-push-1 col-md-2">
-            <select class="form-control tipo-busqueda" name="tipo">
+	
+	 <div style="display: block; width: 100%; margin-bottom: 17.5px;">
+      <div class="buscador " style="width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: center;">
+       
+            <select class="select-bunqr tipo-busqueda" style="text-align: center;" name="tipo">
                 <option value="asuntos">Asuntos</option>
                 <option value="clientes">Clientes</option>
             </select>
-        </div>
-        <div class="col-md-8 col-md-push-1 ">
-            <input type="text" placeholder="Escriba el nombre del {{tipo_busqueda}}  " name="consulta" class="form-control buscador-asuntos">
-        </div>
+        
+       
+            <input type="text" placeholder="Buscar por {{tipo_busqueda}}  " name="consulta" class="select-bunqr buscador-asuntos" style="width: 60%; display: inline-block;">
+        
     </div>
     </div>
+
+	<div class="lista-asuntos" style="min-height: 40px;">
+   
     {{#if esAdministrador}}
 		{{> cuadroAsuntoNuevo}}
     {{/if}}
@@ -2020,10 +2024,10 @@
 
 		<div  style="float: right; width: 100px; padding: 20px; display: inline-block">
 			<a href="/asuntos2/d/{{asuntoId}}">
-				<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1;"></i>
+				<i class="glyphicon glyphicon-menu-hamburger" style="color: #F1F1F1; font-size: 22px;"></i>
 			</a>
 			<a href="/asuntos2/d/{{asuntoId}}/t/k">
-				<i class="glyphicon glyphicon-th"></i>
+				<i class="glyphicon glyphicon-th" style="font-size: 22px;"></i>
 			</a>
 		</div>
 	</div>
@@ -2034,11 +2038,14 @@
 </template>
 
 <template name="etapasAsunto">
-	<div class="lista-tareas">
-    <input type="text" name="crear-etapa" class="item-lista-tareas" placeholder="Escriba una nueva etapa y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
+	<div >
+	
+  		<input type="text" name="crear-etapa" class="item-lista-tareas" placeholder="Nueva Etapa" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none; margin-bottom: 0;">
+		
+    
 		<div style="margin-left:25px;">
 			{{#each tareasSinEtapas}}
-				<p><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block; margin-right: 350px;">{{this.descripcion}}</h5></a></p>
+				<p style="color: #34495e;"><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}" style="color: color: #34495e;"><h5 style="display: inline-block; color: #34495e;">{{this.descripcion}}</h5></a></p>
 			{{/each}}
 		</div>
 
@@ -2051,23 +2058,23 @@
 
 <template name="etapa">
 	<div class="item-lista-tareas">
-		<a href="/asuntos2/d/{{asuntoId}}/etapa/{{this._id}}"><h3 style="display: inline-block; margin-right: 350px;">{{this.nombre}}</h3></a>
+		<a href="/asuntos2/d/{{asuntoId}}/etapa/{{this._id}}"><h3 style="display: inline-block; ">{{this.nombre}}</h3></a>
 		<div style="margin-left:25px;">
-			<input type="text" name="crear-tarea-etapa" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
-			<table>
+			<input type="text" name="crear-tarea-etapa" class="item-lista-tareas2" placeholder="Nueva Tarea" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none; padding-left: 0px; padding-bottom: 0;">
+			<table style="padding-left: 35px;">
 				{{#each tareas}}
 					<tr>
-						<td>
+						<td style="border-bottom: none">
 							<a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}"><h5 style="display: inline-block;">{{this.descripcion}}</h5></a>
 						</td>
-						<td>
+						<td style="border-bottom: none; ">
 							{{#if this.vence}}
 								<a class="agregar-fecha-tarea" href="#"> <h5>{{ dia this.vence}}</h5></a>
 							{{else}}
 								<a class="agregar-fecha-tarea" href="#"> <h5>+ Fecha</h5></a>
 							{{/if}}
 						</td>
-						<td>
+						<td style="border-bottom: none; ">
 							{{#if this.vence}}
 								<a href="#" class="agregar-miembro-tarea"> <h5>{{this.asignado.nombre}}</h5></a>
 							{{else}}
@@ -2083,7 +2090,7 @@
 </template>
 
 <template name="tareasEtapaAsunto">
-	<div class="lista-tareas">
+	<div class="lista-tareas" style="margin-left: 0px;">
     <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
 		{{#each tareas}}
 			<div class="item-lista-tareas">
@@ -2870,9 +2877,7 @@
     <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
       Calendario
     </a>
-    <a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
-      Conversación
-    </a>
+    
     <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
       Tareas
     </a>
@@ -2885,6 +2890,9 @@
     </a>
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
       CRM
+    </a>
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
     </a>
   </div>
 
@@ -2909,7 +2917,7 @@
 </template>
 
 <template name="cuadroAsuntos">
-  <div class="lista-asuntos2" style="display: block; padding-top: 0px; padding-left: 15px;">
+  <div class="lista-asuntos2" style="display: block; padding-top: 20px; padding-left: 15px;">
     <h3>Asuntos</h3>
         <h5><strong><a class="asunto-especifico" data-id="" href="/conversaciones">La Firma</a></strong></h5>
     {{#each asuntos}}
@@ -2934,9 +2942,7 @@
     <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
       Calendario
     </a>
-    <a href="/conversaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
-      Conversación
-    </a>
+    
     <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
       Tareas
     </a>
@@ -2949,6 +2955,9 @@
     </a>
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
       CRM
+    </a>
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
     </a>
   </div>
 
@@ -3567,23 +3576,7 @@
     </a>
   </div>
 
-	<div class="franja-filtros">
-		<a href="/clientes2" class="menu-asunto-aim asunto-item-activo">
-			Resúmen
-		</a>
-		<a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
-			Contactos
-		</a>
-		<a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-			Prospectos
-		</a>
-    <a href="clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
-    </a>
-	</div>
+	{{>menuCRM}}
 
 	<div class="cuadros-estadisticos">
 		{{> cantidadClientes}}
@@ -3614,6 +3607,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<div class="box" style="padding-top: 0px;">
 		{{>pieChart}}
@@ -3649,7 +3643,7 @@
   <ul class="dropdown-menu">
     <li class="persona"><a href="#">Persona</a></li>
     <li class="empresa"><a href="#">Empresa</a></li>
-    <li class="caso"><a href="#">Caso</a></li>
+    <li class="caso"><a href="#">Negociación</a></li>
   </ul>
     </div>
 </template>
@@ -3791,88 +3785,19 @@
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
-  </div>
-
-  <div class="franja-filtros" style=" margin-bottom: 2.5px;">
-    <a href="/clientes2" class="menu-asunto-aim">
-      Resúmen
-    </a>
-    <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
-      Contactos
-    </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-
-    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
+    <a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+      Facturación
     </a>
   </div>
 
-  <div>
-     <div class="sidebar-vertical-blanco">
+	{{>menuContactosCRM}}
 
-    {{>botonNuevosContactos}}
-    <div class="sidebar-titulo">
+  	<!-- <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto"> -->
 
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-      </h5>
-  </div>
-  </div>
-  <div class="">
-      <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto">
-  </div>
-  {{#each clientes}}
-  <div >
-   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
-    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
-    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
-      <span style="color: #2B3E51;">{{this.nombre}} {{this.apellido}}</span>
-
-      <h5>Por {{this.autor}}</h5>
-
-    </a>
-    <div style="display: inline-block; padding-bottom: 25px;">
-
-    <i class="glyphicon glyphicon-phone"></i>
-    {{#if this.celular}}
-    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-      {{this.celular}}
-    </a>
-    {{else}}
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-      + Celular
-    </a>
-    {{/if}}
-    <i class="glyphicon glyphicon-comment"></i>
-    {{#if this.email}}
-    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
-      {{this.email}}
-    </a>
-    {{else}}
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
-      + Email
-    </a>
-    {{/if}}
-     </div>
-  </div>
-
-  </div>
-  {{/each}}
-  </div>
+  	{{>contactosCRM}}
+  
+  
+  
 
 
 </template>
@@ -4452,97 +4377,14 @@
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
-  </div>
-
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
-    <a href="/clientes2" class="menu-asunto-aim">
-      Resúmen
-    </a>
-    <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
-      Contactos
-    </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="/clientes2/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
-      Casos
+    <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      Facturación
     </a>
   </div>
 
-  <div>
-      <div class="sidebar-vertical-blanco">
+	{{>menuNegociacionesCRM}}
 
-      {{>botonNuevosContactos}}
-
-            <div class="sidebar-titulo">
-
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/clientes2/" style="text-decoration:none;" class="no-hover">Todos</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Personas</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/clientes2/casos" style="text-decoration:none;" class="no-hover">Casos</a>
-                </h5>
-
-            </div>
-        </div>
-
-    <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 15px; border-top: none;">
-            <div class="btn-group">
-          <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; background: white; color: #34495e;">
-            <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="empresa"><a href="#">Todos</a></li>
-            <li class="empresa"><a href="#">Abiertos</a></li>
-            <li class="persona"><a href="#">Resueltos</a></li>
-            <li class="persona"><a href="#">No resueltos</a></li>
-          </ul>
-        </div>
-        </div>
-
-        <!-- Lista de Casos -->
-
-
-        <div class="cuadro-tarea-comentarios"  style="padding: 0px; height: 400px;">
-          {{#each casos}}
-          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-
-      <div style="display: flex; width: 80%; height: 85px;">
-        <div style="margin: 25px; margin-top: 0px;">
-          <h5 style="color: #7f8c8d;">{{this.contacto.nombre}} ─ {{this.creador.nombre}} </h5>
-          <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"><a href="/clientes2/casos/{{this._id}}" style="color: #34495e;">{{this.nombre}}</a></h1>
-        </div>
-
-        <div style="margin: 25px; margin-top: 0px;">
-          <h5 style="color: #7f8c8d;">{{dia this.createdAt}}</h5>
-
-            <h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">{{this.estatus}}</h1>
-
-        </div>
-      </div>
-
-          </div>
-          {{/each}}
-
-
-
-        </div>
-
-
-
-  </div>
+	{{>negociacionesCRM}}
 
 
 </template>
@@ -6950,7 +6792,7 @@
 
 <template name="botonNuevoTareas">
 	<div class="btn-group">
-  				<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 0px;">
+  				<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 0px; width: 90px; border-bottom: none; margin-top: 0px;">
    					Nuevo <span class="caret"></span>
   				</button>
   				<ul class="dropdown-menu">
