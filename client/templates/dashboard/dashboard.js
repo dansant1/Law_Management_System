@@ -3951,99 +3951,21 @@ Template.charts.onRendered(function() {
     }
 
     // Set the data
-    var data = {
+     var data = {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
         datasets: [{
             label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
+            fillColor: "#34495e",
+            strokeColor: "#2c3e50",
+            pointColor: "#ecf0f1",
+            pointStrokeColor: "#7f8c8d",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }, {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
+            pointHighlightStroke: "#34495e",
             data: [random(), random(), random(), random(), random(), random(), random()]
         }]
     };
-    var data2 = {
-        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-        datasets: [{
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }, {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }]
-    };
-
-    var data3 = [{
-            value: random(),
-            color: "#F7464A",
-            highlight: "#FF5A5E",
-            label: "Red"
-        }, {
-            value: random(),
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Green"
-        }, {
-            value: random(),
-            color: "#FDB45C",
-            highlight: "#FFC870",
-            label: "Yellow"
-        }, {
-            value: random(),
-            color: "#949FB1",
-            highlight: "#A8B3C5",
-            label: "Grey"
-        }, {
-            value: random(),
-            color: "#4D5360",
-            highlight: "#616774",
-            label: "Dark Grey"
-        }
-
-    ];
-    var data4 = [
-    {
-        value: random(),
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: random(),
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: random(),
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    }
-    ]
+    
+    
 
     // draw the charts
     var myLineChart = new Chart(ctx).Line(data, options);

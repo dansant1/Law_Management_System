@@ -1,0 +1,91 @@
+<template name="resumenFacturacion">
+  <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2" > Facturación</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 4px;">
+
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+      <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <a href="/facturacion" class="menu-asunto-aim asunto-item-activo">
+      Resúmen
+    </a>
+    <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+      Horas
+    </a>
+    <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Gastos
+    </a>
+    <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+      Cobros
+    </a>
+    <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Reportes
+    </a>
+    <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+      Configuración
+    </a>
+  </div>
+
+    <div class="box">
+      {{> charts}}
+      {{>resumenHorasPersonal}}
+    </div>
+
+</template>
+
+<template name="resumenHorasPersonal">
+	<div class="cuadro-pie" style="display: inline-block; width: 33.6%; min-height: 450px; background-color: white; border-radius: 5px; text-align: center; margin-left: 30px;">
+    	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px;">Resúmen personal</h3>
+   
+		 <select name="rangos" class="select-bunqr">
+    	<option value="semana">Rango de tiempo semanal</option>
+    	<option value="semana">Rango de tiempo mensual</option>
+    	<option value="semana">Rango de tiempo anual</option>
+    </select>
+    
+    <br>
+    <canvas id="pieChartHoras" width="200" height="200"></canvas>
+    <br>
+	<div class="lista-asuntos-reporte">	
+		<h3 class="total">Tiempo total <span class="hora">28h 30m</span></h3>
+		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora" style="margin-left: 20px;">5h 15 m</span></h4>
+		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora">15h 20m</span></h4>
+		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora">8h 0m</span></h4>	
+		<h3 style="font-size: 13px;">
+			<button class="boton-outline">Mis horas</button>
+		</h3>
+	</div>
+  </div>
+</template>
+
+
