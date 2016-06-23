@@ -6,6 +6,7 @@ Template.horaTareaModal.events({
             horas: template.find("[name='horas']").value,
             minutos: template.find("[name='minutos']").value
         }
+        debugger;
         Meteor.call('agregarHoraTarea',datos,function (err) {
             if(err) return Bert.alert('No se pudo modificar las horas correctamente','danger')
             Bert.alert('Se añadio las horas correctamente','success');

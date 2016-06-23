@@ -1920,7 +1920,7 @@ Template.tablat.events({
 		Modal.show('miembroTareaModal',this);
 	},
 	'click .agregar-horas'(){
-		Modal.show('horaTareaModal')
+		Modal.show('horaTareaModal',this)
 	},
 	'keyup [name="crear-tarea-simple"]': function (event, template) {
 

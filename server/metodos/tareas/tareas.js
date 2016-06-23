@@ -69,54 +69,54 @@ Meteor.methods({
 		}
 	},
 	agregarHoraTarea: function (datos) {
-		check(datos,Object)
-
-		if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-
-			let tarea = Tareas.find({_id:datos.id}).fetch()[0]
-			datos.fecha = new Date(tarea.vence + " GMT-0500");
-
-			datos.horas = parseInt(datos.horas);
-			datos.minutos = parseInt(datos.minutos)
-			// datos.precio = parseInt(datos.precio);
-			datos.horasFacturables = datos.horas;
-			datos.minutosFacturables = datos.minutos;
-
-			datos.esTarea = true;
-			// datos.cobrable = datos.cobrado;
-
-			// datos.total = datos.horas * datos.precio;
-			datos.creadorId = this.userId;
-			datos.createdAt = new Date();
-			datos.facturado = false;
-			datos.descripcion = tarea.descripcion;
-
-			let tareaId = datos.id;
-			let datos = {
-				hora: datos.horas,
-				minutos: datos.minutos
-			}
-			let horaId = Horas.insert(datos);
-			Tareas.update({_id:tareaId},{
-				$set:{
-					horas:{
-						id:horaId,
-						hora: datos.hora,
-						minutos: datos.minutos
-					}
-				}
-			})
-
-
-			// Modulo para crear evento sobre que se ha creado una tarea
-
-
-
-		} else {
-
-			return;
-
-		}
+		// check(datos,Object)
+		//
+		// if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		// 	console.log(datos);
+		// 	let tarea = Tareas.find({_id:datos.id}).fetch()[0]
+		// 	datos.fecha = new Date(tarea.vence + " GMT-0500");
+		//
+		// 	datos.horas = parseInt(datos.horas);
+		// 	datos.minutos = parseInt(datos.minutos)
+		// 	// datos.precio = parseInt(datos.precio);
+		// 	datos.horasFacturables = datos.horas;
+		// 	datos.minutosFacturables = datos.minutos;
+		//
+		// 	datos.esTarea = true;
+		// 	// datos.cobrable = datos.cobrado;
+		//
+		// 	// datos.total = datos.horas * datos.precio;
+		// 	datos.creadorId = this.userId;
+		// 	datos.createdAt = new Date();
+		// 	datos.facturado = false;
+		// 	datos.descripcion = tarea.descripcion;
+		//
+		// 	let tareaId = datos.id;
+		// 	let datos = {
+		// 		hora: datos.horas,
+		// 		minutos: datos.minutos
+		// 	}
+		// 	let horaId = Horas.insert(datos);
+		// 	Tareas.update({_id:tareaId},{
+		// 		$set:{
+		// 			horas:{
+		// 				id:horaId,
+		// 				hora: datos.hora,
+		// 				minutos: datos.minutos
+		// 			}
+		// 		}
+		// 	})
+		//
+		//
+		// 	// Modulo para crear evento sobre que se ha creado una tarea
+		//
+		//
+		//
+		// } else {
+		//
+		// 	return;
+		//
+		// }
 
 	},
 	crearTareaEtapa:function (datos) {
