@@ -1,11 +1,11 @@
 Template.facturacion.onRendered(function(){
 	var self = this;
 	var bufeteId = Meteor.user().profile.bufeteId
-
 	Session.set('filtro-hora',{})
 
 	self.autorun(function(){
-				self.subscribe('horas',bufeteId)
+		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
+		return self.subscribe('horasxmiembro',bufeteId,Meteor.userId())
 	})
 })
 
@@ -37,10 +37,13 @@ Template.facturacion.events({
 	'click .agregar-asunto'(){
 		Modal.show('agregarAsuntoHorasModal',this)
 	},
-	'click .cambiar-facturado'(){
+	'click .asuntos'(){
+		Modal.show('filtroAsuntoHoraModal',this);
+	},
+	'click .cliente'(){
 
 	},
-	'click .cambiar-tarea'(){
+	'click .miembros'(){
 
 	},
 	'click .hoy'(){
@@ -62,7 +65,7 @@ Template.facturacion.events({
 		hoy.setHours(0,0,0,0)
 
 		return Session.set('filtro-hora',{fecha:{$lt:ayer,$gte:hoy}});
-		
+
 	},
 	'click .semana'(){
 		function getMonday(d) {

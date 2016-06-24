@@ -9,6 +9,16 @@ Meteor.publish('horas', function (bufeteId) {
 	}
 });
 
+Meteor.publish('horasxmiembro',function (bufeteId,userId) {
+	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )) {
+		return Horas.find({bufeteId: bufeteId,'responsable.id':userId});
+	} else {
+		this.stop();
+		return;
+	}
+
+})
+
 
 Meteor.publish('horasxAsunto', function (bufeteId, asuntoId) {
 	check(bufeteId, String);
