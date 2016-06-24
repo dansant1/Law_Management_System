@@ -3997,6 +3997,7 @@ Template.charts.helpers({
 
 Template.resumenFacturacion.helpers({
 	email() {
+		
 		return Meteor.user().emails[0].address
 	}
 });
