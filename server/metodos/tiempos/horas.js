@@ -258,6 +258,41 @@ Meteor.methods({
 
 			datos.horas = parseInt(datos.horas);
 			datos.minutos = parseInt(datos.minutos)
+
+			if(datos.minutos>60) {
+				let horas = Number(String(datos.minutos/60).split(".")[0]);
+				let minutos  = datos.minutos%60;
+
+				datos.horas = parseInt(datos.horas) + horas;
+				datos.minutos = minutos
+			}
+
+			console.log(datos.asunto.id);
+
+			let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0]
+			console.log(asunto);
+			let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
+			let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
+
+			tarifa.miembros.some(function (miembro) {
+				if(miembro.id==datos.responsable.id)
+					return datos.precio = (asunto.facturacion.tarifa.tipo_moneda == "soles")? miembro.soles*datos.horas : (miembro.soles/cambio.cambio)*datos.horas;
+			})
+
+			if(!datos.precio){
+				let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
+				tarifa.roles.some(function (roles) {
+					if(user.roles.bufete.length==1)
+						if(user.roles.bufete[0]==roles.nombre)
+							return datos.precio = (asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas;
+					else {
+						if(user.roles.bufete[1]==roles.nombre)
+							return datos.precio = (asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas;
+					}
+				})
+			}
+			console.log(datos.precio);
+
 			// datos.precio = parseInt(datos.precio);
 			datos.horasFacturables = datos.horas;
 			datos.minutosFacturables = datos.minutos;
@@ -268,7 +303,7 @@ Meteor.methods({
 			datos.creadorId = this.userId;
 			datos.createdAt = new Date();
 			datos.facturado = false;
-			console.log(datos.tarea);
+			// console.log(datos.tarea);
 			if(datos.esTarea) datos.descripcion = datos.tarea.nombre;
 
 			let tarea = datos.tarea;
@@ -289,7 +324,9 @@ Meteor.methods({
 					}
 				})
 
-			calcularTotal(datos);
+			Meteor.defer(function () {
+				calcularTotal(datos);
+			})
 
 
 		} else {
