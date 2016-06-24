@@ -2,6 +2,7 @@ Template.facturacion.onRendered(function(){
 	var self = this;
 	var bufeteId = Meteor.user().profile.bufeteId
 	Session.set('filtro-hora',{})
+	
 
 	self.autorun(function(){
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
