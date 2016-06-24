@@ -4377,7 +4377,7 @@
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
-    <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+    <a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
       Facturación
     </a>
   </div>
@@ -6419,7 +6419,7 @@
 
         </div>
 
-
+		
 </template>
 
 <template name="cobros">
@@ -6430,6 +6430,8 @@
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
                 <a href="/clientes2" > Facturación</a>
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/clientes2/facturacion/cobros"> Cobros</a>
             </p>
         </div>
     </div>
@@ -6478,212 +6480,12 @@
             Configuración
         </a>
     </div>
-
-    <div class="sidebar-vertical-blanco">
-
-        <div class="btn-group">
-          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-            Nuevo <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
-            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
-            <li class="empresa"><a href="#">+ Cobro</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
-          </ul>
-        </div>
-
-
-
-            <div class="sidebar-titulo">
-
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion" style="text-decoration:none;" class=" no-hover">Clientes</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Borradores</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">En revisión</a>
-                </h5>
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Espera de pago</a>
-                </h5>
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Pagados</a>
-                </h5>
-
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Todos</a>
-                </h5>
-
-            </div>
-        </div>
-          <!-- Recuadro que cubre la lista de clientes facturables -->
-         <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
-          <!-- Cuadro para generar los clientes y asuntos seleccionados -->
-          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; ">
-
-			<span class="fh-checkbox">
-    			<input type="checkbox" id="checkbox-id" name="mycheckbox">
-    			<label for="checkbox-id">Seleccionar todos</label>
-			</span>
-
-
-            <button class="btn nueva-tarea verde-flat generar-cobros">Generar cobro</button>
-          </div>
-          <!--Inicio de la descripcion de la table-->
-          <div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 25px; padding-top: 15px; border-top: none; text-align: center;">
-            <h4 style="display: inline-block; width: 30%">Nombre</h4>
-            <h4 style="display: inline-block; width: 30%">Horas</h4>
-            <h4 style="display: inline-block; width: 30%">Monto</h4>
-          </div> <!-- Fin de la descripcion de la table -->
-
-          <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-
-            <div style="display: flex; text-align:center;">
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-
-                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
-              </div>
-
-
-            </div>
-
-          </div>
-
-           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-
-            <div style="display: flex; text-align:center;">
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-
-                <span class="fh-checkbox">
-    				<input type="checkbox" id="asunto-id" name="mycheckbox">
-    				<label for="asunto-id"><h3 style="margin: 0;">Asunto 1</h3></label>
-				</span>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
-              </div>
-
-
-            </div>
-
-          </div>
-
-           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-
-            <div style="display: flex; text-align:center;">
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-
-                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-           <div  style="width: 80%; margin-left: 220px; min-height: 115px; padding-top: 15px; border-top: none; background-color: white; border-bottom: 1px solid #EFEFEF">
-
-            <div style="display: flex; text-align:center;">
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block;">
-
-                <input type="checkbox"><h3 style="color: #7f8c8d; display: inline-block; margin-left: 10px;">Nombre de cliente 1</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0001 - Asunto 1</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0002 - Asunto 2</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;"><input type="checkbox"> 0003 - Asunto 3</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 220px;">
-
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">78.5</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">45.5</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">24.8</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">25</h4>
-
-              </div>
-
-              <div style="margin: 25px; margin-top: 0px; display: inline-block; min-width: 180px;">
-                <h3 style="color: #7f8c8d; display: block; margin-left: 10px;">1875.00</h3>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">256.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">450.00</h4>
-                  <h4 style="display: block; max-width: 450px; margin: 0px; margin-left: 35px; color: #34495e;">150.00</h4>
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-        </div> <!-- Fin de cuadro que cubre los clientes facturables -->
+	<div class="franja-filtros">
+		{{>botonGenerarFactura}}
+		{{>botonFiltroClientesFacturables}}
+		<input type="text" class="buscador-bunqr buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
+	</div>
+	{{>listaClientesFacturables}}
 
 </template>
 
