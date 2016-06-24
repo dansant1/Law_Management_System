@@ -12,6 +12,12 @@ Template.facturacion.helpers({
 	},
 	horas(){
 		return Horas.find();
+	},
+	cliente(){
+		return Asuntos.find({_id:this.asunto.id}).fetch()[0].cliente.nombre;
+	},
+	esAdministradoroEncargado(){
+		return Meteor.user().roles.bufete.indexOf("administrador")>=0||Meteor.user().roles.bufete.indexOf("encargado comercial")>=0;
 	}
 });
 
@@ -29,7 +35,7 @@ Template.facturacion.events({
 		Modal.show('agregarAsuntoHorasModal',this)
 	},
 	'click .cambiar-facturado'(){
-		
+
 	},
 	'click .cambiar-tarea'(){
 

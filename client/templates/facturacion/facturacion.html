@@ -55,100 +55,136 @@
         </a>
     </div>
 	<div>
-		  <div class="sidebar-vertical-blanco">
-
-		  	<div class="btn-group">
-  				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-   					Nuevo <span class="caret"></span>
-  				</button>
-  				<ul class="dropdown-menu">
-    				<li class="persona agregar-hora"><a href="#">+ Hora</a></li>
-                    <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
-                    <li class="empresa"><a href="#">+ Cobro</a></li>
-                    <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-                    <li class="empresa"><a href="/facturacion/cambio/nuevo">+ Tipo de cambio</a></li>
-  				</ul>
-    		</div>
 
 
-
-            <div class="sidebar-titulo">
-
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion" style="text-decoration:none;" class=" no-hover">Horas</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/gastos" style="text-decoration:none;" class=" no-hover">Gastos</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/calendario" style="text-decoration:none;" class="no-hover">Calendario</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/reportes" style="text-decoration:none;" class="no-hover">Reportes</a>
-                </h5>
-
-            </div>
-        </div>
-
-		<div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 65px; padding-top: 15px; border-top: none;">
+		<div class="franja-filtros" >
             <div class="btn-group">
-  				<button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; background: white; color: #34495e;">
-   					<i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
-  				</button>
-  				<ul class="dropdown-menu">
-    				<li class="empresa"><a href="#">Todos</a></li>
-    				<li class="empresa"><a href="#">Mis horas</a></li>
-    				<li class="persona"><a href="#">Por miembro</a></li>
-    				<li class="persona"><a href="#">Por asunto</a></li>
-  				</ul>
-    		</div>
+                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
+                    Nuevo <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+                  <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+                  <li class="empresa"><a href="#">+ Negociacion</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+          		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
+           					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
+          		</button>
+          		<ul class="dropdown-menu">
+                    <li class="empresa"><a href="#" style="color: #9b59b6;">Hoy</a></li>
+                    <li class="empresa"><a href="#" style="color: #2ecc71;">Ayer</a></li>
+                    <li class="empresa"><a href="#" style="color: #e74c3c;">Esta semana</a></li>
+                    <li class="empresa"><a href="#" style="color: #e74c3c;">Este mes</a></li>
+          		</ul>
+            </div>
+            <input type="text" class="buscador-bunqr buscador-contacto" placeholder="Busca negociaciones por nombre, contacto, estado, asignado, etc...">
+
         </div>
 
         <!-- Lista de horas -->
         <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
+            <div class="table-wrapper">
+                <table cellspacing="0" id="tech-companies">
+                     <thead>
+                            <tr>
+                                 <th class="persist essential">
+                                    <h3 style="text-align: center;" >
+                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 <th class="optional">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 <th class="essential">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                <th class="essential">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 {{#if esAdministradoroEncargado}}
+                                 <th class="optional">
+                                     <h3 style="text-align: center;">
+                                         <i class="fa fa-user" aria-hidden="true"></i>
+                                     </h3>
+                                 </th>
+                                 {{/if}}
+                                 <th>
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                            </tr>
+                     </thead>
+                     <tbody>
+                        {{#each horas}}
+                            <tr>
+                                 <th>
+                                     {{#if this.descripcion}}
+                                         <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+                                             {{this.descripcion}}
+                                         </h5>
+                                     {{else}}
+                                        <h5 style="color: #7f8c8d;"> <a class="agregar-descripcion" href="#">+ Descripcion</a> </h5>
+                                     {{/if}}
+                                 </th>
+                                 <td>
+                                    <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+                                        {{this.horas}}h {{this.minutos}}m
+                                    </h5>
+                                 </td>
+                                <td>
+                                    {{#if this.asunto.nombre}}
+                                        <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                            {{this.asunto.nombre}}
+                                        </h5>
+                                    {{else}}
+                                        <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
+                                    {{/if}}
+                                 </td>
+                                 <td>
+                                     {{#if this.asunto}}
+                                         <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                             {{cliente}}
+                                         </h5>
+                                     {{else}}
+                                         <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
+                                     {{/if}}
+                                </td>
+                                {{#if esAdministradoroEncargado}}
+                                <td>
+                                    <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                        VALOR
+                                    </h5>
+                                </td>
+                                {{/if}}
+                                 <td>
+                                    <h3 style="text-align: center;">
+                                        <div class="btn-group">
+                                          <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu">
+                                            <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+                                          </ul>
+                                        </div>
+                                    </h3>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                     </tbody>
+                </table>
+            </div>
 
-            {{#each horas}}
-
-        	<div class="franja-filtros" style="width: 80%; margin-left: 220px; min-height: 105px; padding-top: 15px; border-top: none;">
-
-			<div style="display: flex; width: 80%; height: 85px;">
-				<div style="margin: 25px; margin-top: 0px;">
-                    {{#if this.asunto.nombre}}
-		               <h5 style="color: #7f8c8d;"><a href="#" class="agregar-asunto">{{ this.asunto.nombre}}</a></h5>
-                    {{else}}
-                        <h5 style="color: #7f8c8d;"> <a class="agregar-asunto" href="#">+ Asunto</a> </h5>
-                    {{/if}}
-                    {{#if this.descripcion}}
-                        <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a class="agregar-descripcion" href="#">{{this.descripcion}}</a> </h1>
-                    {{else}}
-                        <h5 style="color: #7f8c8d;"> <a href="#" class="agregar-descripcion">+ Descripcion</a> </h5>
-                    {{/if}}
-                    <!-- {{#if this.facturado}}
-                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-facturado">Facturado</a> </h5>
-                    {{else}}
-                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-facturado">No esta facturado</a> </h5>
-                    {{/if}}
-                    {{#if this.tarea}}
-                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-tarea">Es una tarea</a> </h5>
-                    {{else}}
-                        <h5 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;"> <a href="#" class="cambiar-tarea">No es una tarea</a> </h5>
-                    {{/if}} -->
-
-				</div>
-
-				<div style="margin: 25px; margin-top: 0px;">
-					<h5 style="color: #7f8c8d;">Tiempo</h5>
-
-						<h1 style="display: inline-block; max-width: 200px; margin: 0px; color: #34495e;">{{this.horas}}:{{this.minutos}}</h1>
-
-				</div>
-			</div>
-
-        	</div>
-            {{/each}}
 
 
 
