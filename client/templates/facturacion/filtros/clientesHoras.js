@@ -17,6 +17,6 @@ Template.filtroClienteHoraModal.events({
 
 Template.filtroClienteHoraModal.helpers({
     clientes(){
-
+        return Clientes.find();
     }
 })
