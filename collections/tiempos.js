@@ -33,7 +33,7 @@ EsquemaHoras = new SimpleSchema({
 		type: String
 	},
 	fecha: {
-		type: String
+		type: Date
 	},
 	responsable: {
 		type: Object,

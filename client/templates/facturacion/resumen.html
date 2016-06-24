@@ -57,7 +57,7 @@
   </div>
 
     <div class="box">
-    
+
       {{> charts}}
       {{>resumenHorasPersonal}}
     </div>
@@ -67,26 +67,21 @@
 <template name="resumenHorasPersonal">
 	<div class="cuadro-pie" style="display: inline-block; width: 33.6%; min-height: 450px; background-color: white; border-radius: 5px; text-align: center; margin-left: 30px;">
     	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px;">Resúmen personal</h3>
-   
+
 		 <select name="rangos" class="select-bunqr">
-    	<option value="semana">Rango de tiempo semanal</option>
-    	<option value="semana">Rango de tiempo mensual</option>
-    	<option value="semana">Rango de tiempo anual</option>
-    </select>
-    
+             <option value="dia">Dia</option>
+                <option value="semana">Semanal</option>
+                <option value="mes">Mensual</option>
+                <option value="año">Anual</option>
+         </select>
     <br>
     <canvas id="pieChartHoras" width="200" height="200"></canvas>
     <br>
-	<div class="lista-asuntos-reporte">	
-		<h3 class="total">Tiempo total <span class="hora">28h 30m</span></h3>
-		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora" style="margin-left: 20px;">5h 15 m</span></h4>
-		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora">15h 20m</span></h4>
-		<h4><span class="circulo-asunto"></span>Asunto 1<span class="hora">8h 0m</span></h4>	
-		<h3 style="font-size: 13px;">
-			<button class="boton-outline">Mis horas</button>
-		</h3>
+	<div class="lista-asuntos-reporte">
+		<h3 class="total">Tiempo total <span class="hora">{{total}} h </span></h3>
+        {{#each horas}}
+		      <h4><span class="circulo-asunto"></span>{{this.label}}<span class="hora" style="margin-left: 20px;">{{this.value}} h</span></h4>
+        {{/each}}
 	</div>
   </div>
 </template>
-
-
