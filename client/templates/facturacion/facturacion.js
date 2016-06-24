@@ -2,7 +2,7 @@ Template.facturacion.onRendered(function(){
 	var self = this;
 	var bufeteId = Meteor.user().profile.bufeteId
 	Session.set('filtro-hora',{})
-	
+
 
 	self.autorun(function(){
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
@@ -15,7 +15,16 @@ Template.facturacion.helpers({
 		return Meteor.user().emails[0].address
 	},
 	horas(){
-		return Horas.find(Session.get('filtro-hora'));
+
+		if(Session.get('asunto-hora')==undefined) return Horas.find(Session.get('filtro-hora'));
+		debugger;
+		var filtro = {}
+
+		filtro['asunto.id'] = Session.get('asunto-hora')
+		filtro.fecha = $.isEmptyObject(Session.get('filtro-hora'))? {}: Session.get('filtro-hora').fecha
+
+		return Horas.find(filtro);
+
 	},
 	cliente(){
 		return Asuntos.find({_id:this.asunto.id}).fetch()[0].cliente.nombre;
@@ -38,11 +47,15 @@ Template.facturacion.events({
 	'click .agregar-asunto'(){
 		Modal.show('agregarAsuntoHorasModal',this)
 	},
+	'click .todos'(){
+		Session.set('asunto-hora',undefined);
+		Session.set('filtro-hora',{})
+	},
 	'click .asuntos'(){
 		Modal.show('filtroAsuntoHoraModal',this);
 	},
 	'click .cliente'(){
-
+		Modal.show('filtroClienteHoraModal');
 	},
 	'click .miembros'(){
 

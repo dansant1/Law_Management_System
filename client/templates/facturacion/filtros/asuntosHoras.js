@@ -12,7 +12,11 @@ Template.filtroAsuntoHoraModal.onCreated(function () {
 })
 
 Template.filtroAsuntoHoraModal.events({
-
+    'submit form'(event,template){
+        event.preventDefault();
+        Session.set('asunto-hora',template.find("[name='asunto']").value)
+        Modal.hide('filtroAsuntoHoraModal');
+    }
 })
 
 

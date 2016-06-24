@@ -1,5 +1,5 @@
 Meteor.publish('clientes', function (bufeteId) {
-	
+
 	check(bufeteId, String);
 
 	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
@@ -13,7 +13,7 @@ Meteor.publish('clientes', function (bufeteId) {
 });
 
 Meteor.publish('contactos', function (bufeteId) {
-  
+
   check(bufeteId, String);
 
   if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
@@ -28,7 +28,7 @@ Meteor.publish('contactos', function (bufeteId) {
 
 
 Meteor.publish('prospectos', function (bufeteId) {
-  
+
   check(bufeteId, String);
 
   if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
@@ -43,7 +43,7 @@ Meteor.publish('prospectos', function (bufeteId) {
 
 
 Meteor.publish('clientesOficial', function (bufeteId) {
-  
+
   check(bufeteId, String);
   var self = this
 
@@ -101,7 +101,7 @@ Meteor.publish('clientesOficial', function (bufeteId) {
 
 
 Meteor.publish('empresas', function (bufeteId) {
-  
+
   check(bufeteId, String);
 
   if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
@@ -116,7 +116,7 @@ Meteor.publish('empresas', function (bufeteId) {
 
 
 Meteor.publish('contacto', function (contactoId) {
-  
+
   check(contactoId, String);
 
   if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
@@ -129,6 +129,49 @@ Meteor.publish('contacto', function (contactoId) {
   }
 });
 
+Meteor.publish('clientesxasuntosxmiembro',function (bufeteId,miembroId) {
+	check(bufeteId,String)
+	check(miembroId,String)
+	
+	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+		let asuntos =  Asuntos.find({
+			$and:[
+				{
+					$or:[
+						{
+							"abogados":{
+								"$elemMatch":{id:miembroId}
+							}
+						},
+						{
+							creadorId: miembroId
+						},
+						{
+							"responsable.id":miembroId
+						}
+					]
+				},
+				{
+					bufeteId:bufeteId
+				}
+			]
+		}).fetch();
+
+		let clientes = _(asuntos).map(function (asunto,key) {
+			return asunto.cliente.id;
+		})
+
+		console.log(clientes);
+
+		return Clientes.find({_id:{$in:clientes}});
+
+    } else {
+      this.stop();
+      return;
+    }
+
+})
 
 
 Meteor.publish( 'clients', function( search, bufeteId ) {
@@ -141,7 +184,7 @@ Meteor.publish( 'clients', function( search, bufeteId ) {
   if ( search ) {
     let regex = new RegExp( search, 'i' );
 
-    
+
     query = {
       $or: [
         { nombre: regex },
@@ -153,7 +196,7 @@ Meteor.publish( 'clients', function( search, bufeteId ) {
         { celular: regex},
         { email: regex},
         { direcccion: regex}
-      ] 
+      ]
     }
 
     projection.limit = 100;
