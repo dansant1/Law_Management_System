@@ -13,7 +13,7 @@ Template.tareas2.onCreated(function () {
 		var self = this;
 
 		Session.set('tipo-tarea',true);
-
+		Session.set('filtro-tarea',{})
 		self.autorun(function () {
 			self.subscribe('misTareas')
 		})
@@ -253,7 +253,7 @@ Template.tareas2.helpers({
 		return Tareas.find({"$and":[
 			{'asignado.id':Meteor.userId()},
 			{abierto:Session.get('tipo-tarea')},
-			{}
+			Session.get('filtro-tarea')
 		]}, {sort: {createdAt: -1}})
 	},
 	cantidad(){
@@ -560,6 +560,82 @@ Template.tareas2.events({
 	},
 	'click .nuevas-tareas'(){
 		Modal.show('nuevaTareaModal')
+	},
+	'click .hoy'(){
+		debugger;
+		let hoy = new Date()
+	    hoy.setHours(0,0,0,0);
+
+	    let mañana = new Date();
+	    mañana.setDate(mañana.getDate()+1)
+	    mañana.setHours(0,0,0,0)
+
+		let filtro = {
+			vence:{
+				$gte:hoy,
+				$lt:mañana
+			}
+		}
+		Session.set('tipo-tarea',true)
+		Session.set('filtro-tarea',filtro)
+	},
+	'click .todos'(){
+		Session.set('tipo-tarea',true)
+		Session.set('filtro-tarea',{})
+	},
+	'click .mañana'(){
+
+	    let mañana = new Date();
+	    mañana.setDate(mañana.getDate()+1)
+	    mañana.setHours(0,0,0,0)
+
+		let pasadomañana = new Date();
+		pasadomañana.setDate(pasadomañana.getDate()+2)
+		pasadomañana.setHours(0,0,0,0)
+
+		let filtro = {
+			vence:{
+				$gte:mañana,
+				$lt:pasadomañana
+			}
+		}
+		Session.set('tipo-tarea',true)
+		Session.set('filtro-tarea',filtro)
+
+	},
+	'click .semana'(){
+		function getMonday(d) {
+		  d = new Date(d);
+		  var day = d.getDay(),
+		      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+		  return new Date(d.setDate(diff));
+		}
+
+		var monday = getMonday(new Date())
+		monday.setHours(0,0,0,0)
+		var sunday = getMonday(new Date())
+		sunday.setDate(sunday.getDate()+6)
+		sunday.setHours(0,0,0,0)
+
+		let filtro = {
+			vence:{
+				$gte:monday,
+				$lt:sunday
+			}
+		}
+		Session.set('tipo-tarea',true)
+		Session.set('filtro-tarea',filtro)
+	},
+	'click .vencidas'(){
+		let hoy = new Date()
+		hoy.setHours(0,0,0,0)
+		let filtro = {
+			vence:{
+				$lt: hoy
+			}
+		}
+		Session.set('tipo-tarea',true)
+		Session.set('filtro-tarea',filtro)
 	},
 	'click .cerrar': function () {
 		console.log('listo!');
@@ -1892,7 +1968,7 @@ Template.tablat.helpers({
 		return Tareas.find({"$and":[
 			{'asignado.id':Meteor.userId()},
 			{abierto:Session.get('tipo-tarea')},
-			{}
+			Session.get('filtro-tarea')
 		]}, {sort: {createdAt: -1}})
 	},
 	dia(fecha) {
@@ -1906,6 +1982,15 @@ Template.tablat.helpers({
 				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	documentos(){
+
+	},
+	subtareas(){
+		return Subtareas.find({tareaId:this._id}).count();
+	},
+	comentarios(){
+		return ComentariosDeTareas.find({tareaId:this._id}).count();
 	}
 });
 

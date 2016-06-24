@@ -1307,6 +1307,7 @@
                     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
+					<li> <a href="#" class="todos">Todos</a> </li>
                     <li><a class="abiertos" href="#">Abiertos</a></li>
                     <li><a class="cerrados" href="#">Cerrados</a></li>
 					<li> <a class="hoy" href="">Vencen hoy</a></li>
@@ -1879,6 +1880,12 @@
 				 </th>
 				 <th class="essential">
 				 	<h3>
+						<i class="fa fa-wpforms"></i>
+				 	</h3>
+				 </th>
+
+				 <th class="essential">
+				 	<h3>
 				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
@@ -1926,7 +1933,11 @@
 						</h5>
 					{{/if}}
 				 </td>
-
+				 <td>
+				 	<i class="fa fa-folder" aria-hidden="true"></i> <span>{{subtareas}}</span>
+				 	<i class="fa fa-comment" aria-hidden="true"></i> <span>{{comentarios}}</span>
+			 		<i class="fa fa-file-o" aria-hidden="true"></i> <span>{{documentos}}</span>
+				 </td>
 				 <td>
 					 {{#if this.horas}}
 					 	<a href="#">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
