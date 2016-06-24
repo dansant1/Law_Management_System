@@ -42,10 +42,12 @@
 
 .lista-asuntos {
 	width: 100%;
-	min-height: 625px;
+	min-height: 80px;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 50px;
+	padding-bottom: 17.5px;
+	padding-top: 0px;
 	background-color: white;
 }
 
@@ -63,8 +65,8 @@
 
 .asunto-item-cuadro:hover {
 	color: #3498db;
-	cursor: pointer;
-	box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 7px, rgba(0, 0, 0, 0.2) 0px 3px 7px;
+	
+	box-shadow: rgba(77, 77, 77, 0.188235) 0px 2px 5px;
 }
 
 .menu-asunto-aim {
@@ -99,27 +101,75 @@
 	width: 94.4%;
 	background-color: white;
 	min-height: 400px;
-	margin: 20px auto;
+	margin-right: -30px;
 	border-radius: 5px;
 	box-shadow: 0 1px 2px rgba(0,0,0,.05); 
 }
 
 .item-lista-tareas {
 	width: 100%;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	padding: 14px 25px;
+	margin-bottom: 0;
+	padding: 10px 25px;
 	background-color: white;
 	min-width: 15px;
-	border-bottom: 1px solid #EFEFEF;
+	border-bottom: none;
+	border-right: none;
 	font-family: 'Open Sans', 'sans-serif';
-	color: #555;
+	font-weight: initial;
+	
+	font-size: 16px;
+}
+
+.item-lista-tareas2 {
+	width: 100%;
+	margin-bottom: 0;
+	padding: 10px 25px;
+	background-color: white;
+	min-width: 15px;
+	border-bottom: none;
+	border-right: none;
+	font-family: 'Open Sans', 'sans-serif';
+	font-weight: initial;
+	
 	font-size: 14px;
 }
+
+.item-lista-tareas::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #3498db;
+}
+.item-lista-tareas::-moz-placeholder { /* Firefox 19+ */
+  color: #3498db;
+}
+.item-lista-tareas:-ms-input-placeholder { /* IE 10+ */
+  color: #3498db;
+}
+.item-lista-tareas:-moz-placeholder { /* Firefox 18- */
+  color: #3498db;
+}
+
+.item-lista-tareas2::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #C4C4C4;
+}
+.item-lista-tareas2::-moz-placeholder { /* Firefox 19+ */
+  color: #C4C4C4;
+}
+.item-lista-tareas2:-ms-input-placeholder { /* IE 10+ */
+  color: #C4C4C4;
+}
+.item-lista-tareas2:-moz-placeholder { /* Firefox 18- */
+  color: #C4C4C4;
+}
+
+
 
 .item-lista-tareas > a:hover {
 	cursor: pointer;
 }
+
+
+
+
+
 
 .i-hover {
 	color: #C2C2C2;

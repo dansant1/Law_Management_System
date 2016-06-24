@@ -1,0 +1,149 @@
+<template name="botonGenerarFactura">
+	 <button type="button" class="btn nueva-tarea azul-flat" style="background-color: #34495e; padding: 5px; color: white; border-bottom: none; text-transform: uppercase; margin-left: 25px; margin-top: 15px;">
+	 Facturar
+  </button>
+</template>
+
+<template name="botonFiltroClientesFacturables">
+	<div class="btn-group">
+  		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 5px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
+   					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
+  		</button>
+  		<ul class="dropdown-menu">
+            <li class="empresa"><a href="#" style="color: #9b59b6;">Clientes</a></li>
+            <li class="empresa"><a href="#" style="color: #2ecc71;">Asuntos</a></li>
+            
+  		</ul>
+    </div>
+</template>
+
+<template name="listaClientesFacturables">
+	<div class="table-wrapper">
+
+<table cellspacing="0" id="tech-companies">
+	 <thead>
+			<tr>
+				 <th class="persist essential">
+				 	<h3>
+				 		<i class="fa fa-user" aria-hidden="true"></i>
+				 	</h3>
+				 </th>
+				 <th class="optional">
+				 	<h3 style="text-align: center;">
+				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
+				 	</h3>
+				 </th>
+				 <th class="essential">
+				 	<h3 style="text-align: center;">
+				 		<i class="fa fa-money" aria-hidden="true"></i>
+				 	</h3>
+				 </th>
+				<th class="essential">
+				 	<h3 style="text-align: center;">
+				 		<i class="fa fa-cog" aria-hidden="true"></i> 	
+				 	</h3>
+				 </th>
+				 
+			</tr>
+	 </thead>
+	 <tbody>		
+		
+				<tr>
+				 <th>
+				 	
+					<span class="fh-checkbox">
+    					<input type="checkbox" id="dan" name="mycheckbox">
+    					<label for="dan"> Dan Bilzerian </label>
+					</span>
+				 	<span class="co-name"></span>
+				 </th>
+				 <td>
+				 	<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				 		28h 35m
+				 	</h5>		
+				 </td>
+				 <td>
+					<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				 		S/. 1,200.00
+				 	</h5>
+				 </td>
+				 
+				 <td>
+				 	<h3 style="text-align: center;">
+				 		conf
+				 	</h3>
+				 	
+				 </td>
+
+			</tr>
+
+				<tr>
+				 <th style="padding-left: 45px;">
+				 	
+					<span class="fh-checkbox">
+    					<input type="checkbox" id="dan" name="mycheckbox">
+    					<label for="dan"> Terminos y condiciones </label>
+					</span>
+				 	<span class="co-name">
+						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> Daniel Delgadillo</span>
+				 	</span>
+				 </th>
+				 <td>
+				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		15h 20m
+				 	</h5>		
+				 </td>
+				 <td>
+					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		S/. 600.00
+				 	</h5>	
+				 </td>
+				 
+				 <td>
+				 	<h3 style="text-align: center;">
+				 		conf
+				 	</h3>
+				 	
+				 </td>
+
+			</tr>
+
+				<tr>
+				 <th style="padding-left: 45px;">
+				 	
+					<span class="fh-checkbox">
+    					<input type="checkbox" id="dan" name="mycheckbox">
+    					<label for="dan"> Constitución de empresa </label>
+					</span>
+				 	<span class="co-name">
+						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> Daniel Delgadillo</span>
+				
+					
+				 	</span>
+				 </th>
+				 <td>
+				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		13h 15m
+				 	</h5>		
+				 </td>
+				 <td>
+					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		S/ 600.00
+				 	</h5>
+				 </td>
+				 
+				 <td>
+				 	<h3 style="text-align: center;">
+				 		conf
+				 	</h3>
+				 	
+				 </td>
+
+			</tr>
+		
+	 </tbody>
+</table>
+
+</div>
+
+</template>
