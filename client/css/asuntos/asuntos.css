@@ -45,7 +45,7 @@
 	min-height: 200px;
 	display: flex;
 	flex-wrap: wrap;
-	
+
 	padding: 30px;
 	padding-bottom: 17.5px;
 	padding-top: 0px;
@@ -168,11 +168,6 @@
 	cursor: pointer;
 }
 
-
-
-
-
-
 .i-hover {
 	color: #C2C2C2;
 	font-size: 18px;
@@ -194,32 +189,43 @@
 
 .cuadro-detalle-tarea {
 	position: relative;
-	width: 55%;
+	width: 100%;
 	background-color: white;
-	height: 400px;
+
 	margin: 20px auto;
 	border-radius: 5px;
-	box-shadow: 0 1px 2px rgba(0,0,0,.05);
+
 	margin-left: 15px;
+}
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#label-custom {
+	padding-left: 35px;
+}
+
+#label-custom::before {
+	width: 30px;
+	height: 30px;
 }
 
 .cuadro-tarea-comentarios {
     padding: 10px 15px;
-   	height: 205px;
-    overflow-y: auto;
-    overflow-x: hidden;
+
 }
 
 .caja-comentario-tarea {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+	margin: 0 auto;
+	width: 80%;
 	height: 145px;
-	border-top: 1px solid #EFEFEF;
+	display: inline-block;
 	background-color: white;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	padding: 10px;
+	padding-top: 0px;
 }
 
 .caja-comentario-tarea > textarea {

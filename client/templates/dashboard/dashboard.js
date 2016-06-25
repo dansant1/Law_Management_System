@@ -1434,7 +1434,7 @@ Template.tareasDetalle2.events({
 				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
 			} else {
 				Bert.alert('Completaste la tarea', 'success');
-				FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
+				//FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
 			}
 		});
 	},
@@ -1464,6 +1464,9 @@ Template.tareasDetalle2.events({
 	},
 	'click .adjuntar-archivo-tarea': function () {
 		Modal.show('adjuntarArchivoTarea');
+	},
+	'click .regresar': () => {
+		FlowRouter.go('/tareas');
 	}
 });
 
@@ -1473,16 +1476,14 @@ Template.tareasDetalle2.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('misTareas');
-    	//self.subscribe('expediente', asuntoId);
-		let tareaId = FlowRouter.getParam('tareaId');
+
+			let tareaId = FlowRouter.getParam('tareaId');
     	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
    });
 });
 
 Template.tareasDetalle2.helpers({
-	tareas() {
-		return Tareas.find({ abierto: true }, {sort: {createdAt: -1}});
-	},
+
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
   	},
@@ -4049,8 +4050,8 @@ Template.charts.onRendered(function() {
             data: [random(), random(), random(), random(), random(), random(), random()]
         }]
     };
-    
-    
+
+
 
     // draw the charts
     var myLineChart = new Chart(ctx).Line(data, options);
@@ -4082,7 +4083,7 @@ Template.charts.helpers({
 
 Template.resumenFacturacion.helpers({
 	email() {
-		
+
 		return Meteor.user().emails[0].address
 	}
 });
