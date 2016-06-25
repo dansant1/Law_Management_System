@@ -3,11 +3,11 @@
 
 .sidebar-vertical {
 	min-width: 240px;
-    height: 100%;
-    position: fixed;
-    outline: 1px solid;
-    background: #2c3e50;
-    -webkit-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
+  height: 100%;
+  position: fixed;
+  outline: 1px solid;
+  background: #2c3e50;
+  -webkit-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 	-moz-box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 	box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75);
 }
@@ -25,7 +25,7 @@
 	color: white;
 }
 
-.contenido-dashboard {	
+.contenido-dashboard {
 	width: 82%;
     min-height: 500px;
     position: absolute;
@@ -42,7 +42,7 @@
 	margin-top: 75px;
 	margin-bottom: 0px;
 	height: 35px;
-	
+
 }
 
 .sidebar-link:hover {
@@ -83,7 +83,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	padding: 10px 35px;
-	max-width: 220px; 
+	max-width: 220px;
 }
 
 .sidebar-lista {
@@ -113,19 +113,19 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 70%;
-	
+
 	margin-right: -4px;
 	margin-bottom: 3px;
 }
 
 .item-mienbro:hover {
-	
+
 	cursor: pointer;
 }
 
 .icono-hover:hover {
 	cursor: pointer;
-} 
+}
 
 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
 	margin-left: 2px;
@@ -141,7 +141,7 @@
 
 .form-conversacion {
 	width: 550px;
-	
+
 	background-color: white;
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
@@ -217,7 +217,7 @@
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 	border-radius: 5px;
-	border: 1px solid #E1E2E4;	
+	border: 1px solid #E1E2E4;
 	margin-left: 25px;
 }
 
@@ -258,11 +258,10 @@
 	padding: 15px 20px;
 	color: white;
 	text-align: center;
-	
+
 }
 
 .cuadro-pie {
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
 }
-

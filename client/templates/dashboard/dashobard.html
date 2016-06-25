@@ -107,7 +107,7 @@
 		{{#each asuntos}}
 			{{> itemAsuntos}}
 		{{/each}}
-        {{#if verificado }}<p><a class="sidebar-item" href="/asuntos2/" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">+ Ver mas</a></p>{{/if}}
+        {{#if verificado }}<p ><a class="sidebar-item"  href="/asuntos2" style="text-align: center; display: inline-block; font-size: 8px; margin-left: 35px; width: 135px;  margin-right: 2px; border: 1px solid white; border-radius: 2px; color: white; text-decoration: none; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">VER MÁS</a></p>{{/if}}
 	</div>
 
 </template>
@@ -131,7 +131,7 @@
 
 <template name="itemTareas">
   <p >
-    <a class="sidebar-item" href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
+    <a class="sidebar-item" href="#" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
     </a>
   </p>
 </template>
@@ -1325,12 +1325,7 @@
 
     {{> tablat}}
 
-   <!-- <div class="lista-tareas">
-    <input type="text" name="crear-tarea" class="item-lista-tareas" placeholder="Escriba una nueva tarea y luego presiona enter" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none;">
-    {{#each tareas}}
-        {{> tareaEspecifica}}
-    {{/each}}
-  	</div> -->
+
 </template>
 
 <template name="Gantt">
@@ -1762,23 +1757,23 @@
 			<i class="glyphicon glyphicon-th" style="font-size: 22px;"></i>
 		</div>
 	</div>
-	
+
 	 <div style="display: block; width: 100%; margin-bottom: 17.5px;">
-      <div class="buscador " style="width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: center;">
-       
+      <div class="buscador " style="width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px;">
+
             <select class="select-bunqr tipo-busqueda" style="text-align: center;" name="tipo">
                 <option value="asuntos">Asuntos</option>
                 <option value="clientes">Clientes</option>
             </select>
-        
-       
+
+
             <input type="text" placeholder="Buscar por {{tipo_busqueda}}  " name="consulta" class="select-bunqr buscador-asuntos" style="width: 60%; display: inline-block;">
-        
+
     </div>
     </div>
 
 	<div class="lista-asuntos" style="min-height: 40px;">
-   
+
     {{#if esAdministrador}}
 		{{> cuadroAsuntoNuevo}}
     {{/if}}
@@ -1869,28 +1864,28 @@
 				 	</h3>
 				 </th>
 				 <th class="optional">
-				 	<h3>
+				 	<h3 style="text-align: center;">
 				 		<i class="fa fa-table" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
 				 <th class="essential">
-				 	<h3>
+				 	<h3 style="text-align: center;">
 				 		<i class="fa fa-users" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
 				 <th class="essential">
-				 	<h3>
-						<i class="fa fa-wpforms"></i>
+				 	<h3 style="text-align: center;">
+						<i class="fa fa-info" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
 
 				 <th class="essential">
-				 	<h3>
+				 	<h3 style="text-align: center;">
 				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
 				 <th>
-				 	<h3>
+				 	<h3 style="text-align: center;">
 				 		<i class="fa fa-cog" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
@@ -1915,37 +1910,43 @@
 				 </span></th>
 				 <td>
 				 	{{#if this.vence}}
-				 	<h5>
+				 	<h5 style="text-align: center;">
 				 		{{dia this.vence}}
 				 	</h5>
 				 	{{else}}
-					<h5>
+					<h5 style="text-align: center;">
 						<a class="agregar-fecha-tarea" href="#">+ vencimiento</a>
 					</h5>
 					{{/if}}
 				 </td>
 				 <td>
 					 {{#if this.asignado}}
-				 		<img src="/contactos/contacto.jpg" alt="{{this.asignado.nombre}}" class="item-mienbro">
+					 <h5 style="text-align: center;">
+					 	<img src="/contactos/contacto.jpg" alt="{{this.asignado.nombre}}" class="item-mienbro">
+					 </h5>
+
 					{{else}}
-						<h5>
+						<h5 style="text-align: center;">
 							<a href="#"  class="agregar-miembro-tarea">Cambiar asignado</a>
 						</h5>
 					{{/if}}
 				 </td>
 				 <td>
-				 	<i class="fa fa-folder" aria-hidden="true"></i> <span>{{subtareas}}</span>
-				 	<i class="fa fa-comment" aria-hidden="true"></i> <span>{{comentarios}}</span>
-			 		<i class="fa fa-file-o" aria-hidden="true"></i> <span>{{documentos}}</span>
+					 <h4 style="text-align: center;">
+						 <i class="fa fa-folder" aria-hidden="true"></i> <span>{{subtareas}}</span>
+ 					 	<i class="fa fa-comment" aria-hidden="true"></i> <span>{{comentarios}}</span>
+ 				 		<i class="fa fa-file-o" aria-hidden="true"></i> <span>{{documentos}}</span>
+					</h4>
+
 				 </td>
-				 <td>
+				 <td style="text-align: center;">
 					 {{#if this.horas}}
 					 	<a href="#">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
 					 {{else}}
 					 	<a href="#" class="agregar-horas">+ Horas</a>
 					 {{/if}}
 				 </td>
-				 <td>
+				 <td style="text-align: center;">
 				 	<div class="btn-group">
 
   <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -2052,14 +2053,14 @@
 <div class="franja-filtros">
 	<input type="text" name="crear-etapa" class="buscador-bunqr" placeholder="Nueva Etapa" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none; margin-bottom: 0; width: 100%; ">
 </div>
-	
+
 
 		<div style="margin-left:25px;">
 			{{#each tareasSinEtapas}}
 				<p style="color: #34495e;"><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}" style="color: color: #34495e;"><h5 style="display: inline-block; color: #34495e;">{{this.descripcion}}</h5></a></p>
 			{{/each}}
 		</div>
-		
+
 		<div class="table-wrapper">
 
 <table cellspacing="0" id="tech-companies">
@@ -2082,18 +2083,18 @@
 				 </th>
 				<th class="essential">
 				 	<h3 style="text-align: center;">
-				 		<i class="fa fa-clock-o" aria-hidden="true"></i>	
+				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
 				 	</h3>
 				 </th>
-				 
+
 			</tr>
 	 </thead>
-	 <tbody>		
-		
+	 <tbody>
+
 		{{#each etapas}}
 			{{> etapa}}
-		{{/each}} 
-		
+		{{/each}}
+
 	 </tbody>
 </table>
 		<!--{{#each etapas}}
@@ -2104,70 +2105,70 @@
 </template>
 
 <template name="etapa">
-	
+
 		<tr>
 				 <th>
-				 	
+
 					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> {{this.nombre}} </label>
+    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+    					<label for="{{this._id}}"> {{this.nombre}} </label>
 					</span>
 				 	<span class="co-name"></span>
 				 </th>
 				 <td>
 				 	<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-				 		
-				 	</h5>		
+
+				 	</h5>
 				 </td>
 				 <td>
 					<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-				 		
+
 				 	</h5>
 				 </td>
-				 
+
 				 <td>
 				 	<h3 style="text-align: center;">
-				 		
+
 				 	</h3>
-				 	
+
 				 </td>
 
 			</tr>
 			<tr>
 				 <th style="padding-left: 45px;">
-				 	
+
 					<h3>
 						<input type="text" name="crear-tarea-etapa" style="border: none; width: 100%; font-size: 14px; padding-bottom: 6px;" placeholder="Nueva tarea">
 					</h3>
 				 </th>
 				 <td>
 				 	<h3 style="text-align: center;">
-				 		
+
 				 	</h3>
 				 </td>
 				 <td>
 					<h3 style="text-align: center;">
-				 		
+
 				 	</h3>
 				 </td>
-				 
+
 				 <td>
 				 	<h3 style="text-align: center;">
-				 		
+
 				 	</h3>
-				 	
+
 				 </td>
 
 			</tr>
 
 			{{#each tareas}}
-					
+
 				<tr>
 				 <th style="padding-left: 45px;">
-				 	
+
 					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> {{this.descripcion}} </label>
+    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+    					<label for="{{this._id}}"> {{this.descripcion}} </label>
 					</span>
 				 	<span class="co-name">
 						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> {{dia this.createdAt}}</span>
@@ -2175,7 +2176,7 @@
 				 </th>
 				 <td>
 				 	{{#if this.asignado}}
-								<a  class="agregar-miembro-tarea"> 
+								<a  class="agregar-miembro-tarea">
 								<h5 style="text-align: center; font-size: 14px; color: #34495e;">{{this.asignado.nombre}}</h5>
 								</a>
 							{{else}}
@@ -2188,14 +2189,14 @@
 								<a class="agregar-fecha-tarea" href="#"> <h5  style="text-align: center; font-size: 14px; color: #34495e;">{{ dia this.vence}}</h5></a>
 							{{else}}
 								<a class="agregar-fecha-tarea" href="#"> <h5  style="text-align: center; font-size: 14px; color: #34495e;">+ Fecha</h5></a>
-							{{/if}}	
+							{{/if}}
 				 </td>
-				 
+
 				 <td>
 				 	<h3 style="text-align: center;">
 				 		1h 35m
 				 	</h3>
-				 	
+
 				 </td>
 
 			</tr>
@@ -3021,7 +3022,7 @@
     <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
       Calendario
     </a>
-    
+
     <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
       Tareas
     </a>
@@ -3086,7 +3087,7 @@
     <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
       Calendario
     </a>
-    
+
     <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
       Tareas
     </a>
@@ -3203,6 +3204,9 @@
     </a>
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
       CRM
+    </a>
+		<a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
     </a>
 	</div>
 
@@ -3718,6 +3722,9 @@
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
+		<a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturacion
+    </a>
   </div>
 
 	{{>menuCRM}}
@@ -3827,6 +3834,9 @@
         </a>
         <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
             CRM
+        </a>
+				<a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+            Facturación
         </a>
     </div>
 
@@ -3939,9 +3949,9 @@
   	<!-- <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto"> -->
 
   	{{>contactosCRM}}
-  
-  
-  
+
+
+
 
 
 </template>
@@ -5627,7 +5637,7 @@
 <template name="miCalendario">
   <div class="franja-progreso">
     <div class="progreso">
-      <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > calendario</a></p>
+      <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > Calendario</a></p>
     </div>
   </div>
    <div class="franja-filtros" style="padding-left: 18px;">
@@ -5644,12 +5654,14 @@
     <a href="/equipo" class="menu-asunto-aim">
      Equipo
     </a>
-
-         <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
       CRM
+    </a>
+		<a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
     </a>
   </div>
 
@@ -5821,7 +5833,7 @@
 
 <template name="charts">
   <div class="cuadro-pie" style="display: inline-block; width: 52.6%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 30px;">
-    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px;">Ingresos</h4>
+    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px;">Ingresos vs Gastos</h4>
     <select name="rangos" class="select-bunqr">
     	<option value="semana">Rango de tiempo semanal</option>
     	<option value="semana">Rango de tiempo mensual</option>
@@ -6563,7 +6575,7 @@
 
         </div>
 
-		
+
 </template>
 
 <template name="cobros">
@@ -6573,9 +6585,9 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>
+                <a href="/facturacion" > Facturación</a>
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2/facturacion/cobros"> Cobros</a>
+                <a href="/facturacion/cobros"> Cobros</a>
             </p>
         </div>
     </div>

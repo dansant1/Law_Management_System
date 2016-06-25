@@ -1,6 +1,6 @@
 .select-bunqr {
 	display: inline-block;
-	
+	background-color: white;
 	border: 1px solid #EFEFEF;
 	padding: 10px;
 	width: 243px;
@@ -11,7 +11,7 @@
 
 .lista-asuntos-reporte {
 	width: 100%;
-	min-height: 30px; 
+	min-height: 30px;
 }
 
 .lista-asuntos-reporte > h2 {
@@ -35,10 +35,10 @@
 	padding-left: 25px;
 	padding-top: 5px;
 	height: 30px;
-	
+
 }
 
-.hora {	
+.hora {
 	display: inline-block;
 	margin-left: 30px;
 	float: right;
@@ -78,4 +78,3 @@
 	color: white;
 	cursor: pointer;
 }
-

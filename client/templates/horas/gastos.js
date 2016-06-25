@@ -1,6 +1,9 @@
 Template.gastos.helpers({
     gastos(){
         return Gastos.find()
+    },
+    email() {
+      return Meteor.user().emails[0].address
     }
 })
 
