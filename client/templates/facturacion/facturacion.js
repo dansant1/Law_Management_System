@@ -3,11 +3,14 @@ Template.facturacion.onRendered(function(){
 	var bufeteId = Meteor.user().profile.bufeteId
 	Session.set('filtro-hora',{})
 
-
 	self.autorun(function(){
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
 		return self.subscribe('horasxmiembro',bufeteId,Meteor.userId())
 	})
+})
+
+Template.facturacion.onCreated(function () {
+	Session.set('buscador-valor',"");
 })
 
 Template.facturacion.helpers({
@@ -15,15 +18,88 @@ Template.facturacion.helpers({
 		return Meteor.user().emails[0].address
 	},
 	horas(){
-
-		if(Session.get('asunto-hora')==undefined) return Horas.find(Session.get('filtro-hora'));
 		debugger;
-		var filtro = {}
+		var buscador = new RegExp(".*"+Session.get('buscador-valor')+".*","i");
 
-		filtro['asunto.id'] = Session.get('asunto-hora')
-		filtro.fecha = $.isEmptyObject(Session.get('filtro-hora'))? {}: Session.get('filtro-hora').fecha
+		let _asuntos = Asuntos.find({'cliente.nombre':buscador}).fetch();
 
-		return Horas.find(filtro);
+		let _asuntosId = _(_asuntos).map(function (_asunto) {
+			return _asunto._id;
+		})
+
+		let query = {}
+
+		let $or = [
+			{'descripcion':buscador},
+			{'asunto.nombre':buscador},
+			{'asunto.id':{
+				$in:_asuntosId
+			}}
+		]
+
+		query.$or = $or;
+
+		if(!$.isEmptyObject(Session.get('filtro-hora'))){
+
+			delete query.$or;
+			query.$and = []
+			query.$and.push(Session.get('filtro-hora'));
+			query.$and.push({$or:$or})
+
+		}
+
+		if(!$.isEmptyObject(Session.get('cliente-hora'))){
+
+			let asuntos = Asuntos.find({'cliente.id':Session.get('cliente-hora')}).fetch();
+
+		 	let asuntosId = _(asuntos).map(function (asunto) {
+				return asunto._id;
+			})
+
+			if(query.$or) delete query.$or;
+			if(query.$and instanceof Array)
+			{
+				query.$and.push({
+					'asunto.id':{
+						$in:asuntosId
+					}
+				})
+				// query.$and.push({'asunto.id':Session.get('asunto-hora')})
+			}
+			else {
+				query.$and = []
+				query.$and.push({
+					'asunto.id':{
+						$in:asuntosId
+					}
+				})
+				// query.$and.push({'asunto.id': Session.get('asunto-hora')});
+				query.$and.push({$or:$or})
+			}
+
+		}
+
+		if(!$.isEmptyObject(Session.get('asunto-hora'))) {
+			if(query.$or) delete query.$or;
+			if(query.$and instanceof Array) query.$and.push({'asunto.id':Session.get('asunto-hora')})
+			else {
+				query.$and = []
+				query.$and.push({'asunto.id': Session.get('asunto-hora')});
+				query.$and.push({$or:$or})
+			}
+		}
+
+
+
+
+		return Horas.find(query);
+		// debugger;
+		// var filtro = {}
+		//
+		// filtro['asunto.id'] = Session.get('asunto-hora')
+		// filtro.fecha = $.isEmptyObject(Session.get('filtro-hora'))? {}: Session.get('filtro-hora').fecha
+		//
+		// return Horas.find(filtro);
 
 	},
 	cliente(){
@@ -50,6 +126,7 @@ Template.facturacion.events({
 	'click .todos'(){
 		Session.set('asunto-hora',undefined);
 		Session.set('filtro-hora',{})
+		Session.set('cliente-hora',"")
 	},
 	'click .asuntos'(){
 		Modal.show('filtroAsuntoHoraModal',this);
@@ -59,6 +136,9 @@ Template.facturacion.events({
 	},
 	'click .miembros'(){
 
+	},
+	'keyup .buscador-horas'(event,template){
+		Session.set('buscador-valor',event.target.value);
 	},
 	'click .hoy'(){
 		var mañana = new Date()
