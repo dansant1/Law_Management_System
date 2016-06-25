@@ -276,7 +276,7 @@ Meteor.methods({
 
 			tarifa.miembros.some(function (miembro) {
 				if(miembro.id==datos.responsable.id)
-					return datos.precio = (asunto.facturacion.tarifa.tipo_moneda == "soles")? miembro.soles*datos.horas : (miembro.soles/cambio.cambio)*datos.horas;
+					return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda == "soles")? miembro.soles*datos.horas : (miembro.soles/cambio.cambio)*datos.horas).toFixed(2);
 			})
 
 			if(!datos.precio){
@@ -284,10 +284,10 @@ Meteor.methods({
 				tarifa.roles.some(function (roles) {
 					if(user.roles.bufete.length==1)
 						if(user.roles.bufete[0]==roles.nombre)
-							return datos.precio = (asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas;
+							return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
 					else {
 						if(user.roles.bufete[1]==roles.nombre)
-							return datos.precio = (asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas;
+							return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
 					}
 				})
 			}

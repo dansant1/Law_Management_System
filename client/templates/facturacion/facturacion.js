@@ -17,6 +17,12 @@ Template.facturacion.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
+
+	moneda(){
+		debugger;
+		let asunto = Asuntos.find({_id:this.asunto.id}).fetch[0];
+		return (asunto.facturacion.tipo_moneda == "soles")? "S/." : "$";
+	},
 	horas(){
 		debugger;
 		var buscador = new RegExp(".*"+Session.get('buscador-valor')+".*","i");
@@ -135,7 +141,7 @@ Template.facturacion.events({
 		Modal.show('filtroClienteHoraModal');
 	},
 	'click .miembros'(){
-
+		Modal.show('filtroMiembroHoraModal');
 	},
 	'keyup .buscador-horas'(event,template){
 		Session.set('buscador-valor',event.target.value);

@@ -82,6 +82,10 @@ EsquemaHoras = new SimpleSchema({
 		type: Boolean,
 		optional:true
 	},
+	precio:{
+		type:Number,
+		decimal:true
+	},
 	facturado: {
 		type: Boolean
 	},
