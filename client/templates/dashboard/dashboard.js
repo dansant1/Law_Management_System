@@ -1524,7 +1524,21 @@ Template.tareasDetalle2.helpers({
   		} else {
   			false
   		}
-  	}
+  	},
+		estaAsignado() {
+			if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+				return "Asignado a ti";
+			} else {
+				return this.asignado.nombre;
+			}
+		},
+		comentador() {
+			if (this.creador.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+				return "Tú";
+			} else {
+				return this.creador.nombre;
+			}
+		}
 });
 
 Template.cuadroSubTareas.onCreated( function () {
@@ -1960,7 +1974,10 @@ Template.tablat.onCreated(function () {
 		//Session.set('tipo-tarea',true);
 
 		self.autorun(function () {
-			self.subscribe('misTareas')
+			self.subscribe('misTareas');
+			self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId)
+			self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId)
+			self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId)
 		})
 });
 
@@ -1985,13 +2002,13 @@ Template.tablat.helpers({
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	},
 	documentos(){
-
+		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
 	},
 	subtareas(){
-		return Subtareas.find({tareaId:this._id}).count();
+		return Subtareas.find({tareaId:this._id}).fetch().length;
 	},
 	comentarios(){
-		return ComentariosDeTareas.find({tareaId:this._id}).count();
+		return ComentariosDeTareas.find({tareaId:this._id}).fetch().length;
 	}
 });
 
@@ -4466,6 +4483,13 @@ Template.trelloLikeTareas.helpers({
 	},
 	asuntoId() {
 		return FlowRouter.getParam('asuntoId');
+	},
+	asignadoA() {
+		if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+			return "Tú"
+		} else {
+			return this.asignado.nombre
+		}
 	}
 });
 
@@ -4510,5 +4534,9 @@ Template.trelloLikeTareas.events({
         		}
         	});
     	}
+	},
+	'click .ir-detalle': () => {
+		console.log(this._id);
+		//FlowRouter.go('/tareas/' + this._id);
 	}
 });

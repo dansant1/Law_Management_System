@@ -262,11 +262,11 @@
 		<!--{{> datosAsunto}}-->
 		<div class="info-calendario" style="width: 100%;">
 				<!--{{> menuMain}}-->
-				
+
 					<!--<div style="display: block; width: 100%;">
 						{{> menuAsunto}}
 					</div>-->
-				<div id="calendario"></div>		
+				<div id="calendario"></div>
 			</div>
 	</div>
 </template>
@@ -278,11 +278,9 @@
 </template>
 
 <template name="datosAsunto">
-		<div class="col-md-3">
-			<div class="info-calendario">
-				<div class="calendar">
-					<h1>Datos del asunto</h1>
-				</div>
+
+
+
 				{{#with expediente}}
 				<div class="lista-calendarios">
 
@@ -309,25 +307,15 @@
 								</div>
 
 				</div>
-				<div class="body-contacto" style="min-height: 320px;">
-					<br>
-					<p style="margin-left: 10px;">Creado originalmente</p>
-					<p style="margin-left: 10px; color: #949494;">{{dia this.createdAt}} asignado a  {{responsable.nombre}}</p>
-					<hr>
-					<div style="padding: 15px; width: 100%;">
-					<a class="btn nueva-tarea nuevo-evento verde-flat imprimir" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%; margin-bottom: 7.5px;">Imprimir información</a>
-					{{#if esAdministrador}}
-					<a class="btn nueva-tarea nuevo-evento rojo-flat cerrar" style="border: none; width: 100%; display: block; margin: 0 auto; min-width: 100%;">Cerrar asunto</a>
-					{{/if}}
-					</div>
+				<div class="body-contacto" style="min-height: 30px;">
+					<p style="margin-left: 10px; margin-top: 20px;">Creado originalmente</p>
+					<p style="margin-left: 10px; color: #949494; margin-bottom: 22.5px;">{{dia this.createdAt}} asignado a  {{responsable.nombre}}</p>
 
 				</div>
 				{{/with}}
-				<div class="contacto-foot">
-					<a href="#">Editar</a>
-				</div>
-			</div>
-		</div>
+
+
+
 </template>
 
 <template name="estadoForm">

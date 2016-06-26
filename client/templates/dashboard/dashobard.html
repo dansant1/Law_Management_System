@@ -55,7 +55,7 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
 		<a href="/calendario2" style="text-decoration:none;">Calendario</a>
-		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i>
+		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i>
 		</h5>
 	</div>
 </template>
@@ -73,7 +73,7 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
             <a href="/equipo">Equipo</a>
-		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 100px;"></i>
+		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 100px;"></i>
 		</h5>
 	</div>
 
@@ -88,7 +88,10 @@
 </template>
 
 <template name="itemMienbro">
-	<img src="/contactos/contacto.jpg" alt="{{profile.nombre}}" class="item-mienbro">
+	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span>
+</template>
+<template name="itemCliente">
+	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span>
 </template>
 
 <template name="asuntosSidebarDashboard">
@@ -98,7 +101,7 @@
 		<a href="/asuntos2" id="sidebar-a">asuntos</a>
 
     {{#if esAdministrador}}
-		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 90px;"></i>
+		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 90px;"></i>
 		{{/if}}
     </h5>
 	</div>
@@ -117,7 +120,7 @@
   <div class="sidebar-titulo" style="margin-top: 0;">
     <h5>
     <a href="/tareas" id="sidebar-a">Mis tareas</a>
-    <i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 74px;"></i>
+    <i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 74px;"></i>
     </h5>
   </div>
 {{#if hayTareas}}
@@ -131,7 +134,7 @@
 
 <template name="itemTareas">
   <p >
-    <a class="sidebar-item" href="#" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
+    <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
     </a>
   </p>
 </template>
@@ -449,14 +452,14 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5>
 		<a href="/clientes2" id="sidebar-a">clientes</a>
-		<i class="fa fa-plus-circle icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 92px;"></i>
+		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 92px;"></i>
 		</h5>
 	</div>
 
   <div class="sidebar-circulos">
     {{#transition in="fadeInLeft" out="fadeOutRight"}}
       {{#each clientes}}
-        {{> itemMienbro}}
+        {{> itemCliente}}
       {{/each}}
     {{/transition}}
   </div>
@@ -1583,20 +1586,14 @@
         <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
             CRM
         </a>
+				<a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;">
 			{{>botonNuevoTareas}}
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
-                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="abiertos" href="#">Abiertos</a></li>
-                    <li><a class="cerrados" href="#">Cerrados</a></li>
 
-                </ul>
-            </div>
         </div>
 
     </div>
@@ -1608,7 +1605,7 @@
     <div class="cuadro-detalle-tarea" style="display: block;">
 
       <div class="item-lista-tareas" style="padding-left: 8px; padding-top: 0;">
-				<p style="padding: 0; margin: 0;"><i class="fa fa-long-arrow-left regresar cursor" aria-hidden="true" style="color: #7f8c8d; font-size: 24px;"></i></p>
+				<p style="padding: 0; margin: 0;"><i class="fa fa-long-arrow-left regresar cursor hov" aria-hidden="true" style="color: #7f8c8d; font-size: 24px;"></i></p>
         {{#with tarea}}
 
 
@@ -1630,7 +1627,7 @@
 
 
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">en {{this.asunto.nombre}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{this.etapa.nombre}}</p>
-				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> {{this.asignado.nombre}} | {{dia}}</p>
+				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> {{estaAsignado}} | {{dia}}</p>
         <!--<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
         <i class="glyphicon glyphicon-calendar"></i>
         {{#if hayFecha this.vence}}
@@ -1656,7 +1653,7 @@
       <hr>
       {{#transition in="bounceIn" out="bounceOut"}}
         {{#each comentarios}}
-          <p style="font-weight: initial;"> <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> <span style="font-weight: bold;">{{this.creador.nombre}}</span> — <span style="color: #7f8c8d; font-weight: initial;">{{this.comentario}}</span></p>
+          <p style="font-weight: initial;"> <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> <span style="font-weight: bold;">{{comentador}}</span> — <span style="color: #7f8c8d; font-weight: initial;">{{this.comentario}}</span></p>
         {{/each}}
       {{/transition}}
       </div>
@@ -1918,14 +1915,14 @@
 				 	</h5>
 				 	{{else}}
 					<h5 style="text-align: center;">
-						<a class="agregar-fecha-tarea" href="#">+ vencimiento</a>
+						<a class="agregar-fecha-tarea" href="#" style="font-weight: initial;">+ vencimiento</a>
 					</h5>
 					{{/if}}
 				 </td>
 				 <td>
 					 {{#if this.asignado}}
 					 <h5 style="text-align: center;">
-					 	<img src="/contactos/contacto.jpg" alt="{{this.asignado.nombre}}" class="item-mienbro">
+					 	<span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 10px; text-align: center;">DD</span>
 					 </h5>
 
 					{{else}}
@@ -1936,7 +1933,7 @@
 				 </td>
 				 <td>
 					 <h4 style="text-align: center;">
-						 <i class="fa fa-folder" aria-hidden="true"></i> <span>{{subtareas}}</span>
+						 <i class="fa fa-tasks" aria-hidden="true"></i> <span>{{subtareas}}</span>
  					 	<i class="fa fa-comment" aria-hidden="true"></i> <span>{{comentarios}}</span>
  				 		<i class="fa fa-file-o" aria-hidden="true"></i> <span>{{documentos}}</span>
 					</h4>
@@ -1944,9 +1941,13 @@
 				 </td>
 				 <td style="text-align: center;">
 					 {{#if this.horas}}
-					 	<a href="#">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
+					 <h5>
+					 	<a href="#" style="font-weight: initial;">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
+					</h5>
 					 {{else}}
-					 	<a href="#" class="agregar-horas">+ Horas</a>
+					 	<h5>
+					 		<a href="#" class="agregar-horas" style="font-weight: initial;">+ Hora</a>
+					 	</h5>
 					 {{/if}}
 				 </td>
 				 <td style="text-align: center;">
@@ -2116,6 +2117,7 @@
     					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
     					<label for="{{this._id}}"> {{this.nombre}} </label>
 					</span>
+
 				 	<span class="co-name"></span>
 				 </th>
 				 <td>
@@ -2173,6 +2175,7 @@
     					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
     					<label for="{{this._id}}"> {{this.descripcion}} </label>
 					</span>
+					<a href="/tareas/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 				 	<span class="co-name">
 						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> {{dia this.createdAt}}</span>
 				 	</span>
@@ -3300,7 +3303,7 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
 			Información
@@ -3453,7 +3456,7 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
 			Información
@@ -3500,7 +3503,7 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 20px;">
 			Información
@@ -3547,7 +3550,7 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
 			Información
@@ -3557,7 +3560,7 @@
 	<div class="contenedor-conversacion">
 		<div style="margin: 0 auto;  width: 90%;">
 			<div class="form-conversacion" style="margin-bottom: 30px;  width: 100%;">
-				<input type="text" name="nombre" placeholder="Tema">
+				<input type="text" name="nombre" placeholder="¿Sobre que tema te gustaria conversar?">
 				<textarea name="descripcion" placeholder="Empieza una conversación en este asunto"></textarea>
 				<div class="div-conversacion">
 					<button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
@@ -3633,7 +3636,7 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
 			Información
@@ -3679,11 +3682,105 @@
 			Conversación
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/notas" class="menu-asunto-aim" style="margin-left: 15px;">
-			Notas
+			Hitos
 		</a>
 		<a href="/asuntos2/d/{{asuntoId}}/informacion" class="menu-asunto-aim" style="margin-left: 20px;">
 			Información
 		</a>
+	</div>
+
+	<div class="franja-filtros">
+		<div class="btn-group">
+				<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
+						Nuevo <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				<li class="persona agregar-hora"><a href="#">+ Hora</a></li>
+					<li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
+
+				</ul>
+		</div>
+	</div>
+	<div class="reportes-facturacion">
+		<div class="fila">
+			<div class="columna" style="height: 80px;">
+				<h4>Horas ingresadas</h4>
+				<p>10h 32m <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 2, 450.00</p>
+			</div>
+			<div class="columna" style="height: 80px;">
+				<h4>Gastos ingresados</h4>
+				<p>S/ 1,200.00</p>
+			</div>
+			<div class="columna" style="height: 80px;">
+				<h4>Monto toal</h4>
+				<p>S/ 4, 650.00</p>
+			</div>
+		</div>
+		<div class="fila">
+			<div class="columna" id="sin-padding">
+				<div class="fila-cuadro">
+					<div class="columna-cuadro">
+						<h5>Facturas en borrador</h5>
+						<p>2</p>
+					</div>
+					<div class="columna-cuadro">
+						<h5>Monto total</h5>
+						<p>S/ 1, 256.00</p>
+					</div>
+				</div>
+				<div class="fila-cuadro">
+					<div class="columna-cuadro">
+						<h5>Espera de pago</h5>
+						<p>1</p>
+					</div>
+					<div class="columna-cuadro">
+						<h5>Monto total</h5>
+						<p>S/ 3, 152.50</p>
+					</div>
+				</div>
+				<div class="fila-cuadro">
+					<div class="columna-cuadro fuera-fecha">
+						<h5>Facturas fuera de fecha</h5>
+						<p>1</p>
+					</div>
+					<div class="columna-cuadro fuera-fecha">
+						<h5>Monto total</h5>
+						<p>S/ 2, 559.00</p>
+					</div>
+				</div>
+			</div>
+			<div class="columna" id="sin-padding">
+				<div class="fila-cuadro-2">
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+					<div class="columna-cuadro-2">
+						<p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
+					</div>
+				</div>
+				<div class="fila-cuadro">
+
+				</div>
+			</div>
+			<div class="columna" id="sin-padding">
+				<div class="cuadro-total">
+					<h3>Ingresos vs Gastos</h3>
+					<p>Pie Chart</p>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </template>
@@ -3809,11 +3906,7 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" >CRM</a>
-                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2">
-                    Contactos
-                </a>
+                <a href="/equipo" >Equipo</a>
             </p>
         </div>
     </div>
@@ -3843,10 +3936,128 @@
         </a>
     </div>
 
+		<div class="franja-filtros">
+			<div class="progreso" style="padding-top: 0px;">
 
-    <div>
-        <div class="sidebar-vertical-blanco">
-			<div class="btn-group">
+				<div class="btn-group">
+				   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+				     Nuevo <span class="caret"></span>
+				   </button>
+				   <ul class="dropdown-menu">
+				     <li class="nuevo-miembro"><a href="#">Miembro</a></li>
+				     <li class="nueva-area"><a href="#">Area</a></li>
+						 <li class="nuevo-equipo"><a href="#">Equipo</a></li>
+				   </ul>
+				 </div>
+			</div>
+
+			  <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca a los miembros de tu equipo por su nombre, apelido, area, rol, etc...">
+
+		</div>
+
+		<div class="table-wrapper">
+
+	<table cellspacing="0" id="tech-companies">
+		 <thead>
+				<tr>
+					 <th class="persist essential">
+					 	<h3>
+					 		<i class="fa fa-user" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="optional">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-mobile" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa f fa-envelope-o" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+							<i class="fa fa-info" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-building" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th>
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-cog" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+				</tr>
+		 </thead>
+		 <tbody>
+		 {{#each miembros}}
+				<tr>
+					 <th>
+						<span class="fh-checkbox">
+	    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+	    					<label for="{{this._id}}"> {{this.profile.nombre}} {{this.profile.apellido}} </label>
+						</span>
+						<a href="/equipo/d/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
+					 <span class="co-name">
+					 </span></th>
+					 <td>
+
+						<h5 style="text-align: center;">
+
+							<a class="agregar-fecha-tarea" href="#" style="font-weight: initial;">{{this.profile.telefono}}</a>
+						</h5>
+
+					 </td>
+					 <td>
+
+							<h5 style="text-align: center;">
+								{{emails}}
+							</h5>
+
+					 </td>
+					 <td>
+						 <h4 style="text-align: center;">
+							 {{this.roles.bufete}}
+						</h4>
+
+					 </td>
+					 <td style="text-align: center;">
+
+						 	<h5>
+						 		{{this.profile.area.nombre}}
+						 	</h5>
+
+					 </td>
+					 <td style="text-align: center;">
+					 	<div class="btn-group">
+
+	  <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+
+	    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+	    <li role="separator" class="divider"></li>
+
+	            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+
+	  </ul>
+			</div>
+					 </td>
+
+				</tr>
+				   {{/each}}
+		 </tbody>
+	</table>
+
+	</div><!-- /table-wrapper -->
+
+
+		<!--	<div class="btn-group">
 		   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
 		     Nuevo <span class="caret"></span>
 		   </button>
@@ -3854,27 +4065,20 @@
 		     <li class="nuevo-miembro"><a href="#">Miembro</a></li>
 		     <li class="nueva-area"><a href="#">Area</a></li>
 		   </ul>
-		     </div>
+		 </div> -->
             <!-- <button type="button" class="btn dropdown-toggle nuevo-miembro nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
                 <i class="fa fa-plus"></i> Nuevo
             </button> -->
 
-            <div class="sidebar-titulo">
 
-                <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/equipo" style="text-decoration:none;" class="no-hover">Todos</a>
-                </h5>
 
-            </div>
-        </div>
-
-        {{#each miembros}}
+        <!--{{#each miembros}}
             <div >
                 <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
                     <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
                     <a href="/equipo/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
                         <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span><br>
-                        <!--<h5>Por {{this.autor}}</h5>-->
+                        <h5>Por {{this.autor}}</h5>
                         <i class="glyphicon glyphicon-phone"></i>
                         {{#if this.profile.telefono}}
                             <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
@@ -3898,8 +4102,8 @@
 
             </div>
 
-        {{/each}}
-    </div>
+        {{/each}} -->
+
 
 
 </template>
@@ -6714,16 +6918,18 @@
  <h3>{{this.nombre}}</h3>
  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
  {{#each tareas this._id}}
-  <article class="card2 {{borde this.tipo}}">
+ <a href="/tareas/{{this._id}}">
+  <article class="card2 {{borde this.tipo}} ir-detalle">
 	<h4>
 	<span class="fh-checkbox">
     	<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-    	<label for="{{this._id}}"> {{this.descripcion}}</label>
+    	<label for="{{this._id}}" style="font-weight: initial;"> {{this.descripcion}}</label>
 	</span>
 
+
     	{{#if this.asignado.nombre}}
-    	<i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;">
-    	</i> {{this.asignado.nombre}}
+    	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 3px; text-align: center;">DD</span>
+    	{{asignadoA}}
     	{{else}}
 		<i class="glyphicon glyphicon-user" style="display: inline-block; margin-left: 8px;">
     	</i> <a href="#">+ asignado</a>
@@ -6743,6 +6949,7 @@
 		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
     </div>
   </article>
+</a>
  {{/each}}
 </section>
 {{/each}}

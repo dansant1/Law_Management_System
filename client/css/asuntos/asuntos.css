@@ -228,6 +228,10 @@ hr {
 	padding-top: 0px;
 }
 
+.hov:hover {
+	color: #3498db;
+}
+
 .caja-comentario-tarea > textarea {
 	width: 100%;
 	height: 80px;
