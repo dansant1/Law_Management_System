@@ -65,6 +65,47 @@ Meteor.publish('Subtareas', function (tareaId) {
 
 });
 
+Meteor.publish('MisSubtareas', function (bufeteId) {
+
+	check(bufeteId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return Subtareas.find({bufeteId: bufeteId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+Meteor.publish('MisComentariosDeTareas', function (bufeteId) {
+
+	check(bufeteId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return ComentariosDeTareas.find({bufeteId: bufeteId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+Meteor.publish('MisDocumentosDeTareas', function (bufeteId) {
+
+	check(bufeteId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return DocumentosTareas.find({'metadata.bufeteId': bufeteId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+
+
 Meteor.publish('misTareas', function () {
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {

@@ -77,7 +77,9 @@
             <p>
                 {{email}}
                 <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/clientes2" > Facturación</a>
+                <a href="/facturacion" > Facturación</a>
+								<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+								  <a href="/facturacion/gastos" > Gastos</a>
             </p>
         </div>
     </div>
@@ -209,7 +211,7 @@
 								 <td>
 									 {{#if this.monto}}
 										 <h5 style="text-align: center; font-size: 14px; color: #34495e;">
-											 S./ {{this.monto}}
+											 S/ {{this.monto}}
 										 </h5>
 									 {{else}}
 										 <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>

@@ -1434,7 +1434,7 @@ Template.tareasDetalle2.events({
 				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
 			} else {
 				Bert.alert('Completaste la tarea', 'success');
-				FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
+				//FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
 			}
 		});
 	},
@@ -1464,6 +1464,9 @@ Template.tareasDetalle2.events({
 	},
 	'click .adjuntar-archivo-tarea': function () {
 		Modal.show('adjuntarArchivoTarea');
+	},
+	'click .regresar': () => {
+		FlowRouter.go('/tareas');
 	}
 });
 
@@ -1473,16 +1476,14 @@ Template.tareasDetalle2.onCreated( function () {
 	self.autorun(function() {
 		let asuntoId = FlowRouter.getParam('asuntoId');
     	self.subscribe('misTareas');
-    	//self.subscribe('expediente', asuntoId);
-		let tareaId = FlowRouter.getParam('tareaId');
+
+			let tareaId = FlowRouter.getParam('tareaId');
     	self.subscribe('comentarioDeTareas', tareaId, Meteor.user().profile.bufeteId);
    });
 });
 
 Template.tareasDetalle2.helpers({
-	tareas() {
-		return Tareas.find({ abierto: true }, {sort: {createdAt: -1}});
-	},
+
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
   	},
@@ -1523,7 +1524,21 @@ Template.tareasDetalle2.helpers({
   		} else {
   			false
   		}
-  	}
+  	},
+		estaAsignado() {
+			if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+				return "Asignado a ti";
+			} else {
+				return this.asignado.nombre;
+			}
+		},
+		comentador() {
+			if (this.creador.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+				return "Tú";
+			} else {
+				return this.creador.nombre;
+			}
+		}
 });
 
 Template.cuadroSubTareas.onCreated( function () {
@@ -1959,7 +1974,10 @@ Template.tablat.onCreated(function () {
 		//Session.set('tipo-tarea',true);
 
 		self.autorun(function () {
-			self.subscribe('misTareas')
+			self.subscribe('misTareas');
+			self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId)
+			self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId)
+			self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId)
 		})
 });
 
@@ -1984,13 +2002,13 @@ Template.tablat.helpers({
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	},
 	documentos(){
-
+		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
 	},
 	subtareas(){
-		return Subtareas.find({tareaId:this._id}).count();
+		return Subtareas.find({tareaId:this._id}).fetch().length;
 	},
 	comentarios(){
-		return ComentariosDeTareas.find({tareaId:this._id}).count();
+		return ComentariosDeTareas.find({tareaId:this._id}).fetch().length;
 	}
 });
 
@@ -4049,8 +4067,8 @@ Template.charts.onRendered(function() {
             data: [random(), random(), random(), random(), random(), random(), random()]
         }]
     };
-    
-    
+
+
 
     // draw the charts
     var myLineChart = new Chart(ctx).Line(data, options);
@@ -4082,7 +4100,7 @@ Template.charts.helpers({
 
 Template.resumenFacturacion.helpers({
 	email() {
-		
+
 		return Meteor.user().emails[0].address
 	}
 });
@@ -4465,6 +4483,13 @@ Template.trelloLikeTareas.helpers({
 	},
 	asuntoId() {
 		return FlowRouter.getParam('asuntoId');
+	},
+	asignadoA() {
+		if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+			return "Tú"
+		} else {
+			return this.asignado.nombre
+		}
 	}
 });
 
@@ -4509,5 +4534,9 @@ Template.trelloLikeTareas.events({
         		}
         	});
     	}
+	},
+	'click .ir-detalle': () => {
+		console.log(this._id);
+		//FlowRouter.go('/tareas/' + this._id);
 	}
 });
