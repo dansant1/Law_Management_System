@@ -19,21 +19,37 @@ Template.resumenHorasPersonal.onRendered(function () {
 
         var horas = Horas.find({$and:[{'responsable.id':Meteor.user()._id},Session.get('filtro-hora')]}).fetch();
 
-        var groups = _(horas).groupBy(function (hora) {
+        var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
         })
-
-        var out = _(groups).map(function (g,key) {
-            return {type:key,
-                    value: _(g).reduce(function (m,x) {
+        // debugger;
+        var tiempoxAsunto = _(grupos).map(function (g,key) {
+            return {
+                    type:key,
+                    horas: _(g).reduce(function (m,x) {
                         return m + x.horas;
+                    },0),
+                    minutos: _(g).reduce(function (m,x) {
+                        debugger
+                        return m + x.minutos;
                     },0)
                 }
         })
 
-        var out = _(out).map(function (obj) {
+        debugger;
+
+        for (var i = 0; i < tiempoxAsunto.length; i++) {
+
+            if(tiempoxAsunto[i].minutos>60){
+                let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+                tiempoxAsunto[i].horas += horas;
+                tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
+            }
+        }
+
+        var out = _(tiempoxAsunto).map(function (obj) {
             return {
-                value: obj.value,
+                value: obj.horas,
                 color: dynamicColors(),
                 label:Asuntos.find({_id:obj.type}).fetch()[0].caratula
             }
@@ -145,27 +161,37 @@ Template.resumenHorasPersonal.helpers({
         debugger;
         var horas = Horas.find({$and:[{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
 
-        var groups = _(horas).groupBy(function (hora) {
+        var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
         })
-
-        var out = _(groups).map(function (g,key) {
-            return {type:key,
-                    value: _(g).reduce(function (m,x) {
+        // debugger;
+        var tiempoxAsunto = _(grupos).map(function (g,key) {
+            return {
+                    type:key,
+                    horas: _(g).reduce(function (m,x) {
                         return m + x.horas;
+                    },0),
+                    minutos: _(g).reduce(function (m,x) {
+                        debugger
+                        return m + x.minutos;
                     },0)
                 }
         })
 
-        var out = _(out).map(function (obj) {
-            return {
-                value: obj.value,
-                // color: dynamicColors(),
-                label:Asuntos.find({_id:obj.type}).fetch()[0].caratula
-            }
-        })
+        debugger;
 
-        return out;
+        for (var i = 0; i < tiempoxAsunto.length; i++) {
+
+            if(tiempoxAsunto[i].minutos>60){
+                let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+                tiempoxAsunto[i].horas += horas;
+                tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
+            }
+
+            tiempoxAsunto[i].nombre = Asuntos.find({_id:tiempoxAsunto[i].type}).fetch()[0].caratula;
+        }
+
+        return tiempoxAsunto;
         //
         // var mañana = new Date()
         // mañana.setDate(mañana.getDate()+1);
@@ -196,28 +222,38 @@ Template.resumenHorasPersonal.helpers({
             return hora.asunto.id;
         })
 
-        var out = _(groups).map(function (g,key) {
-            return {type:key,
-                    value: _(g).reduce(function (m,x) {
+        var tiempoxAsunto = _(groups).map(function (g,key) {
+            return {
+                    id:key,
+                    horas: _(g).reduce(function (m,x) {
                         return m + x.horas;
+                    },0),
+                    minutos: _(g).reduce(function (m,x) {
+                        return m + x.minutos
                     },0)
                 }
         })
 
-        var out = _(out).map(function (obj) {
-            return {
-                value: obj.value,
-                // color: dynamicColors(),
-                label:Asuntos.find({_id:obj.type}).fetch()[0].caratula
+        let totalHoras = 0;
+        let totalMinutos = 0;
+
+        for (var i = 0; i < tiempoxAsunto.length; i++) {
+            if(tiempoxAsunto[i].minutos>60){
+                let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+                tiempoxAsunto[i].horas += horas;
+                tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
             }
-        })
 
-        let total = _(out).reduce(function (m,x) {
-            return m + x.value
-        },0);
+            totalHoras += tiempoxAsunto[i].horas;
+            totalMinutos += tiempoxAsunto[i].minutos;
+        }
 
-        debugger;
+        if(totalMinutos>60){
+            totalHoras += Number(String(totalMinutos/60).split(".")[0]);;
+            totalMinutos += totalMinutos%60;
+        }
 
-        return total;
+        return totalHoras + " h " + totalMinutos +" m" ;
+
     }
 })

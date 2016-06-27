@@ -78,9 +78,9 @@
     <canvas id="pieChartHoras" width="200" height="200"></canvas>
     <br>
 	<div class="lista-asuntos-reporte">
-		<h3 class="total">Tiempo total <span class="hora">{{total}} h </span></h3>
+		<h3 class="total">Tiempo total <span class="hora">{{total}}</span></h3>
         {{#each horas}}
-		      <h4><span class="circulo-asunto"></span>{{this.label}}<span class="hora" style="margin-left: 20px;">{{this.value}} h</span></h4>
+		      <h4><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}} h {{this.minutos}} m </span></h4>
         {{/each}}
 	</div>
   </div>
