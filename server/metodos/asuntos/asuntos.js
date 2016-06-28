@@ -32,7 +32,9 @@ Meteor.methods({
 
 			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
 			console.log(asuntos.cliente.id);
+			console.log(asuntos.cliente);
 			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
+			console.log(cliente);
 			console.log(cliente.facturacion);
 			if(!asuntos.facturacion)
 				if(cliente.facturacion) asuntos.facturacion = cliente.facturacion

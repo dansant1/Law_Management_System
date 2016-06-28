@@ -3342,8 +3342,8 @@ Template.asuntoNuevoModal.events({
 			let asunto = {}
 			debugger;
 			asunto.cliente = {
-				nombre: $( ".cliente option:selected" ).text(),
-				id: $( ".cliente" ).val()
+				nombre: $(template.find( ".cliente option:selected" )).text(),
+				id: $(template.find( ".cliente" )).val()
 			}
 
 			asunto.caratula = template.find( '[name="caratula"]' ).value;
