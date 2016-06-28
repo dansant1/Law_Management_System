@@ -9,5 +9,7 @@ a#marca-bunqr {
 	color: #34495e;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 28px;
+	display: block;
+
 }
