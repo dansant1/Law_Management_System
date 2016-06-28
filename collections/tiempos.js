@@ -159,6 +159,9 @@ EsquemaGastos = new SimpleSchema({
   	'asunto.id': {
   		type: String
   	},
+	administrativo:{
+		type: Boolean
+	},
   	monto: {
     	type: Number,
     	decimal: true

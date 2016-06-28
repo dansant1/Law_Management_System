@@ -84,7 +84,9 @@
                     <li class="divider"></li>
                     <li class="empresa asuntos"><a href="#">Por asunto</a></li>
                     <li class="empresa cliente"><a href="#">Por cliente</a></li>
-                    <li class="empresa miembros"><a href="#">Por miembros</a> </li>
+                    {{#if esAdministradoroEncargado}}
+                        <li class="empresa miembros"><a href="#">Por miembros</a> </li>
+                    {{/if}}
           		</ul>
             </div>
             <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca horas por descripcion, clientes o asunto...">

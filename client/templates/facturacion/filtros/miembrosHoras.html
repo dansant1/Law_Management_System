@@ -14,9 +14,9 @@
                        <div class="icon">
 						   <label class="cd-label" for="cd-email">Miembros</label>
 						   <p class="cd-select icon">
-							   <select class="budget asunto" name="asunto">
+							   <select class="budget asunto" name="miembro">
 								   {{#each miembros}}
-			                           <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
+			                           <option value="{{this._id}}">{{this.profile.nombre}} {{this.profile.apellido}}</option>
 								   {{/each}}
 							   </select>
 						   </p>

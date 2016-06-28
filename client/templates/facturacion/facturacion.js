@@ -97,8 +97,21 @@ Template.facturacion.helpers({
 			}
 		}
 
+		if(!$.isEmptyObject(Session.get('miembro-equipo'))){
+			let _asuntos = Asuntos.find({'abogados':{ $elemMatch:{ id: Session.get('miembro-equipo')}}}).fetch();
+			debugger;
+			let ids = _(_asuntos).map(function (_asunto) {
+				return _asunto._id;
+			})
 
-
+			if(query.$or) delete query.$or;
+			if(query.$and instanceof Array) query.$and.push({'asunto.id':{$in:ids}});
+			else {
+				query.$and = []
+				query.$and.push({'asunto.id':{$in:ids}})
+				query.$and.push({$or:$or})
+			}
+		}
 
 		return Horas.find(query);
 		// debugger;
