@@ -381,7 +381,8 @@ Meteor.methods({
 			horas: String,
 			minutos:String,
 			// precio: String,
-			creador:Object
+			creador:Object,
+			responsable:Object
 		});
 
 

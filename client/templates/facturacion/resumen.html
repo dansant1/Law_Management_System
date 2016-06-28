@@ -79,9 +79,11 @@
     <br>
 	<div class="lista-asuntos-reporte">
 		<h3 class="total">Tiempo total <span class="hora">{{total}}</span></h3>
-        {{#each horas}}
-		      <h4><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}} h {{this.minutos}} m </span></h4>
-        {{/each}}
+        {{#if horas}}
+            {{#each horas}}
+    		      <h4><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}} h {{this.minutos}} m </span></h4>
+            {{/each}}
+        {{/if}}
 	</div>
   </div>
 </template>
