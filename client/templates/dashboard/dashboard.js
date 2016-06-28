@@ -1048,9 +1048,8 @@ Template.asuntos2.onCreated( function () {
 
    	let id = Meteor.user()._id;
 	let bufeteId = Meteor.user().profile.bufeteId;
-
     self.subscribe('asuntosxequipo', id,bufeteId);
-
+    
 });
 
 Template.asuntos2.events({
@@ -4166,8 +4165,17 @@ Template.charts.onRendered(function() {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
         datasets: [{
             label: "My First dataset",
-            fillColor: "#34495e",
-            strokeColor: "#2c3e50",
+            fillColor: "rgba(189, 195, 199,1.0)",
+            strokeColor: "rgba(44, 62, 80,1.0)",
+            pointColor: "#ecf0f1",
+            pointStrokeColor: "#7f8c8d",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "#34495e",
+            data: [random(), random(), random(), random(), random(), random(), random()]
+        }, {
+            label: "My second dataset",
+            fillColor: "rgba(52, 73, 94,1.0)",
+            strokeColor: "rgba(44, 62, 80,1.0)",
             pointColor: "#ecf0f1",
             pointStrokeColor: "#7f8c8d",
             pointHighlightFill: "#fff",

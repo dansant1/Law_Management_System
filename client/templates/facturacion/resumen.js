@@ -253,7 +253,7 @@ Template.resumenHorasPersonal.helpers({
             totalMinutos += totalMinutos%60;
         }
 
-        return totalHoras + " h " + totalMinutos +" m" ;
+        return totalHoras + "h " + totalMinutos +"m " ;
 
     }
 })
