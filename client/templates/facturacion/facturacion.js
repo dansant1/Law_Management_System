@@ -113,6 +113,11 @@ Template.facturacion.helpers({
 	},
 	esAdministradoroEncargado(){
 		return Meteor.user().roles.bufete.indexOf("administrador")>=0||Meteor.user().roles.bufete.indexOf("encargado comercial")>=0;
+	},
+	tipo_cambio(){
+		debugger;
+		if(Asuntos.find({_id:this.asunto.id}).fetch()[0].facturacion.tipo_moneda == "soles") return "S/. "
+		return "$ "
 	}
 });
 
