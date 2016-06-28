@@ -142,7 +142,8 @@ EsquemaGastos = new SimpleSchema({
 		type: String
 	},
 	responsable: {
-		type: Object
+		type: Object,
+		optional:true
 	},
 	'responsable.nombre': {
 		type: String
@@ -151,7 +152,8 @@ EsquemaGastos = new SimpleSchema({
 		type: String
 	},
   	asunto: {
-  		type: Object
+  		type: Object,
+		optional:true
   	},
   	'asunto.nombre': {
   		type: String

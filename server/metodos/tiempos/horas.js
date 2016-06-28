@@ -437,6 +437,30 @@ Meteor.methods({
 		}
 
 	},
+	'agregarGastoAdministrativo': function (datos) {
+		check(datos,{
+			descripcion: String,
+			bufeteId: String,
+			fecha: String,
+			monto:String
+		})
+
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+
+
+			datos.monto = parseInt(datos.monto);
+
+			datos.creadorId = this.userId;
+			datos.createdAt = new Date();
+
+
+			Gastos.insert(datos);
+
+		} else {
+			return;
+		}
+	},
 	'agregarGasto': function (datos) {
 		check(datos, {
 			descripcion: String,

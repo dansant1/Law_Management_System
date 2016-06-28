@@ -32,5 +32,8 @@ Template.gastos.events({
 	'click .agregar-gasto': function (event, template) {
 		event.preventDefault();
 		Modal.show('agregarGasto');
-	}
+	},
+    'click .agregar-gasto-administrativo': function (event,template) {
+        Modal.show('agregarGastoAdministrativo')
+    }
 })
