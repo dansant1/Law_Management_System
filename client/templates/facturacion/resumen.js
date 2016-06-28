@@ -17,7 +17,8 @@ Template.resumenHorasPersonal.onRendered(function () {
         // var hoy = new Date()
         // hoy.setHours(0,0,0,0)
 
-        var horas = Horas.find({$and:[{'responsable.id':Meteor.user()._id},Session.get('filtro-hora')]}).fetch();
+        debugger;
+        var horas = Horas.find({$and:[{'asunto':{$exists:true}},{'responsable.id':Meteor.user()._id},Session.get('filtro-hora')]}).fetch();
 
         var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
@@ -159,7 +160,7 @@ Template.resumenHorasPersonal.helpers({
     horas(){
 
         debugger;
-        var horas = Horas.find({$and:[{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
+        var horas = Horas.find({$and:[{'asunto':{$exists:true}},{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
 
         var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
@@ -216,7 +217,7 @@ Template.resumenHorasPersonal.helpers({
 
     },
     total(){
-        var horas = Horas.find({$and:[{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
+        var horas = Horas.find({$and:[{'asunto':{$exists:true}},{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
 
         var groups = _(horas).groupBy(function (hora) {
             return hora.asunto.id;

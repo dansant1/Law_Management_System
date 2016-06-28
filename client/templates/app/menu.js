@@ -168,13 +168,22 @@ Template.cronometro2.events({
 				creador: {
 					id: Meteor.user()._id,
 					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+				},
+				responsable:{
+					id: Meteor.user()._id,
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido					
 				}
 			}
 
-			chronometer.reset();
-
 			return Meteor.call('agregarHoraSinDetalles',datos,function (err) {
+				debugger;
 				if(err) return Bert.alert('Error al momento de crear las horas','danger');
+				chronometer.reset();
+				if(!$(".boton-principal").hasClass("boton-play")){
+					$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+					$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
+				}
+
 				Bert.alert('Se creo las horas correctamente','success');
 				FlowRouter.go('/facturacion/horas')
 			})

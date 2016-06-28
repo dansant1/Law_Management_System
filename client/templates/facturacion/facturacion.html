@@ -65,10 +65,10 @@
                     Nuevo <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                <li class="persona agregar-hora"><a href="#">Hora</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>  
+                    <li class="persona agregar-hora"><a href="#">Hora</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
                 </ul>
             </div>
             <div class="btn-group">
@@ -169,7 +169,7 @@
                                 {{#if esAdministradoroEncargado}}
                                 <td>
                                     <h5 style="text-align: center; font-size: 14px; color: #34495e;">
-                                        {{this.precio}}
+                                        {{tipo_cambio}} {{this.precio}}
                                     </h5>
                                 </td>
                                 {{/if}}

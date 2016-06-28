@@ -56,11 +56,11 @@
     </a>
   </div>
 
-    
+
     {{>resumenDatosFacturacion}}
-      
-      
-   
+
+
+
 
 </template>
 
@@ -148,12 +148,12 @@
             <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
           </div>
         </div>
-        
+
       </div>
-     
+
       <div class="columna" id="sin-padding" style="min-height: 200px; border-bottom: none;">
         <div class="cuadro-total">
-          {{>resumenHorasPersonal}}      
+          {{>resumenHorasPersonal}}
         </div>
       </div>
     </div>
@@ -181,9 +181,11 @@
     <br><br>
 	<div class="lista-asuntos-reporte">
 		<h3 class="total">Tiempo total <span class="hora">{{total}}</span></h3>
-        {{#each horas}}
-		      <h4 style="padding-left: 5px;"><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}}h {{this.minutos}}m </span></h4>
-        {{/each}}
+        {{#if horas}}
+            {{#each horas}}
+    		      <h4><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}} h {{this.minutos}} m </span></h4>
+            {{/each}}
+        {{/if}}
 	</div>
   </div>
 </template>

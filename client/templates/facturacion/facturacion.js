@@ -4,6 +4,7 @@ Template.facturacion.onRendered(function(){
 	Session.set('filtro-hora',{})
 
 	self.autorun(function(){
+		debugger;
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
 		return self.subscribe('horasxmiembro',bufeteId,Meteor.userId())
 	})
@@ -36,6 +37,7 @@ Template.facturacion.helpers({
 		let query = {}
 
 		let $or = [
+			{bufeteId:Meteor.user().profile.bufeteId},
 			{'descripcion':buscador},
 			{'asunto.nombre':buscador},
 			{'asunto.id':{
@@ -113,6 +115,11 @@ Template.facturacion.helpers({
 	},
 	esAdministradoroEncargado(){
 		return Meteor.user().roles.bufete.indexOf("administrador")>=0||Meteor.user().roles.bufete.indexOf("encargado comercial")>=0;
+	},
+	tipo_cambio(){
+		debugger;
+		if(Asuntos.find({_id:this.asunto.id}).fetch()[0].facturacion.tipo_moneda == "soles") return "S/. "
+		return "$ "
 	}
 });
 

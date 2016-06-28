@@ -275,23 +275,63 @@ Meteor.methods({
 			let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
 
 			tarifa.miembros.some(function (miembro) {
-				if(miembro.id==datos.responsable.id)
-					return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda == "soles")? miembro.soles*datos.horas : (miembro.soles/cambio.cambio)*datos.horas).toFixed(2);
+				if(miembro.id==datos.responsable.id){
+					let costoxminuto,
+						costoxhora;
+					if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
+						costoxhora = miembro.soles*datos.horas;
+						costoxminuto = (miembro.soles/60)*datos.minutos;
+					}
+					else {
+						costoxhora = ((miembro.soles/cambio.cambio)*datos.horas).toFixed(2);
+						costoxminuto = ((miembro.soles/cambio.cambio)/60)*datos.minutos;
+					}
+
+					return costoxhora + costoxminuto;
+				}
 			})
 
 			if(!datos.precio){
 				let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
 				tarifa.roles.some(function (roles) {
+					let costoxminuto,
+					costoxhora;
 					if(user.roles.bufete.length==1)
-						if(user.roles.bufete[0]==roles.nombre)
-							return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+						if(user.roles.bufete[0]==roles.nombre){
+
+							if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
+								costoxhora = roles.soles*datos.horas;
+								costoxminuto = (roles.soles/60)*datos.minutos;
+							}
+							else {
+								costoxhora = ((roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+								costoxminuto = ((roles.soles/cambio.cambio)/60)*datos.minutos;
+							}
+
+							return datos.precio = Number(costoxhora) + Number(costoxminuto);
+
+							// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+
+						}
 					else {
-						if(user.roles.bufete[1]==roles.nombre)
-							return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+						if(user.roles.bufete[1]==roles.nombre){
+							if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
+								costoxhora = roles.soles*datos.horas;
+								costoxminuto = (roles.soles/60)*datos.minutos;
+							}
+							else {
+								costoxhora = ((roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+								costoxminuto = ((roles.soles/cambio.cambio)/60)*datos.minutos;
+							}
+
+							return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+						}
 					}
 				})
 			}
 			console.log(datos.precio);
+
+			datos.precio = datos.precio.toFixed(2)
 
 			// datos.precio = parseInt(datos.precio);
 			datos.horasFacturables = datos.horas;
@@ -341,7 +381,8 @@ Meteor.methods({
 			horas: String,
 			minutos:String,
 			// precio: String,
-			creador:Object
+			creador:Object,
+			responsable:Object
 		});
 
 
