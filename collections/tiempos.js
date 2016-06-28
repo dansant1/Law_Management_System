@@ -160,7 +160,8 @@ EsquemaGastos = new SimpleSchema({
   		type: String
   	},
 	administrativo:{
-		type: Boolean
+		type: Boolean,
+		optional:true
 	},
   	monto: {
     	type: Number,

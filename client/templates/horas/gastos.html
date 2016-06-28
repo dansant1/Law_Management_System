@@ -158,7 +158,11 @@
                     <li class="empresa miembros"><a href="#">Por miembros</a> </li>
           		</ul>
             </div>
-            <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca horas por descripcion, clientes o asunto...">
+			<select class="tipo-cambio select-bunqr" name="">
+				<option value="soles">Soles</option>
+				<option value="dolares">Dolares</option>
+			</select>
+            <input type="text" class="buscador-bunqr buscador-horas" style="width:48%" placeholder="Busca horas por descripcion, clientes o asunto...">
 
         </div>
 		<div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
@@ -212,7 +216,7 @@
 								 <td>
 									 {{#if this.monto}}
 										 <h5 style="text-align: center; font-size: 14px; color: #34495e;">
-											 S/ {{this.monto}}
+											 {{costo}}
 										 </h5>
 									 {{else}}
 										 <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
