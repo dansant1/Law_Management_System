@@ -88,10 +88,10 @@
 </template>
 
 <template name="itemMienbro">
-	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span>
+	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #f1c40f; background-color: #f1c40f; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
 </template>
 <template name="itemCliente">
-	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span>
+	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #e74c3c; background-color: #e74c3c; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.nombre this.apellido}}</span>
 </template>
 
 <template name="asuntosSidebarDashboard">
@@ -1627,23 +1627,10 @@
 
 
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">en {{this.asunto.nombre}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{this.etapa.nombre}}</p>
-				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> {{estaAsignado}} | {{dia}}</p>
-        <!--<a style="display: inline-block; margin-left: 8px; margin-right: 8px;">
-        <i class="glyphicon glyphicon-calendar"></i>
-        {{#if hayFecha this.vence}}
-          {{dia}}
-        {{else}}
-          <a class="agregar-fecha">Agregar fecha</a>
-        {{/if}}
-			</a> -->
+				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}</span> {{estaAsignado}} | {{dia}}</p>
+       
         {{/with}}
-      <!--  <a style="display: inline-block; margin-left: 8px;" class="adjuntar-archivo-tarea">
-        <i class="glyphicon glyphicon-paperclip"></i>
-        Adjuntar</a>
-        <a style="display: inline-block; margin-left: 8px;" href="/tareas/{{tareaId}}/f">
-        <i class="glyphicon glyphicon-fullscreen"></i>
-        Pantalla completa
-			</a> -->
+     
 
       </div>
       <div class="cuadro-tarea-comentarios" >
@@ -1653,7 +1640,7 @@
       <hr>
       {{#transition in="bounceIn" out="bounceOut"}}
         {{#each comentarios}}
-          <p style="font-weight: initial;"> <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">DD</span> <span style="font-weight: bold;">{{comentador}}</span> — <span style="color: #7f8c8d; font-weight: initial;">{{this.comentario}}</span></p>
+          <p style="font-weight: initial;"> <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.creador.nombre this.creador.apellido}}</span> <span style="font-weight: bold;">{{comentador}}</span> — <span style="color: #7f8c8d; font-weight: initial;">{{this.comentario}}</span></p>
         {{/each}}
       {{/transition}}
       </div>
@@ -1661,7 +1648,7 @@
     </div>
 
 		<div cstyle="display: block;" class="caja-comentario-tarea">
-			<span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; position: relative; bottom: 50px; font-weight: initial; padding-top: 5px; text-align: center; margin-left: 20px;">DD</span>
+			<span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; position: relative; bottom: 50px; font-weight: initial; padding-top: 5px; text-align: center; margin-left: 20px;">{{getFirstLettersOfName nombre apellido}}</span>
 			<textarea name="comentario"  placeholder="Escriba un comentario" style="border: none; font-family: 'Open Sans'; font-weight: initial; padding-left: 15px; display: inline-block; width: 80%;"></textarea>
 			<a class="btn nueva-tarea nuevo-evento azul-flat comentar" style="border-bottom: none; display: block; margin-left: 80px;">Comentar</a>
 		</div>
@@ -2580,9 +2567,16 @@
 
         {{#each archivos}}
           <div >
-            <i class="fa fa-file-o i-hover" style="color: #3498db; font-size: 14px;" aria-hidden="true"></i>
+          	{{#if isImage}}
+			 <i class="fa fa-file-o i-hover" style="color: #3498db; font-size: 14px;" aria-hidden="true"></i>
+            <a style="display: inline-block; width: 100px; font-size: 14px; font-weight: initial; padding-left: 5px; color: #3498db;" href="{{this.url download=true}}" target="_parent">{{this.metadata.nombre}}</a>
+            <img src="{{this.url}}" alt="{{this.metadata.nombre}}" style="min-width: 200px; min-height: 200px; max-width: 400px; max-height: 350px; box-shadow: inset 0px -1px 11px -2px rgba(0,0,0,0.75); border-radius: 4.5px; border: 1px solid #f1f1f1; display: block; ">
+            {{else}}
+            	<i class="fa fa-file-o i-hover" style="color: #3498db; font-size: 14px;" aria-hidden="true"></i>
             <a style="display: inline-block; width: 100px; font-size: 14px; font-weight: initial; padding-left: 5px; color: #3498db;" href="{{this.url download=true}}" target="_parent">{{this.metadata.nombre}}</a>
             <!--{{#FS.DeleteButton class="btn"}}Eliminar{{/FS.DeleteButton}} -->
+			{{/if}}
+            
           </div>
         {{/each}}
 
@@ -6039,15 +6033,15 @@
 
 
 <template name="charts">
-  <div class="cuadro-pie" style="display: inline-block; width: 52.6%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 30px;">
-    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px;">Ingresos vs Gastos</h4>
+  <div  style="display: inline-block; width: 96%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 0px;">
+    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Ingresos vs Gastos</h4>
     <select name="rangos" class="select-bunqr">
     	<option value="semana">Rango de tiempo semanal</option>
     	<option value="semana">Rango de tiempo mensual</option>
     	<option value="semana">Rango de tiempo anual</option>
     </select>
     <br>
-    <canvas id="myChart" width="475" height="220"></canvas>
+    <canvas id="myChart" width="625" height="300"></canvas>
   </div>
   <br>
 </template>
@@ -6501,7 +6495,7 @@
         </div>
     </div>
 
-    <div class="franja-filtros" style="padding-left: 18px;">
+    <div class="franja-filtros" style="padding-left: 4px;">
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
         </a>
@@ -6525,7 +6519,7 @@
         </a>
     </div>
 
-    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <div class="franja-filtros" style="margin-bottom: 0px;">
         <a href="/facturacion" class="menu-asunto-aim ">
             Resúmen
         </a>
@@ -6799,7 +6793,7 @@
         </div>
     </div>
 
-    <div class="franja-filtros" style="padding-left: 18px;">
+    <div class="franja-filtros" style="padding-left: 4px;">
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
         </a>
@@ -6823,7 +6817,7 @@
         </a>
     </div>
 
-    <div class="franja-filtros" style="margin-bottom: 2.5px;">
+    <div class="franja-filtros" style="margin-bottom: 0px;">
         <a href="/facturacion" class="menu-asunto-aim ">
             Resúmen
         </a>
