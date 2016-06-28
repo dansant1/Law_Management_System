@@ -1628,9 +1628,9 @@
 
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">en {{this.asunto.nombre}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{this.etapa.nombre}}</p>
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}</span> {{estaAsignado}} | {{dia}}</p>
-       
+
         {{/with}}
-     
+
 
       </div>
       <div class="cuadro-tarea-comentarios" >
@@ -2012,16 +2012,7 @@
 		<div class="progreso" style="padding-top: 15px;">
 
     	{{>botonNuevoTareas}}
-			<div class="btn-group">
-  			<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" style="background-color: white; color: #34495e; border-bottom: none;" aria-haspopup="true" aria-expanded="false" >
-    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
-  			</button>
- 	 		<ul class="dropdown-menu">
-    			<li><a href="#">Por fecha</a></li>
-    			<li><a href="#">Abiertos</a></li>
-   	 			<li><a href="#">Archivados</a></li>
-  			</ul>
-		</div>
+		
 
 		</div>
 
@@ -2576,7 +2567,7 @@
             <a style="display: inline-block; width: 100px; font-size: 14px; font-weight: initial; padding-left: 5px; color: #3498db;" href="{{this.url download=true}}" target="_parent">{{this.metadata.nombre}}</a>
             <!--{{#FS.DeleteButton class="btn"}}Eliminar{{/FS.DeleteButton}} -->
 			{{/if}}
-            
+
           </div>
         {{/each}}
 
