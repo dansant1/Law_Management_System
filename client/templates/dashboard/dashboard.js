@@ -3449,6 +3449,53 @@ Template.asuntoNuevoModal.helpers({
 
 });
 
+Template.miembrosxequipo.helpers({
+	miembros(){
+
+		return _(Equipos.find().fetch()[0].miembros).map(function (miembro) {
+			return {
+				id:miembro.id,
+				nombre: miembro.nombre,
+				telefono: Meteor.users.find({_id:miembro.id}).fetch()[0].profile.telefono,
+				email: Meteor.users.find({_id:miembro.id}).fetch()[0].emails[0].address,
+			}
+		});
+	},
+	email(){
+		return Meteor.user().emails[0].address;
+	},
+	miequipo(){
+		return Equipos.find().fetch()[0].nombre;
+	}
+
+})
+
+Template.miembrosxequipo.onCreated(function () {
+	let bufeteId = Meteor.user().profile.bufeteId;
+	let self = this;
+	self.autorun(function () {
+		self.subscribe('miequipo',FlowRouter.getParam('equipoId'))
+	})
+})
+
+Template.equipos.onCreated(function () {
+	let bufeteId = Meteor.user().profile.bufeteId;
+	let self = this;
+	self.autorun(function () {
+		self.subscribe('misequipos',bufeteId)
+	})
+
+})
+
+Template.equipos.helpers({
+	email(){
+		return Meteor.user().emails[0].address;
+	},
+	equipos(){
+		return Equipos.find()
+	}
+})
+
 Template.asuntoNuevoModal.events({
 	'click .agregar-cliente': function (event,template) {
 		Modal.show('clienteNuevoModal');

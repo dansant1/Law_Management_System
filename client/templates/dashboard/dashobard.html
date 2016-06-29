@@ -3909,6 +3909,14 @@
             Facturación
         </a>
     </div>
+	<div class="franja-filtros">
+		<a href="/clientes2" class="menu-asunto-aim asunto-item-activo">
+			Miembros
+		</a>
+		<a href="/equipo/equipos" class="menu-asunto-aim " style="margin-left: 0px;">
+			Equipos
+		</a>
+	</div>
 
 		<div class="franja-filtros">
 			<div class="progreso" style="padding-top: 0px;">
@@ -4082,6 +4090,309 @@
 
 </template>
 
+<template name="miembrosxequipo">
+	<!-- Menu -->
+	<div class="franja-progreso">
+		<div class="progreso">
+			<p>
+				{{email}}
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+				<a href="/equipo" >Equipo</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+				<a href="/equipo" >Equipos</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+				{{miequipo}}
+			</p>
+		</div>
+	</div>
+
+	<div class="franja-filtros" style="padding-left: 18px;">
+
+		<a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+			Actividad
+		</a>
+		<a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+			Calendario
+		</a>
+		<a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+			Tareas
+		</a>
+		<a href="/equipo" class="menu-asunto-aim  asunto-item-activo ">
+			Equipo
+		</a>
+		<a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+			Asuntos
+		</a>
+		<a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+			CRM
+		</a>
+				<a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+			Facturación
+		</a>
+	</div>
+	<div class="franja-filtros">
+		<a href="/equipo" class="menu-asunto-aim">
+			Miembros
+		</a>
+		<a href="/equipo/equipos" class="menu-asunto-aim asunto-item-activo " style="margin-left: 0px;">
+			Equipos
+		</a>
+	</div>
+
+		<div class="franja-filtros">
+			<div class="progreso" style="padding-top: 0px;">
+
+				<div class="btn-group">
+				   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+					 Nuevo <span class="caret"></span>
+				   </button>
+				   <ul class="dropdown-menu">
+					 <li class="nuevo-miembro"><a href="#">Miembro</a></li>
+					 <li class="nueva-area"><a href="#">Area</a></li>
+						 <li class="nuevo-equipo"><a href="#">Equipo</a></li>
+				   </ul>
+				 </div>
+			</div>
+
+			  <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca a los miembros de tu equipo por su nombre, apelido, area, rol, etc...">
+
+		</div>
+
+		<div class="table-wrapper">
+
+		<table cellspacing="0" id="tech-companies">
+		 	<thead>
+				<tr>
+
+					 <th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa fa-info" aria-hidden="true"></i>
+						</h3>
+					 </th>
+					 <th class="optional">
+						<h3 style="text-align: center;">
+							<i class="fa fa-mobile" aria-hidden="true"></i>
+						</h3>
+					 </th>
+					 <th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa f fa-envelope-o" aria-hidden="true"></i>
+						</h3>
+					 </th>
+
+					 <th>
+						<h3 style="text-align: center;">
+							<i class="fa fa-cog" aria-hidden="true"></i>
+						</h3>
+					 </th>
+				</tr>
+		 </thead>
+		 <tbody>
+		 {{#each miembros}}
+				<tr>
+					 <th>
+						<span class="fh-checkbox">
+							<label for="{{this._id}}"> {{this.nombre}} </label>
+						</span>
+					</th>
+					 <td style="text-align: center;">
+						<h5>
+							{{this.telefono}}
+						</h5>
+					 </td>
+					 <td style="text-align: center;">
+						<h5>
+							{{this.email}}
+						</h5>
+					 </td>
+
+					 <td style="text-align: center;">
+						<div class="btn-group">
+						  <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu">
+							<li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+						  </ul>
+						</div>
+					 </td>
+
+				</tr>
+				   {{/each}}
+		 </tbody>
+	</table>
+
+	</div><!-- /table-wrapper -->
+</template>
+
+<template name="equipos">
+    <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/equipo" >Equipo</a>
+				<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+				<a href="/equipo/equipos">Equipos</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 18px;">
+
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim  asunto-item-activo ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+				<a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+	<div class="franja-filtros">
+		<a href="/equipo" class="menu-asunto-aim">
+			Miembros
+		</a>
+		<a href="/equipo/equipos" class="menu-asunto-aim asunto-item-activo " style="margin-left: 0px;">
+			Equipos
+		</a>
+	</div>
+
+		<div class="franja-filtros">
+			<div class="progreso" style="padding-top: 0px;">
+
+				<div class="btn-group">
+				   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+				     Nuevo <span class="caret"></span>
+				   </button>
+				   <ul class="dropdown-menu">
+				     <li class="nuevo-miembro"><a href="#">Miembro</a></li>
+				     <li class="nueva-area"><a href="#">Area</a></li>
+						 <li class="nuevo-equipo"><a href="#">Equipo</a></li>
+				   </ul>
+				 </div>
+			</div>
+
+			  <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca a los miembros de tu equipo por su nombre, apelido, area, rol, etc...">
+
+		</div>
+
+		<div class="table-wrapper">
+
+	<table cellspacing="0" id="tech-companies">
+		 <thead>
+				<tr>
+
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+							<i class="fa fa-info" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+
+					 <th>
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-cog" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+				</tr>
+		 </thead>
+		 <tbody>
+		 {{#each equipos}}
+					<tr>
+						 <th>
+							<span class="fh-checkbox">
+		    					<label for="{{this._id}}"> {{this.nombre}} </label>
+							</span>
+							<a href="/equipo/equipos/e/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
+						 	<span class="co-name">
+						 	</span>
+					 	</th>
+						 <td style="text-align: center;">
+						 	<div class="btn-group">
+							  <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+							    <li role="separator" class="divider"></li>
+					            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+							  </ul>
+					  		</div>
+						 </td>
+					</tr>
+				   {{/each}}
+		 </tbody>
+	</table>
+
+	</div><!-- /table-wrapper -->
+
+
+		<!--	<div class="btn-group">
+		   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+		     Nuevo <span class="caret"></span>
+		   </button>
+		   <ul class="dropdown-menu">
+		     <li class="nuevo-miembro"><a href="#">Miembro</a></li>
+		     <li class="nueva-area"><a href="#">Area</a></li>
+		   </ul>
+		 </div> -->
+            <!-- <button type="button" class="btn dropdown-toggle nuevo-miembro nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
+                <i class="fa fa-plus"></i> Nuevo
+            </button> -->
+
+
+
+        <!--{{#each miembros}}
+            <div >
+                <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+                    <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+                    <a href="/equipo/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+                        <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span><br>
+                        <h5>Por {{this.autor}}</h5>
+                        <i class="glyphicon glyphicon-phone"></i>
+                        {{#if this.profile.telefono}}
+                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+                                {{this.profile.telefono}}
+                            </a>
+                        {{else}}
+                            <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+                                + Celular
+                            </a>
+                        {{/if}}
+
+                    </a>
+                    <div style="display: inline-block; padding-bottom: 25px;">
+
+                        <i class="glyphicon glyphicon-comment"></i>
+                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+                                {{emails}}
+                            </a>
+                    </div>
+                </div>
+
+            </div>
+
+        {{/each}} -->
+
+
+
+</template>
 
 <template name="contactos2">
   <!-- Menu -->

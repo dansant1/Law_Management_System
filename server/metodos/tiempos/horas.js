@@ -276,37 +276,23 @@ Meteor.methods({
 
 			tarifa.miembros.some(function (miembro) {
 				if(miembro.id==datos.responsable.id){
-					let costoxminuto,
-						costoxhora;
-					if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
-						costoxhora = miembro.soles*datos.horas;
-						costoxminuto = (miembro.soles/60)*datos.minutos;
-					}
-					else {
-						costoxhora = ((miembro.soles/cambio.cambio)*datos.horas).toFixed(2);
-						costoxminuto = ((miembro.soles/cambio.cambio)/60)*datos.minutos;
-					}
+					let costoxminuto, costoxhora;
+					costoxhora = miembro.soles*datos.horas;
+					costoxminuto = (miembro.soles/60)*datos.minutos;
 
-					return costoxhora + costoxminuto;
+					return datos.precio = Number(costoxhora) + Number(costoxminuto);
 				}
 			})
 
 			if(!datos.precio){
 				let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
 				tarifa.roles.some(function (roles) {
-					let costoxminuto,
-					costoxhora;
+					let costoxminuto, costoxhora;
 					if(user.roles.bufete.length==1)
 						if(user.roles.bufete[0]==roles.nombre){
 
-							if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
-								costoxhora = roles.soles*datos.horas;
-								costoxminuto = (roles.soles/60)*datos.minutos;
-							}
-							else {
-								costoxhora = ((roles.soles/cambio.cambio)*datos.horas).toFixed(2);
-								costoxminuto = ((roles.soles/cambio.cambio)/60)*datos.minutos;
-							}
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
 
 							return datos.precio = Number(costoxhora) + Number(costoxminuto);
 
@@ -315,15 +301,8 @@ Meteor.methods({
 						}
 					else {
 						if(user.roles.bufete[1]==roles.nombre){
-							if(asunto.facturacion.tarifa.tipo_moneda=="soles"){
-								costoxhora = roles.soles*datos.horas;
-								costoxminuto = (roles.soles/60)*datos.minutos;
-							}
-							else {
-								costoxhora = ((roles.soles/cambio.cambio)*datos.horas).toFixed(2);
-								costoxminuto = ((roles.soles/cambio.cambio)/60)*datos.minutos;
-							}
-
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
 							return datos.precio =  Number(costoxhora) + Number(costoxminuto);
 						}
 					}

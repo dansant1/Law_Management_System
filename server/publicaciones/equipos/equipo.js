@@ -11,6 +11,16 @@ Meteor.publish('equipo', function (bufeteId) {
 
 });
 
+Meteor.publish('miequipo',function (equipoId) {
+	check(equipoId,String)
+	if(this.userId){
+		return Equipos.find({_id:equipoId})
+	}else {
+		this.stop();
+		return;
+	}
+})
+
 Meteor.publish('misequipos',function (bufeteId) {
 	check(bufeteId,String)
 	if (this.userId) {
