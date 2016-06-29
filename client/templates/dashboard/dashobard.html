@@ -203,7 +203,8 @@
 	                    <div class="col-md-12">
 	                        <label>¿Que equipo trabajara en este asunto?</label>
 
-							<select class="form-control responsable">
+							<select class="form-control responsable" name="equipo">
+								<option value="">Todos</option>
 							   {{#each equipos}}
 									<option value="{{this._id}}">{{this.nombre}}</option>
 								{{/each}}
@@ -248,11 +249,11 @@
 					</div>
 
 					<div class="panel-group">
-		  			  <a data-toggle="collapse" href="#collapse2">
+		  			  <a data-toggle="collapse" href="#collapse6">
 		  				Agregar configuracion de facturacion inicial
 		  				<i class="fa fa-plus-circle" aria-hidden="true"></i>
 		  			  </a>
-		  			  <div id="collapse2" class="panel-collapse collapse">
+		  			  <div id="collapse6" class="panel-collapse collapse">
 		  				<br>
 		  				  <div class="row">
 		  					  <div class="col-md-6">
@@ -2000,7 +2001,7 @@
 		<div class="progreso" style="padding-top: 15px;">
 
     	{{>botonNuevoTareas}}
-		
+
 
 		</div>
 

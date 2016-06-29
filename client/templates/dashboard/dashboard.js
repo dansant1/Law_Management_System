@@ -3465,8 +3465,9 @@ Template.asuntoNuevoModal.events({
 
 			asunto.caratula = template.find( '[name="caratula"]' ).value;
 			asunto.carpeta	= template.find( '[name="carpeta"]' ).value;
+			asunto.equipoId = template.find('[name="equipo"]').value;
 
-			asunto.abogados = [];
+			// asunto.abogados = [];
 			if(template.find("[name='ruc']").value!=""
 				&& template.find("[name='direccion']").value!=""
 			 	&& template.find("[name='telefono-facturacion']").value != ""
@@ -3505,12 +3506,12 @@ Template.asuntoNuevoModal.events({
 				}
 
 
-			$('#integrantes :checked').each(function() {
-       			asunto.abogados.push({
-       				nombre: $(this).next("label").text(),
-       				id: $(this).val()
-       			});
-     		});
+			// $('#integrantes :checked').each(function() {
+      //  			asunto.abogados.push({
+      //  				nombre: $(this).next("label").text(),
+      //  				id: $(this).val()
+      //  			});
+     	// 	});
 
 
 			asunto.area		= $( ".area option:selected" ).text();

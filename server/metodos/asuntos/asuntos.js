@@ -13,13 +13,14 @@ Meteor.methods({
 			cliente: Object,
 			caratula: String,
 			carpeta: String,
-			abogados: [Object],
+			// abogados: [Object],
 			area: String,
 			juzgado: String,
 			observaciones: String,
 			inicio: String,
 			responsable: Object,
 			bufeteId: String,
+			equipoId: String
 
 		}
 
@@ -31,27 +32,27 @@ Meteor.methods({
 			asuntos.createdAt = new Date();
 
 			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
-			console.log(asuntos.cliente.id);
-			console.log(asuntos.cliente);
 			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
-			console.log(cliente);
-			console.log(cliente.facturacion);
+			console.log(asuntos.equipoId);
+			asuntos.abogados = [];
+			if(asuntos.equipoId) asuntos.abogados = Equipos.find({_id:asuntos.equipoId}).fetch()[0].miembros;
+			else {
+				Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},
+						{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
+							asuntos.abogados.push(
+								{
+									id:cliente._id,
+									nombre: cliente.profile.nombre + " " + cliente.profile.apellido
+								}
+						);
+				});
+			}
 			if(!asuntos.facturacion)
 				if(cliente.facturacion) asuntos.facturacion = cliente.facturacion
 				else return{
 					error:'No existen facturacion para asignar intentelo nuevamente'
 				}
 
-			asuntos.abogados = [];
-			Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},
-					{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
-						asuntos.abogados.push(
-							{
-								id:cliente._id,
-								nombre: cliente.profile.nombre + " " + cliente.profile.apellido
-							}
-					);
-			});
 
 
 			if (asuntos.inicio !== "") {
