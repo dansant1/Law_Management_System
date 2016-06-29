@@ -6,7 +6,7 @@ Template.gastos.helpers({
       return Meteor.user().emails[0].address
     },
     costo(){
-        if(Session.get('tipo-cambio')!="dolares") return "S/."+ this.monto;
+        if(Session.get('tipo-cambio')!="dolares") return "S/ "+ this.monto;
         return "$ " + (this.monto/Cambio.find().fetch()[0].cambio).toFixed(2);
 
     }
