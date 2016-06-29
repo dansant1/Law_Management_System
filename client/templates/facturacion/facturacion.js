@@ -35,15 +35,30 @@ Template.facturacion.helpers({
 		})
 
 		let query = {}
+		let $or;
+		
+		if(Session.get('buscador-valor')!=""){
 
-		let $or = [
-			{bufeteId:Meteor.user().profile.bufeteId},
-			{'descripcion':buscador},
-			{'asunto.nombre':buscador},
-			{'asunto.id':{
-				$in:_asuntosId
-			}}
-		]
+			$or = [
+			// {bufeteId:Meteor.user().profile.bufeteId},
+				{'descripcion':buscador},
+				{'asunto.nombre':buscador},
+				{'asunto.id':{
+					$in:_asuntosId
+				}}
+			]
+		}
+		else {
+			$or = [
+				{bufeteId:Meteor.user().profile.bufeteId},
+				{'descripcion':buscador},
+				{'asunto.nombre':buscador},
+				{'asunto.id':{
+					$in:_asuntosId
+				}}
+			]
+
+		}
 
 		query.$or = $or;
 

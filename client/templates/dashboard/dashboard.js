@@ -1,5 +1,5 @@
 UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
-		
+
 		if (apellido === undefined) {
 			apellido = "";
 		}
@@ -578,6 +578,12 @@ Template.tareaItemCuadro.helpers({
 })
 
 Template.tareas2.events({
+	'click .agregar-etapa'(){
+		Modal.show('agregarEtapaModal')
+	},
+	'click .agregar-equipo'(){
+		Modal.show('crearEquipoModal')
+	},
 	'click .abiertos'(){
 		Session.set('tipo-tarea',true)
 	},
@@ -1049,7 +1055,7 @@ Template.asuntos2.onCreated( function () {
    	let id = Meteor.user()._id;
 	let bufeteId = Meteor.user().profile.bufeteId;
     self.subscribe('asuntosxequipo', id,bufeteId);
-    
+
 });
 
 Template.asuntos2.events({
@@ -1609,7 +1615,7 @@ Template.cuadroSubTareas.events({
 	}
 });
 
-// Funcion para convertir string con tildes a string normal 
+// Funcion para convertir string con tildes a string normal
  var defaultDiacriticsRemovalMap = [
         {'base':'A', 'letters':'\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F'},
         {'base':'AA','letters':'\uA732'},
@@ -1709,10 +1715,10 @@ Template.cuadroSubTareas.events({
 
     // "what?" version ... http://jsperf.com/diacritics/12
     function removeDiacritics (str) {
-        return str.replace(/[^\u0000-\u007E]/g, function(a){ 
-           return diacriticsMap[a] || a; 
+        return str.replace(/[^\u0000-\u007E]/g, function(a){
+           return diacriticsMap[a] || a;
         });
-    }    
+    }
 // Fin de la funcion para convertir string con tildes a string normal
 
 function subirArchivoTarea (event, template) {
@@ -1750,7 +1756,7 @@ function subirArchivoTarea (event, template) {
             DocumentosTareas.insert(doc, function (err, fileObj) {
               if (err) {
                 Bert.alert('Hubo un problema', 'warning');
-              } else {          
+              } else {
                 $('#doc-modal').modal('hide');
                 Bert.alert('Subiste el archivo', 'success');
               }
@@ -3419,6 +3425,7 @@ Template.asuntoNuevoModal.onCreated(function () {
     	self.subscribe('equipo', bufeteId);
 		self.subscribe('clientes', bufeteId);
 		self.subscribe('tarifas',bufeteId)
+		self.subscribe('misequipos',bufeteId)
    });
 });
 
@@ -3427,7 +3434,7 @@ Template.asuntoNuevoModal.onRendered( () => {
 });
 
 Template.asuntoNuevoModal.helpers({
-	mienbros: () => {
+	miembros: () => {
 		return Meteor.users.find();
 	},
 	clientes: () => {
@@ -3435,6 +3442,9 @@ Template.asuntoNuevoModal.helpers({
 	},
 	tarifas(){
 		return Tarifas.find();
+	},
+	equipos(){
+		return Equipos.find();
 	}
 
 });

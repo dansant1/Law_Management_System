@@ -11,6 +11,17 @@ Meteor.publish('equipo', function (bufeteId) {
 
 });
 
+Meteor.publish('misequipos',function (bufeteId) {
+	check(bufeteId,String)
+	if (this.userId) {
+		return Equipos.find();
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
 Meteor.publish('miembroDelEquipo', function (miembroId) {
 
 	check(miembroId, String);
