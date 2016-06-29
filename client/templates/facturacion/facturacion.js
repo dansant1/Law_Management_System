@@ -5,6 +5,7 @@ Template.facturacion.onRendered(function(){
 
 	self.autorun(function(){
 		debugger;
+		self.subscribe('cambios',bufeteId)
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
 		return self.subscribe('horasxmiembro',bufeteId,Meteor.userId())
 	})
@@ -18,7 +19,10 @@ Template.facturacion.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
-
+	precio(){
+        if(Session.get('tipo-cambio')!="dolares") return "S/ "+ this.precio;
+        return "$ " + (this.precio/Cambio.find().fetch()[0].cambio).toFixed(2);
+	},
 	moneda(){
 		debugger;
 		let asunto = Asuntos.find({_id:this.asunto.id}).fetch[0];
@@ -36,7 +40,7 @@ Template.facturacion.helpers({
 
 		let query = {}
 		let $or;
-		
+
 		if(Session.get('buscador-valor')!=""){
 
 			$or = [
@@ -164,6 +168,9 @@ Template.facturacion.events({
 	'click .agregar-asunto'(){
 		Modal.show('agregarAsuntoHorasModal',this)
 	},
+	'change .tipo-cambio'(event,template) {
+        return Session.set('tipo-cambio',event.target.value)
+    },
 	'click .todos'(){
 		Session.set('asunto-hora',undefined);
 		Session.set('filtro-hora',{})

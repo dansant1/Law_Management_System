@@ -71,9 +71,13 @@
                     <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
                 </ul>
             </div>
-            <div class="btn-group">
-          		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
-           					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
+            <select class="tipo-cambio select-bunqr" style="width: 10%; margin-top: 10px; margin-bottom: 0; height: 35px;" name="">
+                <option value="soles">Soles</option>
+                <option value="dolares">Dólares</option>
+            </select>
+            <div class="btn-group" >
+          		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
+   					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
           		</button>
           		<ul class="dropdown-menu">
                     <li class="empresa todos"><a href="#" style="color: #9b59b6;">Todos</a></li>
@@ -89,7 +93,7 @@
                     {{/if}}
           		</ul>
             </div>
-            <input type="text" class="buscador-bunqr buscador-horas" placeholder="Busca horas por descripcion, clientes o asunto...">
+            <input type="text" class="buscador-bunqr buscador-horas" style="width:60%" placeholder="Busca horas por descripcion, clientes o asunto...">
 
         </div>
 
@@ -171,7 +175,7 @@
                                 {{#if esAdministradoroEncargado}}
                                 <td>
                                     <h5 style="text-align: center; font-size: 14px; color: #34495e;">
-                                        {{tipo_cambio}} {{this.precio}}
+                                        {{precio}}
                                     </h5>
                                 </td>
                                 {{/if}}
