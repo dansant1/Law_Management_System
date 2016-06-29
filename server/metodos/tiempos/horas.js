@@ -429,7 +429,7 @@ Meteor.methods({
 
 
 			datos.monto = parseInt(datos.monto);
-			datos.administrativo = false;
+			datos.administrativo = true;
 			datos.creadorId = this.userId;
 			datos.createdAt = new Date();
 

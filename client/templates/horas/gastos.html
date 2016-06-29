@@ -212,6 +212,9 @@
                     <li class="empresa asuntos"><a href="#">Por asunto</a></li>
                     <li class="empresa cliente"><a href="#">Por cliente</a></li>
                     <li class="empresa miembros"><a href="#">Por miembros</a> </li>
+					<li class="divider"></li>
+					<li class="gastos-no-administrativos"> <a href="#">Gastos</a> </li>
+					<li class="gastos-administrativos"> <a href="#">Gastos administrativos</a> </li>
           		</ul>
             </div>
 
@@ -227,11 +230,13 @@
 										<i class="fa fa-folder" aria-hidden="true"></i>
 									</h3>
 								 </th>
+								 {{#if tipo_gasto}}
 								 <th class="essential">
 									<h3 style="text-align: center;">
 										<i class="fa fa-briefcase" aria-hidden="true"></i>
 									</h3>
 								 </th>
+								 {{/if}}
 								<th class="essential">
 									<h3 style="text-align: center;">
 										<i class="fa fa-money" aria-hidden="true"></i>
@@ -256,7 +261,8 @@
 										<h5 style="color: #7f8c8d;"> <a class="agregar-descripcion" href="#">+ Descripcion</a> </h5>
 									 {{/if}}
 								 </th>
-								<td>
+								 {{#if tipo_gasto}}
+								 <td>
 									{{#if this.asunto.nombre}}
 										<h5 style="text-align: center; font-size: 14px; color: #34495e;">
 											{{this.asunto.nombre}}
@@ -265,6 +271,7 @@
 										<h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
 									{{/if}}
 								 </td>
+								 {{/if}}
 								 <td>
 									 {{#if this.monto}}
 										 <h5 style="text-align: center; font-size: 14px; color: #34495e;">
