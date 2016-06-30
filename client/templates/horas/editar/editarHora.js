@@ -9,14 +9,14 @@ Template.editarHoraModal.onRendered(function () {
     debugger;
 
     var picker = new Pikaday({ field: document.getElementById('datepicker') });
-    Session.get('asunto-select-id',hora.asunto.id)
+    if(hora.asunto) Session.set('asunto-select-id',hora.asunto.id)
 
     $(template.find("#tarea-select")).prop("checked",hora.esTarea);
     if(hora.esTarea) $(template.find(".buscar-tarea")).removeClass("hide")
-    template.find("[name='descripcion']").value=hora.descripcion;
+    if(hora.descripcion!=undefined) template.find("[name='descripcion']").value=hora.descripcion;
     template.find("[name='fecha']").value= formatearFecha(hora.fecha);
     template.find("[name='horas']").value= hora.horas;
-    $(template.find("[name='asunto'] option[value='"+ hora.asunto.id +"']")).prop('select',true);
+    if(hora.asunto) $(template.find("[name='asunto'] option[value='"+ hora.asunto.id +"']")).prop('select',true);
     $(template.find("[name='responsable'] option[value='"+ hora.responsable.id +"']")).prop('selected',true);
     template.find("[name='minutos']").value=hora.minutos;
 
@@ -54,8 +54,8 @@ Template.editarHoraModal.events({
 		}
 
 		datos.responsable = {
-			nombre: $( ".responsable option:selected" ).text(),
-			id: $( ".responsable" ).val()
+			nombre: $(template.find( ".responsable option:selected" )).text(),
+			id: $(template.find( ".responsable" )).val()
 		}
 
 		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "") {

@@ -365,7 +365,7 @@ Meteor.methods({
 		check(datos,Object)
 		check(_horaId,String)
 
-
+		console.log('entro aqui');
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
 			//  Tareas.insert({
@@ -416,7 +416,7 @@ Meteor.methods({
 
 			if(!datos.precio){
 				let user = Meteor.users.findOne({_id:datos.responsable.id});
-				// console.log("[USUARIO]",user);
+				console.log("[USUARIO]",user);
 				tarifa.roles.some(function (roles) {
 					let costoxminuto, costoxhora;
 					console.log("[ROL T]",user.roles.bufete.length);
@@ -509,6 +509,7 @@ Meteor.methods({
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.fecha = new Date();
 
+
 			datos.horas = parseInt(datos.horas);
 			datos.minutos = parseInt(datos.minutos)
 			// datos.precio = parseInt(datos.precio);
@@ -541,14 +542,70 @@ Meteor.methods({
 		}
 
 	},
-	'actualizarAsunto':function (datos) {
-		check(datos,Object)
+	'actualizarAsunto':function (_datos) {
+		check(_datos,Object)
 
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
-			Horas.update({_id:datos.id},{$set:{
-				asunto:datos.asunto
+			Horas.update({_id:_datos.id},{$set:{
+				asunto:_datos.asunto
 			}})
+
+			let asunto = Asuntos.findOne({_id:_datos.asunto.id});
+			// console.log(asunto);
+
+			let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id});
+			let cambio = Cambio.findOne({bufeteId:_datos.bufeteId})
+			let datos = Horas.findOne({_id:_datos.id});
+
+			console.log("[ID RESPONSABLE] "+ datos.responsable.id);
+			console.log("[TARIFA] ",tarifa._id);
+			tarifa.miembros.some(function (miembro) {
+				if(miembro.id==datos.responsable.id){
+					let costoxminuto, costoxhora;
+					costoxhora = miembro.soles*datos.horas;
+					costoxminuto = (miembro.soles/60)*datos.minutos;
+
+					return datos.precio = Number(costoxhora) + Number(costoxminuto);
+				}
+			})
+
+			if(!datos.precio){
+				let user = Meteor.users.findOne({_id:datos.responsable.id});
+				// console.log("[USUARIO]",user);
+				tarifa.roles.some(function (roles) {
+					let costoxminuto, costoxhora;
+					console.log("[ROL T]",user.roles.bufete.length);
+					if(user.roles.bufete.length==1){
+
+						if(user.roles.bufete[0]==roles.nombre){
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+
+							return datos.precio = Number(costoxhora) + Number(costoxminuto);
+							// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+						}
+					}
+					else {
+						console.log("[ROLE]",user.roles.bufete[1]);
+						if(user.roles.bufete[1]==roles.nombre){
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+							return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+						}
+					}
+				})
+			}
+			// console.log("[HORA ID] " + _horaId);
+			console.log("[PRECIO] " +datos.precio);
+
+			datos.precio = datos.precio.toFixed(2)
+			console.log('SE ESTA GUARDANDO');
+			Horas.update({_id:datos._id},{
+				$set:{
+					precio: datos.precio
+				}
+			})
 
 			calcularTotal(datos)
 

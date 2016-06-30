@@ -483,6 +483,7 @@ Template.agregarHoras.onCreated(function () {
 
 Template.agregarHoras.helpers({
 	asunto: () => {
+		Session.set('asunto-select-id',Asuntos.findOne({})._id);
 		return Asuntos.find({});
 	},
 	responsable: () => {
