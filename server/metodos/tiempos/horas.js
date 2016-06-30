@@ -352,6 +352,15 @@ Meteor.methods({
 			return;
 		}
 	},
+	'eliminarHora':function (horaId) {
+		check(horaId,String);
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+			Horas.remove({_id:horaId})
+		}
+		else {
+			return
+		}
+	},
 	'actualizarHora':function (_horaId,datos) {
 		check(datos,Object)
 		check(_horaId,String)

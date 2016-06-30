@@ -65,22 +65,11 @@
 	<div>
 
 		<div class="franja-filtros" >
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
-                    Nuevo <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                <li class="persona agregar-hora"><a href="#">Hora</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
-				<li class="empresa agregar-gasto-administrativo"><a href="#">Gasto administrativo</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
-                <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
-                </ul>
-            </div>
-						<select class="tipo-cambio select-bunqr" style="width: 10%; margin-top: 10px; margin-bottom: 0; height: 35px;" name="">
-							<option value="soles">Soles</option>
-							<option value="dolares">Dólares</option>
-						</select>
+            {{>menuBotonesFacturacion}}
+			<select class="tipo-cambio select-bunqr" style="width: 10%; margin-top: 10px; margin-bottom: 0; height: 35px;" name="">
+				<option value="soles">Soles</option>
+				<option value="dolares">Dólares</option>
+			</select>
             <div class="btn-group">
           		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
            					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>

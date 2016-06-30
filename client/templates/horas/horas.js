@@ -330,13 +330,23 @@ Template.facturacion.helpers({
 	}
 });
 
-Template.facturacion.events({
-	'click .agregar-hora'(){
-		Modal.show('agregarHoras')
-	},
+Template.menuBotonesFacturacion.events({
 	'click .agregar-gasto'(){
 		Modal.show('agregarGasto')
 	},
+	'click .agregar-hora'(){
+		Modal.show('agregarHoras')
+	},
+	'click .agregar-gasto-administrativo': function (event,template) {
+        Modal.show('agregarGastoAdministrativo')
+    },
+	'click .agregar-tipo-cambio'(){
+		Modal.show('agregarTipoCambio')
+	}
+
+})
+
+Template.facturacion.events({
 	'click .agregar-descripcion'(){
 		Modal.show('agregarDescripcionHorasModal',this);
 	},
@@ -367,6 +377,35 @@ Template.facturacion.events({
 		debugger;
 		Session.set('hora-id',$(event.target).data('id'));
 		Modal.show('editarHoraModal',this)
+	},
+	'click .eliminar-hora'(event,template){
+		debugger;
+		swal({  title: "¿Seguro que quieres eliminar esta hora?",
+				text: "Esta hora ya no estara disponible para el resto de tu equipo",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#e74c3c",
+				confirmButtonText: "Si, eliminar hora",
+				cancelButtonText: "No, cancelar",
+				closeOnConfirm: false
+			},
+			function() {
+				let horaId = $(event.target).data('id');
+				Meteor.call('eliminarHora',horaId,function (err) {
+					if(err) return Bert.alert('Hubo un error al momento de eliminar','danger');
+					swal('Hora eliminada','La hora se elimino correctamente','success')
+				})
+				/*let asuntoId = FlowRouter.getParam('asuntoId');
+				Meteor.call('cerrarAsunto', asuntoId, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentalo', 'warning');
+					} else {
+						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
+					}
+
+				}); */
+				swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
+			});
 	},
 	'click .hoy'(){
 		var mañana = new Date()
@@ -447,7 +486,8 @@ Template.agregarHoras.helpers({
 		return Asuntos.find({});
 	},
 	responsable: () => {
-		return Meteor.users.find({});
+
+		return Asuntos.findOne({_id:Session.get('asunto-select-id')}).abogados;
 	},
 	tareasHoras(){
 		return Tareas.find({horas:{$exists:false}}).fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
@@ -471,6 +511,9 @@ Template.agregarHoras.events({
 			$(template.find(".buscar-tarea")).addClass('hide')
 		}
 
+	},
+	'change [name="asunto"]'(event,template){
+		Session.set('asunto-select-id',event.target.value);
 	},
 	'submit form': function (event, template) {
 		event.preventDefault();

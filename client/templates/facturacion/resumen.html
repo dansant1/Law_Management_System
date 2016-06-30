@@ -66,17 +66,7 @@
 
 <template name="resumenDatosFacturacion">
   <div class="franja-filtros">
-    <div class="btn-group">
-        <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
-            Nuevo <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-        <li class="persona agregar-hora"><a href="#">Hora</a></li>
-        <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
-        <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
-        <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
-        </ul>
-    </div>
+    {{> menuBotonesFacturacion  }}
   </div>
   <div class="reportes-facturacion">
     <div class="fila">

@@ -675,7 +675,7 @@
 
                             <div class="icon">
                                 <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
-                                <input class="company" type="text" name="fecha" id="datepicker">
+                                <input class="company" type="text" name="fecha" id="datepicker" readonly>
                             </div>
 
                             <div class="icon">
@@ -751,7 +751,7 @@
 
                             <div class="icon">
                                 <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
-                                <input class="company" type="text" name="fecha" id="datepicker1">
+                                <input class="company" type="text" name="fecha" id="datepicker1" readonly>
                             </div>
 
                             <div class="icon">
@@ -1469,7 +1469,7 @@
                         <fieldset>
                             <div class="icon">
                                 <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
-                                <input class="company" type="text" name="fecha" id="datepicker4">
+                                <input class="company" type="text" name="fecha" id="datepicker4" readonly>
                             </div>
                         </fieldset>
                     </form>
@@ -1496,7 +1496,7 @@
                         <fieldset>
                             <div class="icon">
                                 <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
-                                <input class="company" type="text" name="fecha" id="datepicker4">
+                                <input class="company" type="text" name="fecha" id="datepicker4" readonly>
                             </div>
                         </fieldset>
                     </form>
@@ -6833,18 +6833,7 @@
     <div>
        <div class="sidebar-vertical-blanco">
 
-        <div class="btn-group">
-          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-            Nuevo <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
-            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
-            <li class="empresa"><a href="#">+ Cobro</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-            <li class="empresa"><a href="/facturacion/cambio/nuevo">+ Tipo de cambio</a></li>
-          </ul>
-        </div>
+        {{> menuBotonesFacturacion}}
 
 
 

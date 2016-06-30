@@ -3,18 +3,21 @@ Template.editarHoraModal.onCreated(function () {
 });
 
 
-
 Template.editarHoraModal.onRendered(function () {
-    let horaId = this._id;
     let template = this;
     let hora = Horas.findOne({_id:Session.get('hora-id')})
     debugger;
 
+    var picker = new Pikaday({ field: document.getElementById('datepicker') });
+    Session.get('asunto-select-id',hora.asunto.id)
+
+    $(template.find("#tarea-select")).prop("checked",hora.esTarea);
+    if(hora.esTarea) $(template.find(".buscar-tarea")).removeClass("hide")
     template.find("[name='descripcion']").value=hora.descripcion;
     template.find("[name='fecha']").value= formatearFecha(hora.fecha);
     template.find("[name='horas']").value= hora.horas;
-    $(template.find("[name='responsable'] option[value='"+ hora.responsable.id +"']")).prop('selected',true);
     $(template.find("[name='asunto'] option[value='"+ hora.asunto.id +"']")).prop('select',true);
+    $(template.find("[name='responsable'] option[value='"+ hora.responsable.id +"']")).prop('selected',true);
     template.find("[name='minutos']").value=hora.minutos;
 
 })
@@ -68,7 +71,20 @@ Template.editarHoraModal.events({
 		} else {
 			Bert.alert('Completa los datos, y luego vuelve a intentarlo', 'warning');
 		}
-    }
+    },
+    'change #tarea-select'(event,template){
+		if($(event.target).is(":checked")){
+			$(template.find(".descripcion-tarea")).addClass('hide');
+			$(template.find(".buscar-tarea")).removeClass('hide')
+		}else {
+			$(template.find(".descripcion-tarea")).removeClass('hide');
+			$(template.find(".buscar-tarea")).addClass('hide')
+		}
+
+	},
+    'change [name="asunto"]'(event,template){
+		Session.set('asunto-select-id',event.target.value);
+	}
 })
 
 Template.editarHoraModal.helpers({
@@ -76,6 +92,6 @@ Template.editarHoraModal.helpers({
         return Asuntos.find();
     },
     responsable(){
-        return Meteor.users.find();
+        return Asuntos.findOne({_id:Session.get('asunto-select-id')}).abogados;
     }
 })

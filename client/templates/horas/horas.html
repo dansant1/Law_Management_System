@@ -21,6 +21,21 @@
 
 </template>
 
+<template name="menuBotonesFacturacion">
+	<div class="btn-group">
+		<button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
+			Nuevo <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li class="persona agregar-hora"><a href="#">Hora</a></li>
+			<li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
+			<li class="empresa agregar-gasto-administrativo"><a href="#">Gasto Administrativo</a></li>
+			<li class="empresa"><a href="/facturacion/tarifas/nuevo">Tarifa</a></li>
+			<li class="empresa agregar-tipo-cambio"><a href="#">Tipo de cambio</a></li>
+		</ul>
+	</div>
+</template>
+
 <template name="facturacion">
 	<!-- Menu -->
     <div class="franja-progreso">
@@ -83,17 +98,7 @@
 
 
 		<div class="franja-filtros" >
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
-                    Nuevo <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li class="persona agregar-hora"><a href="#">Hora</a></li>
-                    <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
-                    <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
-                    <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
-                </ul>
-            </div>
+			{{> menuBotonesFacturacion}}
             <select class="tipo-cambio select-bunqr" style="width: 10%; margin-top: 10px; margin-bottom: 0; height: 35px;" name="">
                 <option value="soles">Soles</option>
                 <option value="dolares">Dólares</option>
@@ -211,7 +216,7 @@
                                           <ul class="dropdown-menu">
                                             <li class="editar-hora"  ><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+                                            <li class="eliminar-hora"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
                                           </ul>
                                         </div>
                                     </h3>
@@ -468,13 +473,13 @@
 
 						<div class="icon">
 		    				<label class="cd-label" for="cd-company">Fecha</label>
-							<input class="company" type="text" name="fecha" id="datepicker">
+							<input class="company" type="text" name="fecha" id="datepicker" readonly>
 		    			</div>
 
 						<div class="icon">
 							<label class="cd-label" for="cd-email">Asunto</label>
 							<p class="cd-select icon">
-								<select class="budget asunto">
+								<select class="budget asunto" name="asunto">
 									{{#each asunto}}
 									<option value="{{_id}}">{{caratula}}</option>
 									{{/each}}
@@ -487,7 +492,7 @@
 							<p class="cd-select icon">
 								<select class="budget responsable">
 									{{#each responsable}}
-									<option value="{{_id}}">{{profile.nombre}} {{profile.apellido}}</option>
+									<option value="{{this.id}}">{{this.nombre}}</option>
 									{{/each}}
 								</select>
 							</p>
