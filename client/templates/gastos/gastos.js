@@ -14,6 +14,9 @@ Template.gastos.helpers({
     }
 })
 
+
+
+
 Template.gastos.onCreated(function () {
     let self=this;
     let bufeteId = Meteor.user().profile.bufeteId;

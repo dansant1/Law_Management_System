@@ -21,6 +21,212 @@
 
 </template>
 
+<template name="facturacion">
+	<!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion" > Facturación</a>
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion/horas" > Horas</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 4px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 0px;">
+         <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+	<div>
+
+
+		<div class="franja-filtros" >
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px; width: 90px; border-bottom: none; margin-top: 15px;">
+                    Nuevo <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="persona agregar-hora"><a href="#">Hora</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Tarifa</a></li>
+                    <li class="empresa agregar-gasto"><a href="#">Tipo de cambio</a></li>
+                </ul>
+            </div>
+            <select class="tipo-cambio select-bunqr" style="width: 10%; margin-top: 10px; margin-bottom: 0; height: 35px;" name="">
+                <option value="soles">Soles</option>
+                <option value="dolares">Dólares</option>
+            </select>
+            <div class="btn-group" >
+          		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
+   					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
+          		</button>
+          		<ul class="dropdown-menu">
+                    <li class="empresa todos"><a href="#" style="color: #9b59b6;">Todos</a></li>
+                    <li class="empresa hoy"><a href="#" style="color: #9b59b6;">Hoy</a></li>
+                    <li class="empresa ayer"><a href="#" style="color: #2ecc71;">Ayer</a></li>
+                    <li class="empresa semana"><a href="#" style="color: #e74c3c;">Esta semana</a></li>
+                    <li class="empresa mes"><a href="#" style="color: #e74c3c;">Este mes</a></li>
+                    <li class="divider"></li>
+                    <li class="empresa asuntos"><a href="#">Por asunto</a></li>
+                    <li class="empresa cliente"><a href="#">Por cliente</a></li>
+                    {{#if esAdministradoroEncargado}}
+                        <li class="empresa miembros"><a href="#">Por miembros</a> </li>
+                    {{/if}}
+          		</ul>
+            </div>
+            <input type="text" class="buscador-bunqr buscador-horas" style="width:60%" placeholder="Busca horas por descripcion, clientes o asunto...">
+
+        </div>
+
+        <!-- Lista de horas -->
+        <div class="cuadro-tarea-horas"  style="padding: 0px; height: 400px;">
+            <div class="table-wrapper">
+                <table cellspacing="0" id="tech-companies">
+                     <thead>
+                            <tr>
+                                 <th class="persist essential">
+                                    <h3 style="text-align: center;" >
+                                        <i class="fa fa-folder" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 <th class="optional">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 <th class="essential">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                <th class="essential">
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                                 {{#if esAdministradoroEncargado}}
+                                 <th class="optional">
+                                     <h3 style="text-align: center;">
+                                         <i class="fa fa-money" aria-hidden="true"></i>
+                                     </h3>
+                                 </th>
+                                 {{/if}}
+                                 <th>
+                                    <h3 style="text-align: center;">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </h3>
+                                 </th>
+                            </tr>
+                     </thead>
+                     <tbody>
+                        {{#each horas}}
+                            <tr>
+                                 <th>
+                                     {{#if this.descripcion}}
+                                         <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+                                             {{this.descripcion}}
+                                         </h5>
+                                     {{else}}
+                                        <h5 style="color: #7f8c8d;"> <a class="agregar-descripcion" href="#">+ Descripcion</a> </h5>
+                                     {{/if}}
+                                 </th>
+                                 <td>
+                                    <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+                                        {{this.horas}}h {{this.minutos}}m
+                                    </h5>
+                                 </td>
+                                <td>
+                                    {{#if this.asunto.nombre}}
+                                        <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                            {{this.asunto.nombre}}
+                                        </h5>
+                                    {{else}}
+                                        <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
+                                    {{/if}}
+                                 </td>
+                                 <td>
+                                     {{#if this.asunto}}
+                                         <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                             {{cliente}}
+                                         </h5>
+                                     {{else}}
+                                         <h5 style="color: #7f8c8d;"><a class="agregar-asunto" href="#">+ Asunto</a></h5>
+                                     {{/if}}
+                                </td>
+                                {{#if esAdministradoroEncargado}}
+                                <td>
+                                    <h5 style="text-align: center; font-size: 14px; color: #34495e;">
+                                        {{precio}}
+                                    </h5>
+                                </td>
+                                {{/if}}
+                                 <td>
+                                    <h3 style="text-align: center;">
+                                        <div class="btn-group">
+                                          <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu">
+                                            <li class="editar-hora"  ><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+                                          </ul>
+                                        </div>
+                                    </h3>
+                                 </td>
+                            </tr>
+                        {{/each}}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+
+	</div>
+
+</template>
+
 <template name="listaHoras">
  		  {{#if Template.subscriptionsReady}}
       {{#if hayhoras}}

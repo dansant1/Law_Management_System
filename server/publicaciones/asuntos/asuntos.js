@@ -11,10 +11,23 @@ Meteor.publish('asuntos', function (bufeteId) {
 
 		this.stop();
     	return;
+	}
+});
 
+Meteor.publish('asunto',function (asuntoId) {
+	check(asuntoId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+
+		return Asuntos.findOne({_id: asuntoId});
+
+	} else {
+
+		this.stop();
+    	return;
 	}
 
-});
+})
 
 Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
 	check(miembroId,String)

@@ -1,0 +1,80 @@
+<template name="editarHoraModal">
+	 <div id="agregar-horas-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Hora</h4>
+                </div>
+
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;" novalidate>
+                    <fieldset>
+						<div class="fh-checkbox">
+							<input class="es-tarea " style="opacity:100" id="tarea-select"  type="checkbox"  name="" >
+							<label class="cd-label" for="tarea-select">Es una tarea?</label>
+						</div>
+						<div class="icon hide buscar-tarea">
+							<input class="company form-control typeahead" id="tarea-typeahead" name="tareas" type="text"
+						       placeholder="Tareas"
+						       autocomplete="on" spellcheck="off"
+						       data-source="tareasHoras"/>
+						</div>
+                      	<div class="icon descripcion-tarea">
+                        	<label class="cd-label" for="cd-company">Descripción</label>
+                        	<input class="company" type="text" name="descripcion" id="cd-company">
+                      	</div>
+
+						<div class="icon">
+		    				<label class="cd-label" for="cd-company">Fecha</label>
+							<input class="company" type="text" name="fecha" id="datepicker">
+		    			</div>
+
+						<div class="icon">
+							<label class="cd-label" for="cd-email">Asunto</label>
+							<p class="cd-select icon">
+								<select class="budget asunto" name="asunto">
+									{{#each asunto}}
+									<option value="{{_id}}">{{caratula}}</option>
+									{{/each}}
+								</select>
+							</p>
+						</div>
+
+                    	<div class="icon">
+							<label class="cd-label" for="cd-email">Responsable</label>
+							<p class="cd-select icon">
+								<select class="budget responsable" name="responsable">
+									{{#each responsable}}
+									<option value="{{_id}}">{{profile.nombre}} {{profile.apellido}}</option>
+									{{/each}}
+								</select>
+							</p>
+						</div>
+
+						<div class="icon">
+                        	<label class="cd-label" for="cd-company">Tiempo horas</label>
+                        	<input class="company" type="number" step="1" min="1" name="horas" id="cd-company">
+                      	</div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-company">Tiempo minutos</label>
+                            <input class="company" type="number" step="1" min="1" name="minutos" id="cd-company">
+                        </div>
+						<div class="fh-checkbox">
+							<input class="es-tarea cobrado" style="opacity:100"  type="checkbox"  name="" >
+							<label class="cd-label"  for="tarea-select">Cobrable</label>
+						</div>
+
+                      	<input type="submit" value="Editar horas">
+                    </fieldset>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
