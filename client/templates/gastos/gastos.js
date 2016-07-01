@@ -29,6 +29,10 @@ Template.gastos.helpers({
         return "$ " + (this.monto/Cambio.find().fetch()[0].cambio).toFixed(2);
     },
 
+    gastos_normal(){
+        return !Session.get('gastos-admin');
+    },
+
 	gastos(){
 		debugger;
 		var buscador = new RegExp(".*"+Session.get('query')+".*","i");
@@ -96,19 +100,22 @@ Template.gastos.helpers({
 				// query.$and.push({'asunto.id':Session.get('asunto-hora')})
 		}
 
-		if(!$.isEmptyObject(Session.get('asunto-hora'))) {
-			query.$and.push({'asunto.id':Session.get('asunto-hora')})
-		}
+        if(!Session.get('gastos-admin')){
 
-		if(!$.isEmptyObject(Session.get('miembro-equipo'))){
-			let _asuntos = Asuntos.find({'abogados':{ $elemMatch:{ id: Session.get('miembro-equipo')}}}).fetch();
-			debugger;
-			let ids = _(_asuntos).map(function (_asunto) {
-				return _asunto._id;
-			})
+    		if(!$.isEmptyObject(Session.get('asunto-hora'))) {
+    			query.$and.push({'asunto.id':Session.get('asunto-hora')})
+    		}
 
-            query.$and.push({'asunto.id':{$in:ids}});
-		}
+    		if(!$.isEmptyObject(Session.get('miembro-equipo'))){
+    			let _asuntos = Asuntos.find({'abogados':{ $elemMatch:{ id: Session.get('miembro-equipo')}}}).fetch();
+    			debugger;
+    			let ids = _(_asuntos).map(function (_asunto) {
+    				return _asunto._id;
+    			})
+
+                query.$and.push({'asunto.id':{$in:ids}});
+    		}
+        }
 
 		return Gastos.find(query);
 		// debugger;
@@ -152,6 +159,22 @@ Template.gastos.events({
     'click .gastos-no-administrativos'(){
         Session.set('gastos-admin',false)
     },
+    'click .asuntos'(){
+		Modal.show('filtroAsuntoGastoModal',this);
+	},
+	'click .cliente'(){
+		Modal.show('filtroClienteGastoModal');
+	},
+	'click .miembros'(){
+		Modal.show('filtroMiembroGastoModal');
+	},
+    'click .todos'(){
+		Session.set('asunto-hora',undefined);
+		Session.set('filtro-hora',{})
+        Session.set('asunto-hora',{})
+        Session.set('miembro-equipo',{})
+		Session.set('cliente-hora',"")
+	},
     'click .editar-gasto'(event){
         debugger;
         Session.set('gasto-id',$(event.target).data('id'));

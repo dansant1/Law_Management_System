@@ -81,10 +81,12 @@
                     <li class="empresa semana"><a href="#" style="color: #e74c3c;">Esta semana</a></li>
                     <li class="empresa mes"><a href="#" style="color: #e74c3c;">Este mes</a></li>
                     <li class="divider"></li>
+                    {{#if gastos_normal}}
                     <li class="empresa asuntos"><a href="#">Por asunto</a></li>
                     <li class="empresa cliente"><a href="#">Por cliente</a></li>
                     <li class="empresa miembros"><a href="#">Por miembros</a> </li>
 					<li class="divider"></li>
+                    {{/if}}
 					<li class="gastos-no-administrativos"> <a href="#">Gastos</a> </li>
 					<li class="gastos-administrativos"> <a href="#">Gastos administrativos</a> </li>
           		</ul>
