@@ -11,7 +11,7 @@ Template.editarGastoAdministrativo.events({
 
 
 
-        if (datos.monto !== "" && datos.asunto !== undefined && datos.fecha !== "" && datos.descripcion !== "") {
+        if (datos.monto !== "" && datos.fecha !== "" && datos.descripcion !== "") {
 
             Meteor.call('actualizarGastoAdministrativo', datos, Session.get('gasto-id'), function (err, result) {
                 if(err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
@@ -22,6 +22,7 @@ Template.editarGastoAdministrativo.events({
                       var filei = archivo.files[i];
                         debugger;
                         var doc = new FS.File(filei);
+                        let recibo = Documentos.findOne({'metadata.gastoId':Session.get('gasto-id')});
 
                         doc.metadata = {
                             creadorId: Meteor.userId(),
@@ -30,9 +31,22 @@ Template.editarGastoAdministrativo.events({
                             gastoId: result.gastoId,
                         };
 
-                        Documentos.update({},doc, function (err, fileObj) {
-                          if (err) return Bert.alert('Hubo un problema', 'warning');
-                        })
+                        let query = {}
+                        if(recibo){
+                            query._id = recibo._id;
+                            Recibos.update(query,doc, function (err, fileObj) {
+
+                                if (err) return Bert.alert('Hubo un problema', 'warning');
+                                console.log(err);
+                            })
+                        }
+                        else {
+                            Recibos.insert(doc,function(err,fileObj){
+                                if(err) return Bert.alert('Hubo un problema','warning');
+                                console.log(err);
+                            })
+                        }
+
                     }
                 }
 

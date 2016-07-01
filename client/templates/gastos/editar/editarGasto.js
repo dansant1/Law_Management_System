@@ -58,17 +58,30 @@ Template.editarGasto.events({
                       var filei = archivo.files[i];
                         debugger;
                         var doc = new FS.File(filei);
+                        let recibo = Documentos.findOne({'metadata.gastoId':Session.get('gasto-id')});
 
                         doc.metadata = {
                             creadorId: Meteor.userId(),
                             bufeteId: Meteor.user().profile.bufeteId,
                             descripcion: datos.descripcion,
-                            gastoId: result.gastoId,
+                            gastoId: Session.get('gasto-id'),
                         };
 
-                        Documentos.update({},doc, function (err, fileObj) {
-                          if (err) return Bert.alert('Hubo un problema', 'warning');
-                        })
+                        let query = {}
+                        if(recibo){
+                            query._id = recibo._id;
+                            Recibos.update(query,doc, function (err, fileObj) {
+
+                                if (err) return Bert.alert('Hubo un problema', 'warning');
+                                console.log(err);
+                            })
+                        }
+                        else {
+                            Recibos.insert(doc,function(err,fileObj){
+                                if(err) return Bert.alert('Hubo un problema','warning');
+                                console.log(err);
+                            })
+                        }
                     }
                 }
 

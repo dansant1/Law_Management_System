@@ -33,7 +33,7 @@ Template.agregarGastoAdministrativo.events({
 							gastoId: result.gastoId,
 			            };
 
-			            Documentos.insert(doc, function (err, fileObj) {
+			            Recibos.insert(doc, function (err, fileObj) {
 			              if (err) return Bert.alert('Hubo un problema', 'warning');
 						})
 					}

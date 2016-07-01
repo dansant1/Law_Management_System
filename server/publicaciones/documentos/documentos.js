@@ -1,15 +1,30 @@
 Meteor.publish('docs', function (bufeteId) {
   check(bufeteId, String);
   if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
-    return Documentos.find({
-      "metadata.bufeteId": bufeteId,
-      "metadata.subdoc": false
-    });
+        return Documentos.find({
+          "metadata.bufeteId": bufeteId,
+          "metadata.subdoc": false
+        });
   } else {
     this.stop();
     return;
   }
 });
+
+
+
+Meteor.publish('docsGastos', function (bufeteId) {
+  check(bufeteId, String);
+  if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+        return Documentos.find({
+          "metadata.bufeteId": bufeteId
+        });
+  } else {
+    this.stop();
+    return;
+  }
+});
+
 
 Meteor.publish('docsVersion',function (docId) {
     check(docId, String);
