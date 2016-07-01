@@ -1,0 +1,45 @@
+<template name="editarGastoAdministrativo">
+	 <div id="gasto-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar Gasto</h4>
+                </div>
+
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                    <fieldset>
+                      	<div class="icon">
+                        	<label class="cd-label" for="cd-company">Descripción</label>
+                        	<input class="company" type="text" name="descripcion" id="cd-company">
+                      	</div>
+
+						<div class="icon">
+		    				<label class="cd-label" for="cd-company">Fecha</label>
+							<input class="company" type="text" name="fecha" id="datepicker" readonly>
+		    			</div>
+
+						<div class="icon">
+                        	<label class="cd-label" for="cd-company">Adjuntar recibo</label>
+                         	<input type="file" class="archivos" name="recibo" value="haz click para subir un documento">
+                      	</div>
+
+                      	<div class="icon">
+                        	<label class="cd-label" for="cd-company">Monto</label>
+                        	<input class="company" type="number" step="0.10" min="1" name="precio" id="cd-company">
+                      	</div>
+
+                      	<input type="submit" value="Editar gasto">
+                    </fieldset>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

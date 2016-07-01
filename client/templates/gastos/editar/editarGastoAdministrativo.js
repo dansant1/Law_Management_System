@@ -1,31 +1,4 @@
-Template.editarGasto.helpers({
-    asunto(){
-        return Asuntos.find();
-    },
-    responsable(){
-        return Asuntos.findOne({_id:Session.get('asunto-select-id')}).abogados;
-    }
-})
-
-Template.editarGasto.onRendered(function () {
-    let template = this;
-    debugger;
-    let gasto = Gastos.findOne({_id:Session.get('gasto-id')})
-
-    var picker = new Pikaday({ field: document.getElementById('datepicker') });
-
-    Session.set('asunto-select-id',gasto.asunto.id);
-    template.find("[name='descripcion']").value = gasto.descripcion;
-    template.find("[name='fecha']").value= formatearFecha(gasto.fecha);
-    // template.find("[name='horas']").value= hora.horas;
-    if(gasto.asunto) $(template.find("[name='asunto'] option[value='"+ gasto.asunto.id +"']")).prop('select',true);
-    $(template.find("[name='responsable'] option[value='"+ gasto.responsable.id +"']")).prop('selected',true);
-    template.find("[name='precio']").value=gasto.monto;
-
-})
-
-
-Template.editarGasto.events({
+Template.editarGastoAdministrativo.events({
     'submit form'(event,template){
         event.preventDefault();
 
@@ -36,20 +9,11 @@ Template.editarGasto.events({
             monto: template.find('[name="precio"]').value
         }
 
-        datos.asunto = {
-            nombre: $( ".asunto option:selected" ).text(),
-            id: $( ".asunto" ).val()
-        }
-
-        datos.responsable = {
-            nombre: $( ".responsable option:selected" ).text(),
-            id: $( ".responsable" ).val()
-        }
 
 
         if (datos.monto !== "" && datos.asunto !== undefined && datos.fecha !== "" && datos.descripcion !== "") {
 
-            Meteor.call('actualizarGasto', datos, Session.get('gasto-id'), function (err, result) {
+            Meteor.call('actualizarGastoAdministrativo', datos, Session.get('gasto-id'), function (err, result) {
                 if(err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
                 let archivo = template.find('[name="recibo"]');
 
@@ -82,6 +46,29 @@ Template.editarGasto.events({
     }
 })
 
-Template.editarGasto.onCreated(function () {
+Template.editarGastoAdministrativo.helpers({
+    asunto(){
+        return Asuntos.find();
+    },
+    responsable(){
+        return Asuntos.findOne({_id:Session.get('asunto-select-id')}).abogados;
+    }
+})
+
+Template.editarGastoAdministrativo.onCreated(function () {
+
+})
+
+Template.editarGastoAdministrativo.onRendered(function () {
+    let template = this;
+    debugger;
+    let gasto = Gastos.findOne({_id:Session.get('gasto-id')})
+
+    var picker = new Pikaday({ field: document.getElementById('datepicker') });
+
+    template.find("[name='descripcion']").value = gasto.descripcion;
+    template.find("[name='fecha']").value= formatearFecha(gasto.fecha);
+    // template.find("[name='horas']").value= hora.horas;
+    template.find("[name='precio']").value=gasto.monto;
 
 })

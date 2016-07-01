@@ -48,6 +48,7 @@ Template.gastos.onCreated(function () {
     })
 })
 
+
 Template.gastos.events({
     'change .tipo-cambio':function (event,template) {
         return Session.set('tipo-cambio',event.target.value)
@@ -57,6 +58,19 @@ Template.gastos.events({
     },
     'click .gastos-no-administrativos'(){
         Session.set('gastos-admin',false)
+    },
+    'click .editar-gasto'(event){
+        debugger;
+        Session.set('gasto-id',$(event.target).data('id'));
+        Modal.show('editarGasto')
+    },
+    'click .editar-gasto-administrativo'(event){
+        debugger;
+        Session.set('gasto-id',$(event.target).data('id'));
+        Modal.show('editarGastoAdministrativo')
+    },
+    'click .eliminar-gasto'(event){
+        Modal.show('eliminarGasto');
     },
     'keyup .buscador-gastos'(event){
         Session.set('query',event.target.value);
