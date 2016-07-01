@@ -145,6 +145,7 @@ Template.gastos.onCreated(function () {
         self.subscribe('recibos',bufeteId)
         if(Meteor.user().roles.bufete[0]!="administrador")  return self.subscribe('gastosxmiembro',bufeteId);
         self.subscribe('gastos',bufeteId)
+
     })
 })
 
@@ -169,6 +170,8 @@ Template.gastos.events({
 		Modal.show('filtroMiembroGastoModal');
 	},
     'click .todos'(){
+        debugger;
+        Session.set('gastos-admin',false)
 		Session.set('asunto-hora',undefined);
 		Session.set('filtro-hora',{})
         Session.set('asunto-hora',{})
