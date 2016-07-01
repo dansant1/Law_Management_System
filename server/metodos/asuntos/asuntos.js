@@ -33,6 +33,7 @@ Meteor.methods({
 
 			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
 			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
+			console.log(cliente);
 			console.log(asuntos.equipoId);
 			asuntos.abogados = [];
 			if(asuntos.equipoId) asuntos.abogados = Equipos.find({_id:asuntos.equipoId}).fetch()[0].miembros;

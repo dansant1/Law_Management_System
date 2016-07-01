@@ -845,7 +845,7 @@ Template.clienteNuevoModal.events({
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
-
+				debugger;
 				if (err) {
 					console.log(err);
 

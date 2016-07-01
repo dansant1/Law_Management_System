@@ -1,6 +1,25 @@
 Template.gastos.helpers({
     gastos(){
-        return Gastos.find({administrativo:Session.get('gastos-admin')})
+		var query = new RegExp(".*"+Session.get('query')+".*","i");
+
+        let $and = [
+            {
+                administrativo:Session.get('gastos-admin')
+            },
+            {
+                $or:[
+                    {
+                        descripcion:query
+                    },
+                    {
+                        'asunto.name':query
+                    }
+                ]
+            }
+        ]
+
+
+        return Gastos.find({$and:$and});
     },
     email() {
       return Meteor.user().emails[0].address
@@ -21,9 +40,11 @@ Template.gastos.onCreated(function () {
     let self=this;
     let bufeteId = Meteor.user().profile.bufeteId;
     Session.set('gastos-admin',false)
+    Session.set('query',"")
     self.autorun(function () {
-        self.subscribe('gastos',bufeteId);
         self.subscribe('cambios',bufeteId);
+        if(Meteor.user().roles.bufete[0]!="administrador")  return self.subscribe('gastosxmiembro',bufeteId);
+        self.subscribe('gastos',bufeteId)
     })
 })
 
@@ -36,5 +57,8 @@ Template.gastos.events({
     },
     'click .gastos-no-administrativos'(){
         Session.set('gastos-admin',false)
+    },
+    'keyup .buscador-gastos'(event){
+        Session.set('query',event.target.value);
     }
 })

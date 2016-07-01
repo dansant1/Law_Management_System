@@ -632,8 +632,9 @@ Meteor.methods({
 			datos.createdAt = new Date();
 
 
-			Gastos.insert(datos);
-
+			return {
+				gastoId: Gastos.insert(datos)
+			}
 		} else {
 			return;
 		}
@@ -658,8 +659,9 @@ Meteor.methods({
 			datos.createdAt = new Date();
 
 
-			Gastos.insert(datos);
-
+			return {
+				gastoId: Gastos.insert(datos)
+			}
 		} else {
 			return;
 		}

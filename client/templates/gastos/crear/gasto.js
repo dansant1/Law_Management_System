@@ -45,15 +45,34 @@ Template.agregarGasto.events({
 			id: $( ".responsable" ).val()
 		}
 
+
 		if (datos.monto !== "" && datos.asunto !== undefined && datos.fecha !== "" && datos.descripcion !== "") {
 
 			Meteor.call('agregarGasto', datos, function (err, result) {
-				if (err) {
-					Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
-				} else {
-					$('#gasto-modal').modal('hide');
-					Bert.alert('Agregaste un gasto', 'success');
-				}
+				if(err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
+				let archivo = template.find('[name="recibo"]');
+
+			    if ('files' in archivo) {
+		          for (var i = 0; i < archivo.files.length; i++) {
+					  var filei = archivo.files[i];
+
+			            var doc = new FS.File(filei);
+
+			            doc.metadata = {
+			              	creadorId: Meteor.userId(),
+			              	bufeteId: Meteor.user().profile.bufeteId,
+			              	descripcion: datos.descripcion,
+							gastoId: result.gastoId,
+			            };
+
+			            Documentos.insert(doc, function (err, fileObj) {
+			              if (err) return Bert.alert('Hubo un problema', 'warning');
+						})
+					}
+			    }
+
+				Modal.hide('agregarGasto');
+				Bert.alert('Agregaste un gasto', 'success');
 			});
 
 		} else {
