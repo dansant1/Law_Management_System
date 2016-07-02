@@ -46,7 +46,6 @@ Template.nuevaTareaModal.onCreated(function () {
 Template.nuevaTareaModal.events({
 	'click .agregar-tareas': function (events, template) {
 		events.preventDefault();
-		debugger;
 		let datos = {
 			descripcion: template.find('[name="descripcion"]').value,
 			fecha: template.find('[name="fecha"]').value,
