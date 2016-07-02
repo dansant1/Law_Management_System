@@ -1,0 +1,84 @@
+<template name="nuevaTareaModal">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar nueva tarea</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
+                        <fieldset>
+
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">Descripción</label>
+                                <input class="company" type="text" name="descripcion" id="cd-company">
+                            </div>
+
+                            <div class="icon">
+                                <label class="cd-label" for="cd-company">¿Cuándo vence?</label>
+                                <input class="company" type="text" name="fecha" id="datepicker" readonly>
+                            </div>
+
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
+                                <p class="cd-select icon">
+                                    <select class="budget asunto">
+                                        <option value="ninguno">Elige un asunto</option>
+                                        {{#each asuntos}}
+                                            <option value="{{_id}}">{{caratula}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">¿A que miembro quieres asignarlo?</label>
+                                <p class="cd-select icon">
+                                    <select name="miembro" class="budget miembros">
+                                        <option value="ninguno">Elige un miembro</option>
+                                        {{#each miembros}}
+                                            <option value="{{id}}">{{nombre}} {{apellido}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">¿A que etapa desea asignar la tarea?</label>
+                                <p class="cd-select icon">
+                                    <select name="etapa" class="budget miembros">
+                                        <option value="ninguno">Elige una etapa</option>
+                                        {{#each etapas}}
+                                            <option value="{{this._id}}">{{this.nombre}}</option>
+                                        {{/each}}
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <label class="cd-label" for="cd-email">Tipo de tarea</label>
+                                <p class="cd-select icon">
+                                    <select class="budget tipo">
+
+                                        <option value="General">General</option>
+                                        <option value="Comunicaciones">Comunicaciones</option>
+                                        <option value="Escritos">Escritos</option>
+                                        <option value="Tribunales">Tribunales</option>
+                                        <option value="Facturacion">Facturación</option>
+
+                                    </select>
+                                </p>
+                            </div>
+
+
+
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary agregar-tareas" type="submit" value="Guardar Tarea">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

@@ -18,6 +18,7 @@ Meteor.methods({
 			datos.createdAt = new Date();
 			datos.vence	= new Date(datos.fecha+" GMT-0500");
 			datos.abierto = true;
+			console.log(datos);
 
 			let tarea = Tareas.insert(datos);
 

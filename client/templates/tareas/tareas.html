@@ -1,38 +1,191 @@
-	<template name="tareas">
-	<div class="box-header">
-		{{> tareaNuevo}}
-	</div>
-	<div style="width: 100%; background-color: #F9F9F9; padding-bottom: 10px;">
-		{{> menuTareas}}
-	</div>
-	<div class="box-semi-header">
-		<h1>Tareas próximas</h1>
-	</div>
-	<div class="box">
+<template name="tareas2">
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 18px;">
 
-	{{#transition in="zoomIn" out="bounceOut"}}
-		{{#each tareas}}
-		<div class="box-item" style="height: 280px;">
-			<div class="box-content">
-				<h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
-				<a class="bloque">Asunto {{asunto.nombre}}</a>
-				<a class="bloque"><span>Vence {{dia this.vence}}</span></a>
-				<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
-			</div>
-			<div class="box-foot">
-				<h1><a href="#" class="box-ingresar listo">Listo</a></h1>
-			</div>
-		</div>
-		{{/each}}
-	{{/transition}}
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
 
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+         <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;width:100%">
+            <!--<a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a> -->
+            {{>botonNuevoTareas}}
+
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
+                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+					<li> <a href="#" class="todos">Todos</a> </li>
+                    <li><a class="abiertos" href="#">Abiertos</a></li>
+                    <li><a class="cerrados" href="#">Cerrados</a></li>
+					<li> <a class="hoy" href="">Vencen hoy</a></li>
+					<li> <a class="mañana" href="">Vencen mañana</a></li>
+					<li> <a class="semana" href="">Vencen esta semana</a></li>
+					<li> <a class="vencidas" href="">Vencidas</a></li>
+                </ul>
+            </div>
+
+            <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> tareas {{tipo}}</p>
+            <input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre y fecha de vencimiento...">
+
+        </div>
+
+    </div>
+
+    {{> tablat}}
+
+
+</template>
+
+<template name="tablat">
+	<div class="tarea-input">
+		<input type="text" name="crear-tarea-simple" placeholder="Escriba una tarea y luego presione enter...">
 	</div>
+	<div class="table-wrapper">
+		<table cellspacing="0" id="tech-companies">
+	 		<thead>
+				<tr>
+					 <th class="persist essential">
+					 	<h3>
+					 		<i class="fa fa-tasks" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="optional">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-table" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-users" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+							<i class="fa fa-info" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-clock-o" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th>
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-cog" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+				</tr>
+	 		</thead>
+			<tbody>
+				{{#each tareas}}
+					<tr>
+						 <th>
+							<span class="fh-checkbox">
+								{{#if esMiTarea}}
+		    						<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+								{{/if}}
+		    					<label for="{{this._id}}"> {{this.descripcion}} </label>
+							</span>
+							<a href="/tareas/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
+						 <span class="co-name">
+						{{#if this.asunto}}
+							{{this.asunto.nombre}}
+								<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+							{{this.etapa.nombre}}
+						{{else}}
+							<a class="agregar-asunto-tarea" href="#">+ asunto</a>
+						{{/if}}
+						 </span></th>
+						 <td>
+						 	{{#if this.vence}}
+						 	<h5 style="text-align: center;">
+						 		{{dia this.vence}}
+						 	</h5>
+						 	{{else}}
+							<h5 style="text-align: center;">
+								<a class="agregar-fecha-tarea" href="#" style="font-weight: initial;">+ vencimiento</a>
+							</h5>
+							{{/if}}
+						 </td>
+						 <td>
+							 {{#if this.asignado}}
+							 <h5 style="text-align: center;">
+							 	<span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 10px; text-align: center;">DD</span>
+							 </h5>
+
+							{{else}}
+								<h5 style="text-align: center;">
+									<a href="#"  class="agregar-miembro-tarea">Cambiar asignado</a>
+								</h5>
+							{{/if}}
+						 </td>
+						 <td>
+							 <h4 style="text-align: center;">
+								 <i class="fa fa-tasks" aria-hidden="true"></i> <span>{{subtareas}}</span>
+		 					 	<i class="fa fa-comment" aria-hidden="true"></i> <span>{{comentarios}}</span>
+		 				 		<i class="fa fa-file-o" aria-hidden="true"></i> <span>{{documentos}}</span>
+							</h4>
+
+						 </td>
+						 <td style="text-align: center;">
+							 {{#if this.horas}}
+							 <h5>
+							 	<a href="#" style="font-weight: initial;">{{this.horas.hora}}h {{this.horas.minutos}}m </a>
+							</h5>
+							 {{else}}
+							 	<h5>
+							 		<a href="#" class="agregar-horas" style="font-weight: initial;">+ Hora</a>
+							 	</h5>
+							 {{/if}}
+						 </td>
+						 <td style="text-align: center;">
+						 	<div class="btn-group">
+								<button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+								</button>
+		  						<ul class="dropdown-menu">
+								    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+								    <li role="separator" class="divider"></li>
+									<li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
+
+		  						</ul>
+							</div>
+						 </td>
+					</tr>
+			   {{/each}}
+	 		</tbody>
+		</table>
+	</div><!-- /table-wrapper -->
 </template>
 
 <template name="tareasGantt">
-
-		<div id="gantt_here" style="width: 100%; height: 550px;"></div>
-
+	<div id="gantt_here" style="width: 100%; height: 550px;"></div>
 </template>
 
 <template name="tareasCerradas">
@@ -46,20 +199,19 @@
 		<h1>Tareas Cerradas</h1>
 	</div>
 	<div class="box">
-	{{#transition in="zoomIn" out="bounceOut"}}
-		{{#each tareas}}
-		<div class="box-item" style="height: 280px;">
-			<div class="box-content">
-				<h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
-				<a class="bloque">Asunto {{asunto.nombre}}</a>
-				<a class="bloque"><span>Vence {{dia this.vence}}</span></a>
-				<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
+		{{#transition in="zoomIn" out="bounceOut"}}
+			{{#each tareas}}
+			<div class="box-item" style="height: 280px;">
+				<div class="box-content">
+					<h3><a href="#" class="box-titulo">{{descripcion}}</a></h3>
+					<a class="bloque">Asunto {{asunto.nombre}}</a>
+					<a class="bloque"><span>Vence {{dia this.vence}}</span></a>
+					<a class="bloque"><span class="tarea-tipo {{type this.tipo}}">{{tipo}}</span></a>
+				</div>
+
 			</div>
-
-		</div>
-		{{/each}}
-	{{/transition}}
-
+			{{/each}}
+		{{/transition}}
 	</div>
 </template>
 
@@ -75,55 +227,4 @@
 
 <template name="tareaNuevo">
 	<a href="/tareas/nuevo" class="btn nueva-tarea nuevo-evento verde-flat">+ Tarea</a>
-</template>
-
-<template name="nuevaTarea">
-	<form class="cd-form floating-labels">
-		<fieldset>
-			<legend>Agregar nueva tarea</legend>
-
-		    <div class="icon">
-		    	<label class="cd-label" for="cd-company">Desccripción</label>
-				<input class="company" type="text" name="descripcion" id="cd-company">
-		    </div>
-
-		    <div class="icon">
-		    	<label class="cd-label" for="cd-company">¿Cuándo vence?</label>
-				<input class="company" type="text" name="fecha" id="datepicker" readonly>
-		    </div>
-
-			<div class="icon">
-				<label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
-				<p class="cd-select icon">
-					<select class="budget asunto">
-						<option value="ninguno">Elige un asunto</option>
-						{{#each asuntos}}
-						<option value="{{_id}}">{{caratula}}</option>
-						{{/each}}
-					</select>
-				</p>
-			</div>
-
-			<div class="icon">
-				<label class="cd-label" for="cd-email">Tipo de tarea</label>
-				<p class="cd-select icon">
-					<select class="budget tipo">
-
-						<option value="General">General</option>
-						<option value="Comunicaciones">Comunicaciones</option>
-						<option value="Escritos">Escritos</option>
-						<option value="Tribunales">Tribunales</option>
-						<option value="Facturacion">Facturación</option>
-
-					</select>
-				</p>
-			</div>
-
-			<div class="centrar-boton">
-		    	<input type="submit" value="Guardar Asunto">
-			</div>
-
-		</fieldset>
-
-	</form>
 </template>

@@ -35,15 +35,7 @@ Template.teamSidebarDahboard.onCreated(function () {
    });
 });
 
-Template.tareas2.onCreated(function () {
-		var self = this;
 
-		Session.set('tipo-tarea',true);
-		Session.set('filtro-tarea',{})
-		self.autorun(function () {
-			self.subscribe('misTareas')
-		})
-});
 
 
 
@@ -274,55 +266,8 @@ Template.chatFB.onRendered(function () {
 
 
 
-Template.tareas2.helpers({
-	tareas(){
-		return Tareas.find({"$and":[
-			{'asignado.id':Meteor.userId()},
-			{abierto:Session.get('tipo-tarea')},
-			Session.get('filtro-tarea')
-		]}, {sort: {createdAt: -1}})
-	},
-	cantidad(){
-		return Tareas.find({"$and":[
-			{'asignado.id':Meteor.userId()},
-			{abierto:Session.get('tipo-tarea')}
-		]}).count()
-	},
 
-	tipo(){
-		let tipo = Session.get('tipo-tarea')? 'abiertas' : 'cerradas';
-		return tipo;
-	},
-	email() {
-		return Meteor.user().emails[0].address
-	},
-	esMiTarea() {
-		if (this.asignado.id === Meteor.userId()) {
-			return true;
-		} else {
-			false;
-		}
-	},
-	estaAbierto() {
-		if (this.abierto === true) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-})
 
-Template.nuevaTareaModal.onCreated(function () {
-	var self = this;
-
-	self.autorun(function() {
-		let id = Meteor.user()._id;
-
-		let bufeteId = Meteor.user().profile.bufeteId;
-
-		self.subscribe('asuntosxequipo',id, bufeteId);
-	});
-});
 
 Template.tareasGantt.onCreated(function () {
 	var self = this;
@@ -414,96 +359,7 @@ Template.tareasGantt.onRendered(() => {
 
 
 
-Template.nuevaTareaModal.onRendered( () => {
-	var picker = new Pikaday({ field: document.getElementById('datepicker') });
 
-	Session.set("asunto-id","")
-
-});
-
-Template.nuevaTareaModal.helpers({
-	asuntos: function () {
-		return Asuntos.find({abierto:true});
-	},
-	miembros: function () {
-		debugger;
-
-		if(Session.get("asunto-id")===""||Session.get("asunto-id")===undefined) return Meteor.users.find();
-
-		var n = Asuntos.find({_id:Session.get("asunto-id")}).fetch()[0].abogados.length
-		if(n==0) return Meteor.users.find();
-
-		return Asuntos.find({_id:Session.get("asunto-id")}).fetch()[0].abogados;
-	},
-	nombre(){
-		if(this.profile!==undefined) return this.profile.nombre;
-		return this.nombre;
-	},
-	apellido(){
-		if(this.profile!==undefined) return this.profile.apellido;
-		return;
-	},
-	id(){
-		if(this.profile!==undefined) return this._id;
-		return this.id;
-	}
-});
-
-Template.nuevaTareaModal.events({
-	'click .agregar-tarea': function (events, template) {
-		events.preventDefault();
-		debugger;
-		let datos = {
-			descripcion: template.find('[name="descripcion"]').value,
-			fecha: template.find('[name="fecha"]').value,
-			asunto: {
-				nombre: $( ".asunto option:selected" ).text(),
-				id: $( ".asunto" ).val()
-			},
-			tipo: $( ".tipo" ).val(),
-			bufeteId: Meteor.user().profile.bufeteId,
-			asignado:{
-				id: template.find('[name="miembro"]').value,
-				nombre: $(template.find('[name="miembro"]')).find(":selected").html()
-			},
-			creador: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			},
-			etapa:{
-				id: template.find("[name='etapa']")
-			}
-		}
-
-
-		if (datos.asunto.nombre === "Elige un asunto" && datos.asunto.id === "") {
-			datos.asunto.nombre = undefined;
-			datos.asunto.id = undefined;
-		}
-
-		if (datos.descripcion !== "" && datos.fecha !== "") {
-			Meteor.call('crearTarea', datos, function (err, result) {
-				if (err) {
-					console.log(err)
-					Bert.alert('Error al tratar de registrar, intentelo de nuevo', 'danger');
-
-				} else {
-					template.find('[name="descripcion"]').value = "";
-					template.find('[name="fecha"]').value = "";
-					Bert.alert('Agregaste una tarea', 'success');
-					FlowRouter.go('/tareas');
-				}
-			});
-		} else {
-			Bert.alert('Ingresa los datos', 'warning');
-		}
-	},
-	'change .asunto'(event,template){
-		console.log('dadassa')
-		Session.set("asunto-id",$(event.target).val())
-	}
-
-});
 
 
 
@@ -577,138 +433,7 @@ Template.tareaItemCuadro.helpers({
 	}
 })
 
-Template.tareas2.events({
-	'click .agregar-etapa'(){
-		Modal.show('agregarEtapaModal')
-	},
-	'click .agregar-equipo'(){
-		Modal.show('crearEquipoModal')
-	},
-	'click .abiertos'(){
-		Session.set('tipo-tarea',true)
-	},
-	'click .cerrados'(){
-		Session.set('tipo-tarea',false)
-	},
-	'click .nuevas-tareas'(){
-		Modal.show('nuevaTareaModal')
-	},
-	'click .hoy'(){
-		debugger;
-		let hoy = new Date()
-	    hoy.setHours(0,0,0,0);
 
-	    let mañana = new Date();
-	    mañana.setDate(mañana.getDate()+1)
-	    mañana.setHours(0,0,0,0)
-
-		let filtro = {
-			vence:{
-				$gte:hoy,
-				$lt:mañana
-			}
-		}
-		Session.set('tipo-tarea',true)
-		Session.set('filtro-tarea',filtro)
-	},
-	'click .todos'(){
-		Session.set('tipo-tarea',true)
-		Session.set('filtro-tarea',{})
-	},
-	'click .mañana'(){
-
-	    let mañana = new Date();
-	    mañana.setDate(mañana.getDate()+1)
-	    mañana.setHours(0,0,0,0)
-
-		let pasadomañana = new Date();
-		pasadomañana.setDate(pasadomañana.getDate()+2)
-		pasadomañana.setHours(0,0,0,0)
-
-		let filtro = {
-			vence:{
-				$gte:mañana,
-				$lt:pasadomañana
-			}
-		}
-		Session.set('tipo-tarea',true)
-		Session.set('filtro-tarea',filtro)
-
-	},
-	'click .semana'(){
-		function getMonday(d) {
-		  d = new Date(d);
-		  var day = d.getDay(),
-		      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-		  return new Date(d.setDate(diff));
-		}
-
-		var monday = getMonday(new Date())
-		monday.setHours(0,0,0,0)
-		var sunday = getMonday(new Date())
-		sunday.setDate(sunday.getDate()+6)
-		sunday.setHours(0,0,0,0)
-
-		let filtro = {
-			vence:{
-				$gte:monday,
-				$lt:sunday
-			}
-		}
-		Session.set('tipo-tarea',true)
-		Session.set('filtro-tarea',filtro)
-	},
-	'click .vencidas'(){
-		let hoy = new Date()
-		hoy.setHours(0,0,0,0)
-		let filtro = {
-			vence:{
-				$lt: hoy
-			}
-		}
-		Session.set('tipo-tarea',true)
-		Session.set('filtro-tarea',filtro)
-	},
-	'click .cerrar': function () {
-		console.log('listo!');
-
-		Meteor.call('cerrarTarea', this._id, function (err, result) {
-			if (err) {
-				Bert.alert('Algo salio mal', 'warning');
-			} else {
-				Bert.alert('Cerraste una tarea', 'success');
-			}
-		});
-
-	},
-	'keyup [name="crear-tarea"]': function (event, template) {
-
-		let datos = {
-			descripcion: template.find('[name="crear-tarea"]').value,
-			bufeteId: Meteor.user().profile.bufeteId,
-			creador: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			}
-		}
-
-
-
-		if(event.which == 13){
-        	//$(event.target).blur();
-        	template.find('[name="crear-tarea"]').value = "";
-        	Meteor.call('agregarTarea', datos, function (err, result) {
-        		if (err) {
-        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
-        			template.find('[name="crear-tarea"]').value = "";
-        		} else {
-        			template.find('[name="crear-tarea"]').value = "";
-        			Bert.alert('Agregaste una tarea', 'success');
-        		}
-        	});
-    	}
-	}
-});
 
 
 Template.tareasSidebarDashboard.onCreated(function () {
@@ -2081,91 +1806,7 @@ Template.menuTareas2.events({
 	}
 });
 
-Template.tablat.onCreated(function () {
-	var self = this;
 
-		//Session.set('tipo-tarea',true);
-
-		self.autorun(function () {
-			self.subscribe('misTareas');
-			self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId)
-			self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId)
-			self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId)
-		})
-});
-
-Template.tablat.helpers({
-	tareas(){
-		return Tareas.find({"$and":[
-			{'asignado.id':Meteor.userId()},
-			{abierto:Session.get('tipo-tarea')},
-			Session.get('filtro-tarea')
-		]}, {sort: {createdAt: -1}})
-	},
-	dia(fecha) {
-		debugger;
-		console.log(fecha)
-		var d = new Date(fecha),
-				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
-				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
-				ampm = d.getHours() >= 12 ? 'pm' : 'am',
-				months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
-				days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-
-		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
-	},
-	documentos(){
-		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
-	},
-	subtareas(){
-		return Subtareas.find({tareaId:this._id}).fetch().length;
-	},
-	comentarios(){
-		return ComentariosDeTareas.find({tareaId:this._id}).fetch().length;
-	}
-});
-
-Template.tablat.events({
-	'click .agregar-fecha-tarea'(){
-		Modal.show('fechaTareaModal',this)
-	},
-	'click .agregar-asunto-tarea'(){
-		Modal.show('asuntoTareaModal',this);
-	},
-	'click .agregar-miembro-tarea'(){
-		Modal.show('miembroTareaModal',this);
-	},
-	'click .agregar-horas'(){
-		Modal.show('horaTareaModal',this)
-	},
-	'keyup [name="crear-tarea-simple"]': function (event, template) {
-
-		let datos = {
-			descripcion: template.find('[name="crear-tarea-simple"]').value,
-			bufeteId: Meteor.user().profile.bufeteId,
-			creador: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			}
-		}
-
-
-
-		if(event.which == 13){
-        	//$(event.target).blur();
-        	template.find('[name="crear-tarea-simple"]').value = "";
-        	Meteor.call('agregarTarea', datos, function (err, result) {
-        		if (err) {
-        			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
-        			template.find('[name="crear-tarea-simple"]').value = "";
-        		} else {
-        			template.find('[name="crear-tarea-simple"]').value = "";
-        			Bert.alert('Agregaste una tarea', 'success');
-        		}
-        	});
-    	}
-	}
-});
 
 Template.agregarEtapaModal.events({
 	'submit form'(event,template){

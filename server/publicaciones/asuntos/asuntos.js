@@ -59,6 +59,16 @@ Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
 
 })
 
+Meteor.publish('etapas',function (bufeteId) {
+	check(bufeteId,String)
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return Etapas.find({'bufeteId':bufeteId});
+	} else {
+		this.stop();
+		return;
+	}
+})
+
 Meteor.publish('etapasxasunto',function (asuntoId) {
 	check(asuntoId,String)
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
