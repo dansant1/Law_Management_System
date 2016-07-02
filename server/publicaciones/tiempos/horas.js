@@ -10,6 +10,8 @@ Meteor.publish('horas', function (bufeteId) {
 });
 
 Meteor.publish('horasxmiembro',function (bufeteId,userId) {
+	check(bufeteId, String);
+	check(userId, String);
 	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )) {
 		return Horas.find({bufeteId: bufeteId,'responsable.id':userId});
 	} else {
