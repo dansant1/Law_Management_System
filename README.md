@@ -11,5 +11,5 @@ BUNQR practice law management softaware focus con Latam.
 ### Focus group ###
 
 * Independent lawyers
-* Attonerneys
+* Attorneys
 * Law firms (small and big)
