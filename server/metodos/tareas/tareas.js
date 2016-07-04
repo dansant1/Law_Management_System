@@ -69,55 +69,67 @@ Meteor.methods({
 
 		}
 	},
-	agregarHoraTarea: function (data) {
-			check(data,Object)
-			console.log(data);
-			if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-				console.log(data);
-				let tarea = Tareas.find({_id:datos.id}).fetch()[0]
-				datos.fecha = new Date(tarea.vence + " GMT-0500");
+	editarTareas: function (datos,tareaId) {
+		check(datos,Object)
+		check(tareaId,String)
+		Tareas.update({_id:tareaId},{
+			$set:datos
+		})
 
-				datos.horas = parseInt(datos.horas);
-				datos.minutos = parseInt(datos.minutos)
-				// datos.precio = parseInt(datos.precio);
-				datos.horasFacturables = datos.horas;
-				datos.minutosFacturables = datos.minutos;
+	},
+	eliminarTarea:function (tareaId) {
+		check(tareaId,String)
+		Tareas.remove({_id:tareaId})
 
-				datos.esTarea = true;
-				// datos.cobrable = datos.cobrado;
+	},
+	agregarHoraTarea: function (datos) {
+			check(datos,Object)
+			console.log(datos);
+			let tarea = Tareas.find({_id:datos.id}).fetch()[0]
+			datos.fecha = new Date(tarea.vence + " GMT-0500");
 
-				// datos.total = datos.horas * datos.precio;
-				datos.creadorId = this.userId;
-				datos.createdAt = new Date();
-				datos.facturado = false;
-				datos.descripcion = tarea.descripcion;
+			datos.horas = parseInt(datos.horas);
+			datos.minutos = parseInt(datos.minutos)
+			// datos.precio = parseInt(datos.precio);
+			datos.horasFacturables = datos.horas;
+			datos.minutosFacturables = datos.minutos;
 
-				let tareaId = datos.id;
-				let datos = {
-					hora: datos.horas,
-					minutos: datos.minutos
-				}
-				let horaId = Horas.insert(datos);
-				Tareas.update({_id:tareaId},{
-					$set:{
-						horas:{
-							id:horaId,
-							hora: datos.hora,
-							minutos: datos.minutos
-						}
+			datos.esTarea = true;
+			// datos.cobrable = datos.cobrado;
+
+			// datos.total = datos.horas * datos.precio;
+			datos.creadorId = this.userId;
+			datos.createdAt = new Date();
+			datos.facturado = false;
+			datos.descripcion = tarea.descripcion;
+
+			let tareaId = datos.id;
+
+			if(datos.minutos>60) {
+				let horas = Number(String(datos.minutos/60).split(".")[0]);
+				let minutos  = datos.minutos%60;
+
+				datos.horas = parseInt(datos.horas) + horas;
+				datos.minutos = minutos
+			}
+
+			let horaId = Horas.insert(datos);
+			console.log(horaId);
+			Tareas.update({_id:tareaId},{
+				$set:{
+					horas:{
+						id:horaId,
+						hora: datos.horas,
+						minutos: datos.minutos
 					}
-				})
+				}
+			})
 
 
 				// Modulo para crear evento sobre que se ha creado una tarea
 
 
 
-			} else {
-
-				return;
-
-			}
 
 	},
 	crearTareaEtapa:function (datos) {

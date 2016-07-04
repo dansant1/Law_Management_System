@@ -484,7 +484,7 @@ Template.agregarHoras.onCreated(function () {
 Template.agregarHoras.helpers({
 	asunto: () => {
 		Session.set('asunto-select-id',Asuntos.findOne({abogados:{$elemMatch:{id:Meteor.userId()}}})._id);
-		return Asuntos.find({abogados:{$elemMatch:{id:Meteor.userId()}}});
+		return Asuntos.find({abierto:true,abogados:{$elemMatch:{id:Meteor.userId()}}});
 	},
 	responsable: () => {
 

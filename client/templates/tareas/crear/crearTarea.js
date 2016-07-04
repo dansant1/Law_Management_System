@@ -1,6 +1,6 @@
 Template.nuevaTareaModal.helpers({
 	asuntos: function () {
-		return Asuntos.find({abierto:true});
+		return Asuntos.find({abierto:true,abogados:{$elemMatch:{id:Meteor.userId()}}});
 	},
 	miembros: function () {
 		debugger;
@@ -58,8 +58,8 @@ Template.nuevaTareaModal.events({
 			tipo: $(template.find(".tipo")).val(),
 			bufeteId: Meteor.user().profile.bufeteId,
 			asignado:{
-				id: template.find('[name="miembro"]').value,
-				nombre: $(template.find('[name="miembro"]')).find(":selected").html()
+				id: Meteor.userId(),
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 			},
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,

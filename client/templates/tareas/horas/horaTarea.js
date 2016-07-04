@@ -4,7 +4,8 @@ Template.horaTareaModal.events({
         let datos = {
             id: this._id,
             horas: template.find("[name='horas']").value,
-            minutos: template.find("[name='minutos']").value
+            minutos: template.find("[name='minutos']").value,
+            bufeteId: Meteor.user().profile.bufeteId
         }
         debugger;
         Meteor.call('agregarHoraTarea',datos,function (err) {

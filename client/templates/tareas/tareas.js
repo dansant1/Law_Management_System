@@ -155,7 +155,13 @@ Template.tablat.events({
 			Bert.alert('Se cerro la tarea correctamente','success')
 		})
 	},
-
+	'click .editar-tarea'(event,template){
+		Session.set('tarea-id',$(event.target).data('id'))
+		Modal.show('editarTareaModal')
+	},
+	'click .eliminar-tarea'(event,template){
+		Session.set('tarea-id',$(event.target).data('id'));
+	},
 	'keyup [name="crear-tarea-simple"]': function (event, template) {
 
 		let datos = {
@@ -279,6 +285,35 @@ Template.tareas2.events({
 		}
 		Session.set('tipo-tarea',true)
 		Session.set('filtro-tarea',filtro)
+	},
+	'click .eliminar-tarea'(event,template){
+		debugger;
+		swal({  title: "¿Seguro que quieres eliminar esta tarea?",
+				text: "Esta tarea ya no estara disponible para el resto de tu equipo",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#e74c3c",
+				confirmButtonText: "Si, eliminar hora",
+				cancelButtonText: "No, cancelar",
+				closeOnConfirm: false
+			},
+			function() {
+				let tareaId = $(event.target).data('id');
+				Meteor.call('eliminarTarea',tareaId,function (err) {
+					if(err) return Bert.alert('Hubo un error al momento de eliminar','danger');
+					swal('Tarea eliminada','La tarea se elimino correctamente','success')
+				})
+				/*let asuntoId = FlowRouter.getParam('asuntoId');
+				Meteor.call('cerrarAsunto', asuntoId, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentalo', 'warning');
+					} else {
+						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
+					}
+
+				}); */
+				// swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
+			});
 	},
 	'click .cerrar': function () {
 		console.log('listo!');

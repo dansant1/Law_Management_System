@@ -1,10 +1,10 @@
-<template name="nuevaTareaModal">
+<template name="editarTareaModal">
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Agregar nueva tarea</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel"><i class="glyphicon glyphicon-user"></i> Editar tarea</h4>
                 </div>
                 <div class="modal-body">
                     <form class="cd-form floating-labels" style="width:100%;margin:0;max-width:none;">
@@ -23,7 +23,7 @@
                             <div class="icon">
                                 <label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
                                 <p class="cd-select icon">
-                                    <select class="budget asunto">
+                                    <select class="budget asunto" name="asunto">
                                         <option value="ninguno">Elige un asunto</option>
                                         {{#each asuntos}}
                                             <option value="{{_id}}">{{caratula}}</option>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input class="btn btn-primary agregar-tareas" type="button" value="Guardar Tarea">
+                    <input class="btn btn-primary editar-tareas" type="button" value="Editar Tarea">
                 </div>
             </div>
         </div>
