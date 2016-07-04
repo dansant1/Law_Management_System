@@ -46,14 +46,16 @@ Template.nuevaTareaModal.onCreated(function () {
 Template.nuevaTareaModal.events({
 	'click .agregar-tareas': function (events, template) {
 		events.preventDefault();
+		events.stopPropagation();
+		debugger;
 		let datos = {
 			descripcion: template.find('[name="descripcion"]').value,
 			fecha: template.find('[name="fecha"]').value,
 			asunto: {
-				nombre: $( ".asunto option:selected" ).text(),
-				id: $( ".asunto" ).val()
+				nombre: $(template.find( ".asunto option:selected" )).text(),
+				id: $(template.find( ".asunto" )).val()
 			},
-			tipo: $( ".tipo" ).val(),
+			tipo: $(template.find(".tipo")).val(),
 			bufeteId: Meteor.user().profile.bufeteId,
 			asignado:{
 				id: template.find('[name="miembro"]').value,
@@ -65,7 +67,7 @@ Template.nuevaTareaModal.events({
 			},
 			etapa:{
 				id: template.find("[name='etapa']").value,
-				nombre: Etapas.find({_id:template.find("[name='etapa']").value})
+				nombre: Etapas.findOne({_id:template.find("[name='etapa']").value}).nombre
 			}
 		}
 

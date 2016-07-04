@@ -483,8 +483,8 @@ Template.agregarHoras.onCreated(function () {
 
 Template.agregarHoras.helpers({
 	asunto: () => {
-		Session.set('asunto-select-id',Asuntos.findOne({})._id);
-		return Asuntos.find({});
+		Session.set('asunto-select-id',Asuntos.findOne({abogados:{$elemMatch:{id:Meteor.userId()}}})._id);
+		return Asuntos.find({abogados:{$elemMatch:{id:Meteor.userId()}}});
 	},
 	responsable: () => {
 
@@ -547,8 +547,8 @@ Template.agregarHoras.events({
 		}
 
 		datos.responsable = {
-			nombre: $( ".responsable option:selected" ).text(),
-			id: $( ".responsable" ).val()
+			nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile,
+			id: Meteor.userId()
 		}
 
 		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "") {

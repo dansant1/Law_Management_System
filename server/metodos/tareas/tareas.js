@@ -1,6 +1,6 @@
 Meteor.methods({
 	crearTarea: function (datos) {
-
+		console.log('Entro aqui');
 		let _check = {
 			asunto: Object,
 			bufeteId: String,

@@ -65,7 +65,7 @@ Template.editarHoraModal.events({
 
 				if(Session.get("cronometro-pausado")) chronometer.reset();
 				$('#agregar-modal').modal('hide');
-				Bert.alert('Agregaste horas', 'success');
+				Bert.alert('Editastes horas', 'success');
 			});
 
 		} else {
