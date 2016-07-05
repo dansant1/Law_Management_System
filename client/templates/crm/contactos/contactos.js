@@ -1,6 +1,7 @@
 Template.listaContactosCRM.onCreated(function () {
 	let self = this;
 	let bufeteId = Meteor.user().profile.bufeteId;
+	Session.set('query',"");
 	self.autorun(function () {
 		self.subscribe('contactos',bufeteId)
 	})
@@ -10,9 +11,33 @@ Template.listaContactosCRM.onRendered(function () {
 
 });
 
+Template.contactosCRM.events({
+	'keyup .buscador-contacto'(event,template){
+		Session.set('query',event.target.value);
+	}
+})
+
+
 Template.listaContactosCRM.helpers({
 	contactos(){
-		return Clientes.find({estatus:'contacto'});
+		var buscador = new RegExp(".*"+Session.get('query')+".*","i");
+
+		let q= {
+			$and:[
+				{estatus:'contacto'},
+				{ $or: [
+				// {bufeteId:Meteor.user().profile.bufeteId},
+					{'nombreCompleto':buscador},
+					{'telefono':buscador},
+					{'email': buscador},
+					{'provincia': buscador},
+					{'pais': buscador},
+					{'email': buscador}
+				]}
+			]
+		}
+
+		return Clientes.find(q);
 	}
 });
 
