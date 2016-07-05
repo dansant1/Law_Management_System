@@ -112,20 +112,48 @@
 
 	                </span>
                  </th>
+    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+    					<a href="/clientes2/d/{{this._id}}" style="font-family: initial;">
+    						<label> {{this.nombre}} {{this.apellido}} </label>
+    					</a>
+					</span>
+				 	{{#if this.empresa}}
+				 	<span class="co-name">
+						{{this.empresa.nombre}}
+				 	</span>
+				 	{{else}}
+					<span class="co-name">
+						+Empresa
+				 	</span>
+				 	{{/if}}
+				 </th>
 				 <td>
+
+				 {{#if this.ruc}}
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		10770956377
+				 		{{this.ruc}}
 				 	</h5>
+				{{else}}
+					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		+RUC
+				 	</h5>
+				{{/if}}
+
 				 </td>
 				 <td>
-					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">Prospecto</span>
+					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">{{this.estatus}}</span>
 				 </td>
 
 				 <td>
+				 {{#if this.celular}}
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
 				 		{{this.celular}}
 				 	</h5>
-
+				{{else}}
+					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		+ celular
+				 	</h5>
+				{{/if}}
 				 </td>
 				 <td>
 				 	<h3 style="text-align: center;">
@@ -142,7 +170,9 @@
 				 	</h3>
 				 </td>
 			</tr>
-            {{/each}}
+
+	{{/each}}
+
 	 </tbody>
 </table>
 

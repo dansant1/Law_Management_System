@@ -44,26 +44,27 @@
 	 </thead>
 	 <tbody>
 
+		{{#each casos}}
 				<tr>
 				 <th>
 
 					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> Terminos y condiciones </label>
+    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+    					<label> <a href="/clientes2/casos/{{this._id}}">{{this.nombre}}</a> </label>
 					</span>
 				 	<span class="co-name">
-						<span style="color: #58BB58;"><i class="fa fa-glass" aria-hidden="true"></i> 1,200.00 $</span>
+						<span style="color: #58BB58;"><i class="fa fa-glass" aria-hidden="true"></i> {{this.descripcion}}</span>
 
 
 				 	</span>
 				 </th>
 				 <td>
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		Dan Bilzerian
+				 		{{this.contacto.nombre}}
 				 	</h5>
 				 </td>
 				 <td>
-					<span class="asunto-tipo" style="background-color: #2ecc71; margin: 0 auto;">Ganado</span>
+					<span class="asunto-tipo" style="background-color: #2ecc71; margin: 0 auto;">{{this.estatus}}</span>
 				 </td>
 
 				<td>
@@ -83,9 +84,7 @@
 
 						    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
 						    <li role="separator" class="divider"></li>
-
-						            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
-
+						    <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
 						  </ul>
 						</div>
 				 	</h3>
@@ -93,6 +92,8 @@
 				 </td>
 
 			</tr>
+
+			{{/each}}
 
 	 </tbody>
 </table>
