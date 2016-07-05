@@ -4579,50 +4579,30 @@
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
+     <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
+    </a>
   </div>
 
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+  <div class="franja-filtros" style="margin-bottom: 2.5px; padding-left: 14px;">
     <a href="/clientes2" class="menu-asunto-aim">
       Resúmen
     </a>
     <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       Contactos
     </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
+    <a href="/clientes2/negociaciones" class="menu-asunto-aim" style="margin-left: 10px;">
+      Negociaciones
     </a>
   </div>
 
-  <div style="display: flex; flex-wrap;">
-     <div class="sidebar-vertical-blanco">
-    {{>botonNuevosContactos}}
-
-    <div class="sidebar-titulo">
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-      </h5>
-  </div>
-  </div>
+  <div >
+    
 
   {{#with cliente}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
+      <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName this.nombre this.apellido}}</span>
     <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} {{this.apellido}}
     </a>
@@ -4646,23 +4626,18 @@
     {{/if}}
   </div>
 
-
-  {{else}}
-  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    {{>loader}}
-  </div>
   {{/with}}
   </div>
 
-  <div style="display: flex; flex-wrap;">
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+  <div >
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 7px;">
     <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim  asunto-item-activo">
       Notas
     </a>
     <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
       Información
     </a>
-    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+   <!-- <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
       Casos
     </a>
     <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
@@ -4670,13 +4645,13 @@
     </a>
     <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
       Facturación
-    </a>
+    </a> -->
   </div>
 
   </div>
 
-  <div style="display: flex; flex-wrap;">
-    <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; background-color: #F9F9F9; min-height: 450px;">
+  <div >
+    <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; background-color: white; min-height: 450px;">
 
         <div class="form-conversacion" style="margin: 20px auto; width: 90%;">
         <input type="text" name="nombre" placeholder="Nota">
@@ -4783,7 +4758,7 @@
         <a href="/clientes2" >CRM</a>
         <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
         <a href="/clientes2/casos">
-        Casos
+        Negociaciones
         </a>
 
       </p>
@@ -4805,69 +4780,49 @@
      Equipo
     </a>
 
-     <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
+    </a>
   </div>
 
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+  <div class="franja-filtros" style="margin-bottom: 2.5px; padding-left: 14px;">
     <a href="/clientes2" class="menu-asunto-aim">
       Resúmen
     </a>
     <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
       Contactos
     </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="/clientes2/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
-      Casos
+    
+    <a href="/clientes2/negociaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Negociaciones
     </a>
   </div>
 
   <div style="display: flex; flex-wrap;">
-    <div class="sidebar-vertical-blanco">
-    {{>botonNuevosContactos}}
+    
+    <!--{{>botonNuevosContactos}} -->
 
-    <div class="sidebar-titulo">
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-      </h5>
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/casos" style="text-decoration:none;" class="no-hover">Casos</a>
-      </h5>
-  </div>
-  </div>
 
    {{#with caso}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 14px;">
 
     <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} de {{this.contacto.nombre}}
     </a>
     <i class="glyphicon glyphicon-queen"></i>
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 75px; text-align:left">
       {{this.estatus}}
     </a>
 
     <i class="glyphicon glyphicon-user"></i>
-    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
       {{this.creador.nombre}}
     </a>
 
@@ -4875,8 +4830,8 @@
   {{/with}}
 
   </div>
-  <div style="display: flex; flex-wrap;">
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+  <div>
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 24px;">
     <a href="/clientes2/casos/{{casoId}}/" class="menu-asunto-aim asunto-item-activo">
       Actividad
     </a>
@@ -4894,7 +4849,7 @@
  <div class="cuadro-tarea-comentarios"  style="padding: 0px; height: 470px;">
 
   {{#each news}}
-  <div class="franja-filtros" style="width: 82%; margin-left: 220px; min-height: 80px; padding-top: 15px; border-top: none;">
+  <div class="franja-filtros" style="width: 82%; margin-left: 0px; min-height: 80px; padding-top: 15px; border-top: none; padding-left: 24px;">
 
       <div style="display: flex; width: 80%; height: 85px;">
         <div style="margin: 25px; margin-top: 0px;">
@@ -4927,7 +4882,7 @@
         <a href="/clientes2" >CRM</a>
         <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
         <a href="/clientes2/casos">
-        Casos
+        Negociaciones
         </a>
 
       </p>
@@ -4949,69 +4904,47 @@
      Equipo
     </a>
 
-     <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
+    </a>
   </div>
 
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+  <div class="franja-filtros" style="margin-bottom: 2.5px; padding-left: 14px;">
     <a href="/clientes2" class="menu-asunto-aim">
       Resúmen
     </a>
     <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
       Contactos
     </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="/clientes2/casos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
-      Casos
+   
+    <a href="/clientes2/negociaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Negociaciones
     </a>
   </div>
 
   <div style="display: flex; flex-wrap;">
-    <div class="sidebar-vertical-blanco">
-    {{>botonNuevosContactos}}
-
-    <div class="sidebar-titulo">
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-      </h5>
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/casos" style="text-decoration:none;" class="no-hover">Casos</a>
-      </h5>
-  </div>
-  </div>
+   
 
    {{#with caso}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
+   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 14px;">
 
     <a href="#" class="menu-asunto-aim caso-nombre" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} de {{this.contacto.nombre}}
     </a>
     <i class="glyphicon glyphicon-queen"></i>
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 75px; text-align:left">
       {{this.estatus}}
     </a>
 
     <i class="glyphicon glyphicon-user"></i>
-    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
       {{this.creador.nombre}}
     </a>
 
@@ -5020,7 +4953,7 @@
 
   </div>
   <div style="display: flex; flex-wrap;">
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 24px;">
     <a href="/clientes2/casos/{{casoId}}/" class="menu-asunto-aim">
       Actividad
     </a>
@@ -5034,7 +4967,7 @@
 
   </div>
 
-  <div style="width: 70%; margin-left: 300px; margin-top: 25px;">
+  <div style="width: 70%; margin: 0 auto; margin-top: 25px;">
     <div class="form-conversacion" style="margin-bottom: 30px;  width: 90%;">
         <textarea name="descripcion" placeholder="Escriba una nota o agregue documentos" style="padding-top: 10px;"></textarea>
         <div class="div-conversacion">
@@ -5218,56 +5151,38 @@
      Equipo
     </a>
 
-     <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
+
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       CRM
     </a>
+
+    <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+      Facturación
+    </a>
   </div>
 
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+  <div class="franja-filtros" style="margin-bottom: 2.5px; padding-left: 14px;">
     <a href="/clientes2" class="menu-asunto-aim">
       Resúmen
     </a>
     <a href="/clientes2/contactos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
       Contactos
     </a>
-    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Prospectos
-    </a>
-    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
-      Clientes
-    </a>
-    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
+    <a href="/clientes2/negociaciones" class="menu-asunto-aim" style="margin-left: 10px;">
+      Negociaciones
     </a>
   </div>
 
   <div style="display: flex; flex-wrap;">
-     <div class="sidebar-vertical-blanco">
-    {{>botonNuevosContactos}}
-
-    <div class="sidebar-titulo">
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
-      </h5>
-
-      <h5 class="sidebar-item" style=" padding-left: 20px;">
-        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
-      </h5>
-  </div>
-  </div>
+   
 
    {{#with cliente}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px;">
+   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
+    <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px; ">{{getFirstLettersOfName this.nombre this.apellido}}</span>
     <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} {{this.apellido}}
     </a>
@@ -5292,22 +5207,19 @@
   </div>
 
 
-  {{else}}
-  <div class="franja-filtros" style="width: 100%; margin-left: 220px; height: 95px; padding-top: 15px; border-top: none;">
-    {{>loader}}
-  </div>
+ 
   {{/with}}
 
   </div>
   <div style="display: flex; flex-wrap;">
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 7px;">
     <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
       Notas
     </a>
     <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim  asunto-item-activo" style="margin-left: 0px;">
       Información
     </a>
-    <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+    <!--<a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
       Casos
     </a>
     <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
@@ -5315,14 +5227,14 @@
     </a>
     <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
       Facturación
-    </a>
+    </a> -->
   </div>
 
   </div>
 
-  <div style="width: 80%;">
+  <div style="width: 100%;">
    {{#with cliente}}
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
 
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Nombre y apellido </h5>{{this.nombre}} {{this.apellido}}
@@ -5348,7 +5260,7 @@
 
   </div>
 
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
         {{#if this.identificacion}}
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Identificación </h5>{{this.identificacion}}
@@ -5373,7 +5285,7 @@
 
   </div>
 
-  <div class="franja-filtros"  style="width: 100%; margin-left: 220px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
         {{#if this.direccion}}
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Dirección </h5>{{this.direccion}}
@@ -6453,33 +6365,18 @@
     <div>
        <div class="sidebar-vertical-blanco">
 
-        <div class="btn-group">
-          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-            Nuevo <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
-            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
-            <li class="empresa"><a href="#">+ Cobro</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-            <li class="empresa"><a href="/facturacion/cambio/nuevo">+ Tipo de cambio</a></li>
-          </ul>
-        </div>
+         {{> menuBotonesFacturacion}}
 
 
 
             <div class="sidebar-titulo">
 
                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/tarifas" style="text-decoration:none;" class=" no-hover">Tarifas</a>
+                    <a href="/facturacion/configuracion-facturacion" style="text-decoration:none;" class=" no-hover">Tarifas</a>
                 </h5>
 
                  <h5 class="sidebar-item" style=" padding-left: 20px;">
                     <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Tipo de cambio</a>
-                </h5>
-
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Facturas</a>
                 </h5>
 
             </div>
@@ -6495,7 +6392,7 @@
 		      <div style="display: flex; width: 80%; height: 85px;">
 		        <div style="margin: 25px; margin-top: 0px;">
 			          <h5 style="color: #7f8c8d;">Tarifa</h5>
-			          <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Cambio dolar a soles :  </h1>
+			          <h1 style="display: inline-block; width: 450px; margin: 0px; color: #34495e;">Cambio dólar a soles :  </h1>
 		        </div>
 				<div style="margin: 25px; margin-top: 0px;">
 					<h5 style="color: #7f8c8d;"></h5>
@@ -6578,16 +6475,13 @@
             <div class="sidebar-titulo">
 
                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/tarifas" style="text-decoration:none;" class=" no-hover">Tarifas</a>
+                    <a href="/facturacion/configuracion-facturacion" style="text-decoration:none;" class=" no-hover">Tarifas</a>
                 </h5>
 
                  <h5 class="sidebar-item" style=" padding-left: 20px;">
                     <a href="/facturacion/configuracion-facturacion/cambio" style="text-decoration:none;" class=" no-hover">Tipo de cambio</a>
                 </h5>
 
-                 <h5 class="sidebar-item" style=" padding-left: 20px;">
-                    <a href="/facturacion/configuracion-facturacion/facturas" style="text-decoration:none;" class="no-hover">Facturas</a>
-                </h5>
 
             </div>
         </div>
