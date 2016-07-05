@@ -1,22 +1,76 @@
+<template name="contactos2">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2">
+        Contactos
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim ">
+      Equipo
+    </a>
+
+      <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+    <a href="/facturacion" class="menu-asunto-aim " style="margin-left: 0px;">
+      Facturación
+    </a>
+  </div>
+
+	{{>menuContactosCRM}}
+
+  	<!-- <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto"> -->
+
+  	{{>contactosCRM}}
+
+
+
+
+
+</template>
+
 <template name="contactosCRM">
-	
+
 	<!-- Sub menu de crm incluye el boton nuevo y el buscador -->
 	<div class="franja-filtros">
 		{{>botonNuevosContactos}}
 		{{>botonFiltroCRM}}
 		<input type="text" class="buscador-bunqr buscador-contacto" placeholder="Busca a tu contactos por su nombre, ruc, dni, telefono, dirección, empresa, etc...">
 	</div>
-	
+
 	{{>listaContactosCRM}}
-	
+
 
 </template>
 
 <template name="listaContactosCRM">
 	<div class="table-wrapper">
 
-<table cellspacing="0" id="tech-companies">
-	 <thead>
+    <table cellspacing="0" id="tech-companies">
+        <thead>
 			<tr>
 				 <th class="persist essential">
 				 	<h3 >
@@ -44,27 +98,24 @@
 				 	</h3>
 				 </th>
 			</tr>
-	 </thead>
-	 <tbody>		
-		
-				<tr>
+       </thead>
+       <tbody>
+           {{#each contactos}}
+			<tr>
 				 <th>
-				 	
+
 					<span class="fh-checkbox">
     					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> Dan Bilzerian </label>
+    					<label for="dan">{{this.nombre}} {{this.apellido}} </label>
 					</span>
-				 <span class="co-name">
-						Grupo DDV SAC
-				
-					
-				 </span></th>
+	                <span class="co-name">
+
+	                </span>
+                 </th>
 				 <td>
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		10770956377	
+				 		10770956377
 				 	</h5>
-					
-					
 				 </td>
 				 <td>
 					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">Prospecto</span>
@@ -72,32 +123,26 @@
 
 				 <td>
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		985698624
+				 		{{this.celular}}
 				 	</h5>
-							
+
 				 </td>
 				 <td>
 				 	<h3 style="text-align: center;">
 				 		<div class="btn-group">
-
-  <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-
-    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
-    <li role="separator" class="divider"></li>
-
-            <li class="cerrar-asunto"><a data-id="#" style="color: #e74c3c;">Eliminar</a></li>
-
-  </ul>
-		</div>
+                          <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li class="editar-contacto"><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="cerrar-contacto"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
+                          </ul>
+		              </div>
 				 	</h3>
-				 	
 				 </td>
-
 			</tr>
-		
+            {{/each}}
 	 </tbody>
 </table>
 
@@ -105,7 +150,7 @@
 </template>
 
 <template name="botonFiltroCRM">
-	
+
 	<div class="btn-group">
   		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
    					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>

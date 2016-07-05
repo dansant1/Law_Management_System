@@ -1,3 +1,0 @@
-Template.listaContactosCRM.onCreated(function () {
-	
-});

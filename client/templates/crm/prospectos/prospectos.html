@@ -1,0 +1,124 @@
+<template name="Prospectos">
+  <!-- Menu -->
+  <div class="franja-progreso">
+    <div class="progreso">
+      <p>
+        {{email}}
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2" >CRM</a>
+        <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+        <a href="/clientes2">
+        Contactos
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="franja-filtros" style="padding-left: 18px;">
+
+    <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Actividad
+    </a>
+    <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+      Calendario
+    </a>
+    <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+      Tareas
+    </a>
+    <a href="/equipo" class="menu-asunto-aim ">
+      Equipo
+    </a>
+
+      <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+      Asuntos
+    </a>
+    <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+      CRM
+    </a>
+  </div>
+
+  <div class="franja-filtros" style=" margin-bottom: 2.5px;">
+    <a href="/clientes2" class="menu-asunto-aim">
+      Resúmen
+    </a>
+    <a href="/clientes2/contactos" class="menu-asunto-aim" style="margin-left: 0px;">
+      Contactos
+    </a>
+    <a href="/clientes2/contactos/prospectos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+      Prospectos
+    </a>
+
+    <a href="/clientes2/contactos/clientes" class="menu-asunto-aim" style="margin-left: 10px;">
+      Clientes
+    </a>
+
+    <a href="/clientes2/casos" class="menu-asunto-aim" style="margin-left: 10px;">
+      Casos
+    </a>
+  </div>
+
+  <div>
+     <div class="sidebar-vertical-blanco">
+
+    {{>botonNuevosContactos}}
+    <div class="sidebar-titulo">
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos" style="text-decoration:none;" class="no-hover">Todos</a>
+      </h5>
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/personas" style="text-decoration:none;" class="no-hover">Personas</a>
+      </h5>
+
+      <h5 class="sidebar-item" style=" padding-left: 20px;">
+        <a href="/clientes2/contactos/empresas" style="text-decoration:none;" class="no-hover">Empresas</a>
+      </h5>
+  </div>
+  </div>
+      <div class="">
+          <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del prospecto  " name="consulta" class="form-control buscador-prospectos">
+      </div>
+
+  {{#each clientes}}
+  <div >
+   <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
+    <img src="/contactos/contacto.jpg" alt="{{this.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+      <span style="color: #2B3E51;">{{this.nombre}} {{this.apellido}}</span>
+
+      <h5>Por {{this.autor}}</h5>
+
+    </a>
+    <div style="display: inline-block; padding-bottom: 25px;">
+
+    <i class="glyphicon glyphicon-phone"></i>
+    {{#if this.celular}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      {{this.celular}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
+      + Celular
+    </a>
+    {{/if}}
+    <i class="glyphicon glyphicon-comment"></i>
+    {{#if this.email}}
+    <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
+      {{this.email}}
+    </a>
+    {{else}}
+    <a class="menu-asunto-aim" style="text-transform: initial; width: 160px; text-align: left;">
+      + Email
+    </a>
+    {{/if}}
+     </div>
+  </div>
+
+  </div>
+  {{/each}}
+  </div>
+
+
+</template>

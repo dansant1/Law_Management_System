@@ -83,47 +83,93 @@ Meteor.methods({
 
 	},
 	agregarHoraTarea: function (datos) {
-			check(datos,Object)
-			console.log(datos);
-			let tarea = Tareas.find({_id:datos.id}).fetch()[0]
-			datos.fecha = new Date(tarea.vence + " GMT-0500");
+		check(datos,Object)
+		console.log(datos);
+		let tarea = Tareas.find({_id:datos.id}).fetch()[0]
+		if(!tarea.vence)	datos.fecha = new Date();
+		else datos.fecha = new Date(tarea.vence + " GMT-0500");
 
-			datos.horas = parseInt(datos.horas);
-			datos.minutos = parseInt(datos.minutos)
-			// datos.precio = parseInt(datos.precio);
-			datos.horasFacturables = datos.horas;
-			datos.minutosFacturables = datos.minutos;
+		datos.horas = parseInt(datos.horas);
+		datos.minutos = parseInt(datos.minutos)
+		// datos.precio = parseInt(datos.precio);
+		datos.horasFacturables = datos.horas;
+		datos.minutosFacturables = datos.minutos;
 
-			datos.esTarea = true;
-			// datos.cobrable = datos.cobrado;
+		datos.esTarea = true;
+		// datos.cobrable = datos.cobrado;
 
-			// datos.total = datos.horas * datos.precio;
-			datos.creadorId = this.userId;
-			datos.createdAt = new Date();
-			datos.facturado = false;
-			datos.descripcion = tarea.descripcion;
+		// datos.total = datos.horas * datos.precio;
+		datos.creadorId = this.userId;
+		datos.createdAt = new Date();
+		datos.facturado = false;
+		datos.descripcion = tarea.descripcion;
 
-			let tareaId = datos.id;
+		let tareaId = datos.id;
 
-			if(datos.minutos>60) {
-				let horas = Number(String(datos.minutos/60).split(".")[0]);
-				let minutos  = datos.minutos%60;
+		if(datos.minutos>60) {
+			let horas = Number(String(datos.minutos/60).split(".")[0]);
+			let minutos  = datos.minutos%60;
 
-				datos.horas = parseInt(datos.horas) + horas;
-				datos.minutos = minutos
-			}
+			datos.horas = parseInt(datos.horas) + horas;
+			datos.minutos = minutos
+		}
 
-			let horaId = Horas.insert(datos);
-			console.log(horaId);
-			Tareas.update({_id:tareaId},{
-				$set:{
-					horas:{
-						id:horaId,
-						hora: datos.horas,
-						minutos: datos.minutos
-					}
+		if(datos.asunto){
+			let asunto = Asuntos.findOne({_id:datos.asunto.id})
+			console.log(asunto);
+			let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id})
+			let cambio = Cambio.findOne({bufeteId:datos.bufeteId})
+
+			tarifa.miembros.some(function (miembro) {
+				if(miembro.id==datos.responsable.id){
+					let costoxminuto, costoxhora;
+					costoxhora = miembro.soles*datos.horas;
+					costoxminuto = (miembro.soles/60)*datos.minutos;
+
+					return datos.precio = Number(costoxhora) + Number(costoxminuto);
 				}
 			})
+
+			if(!datos.precio){
+				let user = Meteor.users.findOne({_id:datos.responsable.id});
+				tarifa.roles.some(function (roles) {
+					let costoxminuto, costoxhora;
+					if(user.roles.bufete.length==1)
+						if(user.roles.bufete[0]==roles.nombre){
+
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+
+							return datos.precio = Number(costoxhora) + Number(costoxminuto);
+
+							// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+
+						}
+					else {
+						if(user.roles.bufete[1]==roles.nombre){
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+							return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+						}
+					}
+				})
+			}
+			console.log(datos.precio);
+
+			datos.precio = datos.precio.toFixed(2)
+		}
+
+		let horaId = Horas.insert(datos);
+		console.log(horaId);
+		Tareas.update({_id:tareaId},{
+			$set:{
+				horas:{
+					id:horaId,
+					hora: datos.horas,
+					minutos: datos.minutos
+				}
+			}
+		})
 
 
 				// Modulo para crear evento sobre que se ha creado una tarea
@@ -164,6 +210,72 @@ Meteor.methods({
 			}
 		})
 
+		let tarea = Tareas.findOne({_id:datos.tareaId})
+
+		if(tarea.horas){
+
+			Horas.update({_id:tarea.horas.id},{
+				$set:{
+					asunto:tarea.asunto
+				}
+			})
+
+			let asunto = Asuntos.findOne({_id:tarea.asunto.id});
+			// console.log(asunto);
+			console.log(tarea);
+			let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id});
+			let cambio = Cambio.findOne({bufeteId:tarea.bufeteId})
+			let datos = Horas.findOne({_id:tarea.horas.id});
+
+			console.log("[ID RESPONSABLE] "+ tarea.asignado.id);
+			console.log("[TARIFA] ",tarifa._id);
+			tarifa.miembros.some(function (miembro) {
+				if(miembro.id==datos.responsable.id){
+					let costoxminuto, costoxhora;
+					costoxhora = miembro.soles*datos.horas;
+					costoxminuto = (miembro.soles/60)*datos.minutos;
+
+					return datos.precio = Number(costoxhora) + Number(costoxminuto);
+				}
+			})
+
+			if(!datos.precio){
+				let user = Meteor.users.findOne({_id:datos.responsable.id});
+				// console.log("[USUARIO]",user);
+				tarifa.roles.some(function (roles) {
+					let costoxminuto, costoxhora;
+					console.log("[ROL T]",user.roles.bufete.length);
+					if(user.roles.bufete.length==1){
+
+						if(user.roles.bufete[0]==roles.nombre){
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+
+							return datos.precio = Number(costoxhora) + Number(costoxminuto);
+							// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+						}
+					}
+					else {
+						console.log("[ROLE]",user.roles.bufete[1]);
+						if(user.roles.bufete[1]==roles.nombre){
+							costoxhora = roles.soles*datos.horas;
+							costoxminuto = (roles.soles/60)*datos.minutos;
+							return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+						}
+					}
+				})
+			}
+			// console.log("[HORA ID] " + _horaId);
+			console.log("[PRECIO] " +datos.precio);
+
+			datos.precio = datos.precio.toFixed(2)
+
+			Horas.update({_id:tarea.horas.id},{
+				$set:{
+					precio: datos.precio
+				}
+			})
+		}
 	},
 
 	actualizarMiembroTarea(tareaId,asignado){

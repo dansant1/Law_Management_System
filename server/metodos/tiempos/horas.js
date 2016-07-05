@@ -551,6 +551,13 @@ Meteor.methods({
 				asunto:_datos.asunto
 			}})
 
+			Tareas.update({'horas.id':_datos.id},{
+				$set:{
+					asunto:_datos.asunto
+				}
+			})
+
+
 			let asunto = Asuntos.findOne({_id:_datos.asunto.id});
 			// console.log(asunto);
 
@@ -606,6 +613,8 @@ Meteor.methods({
 					precio: datos.precio
 				}
 			})
+
+
 
 			calcularTotal(datos)
 
