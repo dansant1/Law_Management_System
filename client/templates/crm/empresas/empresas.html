@@ -1,4 +1,4 @@
-<template name="contactos2">
+<template name="empresas">
   <!-- Menu -->
   <div class="franja-progreso">
     <div class="progreso">
@@ -40,11 +40,11 @@
     </a>
   </div>
 
-	{{>menuContactosCRM}}
+	{{>menuEmpresasCRM}}
 
   	<!-- <input style="margin-left:220px;width:75%;" type="text" placeholder="Escriba el nombre del contacto" name="contacto" class="form-control buscador-contacto"> -->
 
-  	{{>contactosCRM}}
+  	{{>empresasCRM}}
 
 
 
@@ -52,7 +52,7 @@
 
 </template>
 
-<template name="contactosCRM">
+<template name="empresasCRM">
 
 	<!-- Sub menu de crm incluye el boton nuevo y el buscador -->
 	<div class="franja-filtros">
@@ -61,12 +61,12 @@
 		<input type="text" class="buscador-bunqr buscador-contacto" placeholder="Busca a tu contactos por su nombre, ruc, dni, telefono, dirección, empresa, etc...">
 	</div>
 
-	{{>listaContactosCRM}}
+	{{>listaEmpresasCRM}}
 
 
 </template>
 
-<template name="listaContactosCRM">
+<template name="listaEmpresasCRM">
 	<div class="table-wrapper">
 
     <table cellspacing="0" id="tech-companies">
@@ -100,17 +100,17 @@
 			</tr>
        </thead>
        <tbody>
-           {{#each contactos}}
+           {{#each empresas}}
 			<tr>
 				 <th>
 
 					<span class="fh-checkbox">
     					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan">{{this.nombre}} {{this.apellido}} </label>
+    					<label for="dan">{{this.nombre}}</label>
 					</span>
 				 	{{#if this.empresa}}
 				 	<span class="co-name">
-						{{this.empresa.nombre}}
+						{{this.nombre}}
 				 	</span>
 				 	{{else}}
 					<span class="co-name">
@@ -120,7 +120,7 @@
 				 </th>
 				 <td>
 
-				 {{#if this.empresa.ruc}}
+				 {{#if this.ruc}}
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
 				 		<a href="#" class="añadir-empresa">{{this.empresa.ruc}}</a>
 				 	</h5>
@@ -132,7 +132,7 @@
 
 				 </td>
 				 <td>
-					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">{{this.estatus}}</span>
+					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">Empresa</span>
 				 </td>
 
 				 <td>
@@ -155,7 +155,7 @@
                           <ul class="dropdown-menu">
                             <li class="editar-contacto"><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
                             <li role="separator" class="divider"></li>
-                            <li class="eliminar-contacto"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
+                            <li class="cerrar-contacto"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
                           </ul>
 		              </div>
 				 	</h3>
@@ -168,21 +168,4 @@
 </table>
 
 </div><!-- /table-wrapper -->
-</template>
-
-<template name="botonFiltroCRM">
-
-	<div class="btn-group">
-  		<button type="button" class="btn dropdown-toggle  nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px; background-color: white; color: #34495e;">
-   					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
-  		</button>
-  		<ul class="dropdown-menu">
-			<li class="persona"> <a href="#">Personas</a> </li>
-    		<li class="persona"><a href="#">Empresas</a></li>
-    		<li class="divider"></li>
-            <li class="empresa contacto"><a href="#">Contactos</a></li>
-            <li class="empresa prospecto"><a href="#">Prospectos</a></li>
-            <li class="empresa cliente"><a href="#">Clientes</a></li>
-  		</ul>
-    </div>
 </template>

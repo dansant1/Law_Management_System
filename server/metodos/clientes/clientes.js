@@ -48,7 +48,39 @@
 		}
 
 
-	}
+	},
+    actualizarEmpresaContacto:function (datos,contactId) {
+		check(datos, Object);
+        check(contactId,String)
+
+
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+
+            Clientes.update({_id:contactId},{
+                $set:{
+                    empresa:datos
+                }
+            })
+
+		} else {
+			return;
+		}
+
+    },
+    eliminarContacto:function (contactId) {
+        check(contactId,String)
+
+
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+            Clientes.remove({_id:contactId})
+
+		} else {
+			return;
+		}
+
+    }
 });
 
 
@@ -92,7 +124,39 @@ Meteor.methods({
 		} else {
 			return;
 		}
+	},
+    agregarDatosEmpresa:function (datos) {
+        check(datos,Object)
 
+        datos.createdAt = new Date();
+        datos.creadorId = this.userId;
 
-	}
+        if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+            datos.archivado = false;
+            let empresaId = Empresas.insert(datos);
+
+            let creador = Meteor.users.findOne({_id: this.userId}).profile;
+
+            if (empresaId) {
+                NewsFeed.insert({
+                    descripcion: creador.nombre + ' ' + creador.apellido + ' agregó la empresa ' + datos.nombre ,
+                    tipo: 'Empresa',
+                    creador: {
+                        nombre: creador.nombre + ' ' + creador.apellido,
+                        id: this.userId
+                    },
+                    bufeteId: datos.bufeteId,
+                    createdAt: new Date()
+                });
+            }
+
+            return {
+                id:empresaId
+            }
+
+        } else {
+            return;
+        }
+
+    }
 });

@@ -1,0 +1,51 @@
+<template name="crearEmpresaContacto">
+	 <div id="gasto-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Empresa</h4>
+                </div>
+
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                    <fieldset>
+                        <div class="row" style="margin:0">
+                            <div class="col-md-6" style="margin:0">
+                                <div class="fh-checkbox" style="margin:0">
+                                    <input type="radio" name="mycheckbox" value="crear" checked>
+                                    <label for="">Crear empresa</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin:0">
+                                <div class="fh-checkbox" style="margin:0">
+                                    <input type="radio" name="mycheckbox" value="buscar">
+                                    <label for="">Buscar empresa</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crear-empresa-form">
+                            <input type="text" name="ruc" value="" placeholder="RUC"><br>
+                            <input type="text" name="nombre" value="" placeholder="Nombre"><br>
+                            <input type="button" class="btn btn-primary guardar-empresa" value="Guardar">
+                        </div>
+                        <div class="hide buscador-empresa">
+                            <input class="company form-control typeahead" id="empresa-typeahead" name="tareas" type="text"
+                            placeholder="Empresas"
+                            autocomplete="on" spellcheck="off"
+                            data-source="contactoCompanies"/><br><br>
+
+                            <input type="button" class="btn btn-primary agregar-empresa" value="Guardar">
+                        </div>
+                    </fieldset>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

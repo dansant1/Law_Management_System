@@ -66,6 +66,18 @@ EsquemaClientes = new SimpleSchema({
 		type:Object,
 		optional:true
 	},
+	empresa:{
+		type:Object,
+		optional:true
+	},
+	'empresa.ruc':{
+		type:String,
+		optional:true
+	},
+	'empresa.nombre':{
+		type:String,
+		optional:true
+	},
 	'facturacion.ruc':{
 		type:String
 	},
@@ -191,6 +203,9 @@ Empresas.deny({
 });
 
 EsquemaEmpresas = new SimpleSchema({
+	ruc:{
+		type:String
+	},
 	nombre: {
 		type: String
 	},
