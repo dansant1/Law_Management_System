@@ -4422,7 +4422,7 @@
   </div>
 
   <div >
-    
+
 
   {{#with cliente}}
 
@@ -4623,14 +4623,14 @@
     <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
       Contactos
     </a>
-    
+
     <a href="/clientes2/negociaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
       Negociaciones
     </a>
   </div>
 
   <div style="display: flex; flex-wrap;">
-    
+
     <!--{{>botonNuevosContactos}} -->
 
 
@@ -4747,14 +4747,14 @@
     <a href="/clientes2/contactos" class="menu-asunto-aim " style="margin-left: 0px;">
       Contactos
     </a>
-   
+
     <a href="/clientes2/negociaciones" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
       Negociaciones
     </a>
   </div>
 
   <div style="display: flex; flex-wrap;">
-   
+
 
    {{#with caso}}
 
@@ -5002,7 +5002,7 @@
   </div>
 
   <div style="display: flex; flex-wrap;">
-   
+
 
    {{#with cliente}}
 
@@ -5032,7 +5032,7 @@
   </div>
 
 
- 
+
   {{/with}}
 
   </div>
@@ -6513,73 +6513,6 @@
 
         </div>
 
-
-</template>
-
-<template name="cobros">
-   <!-- Menu -->
-    <div class="franja-progreso">
-        <div class="progreso">
-            <p>
-                {{email}}
-                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/facturacion" > Facturación</a>
-                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
-                <a href="/facturacion/cobros"> Cobros</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="franja-filtros" style="padding-left: 4px;">
-        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
-            Actividad
-        </a>
-        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
-            Calendario
-        </a>
-        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
-            Tareas
-        </a>
-        <a href="/equipo" class="menu-asunto-aim ">
-            Equipo
-        </a>
-        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
-            Asuntos
-        </a>
-        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
-            CRM
-        </a>
-        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
-            Facturación
-        </a>
-    </div>
-
-    <div class="franja-filtros" style="margin-bottom: 0px;">
-        <a href="/facturacion" class="menu-asunto-aim ">
-            Resúmen
-        </a>
-        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
-            Horas
-        </a>
-        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
-            Gastos
-        </a>
-        <a href="/facturacion/cobros" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
-            Cobros
-        </a>
-        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
-            Reportes
-        </a>
-        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim " style="margin-left: 10px;">
-            Configuración
-        </a>
-    </div>
-	<div class="franja-filtros">
-		{{>botonGenerarFactura}}
-		{{>botonFiltroClientesFacturables}}
-		<input type="text" class="buscador-bunqr buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
-	</div>
-	{{>listaClientesFacturables}}
 
 </template>
 

@@ -1,5 +1,5 @@
 <template name="botonGenerarFactura">
-	 <button type="button" class="btn nueva-tarea azul-flat" style="background-color: #3498db; padding: 5px; color: white; border-bottom: none; text-transform: uppercase; margin-left: 25px; margin-top: 15px;">
+	 <button type="button" class="btn nueva-tarea azul-flat boton-facturar" style="background-color: #3498db; padding: 5px; color: white; border-bottom: none; text-transform: uppercase; margin-left: 25px; margin-top: 15px;">
 	 Facturar
   </button>
 </template>
@@ -17,133 +17,187 @@
     </div>
 </template>
 
+<template name="cobros">
+   <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion" > Facturación</a>
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion/cobros"> Cobros</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 4px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 0px;">
+        <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim " style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+	<div class="franja-filtros">
+		{{>botonGenerarFactura}}
+		{{>botonFiltroClientesFacturables}}
+		<input type="text" class="buscador-bunqr buscador-cobros buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
+	</div>
+	{{>listaClientesFacturables}}
+
+</template>
+
+
 <template name="listaClientesFacturables">
 	<div class="table-wrapper">
-
-<table cellspacing="0" id="tech-companies">
-	 <thead>
-			<tr>
-				 <th class="persist essential">
-				 	<h3>
-				 		<i class="fa fa-user" aria-hidden="true"></i>
-				 	</h3>
-				 </th>
-				 <th class="optional">
-				 	<h3 style="text-align: center;">
-				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
-				 	</h3>
-				 </th>
-				 <th class="essential">
-				 	<h3 style="text-align: center;">
-				 		<i class="fa fa-money" aria-hidden="true"></i>
-				 	</h3>
-				 </th>
-				<th class="essential">
-				 	<h3 style="text-align: center;">
-				 		<i class="fa fa-cog" aria-hidden="true"></i>
-				 	</h3>
-				 </th>
-
-			</tr>
-	 </thead>
-	 <tbody>
-
+		<table cellspacing="0" id="tech-companies">
+			<thead>
 				<tr>
-				 <th>
-
-					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> Dan Bilzerian </label>
-					</span>
-				 	<span class="co-name"></span>
-				 </th>
-				 <td>
-				 	<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-				 		28h 35m
-				 	</h5>
-				 </td>
-				 <td>
-					<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-				 		S/. 1,200.00
-				 	</h5>
-				 </td>
-
-				 <td>
-				 	<h3 style="text-align: center;">
-				 		conf
-				 	</h3>
-
-				 </td>
-
-			</tr>
-
-				<tr>
-				 <th style="padding-left: 45px;">
-
-					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> Terminos y condiciones </label>
-					</span>
-				 	<span class="co-name">
+					<th class="persist essential">
+					 	<h3>
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</h3>
+					</th>
+					<th class="optional">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-clock-o" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+					<th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa fa-money" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+					<th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa fa-money" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+					{{#each clientes}}
+						{{> asuntosxCliente}}
+					{{/each}}
+				<!-- <tr>
+					<th style="padding-left: 45px;">
+						<span class="fh-checkbox">
+		    			<input type="checkbox" id="dan" name="mycheckbox">
+		    			<label for="dan"> Constitución de empresa </label>
+						</span>
+						<span class="co-name">
 						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> Daniel Delgadillo</span>
-				 	</span>
-				 </th>
-				 <td>
-				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		15h 20m
-				 	</h5>
-				 </td>
-				 <td>
-					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		S/. 600.00
-				 	</h5>
-				 </td>
-
-				 <td>
-				 	<h3 style="text-align: center;">
-				 		conf
-				 	</h3>
-
-				 </td>
-
-			</tr>
-
-				<tr>
-				 <th style="padding-left: 45px;">
-
-					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan"> Constitución de empresa </label>
-					</span>
-				 	<span class="co-name">
-						<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i> Daniel Delgadillo</span>
+				 		</span>
+					</th>
+					<td>
+					 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+					 		13h 15m
+					 	</h5>
+					</td>
+					<td>
+						<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+							S/ 600.00
+						</h5>
+					</td>
+					<td>
+						<h3 style="text-align: center;">
+					 		conf
+						</h3>
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</template>
 
 
-				 	</span>
-				 </th>
-				 <td>
-				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		13h 15m
-				 	</h5>
-				 </td>
-				 <td>
-					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		S/ 600.00
-				 	</h5>
-				 </td>
-
-				 <td>
-				 	<h3 style="text-align: center;">
-				 		conf
-				 	</h3>
-
-				 </td>
-
-			</tr>
-
-	 </tbody>
-</table>
-
-</div>
-
+<template name="asuntosxCliente">
+	<tr>
+		<th>
+			<span class="fh-checkbox">
+				<input type="checkbox" id="dan" name="mycheckbox">
+				<label for="dan">{{this.nombre}} {{this.apellido}}</label>
+			</span>
+			<span class="co-name"></span>
+		</th>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				{{totalHoras}}
+			</h5>
+		</td>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				S/. {{totalMonto}}
+			</h5>
+		</td>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				S/. {{gastosMontoTotal}}
+			</h5>
+		</td>
+	</tr>
+	{{#each asuntos}}
+		<tr>
+			<th style="padding-left: 45px;">
+				<span class="fh-checkbox">
+					<label for="dan"> {{this.caratula}} </label>
+				</span>
+				<span class="co-name">
+					<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i>{{this.responsable.nombre}}</span>
+				</span>
+			</th>
+			<td>
+				<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+					{{horas}}
+				</h5>
+			</td>
+			<td>
+				<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+					{{monto}}
+				</h5>
+			</td>
+			<td>
+				<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+					S/. {{gastoMonto}}
+				</h5>
+			</td>
+		</tr>
+	{{/each}}
 </template>

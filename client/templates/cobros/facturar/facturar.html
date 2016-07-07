@@ -1,0 +1,35 @@
+<template name="facturarModal">
+	 <div id="agregar-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Facturar</h4>
+                </div>
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                    <fieldset>
+                      	<div class="icon">
+                          <div class="form-group">
+                            <label>Facturar por: </label>
+                            <select class="" name="">
+                                <option value="honorariosygastos">Honorarios y gastos</option>
+                                <option value="gastos">Gastos</option>
+                                <option value="honorarios">Honorarios</option>
+                            </select>
+                            <span class="fh-checkbox">
+                				<input type="checkbox" id="dan" name="mycheckbox">
+                				<label for="dan">Este asunto va a cerrarse despues de facturarze?</label>
+                			</span>
+                            <input type="submit" value="Crear borrador">
+                          </div>
+                      	</div>
+                    </fieldset>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

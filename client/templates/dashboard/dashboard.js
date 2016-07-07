@@ -4104,17 +4104,7 @@ Template.formularioParaCrearTarifa.events({
 });
 
 
-Template.cobros.helpers({
-	email() {
-		return Meteor.user().emails[0].address
-	}
-});
 
-Template.cobros.events({
-	'click .generar-cobros': function () {
-		Modal.show('generarCobroModal');
-	}
-});
 
 
 Template.trelloLikeTareas.onCreated(function () {

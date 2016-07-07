@@ -31,7 +31,6 @@ Meteor.methods({
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
 
-			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
 			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
 			console.log(cliente);
 			console.log(asuntos.equipoId);
@@ -48,12 +47,14 @@ Meteor.methods({
 						);
 				});
 			}
-			if(!asuntos.facturacion)
+			if(!asuntos.facturacion){
 				if(cliente.facturacion) asuntos.facturacion = cliente.facturacion
 				else return{
 					error:'No existen facturacion para asignar intentelo nuevamente'
 				}
+			}
 
+			Clientes.update({_id:asuntos.cliente.id},{$set:{estatus:'cliente'}});
 
 
 			if (asuntos.inicio !== "") {
