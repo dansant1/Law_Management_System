@@ -1,0 +1,144 @@
+<template name="borradores">
+   <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion" > Facturación</a>
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/facturacion/cobros"> Borradores</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="franja-filtros" style="padding-left: 4px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+
+    <div class="franja-filtros" style="margin-bottom: 0px;">
+        <a href="/facturacion" class="menu-asunto-aim ">
+            Resúmen
+        </a>
+        <a href="/facturacion/horas" class="menu-asunto-aim" style="margin-left: 0px;">
+            Horas
+        </a>
+        <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
+            Gastos
+        </a>
+        <a href="/facturacion/cobros" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
+            Cobros
+        </a>
+        <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
+            Reportes
+        </a>
+        <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim " style="margin-left: 10px;">
+            Configuración
+        </a>
+    </div>
+	<div class="franja-filtros" style="margin-bottom: 0px;">
+		<a href="/facturacion/cobros/" class="menu-asunto-aim ">
+			Facturar
+		</a>
+		<a href="/facturacion/cobros/borradores" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+			Borradores
+		</a>
+		<a href="/facturacion/cobros/emitidos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Emitidos
+		</a>
+		<a href="/facturacion/cobros/pagados" class="menu-asunto-aim " style="margin-left: 10px;">
+			Pagados
+		</a>
+	</div>
+
+	<div class="franja-filtros">
+		<input type="text" class="buscador-bunqr buscador-cobros buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
+	</div>
+	{{>listaClientesBorradores}}
+
+</template>
+
+
+<template name="listaClientesBorradores">
+	<div class="table-wrapper">
+		<table cellspacing="0" id="tech-companies">
+			<thead>
+				<tr>
+					<th class="persist essential">
+					 	<h3>
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</h3>
+					</th>
+					<th class="optional">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-clock-o" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+					<th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa fa-money" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+					<th class="essential">
+						<h3 style="text-align: center;">
+							<i class="fa fa-money" aria-hidden="true"></i>
+					 	</h3>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each facturas}}
+					{{> borradoresxCliente}}
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>
+
+
+<template name="borradoresxCliente">
+	<tr>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				{{this.codigo}}
+			</h5>
+		</td>
+		<th>
+			<span class="fh-checkbox">
+				<label for="{{this.cliente.id}}">{{this.cliente.nombre}}</label>
+			</span>
+			<span class="co-name"></span>
+		</th>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				<a href="#"> Guardar cobro </a>
+			</h5>
+		</td>
+		<td>
+			<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+				<a href="#"> Verificar cobro </a>
+			</h5>
+		</td>
+	</tr>
+
+</template>

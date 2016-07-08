@@ -88,7 +88,8 @@ EsquemaHoras = new SimpleSchema({
 		optional:true
 	},
 	facturado: {
-		type: Boolean
+		type: Boolean,
+		optional:true
 	},
 	bloqueado: {
 		type: Boolean,

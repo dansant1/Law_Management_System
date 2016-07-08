@@ -28,6 +28,9 @@ EsquemaFacturas = new SimpleSchema({
     cliente:{
         type:Object
     },
+	codigo:{
+		type:String
+	},
     'cliente.id':{
         type:String
     },
@@ -35,7 +38,8 @@ EsquemaFacturas = new SimpleSchema({
         type:String
     },
     asuntos:{
-        type:[Object]
+        type:[Object],
+		optional:true
     },
     'asuntos.$.id':{
         type:String
@@ -63,7 +67,10 @@ EsquemaFacturas = new SimpleSchema({
     },
     facturarPor:{
         type:String
-    }
+    },
+	bufeteId:{
+		type:String
+	}
 });
 
 Facturas.attachSchema(EsquemaFacturas);
