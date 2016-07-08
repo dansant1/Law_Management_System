@@ -353,6 +353,12 @@ Template.tareasSidebarDashboard.helpers({
 	}
 });
 
+Template.tareasSidebarDashboard.events({
+	'click .nueva-tarea-dash'(){
+		Modal.show('nuevaTareaModal');
+	}
+})
+
 Template.itemTareas.helpers({
 	asuntoId() {
 		return Tareas.findOne({'asignado.id': Meteor.userId()}).asunto.id
