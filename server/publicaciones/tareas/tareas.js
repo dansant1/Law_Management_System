@@ -1,7 +1,7 @@
-Meteor.publish('tareas', function () {
-
+Meteor.publish('tareas', function (bufeteId) {
+	check(bufeteId,String)
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-		return Tareas.find({'creador.id': this.userId, abierto: true});
+		return Tareas.find({bufeteId:bufeteId, abierto: true});
 	} else {
 		this.stop();
 		return;

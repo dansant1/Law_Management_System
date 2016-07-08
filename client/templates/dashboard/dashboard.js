@@ -58,6 +58,9 @@ Template.etapa.helpers({
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	},
+	mitarea(){
+		return this.asignado.id == Meteor.userId();
+	}
 })
 
 Template.etapa.events({
@@ -67,7 +70,12 @@ Template.etapa.events({
 	'click .agregar-miembro-tarea'(){
 		Modal.show('miembroTareaModal',this);
 	},
-
+	'click [name="mycheckbox"]'(){
+		Meteor.call('cerrarTarea',this._id,function (err) {
+			if(err) return Bert.alert('No se pudo cerrar la tarea','danger');
+			Bert.alert('Se cerro la tarea correctamente','success')
+		})
+	},
 	'keyup [name="crear-tarea-etapa"]'(event,template){
 		let datos = {
 			descripcion: template.find('[name="crear-tarea-etapa"]').value,
@@ -323,10 +331,9 @@ Template.tareaItemCuadro.helpers({
 
 Template.tareasSidebarDashboard.onCreated(function () {
 	var self = this;
-
+	let bufeteId = Meteor.user().profile.bufeteId;
 	self.autorun(function() {
-
-    	self.subscribe('misTareas');
+    	self.subscribe('tareas',bufeteId);
    });
 });
 
@@ -342,11 +349,7 @@ Template.tareasSidebarDashboard.helpers({
 		return Tareas.find({'vence':{$gte:hoy,$lt:mañana},'asignado.id': Meteor.userId(), abierto: true});
 	},
 	hayTareas() {
-		if (Tareas.find({'asignado.id': Meteor.userId(), abierto: true}).fetch().length > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return Tareas.find({'asignado.id': Meteor.userId(), abierto: true}).fetch().length > 0
 	}
 });
 

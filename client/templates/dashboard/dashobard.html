@@ -1877,7 +1877,9 @@
 				 <th style="padding-left: 45px;">
 
 					<span class="fh-checkbox">
+						{{#if mitarea}}
     					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+						{{/if}}
     					<label for="{{this._id}}"> {{this.descripcion}} </label>
 					</span>
 					<a href="/tareas/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
