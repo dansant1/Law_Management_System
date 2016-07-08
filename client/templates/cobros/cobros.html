@@ -75,9 +75,23 @@
             Configuración
         </a>
     </div>
+	<div class="franja-filtros" style="margin-bottom: 0px;">
+		<a href="/facturacion/cobros/facturar" class="menu-asunto-aim asunto-item-activo">
+			Facturar
+		</a>
+		<a href="/facturacion/cobros/borradores" class="menu-asunto-aim" style="margin-left: 0px;">
+			Borradores
+		</a>
+		<a href="/facturacion/cobros/emitidos" class="menu-asunto-aim" style="margin-left: 10px;">
+			Emitidos
+		</a>
+		<a href="/facturacion/cobros/pagados" class="menu-asunto-aim " style="margin-left: 10px;">
+			Pagados
+		</a>
+	</div>
+
 	<div class="franja-filtros">
 		{{>botonGenerarFactura}}
-		{{>botonFiltroClientesFacturables}}
 		<input type="text" class="buscador-bunqr buscador-cobros buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
 	</div>
 	{{>listaClientesFacturables}}
@@ -152,8 +166,8 @@
 	<tr>
 		<th>
 			<span class="fh-checkbox">
-				<input type="checkbox" id="dan" name="mycheckbox">
-				<label for="dan">{{this.nombre}} {{this.apellido}}</label>
+				<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+				<label for="{{this._id}}">{{this.nombre}} {{this.apellido}}</label>
 			</span>
 			<span class="co-name"></span>
 		</th>
