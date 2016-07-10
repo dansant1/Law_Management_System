@@ -1,7 +1,17 @@
+Meteor.startup(function () {});
+
+Template.menu.onRendered(function () {
+	window.Intercom("boot", {
+  		app_id: "ozpz9hmm",
+  		name: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido, // Full name
+    	email: Meteor.user().emails[0].address
+	});
+});
 
 Template.menu.events({
 	'click .logout': () => {
 		Meteor.logout();
+		window.Intercom("shutdown");
 	},
 	'click .agregar-tarea': () =>{
 		Modal.show('nuevaTareaModal')
