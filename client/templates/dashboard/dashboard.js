@@ -109,8 +109,9 @@ Template.etapa.events({
 
 Template.etapasAsunto.onRendered(function () {
 	let self = this;
-	let asuntoId = FlowRouter.getParam('asuntoId');
+	
 	self.autorun(function () {
+		let asuntoId = FlowRouter.getParam('asuntoId');
 		Meteor.subscribe('etapasxasunto',asuntoId);
 	})
 })
@@ -1448,6 +1449,7 @@ Template.fullScreenTareaAsunto.helpers({
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
 	}
+	
 });
 
 Template.asuntosDocs3.onCreated( function () {
@@ -2258,6 +2260,21 @@ Template.equipo.events({
 	},
 	'click .nueva-area':function () {
 		Modal.show('areaForm');
+	},
+	'click .nuevo-equipo': function () {
+		Modal.show('crearEquipoModal');
+	}
+});
+
+Template.equipos.events({
+	'click .nuevo-miembro': function () {
+		Modal.show('usuarioForm');
+	},
+	'click .nueva-area':function () {
+		Modal.show('areaForm');
+	},
+	'click .nuevo-equipo': function () {
+		Modal.show('crearEquipoModal');
 	}
 });
 

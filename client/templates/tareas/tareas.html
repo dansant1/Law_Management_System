@@ -29,9 +29,19 @@
             Facturación
         </a>
     </div>
+    <div class="franja-filtros" style="padding-left: 5px;">
+
+        <a href="/tareas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px;">
+            Documentos
+        </a>
+        
+    </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;width:100%">
-            <!--<a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a> -->
+            
             {{>botonNuevoTareas}}
 
             <div class="btn-group">
@@ -50,7 +60,7 @@
             </div>
 
             <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> tareas {{tipo}}</p>
-            <input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre y fecha de vencimiento...">
+            <input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre...">
 
         </div>
 
@@ -59,6 +69,124 @@
     {{> tablat}}
 
 
+</template>
+
+<template name="documentosDeTareas">
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 18px;">
+
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+         <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+    <div class="franja-filtros" style="padding-left: 5px;">
+
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/tareas/documentos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+            Documentos
+        </a>
+        
+    </div>
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;width:100%">
+            
+            {{>botonNuevoTareas}}
+
+            <!--<input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre y fecha de vencimiento..."> -->
+
+        </div>
+
+    </div>
+
+    {{> listaDeArchivosDeTareas}}
+
+
+</template>
+
+<template name="listaDeArchivosDeTareas">
+	
+	<div class="table-wrapper">
+		<table cellspacing="0" id="tech-companies">
+	 		<thead>
+				<tr>
+					 <th class="persist essential">
+					 	<h3>
+					 		<i class="fa fa-tasks" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="optional">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-table" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th class="essential">
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-users" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 
+				</tr>
+	 		</thead>
+			<tbody>
+				{{#each documentos}}
+					<tr>
+						 <th>
+							
+							<label>{{this.metadata.nombre}}</label>
+							<a href="/tareas/{{this.metadata.tareaId}}"> <i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
+						 <span class="co-name">
+						
+						 </span>
+						 </th>
+						 <td style="text-align:center;">
+						 	<h5>{{dia}}</h5>
+						 </td>
+						 
+						
+						 <td style="text-align: center;">
+						 	<div class="btn-group">
+								<button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+								</button>
+		  						<ul class="dropdown-menu">
+		  							<li class="editar-tarea"><a href="{{this.url download=true}}" target="_parent" style="color: #2ecc71;">Descargar</a></li>
+								    <li class="editar-tarea"><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
+								    <li role="separator" class="divider"></li>
+									<li class="eliminar-tarea"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
+
+		  						</ul>
+							</div>
+						 </td>
+					</tr>
+			   {{/each}}
+	 		</tbody>
+		</table>
+	</div><!-- /table-wrapper -->
 </template>
 
 <template name="tablat">
@@ -110,9 +238,10 @@
 								{{#if esMiTarea}}
 		    						<input type="checkbox" id="{{this._id}}" name="mycheckbox">
 								{{/if}}
-		    					<label for="{{this._id}}"> {{this.descripcion}} </label>
+		    					<label for="{{this._id}}" style="color: white;">.</label>
 							</span>
-							<a href="/tareas/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
+							<label ><a href="/tareas/{{this._id}}">{{this.descripcion}}</a></label>
+							<a href="/tareas/{{this._id}}"> <i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 						 <span class="co-name">
 						{{#if this.asunto}}
 							{{this.asunto.nombre}}

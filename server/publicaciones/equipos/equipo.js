@@ -24,7 +24,7 @@ Meteor.publish('miequipo',function (equipoId) {
 Meteor.publish('misequipos',function (bufeteId) {
 	check(bufeteId,String)
 	if (this.userId) {
-		return Equipos.find();
+		return Equipos.find({bufeteId: bufeteId});
 	} else {
 		this.stop();
 		return;

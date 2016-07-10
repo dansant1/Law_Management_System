@@ -144,7 +144,7 @@ input:-webkit-autofill:active {
 .navbar-brand {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: bold;
-	letter-spacing: 10px;
+	letter-spacing: 5.4px;
 	text-align: center;
 	font-size: 30.5px;
 
@@ -831,15 +831,13 @@ a:hover {
 }
 
 .box-news {
-	max-width: 1060px;
+	
 	min-height: 125px;
 	background-color: white;
-	margin: 0 auto;
-	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
-	border-radius: 5px;
-	margin-bottom: 25px;
-	padding: 25px;
-	width: 85%;
+	margin: 0;
+	padding: 30px;
+	width: 95%;
+	border: 1px solid #F0F0F0;
 }
 
 .box-accesos {

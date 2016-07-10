@@ -126,3 +126,13 @@ Meteor.publish('subcarpetasAsunto', function (carpetaId) {
     return;
   }
 });
+
+Meteor.publish('documentosTareas', function (bufeteId) {
+  check(bufeteId, String);
+  if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+    return DocumentosTareas.find({'metadata.bufeteId': bufeteId});
+  } else {
+    this.stop();
+    return;
+  }
+});

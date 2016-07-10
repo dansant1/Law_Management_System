@@ -105,8 +105,8 @@
 				 <th>
 
 					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan">{{this.nombre}} {{this.apellido}} </label>
+    					<input type="checkbox" name="mycheckbox">
+    					<label> <a href="/clientes2/d/{{this._id}}">{{this.nombre}} {{this.apellido}}</a> </label>
 					</span>
 				 	{{#if this.empresa}}
 				 	<span class="co-name">
@@ -177,9 +177,7 @@
    					<i class="fa fa-filter" aria-hidden="true"></i> <span class="caret"></span>
   		</button>
   		<ul class="dropdown-menu">
-			<li class="persona"> <a href="#">Personas</a> </li>
-    		<li class="persona"><a href="#">Empresas</a></li>
-    		<li class="divider"></li>
+			
             <li class="empresa contacto"><a href="#">Contactos</a></li>
             <li class="empresa prospecto"><a href="#">Prospectos</a></li>
             <li class="empresa cliente"><a href="#">Clientes</a></li>

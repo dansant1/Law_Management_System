@@ -156,8 +156,8 @@ calcularTotal = function (datos) {
 				console.log('[Alerta Monto] Se envio el correo');
 				Email.send({
 					to: encargados[i].emails[0].address,
-					from: "notificaciones@bunqr.pw",
-					subject: "Notificacion de monto de horas de trabajo",
+					from: "notificaciones@grupoddv.com",
+					subject: "Notificación de monto de horas de trabajo",
 					html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de monto de " + asunto.facturacion.alertas.monto + " " + tipo_moneda + ". Saludos"
 				});
 			}
@@ -174,8 +174,8 @@ calcularTotal = function (datos) {
 					console.log('[Alerta Horas] Se envio el correo');
 					Email.send({
 						to: encargados[i].emails[0].address,
-						from: "notificaciones@bunqr.pw",
-						subject: "Notificacion de horas de trabajo",
+						from: "notificaciones@grupoddv.com",
+						subject: "Notificación de horas de trabajo",
 						html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas de " + asunto.facturacion.alertas.horas + " horas. Saludos"
 					});
 				}
@@ -190,8 +190,8 @@ calcularTotal = function (datos) {
 					console.log('[Alerta horas no facturadas] Se envio el correo');
 					Email.send({
 						to: encargados[i].emails[0].address,
-						from: "notificaciones@bunqr.pw",
-						subject: "Notificacion de horas no facturadas de trabajo",
+						from: "notificaciones@grupoddv.com",
+						subject: "Notificación de horas no facturadas de trabajo",
 						html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el limite de horas no facturadas de " + asunto.facturacion.alertas.horas_no_cobradas + " horas. Saludos"
 					});
 				}
@@ -207,8 +207,8 @@ calcularTotal = function (datos) {
 				console.log('[Alerta monto de horas no facturadas] Se envio el correo');
 				Email.send({
 					to: encargados[i].emails[0].address,
-					from: "notificaciones@bunqr.pw",
-					subject: "Notificacion de monto de horas no facturadas de trabajo",
+					from: "notificaciones@grupoddv.com",
+					subject: "Notificación de monto de horas no facturadas de trabajo",
 					html: "Hola " + encargados[i].profile.nombre + " " + encargados[i].profile.apellido + ", el cliente " + asunto.cliente.nombre + " ha superado el monto limite no facturado de " + asunto.facturacion.alertas.monto_horas_no_cobradas +  " " + tipo_moneda + ". Saludos"
 				});
 			}
@@ -516,7 +516,7 @@ Meteor.methods({
 			datos.horasFacturables = datos.horas;
 			datos.minutosFacturables = datos.minutos;
 			// datos.tarea = datos.tarea? true : false;
-			// datos.cobrable = datos.cobrado;
+			datos.cobrable = true;
 
 			// datos.total = datos.horas * datos.precio;
 			datos.creadorId = this.userId;
