@@ -1,8 +1,8 @@
+
 Template.menu.events({
 	'click .logout': () => {
 		Meteor.logout();
 	},
-
 	'click .agregar-tarea': () =>{
 		Modal.show('nuevaTareaModal')
 	},
@@ -25,8 +25,7 @@ Template.notaxasuntosModal.helpers({
 
 Template.notaxasuntosModal.onRendered(function(){
 	var picker = new Pikaday({ field: document.getElementById('datepicker3') });
-
-})
+});
 
 Template.notaxasuntosModal.events({
 	'submit form' : function (event,template) {
