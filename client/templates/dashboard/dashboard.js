@@ -4119,12 +4119,16 @@ Template.formularioParaCrearTarifa.events({
 		tarifa.miembros = tarifas_miembros;
 		tarifa.bufeteId = Meteor.user().profile.bufeteId;
 
-		Meteor.call('registrarTarifa',tarifa,function (err) {
-			if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
-			Bert.alert('Se registro correctamente la tarifa','success');
-			$("input[type='number']").val("");
-			$("input[type='text']").val("");
-		})
+		if (tarifa.nombre !== "" || tarifa.nombre !== undefined) {
+			Meteor.call('registrarTarifa',tarifa,function (err) {
+				if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
+				Bert.alert('Se registro correctamente la tarifa','success');
+				$("input[type='number']").val("");
+				$("input[type='text']").val("");
+			});
+		} else {
+			Bert.alert('Ingresa el nombre de la tarifa','warning');
+		}
 
 	}
 });
