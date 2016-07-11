@@ -19,8 +19,14 @@ Template.areaForm.events({
 		}
 
 		Meteor.call('agregarArea',data,function (err) {
-			if(err) return Bert.alert('Hubo un error al agregar la area','danger')
-			Bert.alert('Se añadio la area correctamente','success')
+			if (err) {
+				template.find("[name='nombre']").value = "";
+				Bert.alert('Hubo un error al agregar la area','danger');
+			} else {
+				template.find("[name='nombre']").value = "";
+				Bert.alert('Se añadio la area correctamente','success')
+			}
+			
 		})
 	}
 })
