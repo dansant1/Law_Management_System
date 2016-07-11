@@ -50,7 +50,7 @@ Template.etapa.helpers({
 		return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
 	},
 	dia(date) {
-		var d = new Date(),
+		var d = date,
     	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
     	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
     	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
@@ -4045,7 +4045,11 @@ Template.trelloLikeTareas.onCreated(function () {
 		self.subscribe('etapasTrello', asuntoId);
 		self.subscribe('tareasTrello', asuntoId);
 		self.subscribe('expediente', asuntoId);
-	})
+		self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId);
+		self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId);
+		self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId);
+	});
+
 });
 
 Template.trelloLikeTareas.helpers({
@@ -4085,6 +4089,24 @@ Template.trelloLikeTareas.helpers({
 		} else {
 			return this.asignado.nombre
 		}
+	},
+	documentos(){
+		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
+	},
+	subtareas(){
+		return Subtareas.find({tareaId:this._id}).fetch().length;
+	},
+	comentarios(){
+		return ComentariosDeTareas.find({tareaId:this._id}).fetch().length;
+	},
+	dia(date) {
+		var d = date,
+    	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	}
 });
 
@@ -4133,5 +4155,8 @@ Template.trelloLikeTareas.events({
 	'click .ir-detalle': () => {
 		console.log(this._id);
 		//FlowRouter.go('/tareas/' + this._id);
+	},
+	'click .establecer-fecha': () => {
+		//Modal.show('fechaTareaModal',this);
 	}
 });

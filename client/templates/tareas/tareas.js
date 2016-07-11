@@ -107,7 +107,6 @@ Template.tablat.helpers({
 	},
 	dia(fecha) {
 		debugger;
-		console.log(fecha)
 		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),

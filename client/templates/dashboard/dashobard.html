@@ -1910,7 +1910,11 @@
 
 				 <td>
 				 	<h3 style="text-align: center;">
-				 		1h 35m
+				 	{{#if this.horas}}
+				 		{{this.horas.hora}}h {{this.horas.minutos}}m
+				 	{{else}}
+						<h5>+Hora</h5>
+				 	{{/if}}
 				 	</h3>
 
 				 </td>
@@ -6526,15 +6530,15 @@
 
     <div class="detail">
 		<p style="margin: 0; display: inline-block;"><i class="glyphicon glyphicon-list"></i>
-		1/2
+		{{subtareas}}
 		</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> {{documentos}}</p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> {{comentarios}}</p>
 		{{#if this.vence}}
-		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> {{this.fecha}}</p>
+		<p style="margin: 0; display: inline-block; margin-left: 0px;"><i class="glyphicon glyphicon-calendar"></i> {{dia this.vence}}</p>
 		{{else}}
-		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> <a href="#">+ vence</a></p>
+		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-calendar"></i> <a href="#" class="establecer-fecha">+ vence</a></p>
 		{{/if}}
-		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-paperclip"></i> 2</p>
-		<p style="margin: 0; display: inline-block; margin-left: 8px;"><i class="glyphicon glyphicon-comment"></i> 2</p>
     </div>
   </article>
 </a>
