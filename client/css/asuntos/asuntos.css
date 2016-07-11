@@ -1,3 +1,4 @@
+
 .franja-progreso {
 	margin-top: 60px;
 	width: 100%;
@@ -53,7 +54,8 @@
 }
 
 .asunto-item-cuadro {
-	min-width: 220px;
+	min-width: 260px;
+	max-width: 300px;
 	height: 170px;
 	margin-left: 20px;
 	border-radius: 5px;

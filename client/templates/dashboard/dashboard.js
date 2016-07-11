@@ -50,7 +50,7 @@ Template.etapa.helpers({
 		return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
 	},
 	dia(date) {
-		var d = new Date(),
+		var d = date,
     	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
     	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
     	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
@@ -109,8 +109,9 @@ Template.etapa.events({
 
 Template.etapasAsunto.onRendered(function () {
 	let self = this;
-	let asuntoId = FlowRouter.getParam('asuntoId');
+	
 	self.autorun(function () {
+		let asuntoId = FlowRouter.getParam('asuntoId');
 		Meteor.subscribe('etapasxasunto',asuntoId);
 	})
 })
@@ -126,9 +127,6 @@ Template.etapasAsunto.helpers({
 
 Template.etapasAsunto.events({
 	'keyup [name="crear-etapa"]': function (event, template) {
-
-
-
 		if(event.which == 13){
 			debugger;
 
@@ -145,7 +143,6 @@ Template.etapasAsunto.events({
 				}
 			}
 
-			//$(event.target).blur();
 			Meteor.call('agregarEtapaAsunto', datos, function (err, result) {
 				if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
 
@@ -413,7 +410,7 @@ Template.clienteNuevoModal.events({
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			apellido: template.find('[name="apellido"]').value || "",
-			direccion: template.find('[name="direccion"]').value || "",
+			direccion: template.find('[name="direccion-contacto"]').value || "",
 			telefono: template.find('[name="telefono"]').value || "",
 			celular: template.find('[name="celular"]').value || "",
 			email: template.find('[name="email"]').value || "",
@@ -430,7 +427,7 @@ Template.clienteNuevoModal.events({
 			&& template.find("[name='tarifa']").value!=""
 			&& template.find("[name='tipo-descuento']").value!=""
 			&& template.find("[name='valor-descuento']").value!=""
-			&& template.find("[name='cobranza']").value!=""){
+			){
 
 				datos.facturacion = {
 					ruc: template.find("[name='ruc']").value || "",
@@ -460,7 +457,7 @@ Template.clienteNuevoModal.events({
 					}
 				}
 			}
-		console.log(datos.facturacion);
+			console.log(datos.facturacion);
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
@@ -585,7 +582,7 @@ Template.cuadroAsuntos.events({
 
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
-		return Asuntos.find({abierto:true},{limit:3})
+		return Asuntos.find({abierto:true}, {limit: 3})
 	},
 	verificado(){
 		return Asuntos.find({abierto:true}).count()>=3;
@@ -681,9 +678,6 @@ Template.asuntos2.events({
 	'click .nuevo': () => {
 		Modal.show('asuntoNuevoModal');
 	},
-	'click .por-fecha':() =>{
-
-	},
 	'click .abiertos':() =>{
 		Session.set('estado-asunto',true);
 
@@ -746,7 +740,7 @@ Template.asuntoItemCuadro.events({
 				confirmButtonColor: "#e74c3c",
 				confirmButtonText: "Si, archivar asunto",
 				cancelButtonText: "No, cancelar",
-				closeOnConfirm: false
+				closeOnConfirm: true
 			},
 			function() {
 				let asuntoId = $(event.target).data('id');
@@ -1448,6 +1442,7 @@ Template.fullScreenTareaAsunto.helpers({
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
 	}
+	
 });
 
 Template.asuntosDocs3.onCreated( function () {
@@ -2258,6 +2253,21 @@ Template.equipo.events({
 	},
 	'click .nueva-area':function () {
 		Modal.show('areaForm');
+	},
+	'click .nuevo-equipo': function () {
+		Modal.show('crearEquipoModal');
+	}
+});
+
+Template.equipos.events({
+	'click .nuevo-miembro': function () {
+		Modal.show('usuarioForm');
+	},
+	'click .nueva-area':function () {
+		Modal.show('areaForm');
+	},
+	'click .nuevo-equipo': function () {
+		Modal.show('crearEquipoModal');
 	}
 });
 
@@ -3031,7 +3041,8 @@ Template.asuntoNuevoModal.events({
 			 	&& template.find("[name='tarifa']").value!=""
 				&& template.find("[name='tipo-descuento']").value!=""
 				&& template.find("[name='valor-descuento']").value!=""
-				&& template.find("[name='cobranza']").value!=""){
+				//&& template.find("[name='cobranza']").value!=""
+				){
 
 					asunto.facturacion = {
 						ruc: template.find("[name='ruc']").value || "",
@@ -3061,14 +3072,6 @@ Template.asuntoNuevoModal.events({
 						}
 					}
 				}
-
-
-			// $('#integrantes :checked').each(function() {
-      //  			asunto.abogados.push({
-      //  				nombre: $(this).next("label").text(),
-      //  				id: $(this).val()
-      //  			});
-     	// 	});
 
 
 			asunto.area		= $( ".area option:selected" ).text();
@@ -3480,97 +3483,7 @@ Template.pieChart.events({
 });
 
 Template.pieChart.onRendered(function(){
-	//Width and height
-	/*var w = 200;
-	var h = 200;
-
-	var outerRadius = w / 2;
-	var innerRadius = 0;
-	var arc = d3.svg.arc()
-					.innerRadius(innerRadius)
-					.outerRadius(outerRadius);
-
-	var pie = d3.layout.pie()
-		.sort(null)
-		.value(function(d) {
-			return d.value;
-		});
-
-	//Easy colors accessible via a 10-step ordinal scale
-	var color = d3.scale.category10();
-
-	//Create SVG element
-	var svg = d3.select("#pieChart")
-				.attr("width", w)
-				.attr("height", h);
-
-	var key = function(d){
-		return d.data._id;
-	};
-
-	Deps.autorun(function(){
-		var modifier = {fields:{value:1}};
-		var sortModifier = Session.get('pieChartSortModifier');
-		if(sortModifier && sortModifier.sort)
-			modifier.sort = sortModifier.sort;
-
-		var dataset = Slices.find({},modifier).fetch();
-
-		var arcs = svg.selectAll("g.arc")
-					  .data(pie(dataset), key);
-
-		var newGroups =
-			arcs
-				.enter()
-				.append("g")
-				.attr("class", "arc")
-				.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
-
-		//Draw arc paths
-		newGroups
-			.append("path")
-			.attr("fill", function(d, i) {
-				return color(i);
-			})
-			.attr("d", arc);
-
-		//Labels
-		newGroups
-			.append("text")
-			.attr("transform", function(d) {
-				return "translate(" + arc.centroid(d) + ")";
-			})
-			.attr("text-anchor", "middle")
-			.text(function(d) {
-				return d.value;
-			});
-
-		arcs
-			.transition()
-			.select('path')
-			.attrTween("d", function(d) {
-				this._current = this._current || d;
-				var interpolate = d3.interpolate(this._current, d);
-				this._current = interpolate(0);
-				return function(t) {
-					return arc(interpolate(t));
-				};
-			});
-
-		arcs
-			.transition()
-			.select('text')
-			.attr("transform", function(d) {
-				return "translate(" + arc.centroid(d) + ")";
-			})
-			.text(function(d) {
-				return d.value;
-			});
-
-		arcs
-			.exit()
-	 		.remove();
-	});*/
+	
 
 		function chartLine(){
 
@@ -3579,20 +3492,20 @@ Template.pieChart.onRendered(function(){
 			var data4 = [
 				{
 						value: Clientes.find({estatus:"contacto"}).count(),
-						color:"#2ecc71",
-						highlight: "#e74c3c",
+						color:"#27ae60",
+						highlight: "#2ecc71",
 						label: "Contactos"
 				},
 				{
 						value: Clientes.find({estatus:'prospecto'}).count(),
-						color: "#9b59b6",
-						highlight: "#2ecc71",
+						color: "#8e44ad",
+						highlight: "#9b59b6",
 						label: "Prospectos"
 				},
 				{
 						value: Clientes.find({estatus:'cliente'}).count(),
-						color: "#e74c3c",
-						highlight: "#9b59b6",
+						color: "#c0392b",
+						highlight: "#e74c3c",
 						label: "Clientes"
 				}]
 
@@ -3928,21 +3841,21 @@ Template.barChart.onRendered(function(){
 
 	    // Set the data
 	    var data = {
-	        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre","Noviembre","Diciembre"],
+	        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre", "Octubre","Noviembre","Diciembre"],
 	        datasets: [{
 	            label: "Abiertos",
-	            fillColor: "rgba(151,187,205,0.2)",
-	            pointHighlightStroke: "rgba(151,187,195,1)",
+	            fillColor: "rgba(155, 89, 182,1.0)",
+	            pointHighlightStroke: "rgba(142, 68, 173,1.0)",
 	            data: data_abierto
 	        },{
 	            label: "Cerrados",
-	            fillColor: "rgba(151,111,205,0.2)",
-	            pointHighlightStroke: "rgba(151,187,205,1)",
+	            fillColor: "rgba(46, 204, 113,1.0)",
+	            pointHighlightStroke: "rgba(39, 174, 96,1.0)",
 	            data: data_cerrado
 	        },{
 	            label: "No resueltos",
-	            fillColor: "rgba(151,177,205,0.2)",
-	            pointHighlightStroke: "rgba(151,127,205,1)",
+	            fillColor: "rgba(231, 76, 60,1.0)",
+	            pointHighlightStroke: "rgba(192, 57, 43,1.0)",
 	            data: data_no_resuelto
 	        }]
 	    };
@@ -4102,12 +4015,16 @@ Template.formularioParaCrearTarifa.events({
 		tarifa.miembros = tarifas_miembros;
 		tarifa.bufeteId = Meteor.user().profile.bufeteId;
 
-		Meteor.call('registrarTarifa',tarifa,function (err) {
-			if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
-			Bert.alert('Se registro correctamente la tarifa','success');
-			$("input[type='number']").val("");
-			$("input[type='text']").val("");
-		})
+		if (tarifa.nombre !== "") {
+			Meteor.call('registrarTarifa',tarifa,function (err) {
+				if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
+				Bert.alert('Se registro correctamente la tarifa','success');
+				$("input[type='number']").val("");
+				$("input[type='text']").val("");
+			});
+		} else {
+			Bert.alert('Ingresa el nombre de la tarifa','warning');
+		}
 
 	}
 });
@@ -4124,7 +4041,11 @@ Template.trelloLikeTareas.onCreated(function () {
 		self.subscribe('etapasTrello', asuntoId);
 		self.subscribe('tareasTrello', asuntoId);
 		self.subscribe('expediente', asuntoId);
-	})
+		self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId);
+		self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId);
+		self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId);
+	});
+
 });
 
 Template.trelloLikeTareas.helpers({
@@ -4164,6 +4085,24 @@ Template.trelloLikeTareas.helpers({
 		} else {
 			return this.asignado.nombre
 		}
+	},
+	documentos(){
+		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
+	},
+	subtareas(){
+		return Subtareas.find({tareaId:this._id}).fetch().length;
+	},
+	comentarios(){
+		return ComentariosDeTareas.find({tareaId:this._id}).fetch().length;
+	},
+	dia(date) {
+		var d = date,
+    	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
 	}
 });
 
@@ -4212,5 +4151,8 @@ Template.trelloLikeTareas.events({
 	'click .ir-detalle': () => {
 		console.log(this._id);
 		//FlowRouter.go('/tareas/' + this._id);
+	},
+	'click .establecer-fecha': () => {
+		//Modal.show('fechaTareaModal',this);
 	}
 });

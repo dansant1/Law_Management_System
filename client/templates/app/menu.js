@@ -1,8 +1,18 @@
+Meteor.startup(function () {});
+
+Template.menu.onRendered(function () {
+	window.Intercom("boot", {
+  		app_id: "ozpz9hmm",
+  		name: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido, // Full name
+    	email: Meteor.user().emails[0].address
+	});
+});
+
 Template.menu.events({
 	'click .logout': () => {
 		Meteor.logout();
+		window.Intercom("shutdown");
 	},
-
 	'click .agregar-tarea': () =>{
 		Modal.show('nuevaTareaModal')
 	},
@@ -25,8 +35,7 @@ Template.notaxasuntosModal.helpers({
 
 Template.notaxasuntosModal.onRendered(function(){
 	var picker = new Pikaday({ field: document.getElementById('datepicker3') });
-
-})
+});
 
 Template.notaxasuntosModal.events({
 	'submit form' : function (event,template) {
@@ -136,11 +145,24 @@ Template.cronometro2.events({
 	},
 
 	'click .boton-resetear'(){
-		chronometer.reset();
-		if(!$(".boton-principal").hasClass("boton-play")){
-			$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
-			return $(".boton-stop").removeClass("boton-stop").addClass("boton-play")
-		}
+		swal({  title: "¿Segúro que quieres resetear el cronometro?",
+				text: "El tiempo transcurrido ya no estara disponible",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#e74c3c",
+				confirmButtonText: "Si, resetear",
+				cancelButtonText: "No, cancelar",
+				closeOnConfirm: true
+			},
+			function() {
+				chronometer.reset();
+				if(!$(".boton-principal").hasClass("boton-play")){
+					$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+					return $(".boton-stop").removeClass("boton-stop").addClass("boton-play")
+				}
+				swal("Horas eliminadas", "El cronometro se reinicio correctamente", "success");
+			});
+		
 	},
 	'click .boton-disminuir'(){
 		chronometer.removeMinutes(5)

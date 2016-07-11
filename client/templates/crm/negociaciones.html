@@ -50,11 +50,16 @@
 
 					<span class="fh-checkbox">
     					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-    					<label> <a href="/clientes2/casos/{{this._id}}">{{this.nombre}}</a> </label>
+    					<label for="{{this._id}}"> <a href="/clientes2/casos/{{this._id}}" style="color: #34495e;">{{this.nombre}}</a> </label>
 					</span>
 				 	<span class="co-name">
-						<span style="color: #58BB58;"><i class="fa fa-glass" aria-hidden="true"></i> {{this.descripcion}}</span>
+					
+					{{#if this.descripcion}}
 
+						<span style="color: #58BB58;"><i class="fa fa-glass" aria-hidden="true"></i> {{this.descripcion}}</span>
+					{{else}}
+						<span style="color: #58BB58;"><i class="fa fa-glass" aria-hidden="true"></i> +Descripción</span>
+					{{/if}}
 
 				 	</span>
 				 </th>

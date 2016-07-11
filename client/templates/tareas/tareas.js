@@ -107,7 +107,6 @@ Template.tablat.helpers({
 	},
 	dia(fecha) {
 		debugger;
-		console.log(fecha)
 		var d = new Date(fecha),
 				minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
 				hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
@@ -471,5 +470,34 @@ Template.tareasCerradas.helpers({
     	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	}
+});
+
+Template.documentosDeTareas.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
+
+Template.listaDeArchivosDeTareas.onCreated(function () {
+		var self = this;
+		self.autorun(function () {
+			let bufeteId = Meteor.user().profile.bufeteId;
+			self.subscribe('documentosTareas', bufeteId)
+		})
+});
+
+Template.listaDeArchivosDeTareas.helpers({
+	documentos() {
+		return DocumentosTareas.find({});
+	},
+	dia() {
+		var d = this.uploadedAt,
+    	minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    	hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    	ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
+    	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
 	}
 });

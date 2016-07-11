@@ -59,8 +59,7 @@ Template.cobros.onCreated(function () {
 })
 
 
-Template.cobros.onRendered(function () {
-})
+Template.cobros.onRendered(function () {})
 
 Template.asuntosxCliente.onCreated(function () {
     let self = this;
@@ -105,7 +104,7 @@ Template.asuntosxCliente.helpers({
         debugger;
         return _(gastos).reduce(function (m,x) {
             return m + x.monto
-        },10)
+        }, 0)
     },
     gastosMontoTotal(){
         let asuntos = Asuntos.find({'cliente.id':this._id}).fetch()
@@ -116,7 +115,7 @@ Template.asuntosxCliente.helpers({
             debugger;
             let montoGasto = _(gastos).reduce(function (m,x) {
                 return m + x.monto
-            },10)
+            }, 0)
 
             totalMontoGasto += montoGasto;
         })

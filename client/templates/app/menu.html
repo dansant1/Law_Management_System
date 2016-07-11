@@ -1,4 +1,9 @@
 <template name="menu">
+  <script>
+var _elev = window._elev || {};(function() {var i,e;i=document.createElement("script"),i.type='text/javascript';i.async=1,i.src="https://static.elev.io/js/v3.js",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(i,e);})();
+_elev.account_id = '5781c9e2e4dad';
+  </script>
+  <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/ozpz9hmm';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
   <div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -8,7 +13,7 @@
         <span class="icon-bar"></span>
       </button>
       {{#animate type="pulse" delay="200"}}
-    		<a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 175px; top: 28px; font-size: 12px;">&reg;</span></a>
+    		<a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 155px; top: 28px; font-size: 12px;">&reg;</span></a>
   		{{/animate}}
       <div class="cronometro">
         <div class="cuadro-crono"><h2 class="hora-crono" style="margin: 0; color: #34495e; margin-right: 5px;">00:00</h2></div>
@@ -31,7 +36,6 @@
            <span class="caret"></span></a>
           <ul class="dropdown-menu">
              <li><a>Editar perfil</a></li>
-            <li><a href="/administracion">Administrar usuarios</a></li>
             <li><a href="/configuracion-facturacion">Facturación</a></li>
             <li role="separator" class="divider"></li>
              <li style="display: inline-block;"><a class="logout" style="color: #e74c3c; display: inline-block; text-align: center;"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>

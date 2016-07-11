@@ -31,7 +31,7 @@ Meteor.methods({
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
 
-			let cliente = Clientes.findOne({_id:asuntos.cliente.id})
+			let cliente = Clientes.findOne({_id: asuntos.cliente.id})
 			console.log(cliente);
 			console.log(asuntos.equipoId);
 			asuntos.abogados = [];
@@ -41,7 +41,7 @@ Meteor.methods({
 						{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
 							asuntos.abogados.push(
 								{
-									id:cliente._id,
+									id: cliente._id,
 									nombre: cliente.profile.nombre + " " + cliente.profile.apellido
 								}
 						);
@@ -76,12 +76,6 @@ Meteor.methods({
 
 
 			if (asuntoId) {
-
-				// TasksCollection.insert({
-				// 	text: asuntos.caratula,
-				// 	asuntoId:asuntoId
-				// });
-
 
 				// Creamos el evento de inicio de expediente (asunto)
 				let evento = {
@@ -129,7 +123,7 @@ Meteor.methods({
 	'agregarEtapaAsunto':function (datos) {
 		check(datos,Object)
 
-		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
 			Etapas.insert(datos);
 

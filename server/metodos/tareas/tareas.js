@@ -96,7 +96,7 @@ Meteor.methods({
 		datos.minutosFacturables = datos.minutos;
 
 		datos.esTarea = true;
-		// datos.cobrable = datos.cobrado;
+		datos.cobrable = true;
 
 		// datos.total = datos.horas * datos.precio;
 		datos.creadorId = this.userId;

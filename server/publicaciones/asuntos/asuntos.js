@@ -30,7 +30,8 @@ Meteor.publish('asunto',function (asuntoId) {
 })
 
 Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
-	check(miembroId,String)
+	check(miembroId,String);
+	check(bufeteId, String);
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 		return Asuntos.find({

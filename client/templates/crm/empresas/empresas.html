@@ -103,46 +103,42 @@
            {{#each empresas}}
 			<tr>
 				 <th>
-
-					<span class="fh-checkbox">
-    					<input type="checkbox" id="dan" name="mycheckbox">
-    					<label for="dan">{{this.nombre}}</label>
-					</span>
-				 	{{#if this.empresa}}
-				 	<span class="co-name">
-						{{this.nombre}}
-				 	</span>
-				 	{{else}}
-					<span class="co-name">
-						<a href="#">+Empresa</a>
-				 	</span>
-				 	{{/if}}
+					<label for="{{this._id}}">{{this.nombre}}</label>
+				 	
 				 </th>
 				 <td>
 
-				 {{#if this.ruc}}
+				{{#if this.ruc}}
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		<a href="#" class="añadir-empresa">{{this.empresa.ruc}}</a>
+				 		<a href="#" class="añadir-ruc" style="color: #34495e;">{{this.ruc}}</a>
 				 	</h5>
 				{{else}}
 					<h5 style="text-align: center; font-size: 14px; color: #34495e;">.
-                        <a href="#" class="añadir-empresa">+RUC</a>
+                        <a href="#" class="añadir-ruc" style="color:#34495e;">+RUC</a>
 				 	</h5>
 				{{/if}}
 
 				 </td>
 				 <td>
-					<span class="asunto-tipo" style="background-color: #3498db; margin: 0 auto;">Empresa</span>
+					{{#if this.direccion}}
+				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+				 		<a href="#" class="añadir-direccion">{{this.direccion}}</a>
+				 	</h5>
+				{{else}}
+					<h5 style="text-align: center; font-size: 14px; color: #34495e;">.
+                        <a href="#" class="añadir-direccion" style="color: #34495e;">+Dirección</a>
+				 	</h5>
+				{{/if}}
 				 </td>
 
 				 <td>
 				 {{#if this.celular}}
 				 	<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		{{this.celular}}
+				 		<a href="#" class="añadir-direccion" style="color: #34495e;">{{this.direccion}}</a>
 				 	</h5>
 				{{else}}
 					<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-				 		+ celular
+				 		<a href="#" class="añadir-direccion" style="color: #34495e;">+Dirección</a>
 				 	</h5>
 				{{/if}}
 				 </td>

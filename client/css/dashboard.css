@@ -244,17 +244,14 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	min-height: 175px;
-	margin: 15 auto;
+	
 }
 
 .cuadro-unit {
-	width: 30%;
-	margin: 25px auto;
+	width: 33.33%;
+	margin: 0px;
 	height: 148px;
-	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
-	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
-	border-radius: 5px;
+	border: 1px solid #f1f1f1;
 	position: relative;
 	padding: 15px 20px;
 	color: white;
@@ -263,6 +260,5 @@
 }
 
 .cuadro-pie {
-	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
-	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+	border: 1px solid #efefef;
 }
