@@ -71,6 +71,12 @@ Template.asuntosxCliente.onCreated(function () {
     })
 })
 
+Template.botonGenerarFactura.events({
+	hide(){
+		if(Session.get('clientes').length!=0) return '';
+	}
+})
+
 Template.asuntosxCliente.events({
     'click [name="mycheckbox"]'(event,template){
         debugger
