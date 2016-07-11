@@ -3487,97 +3487,7 @@ Template.pieChart.events({
 });
 
 Template.pieChart.onRendered(function(){
-	//Width and height
-	/*var w = 200;
-	var h = 200;
-
-	var outerRadius = w / 2;
-	var innerRadius = 0;
-	var arc = d3.svg.arc()
-					.innerRadius(innerRadius)
-					.outerRadius(outerRadius);
-
-	var pie = d3.layout.pie()
-		.sort(null)
-		.value(function(d) {
-			return d.value;
-		});
-
-	//Easy colors accessible via a 10-step ordinal scale
-	var color = d3.scale.category10();
-
-	//Create SVG element
-	var svg = d3.select("#pieChart")
-				.attr("width", w)
-				.attr("height", h);
-
-	var key = function(d){
-		return d.data._id;
-	};
-
-	Deps.autorun(function(){
-		var modifier = {fields:{value:1}};
-		var sortModifier = Session.get('pieChartSortModifier');
-		if(sortModifier && sortModifier.sort)
-			modifier.sort = sortModifier.sort;
-
-		var dataset = Slices.find({},modifier).fetch();
-
-		var arcs = svg.selectAll("g.arc")
-					  .data(pie(dataset), key);
-
-		var newGroups =
-			arcs
-				.enter()
-				.append("g")
-				.attr("class", "arc")
-				.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
-
-		//Draw arc paths
-		newGroups
-			.append("path")
-			.attr("fill", function(d, i) {
-				return color(i);
-			})
-			.attr("d", arc);
-
-		//Labels
-		newGroups
-			.append("text")
-			.attr("transform", function(d) {
-				return "translate(" + arc.centroid(d) + ")";
-			})
-			.attr("text-anchor", "middle")
-			.text(function(d) {
-				return d.value;
-			});
-
-		arcs
-			.transition()
-			.select('path')
-			.attrTween("d", function(d) {
-				this._current = this._current || d;
-				var interpolate = d3.interpolate(this._current, d);
-				this._current = interpolate(0);
-				return function(t) {
-					return arc(interpolate(t));
-				};
-			});
-
-		arcs
-			.transition()
-			.select('text')
-			.attr("transform", function(d) {
-				return "translate(" + arc.centroid(d) + ")";
-			})
-			.text(function(d) {
-				return d.value;
-			});
-
-		arcs
-			.exit()
-	 		.remove();
-	});*/
+	
 
 		function chartLine(){
 
@@ -3586,20 +3496,20 @@ Template.pieChart.onRendered(function(){
 			var data4 = [
 				{
 						value: Clientes.find({estatus:"contacto"}).count(),
-						color:"#2ecc71",
-						highlight: "#e74c3c",
+						color:"#27ae60",
+						highlight: "#2ecc71",
 						label: "Contactos"
 				},
 				{
 						value: Clientes.find({estatus:'prospecto'}).count(),
-						color: "#9b59b6",
-						highlight: "#2ecc71",
+						color: "#8e44ad",
+						highlight: "#9b59b6",
 						label: "Prospectos"
 				},
 				{
 						value: Clientes.find({estatus:'cliente'}).count(),
-						color: "#e74c3c",
-						highlight: "#9b59b6",
+						color: "#c0392b",
+						highlight: "#e74c3c",
 						label: "Clientes"
 				}]
 
@@ -3935,21 +3845,21 @@ Template.barChart.onRendered(function(){
 
 	    // Set the data
 	    var data = {
-	        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre","Noviembre","Diciembre"],
+	        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto","Septiembre", "Octubre","Noviembre","Diciembre"],
 	        datasets: [{
 	            label: "Abiertos",
-	            fillColor: "rgba(151,187,205,0.2)",
-	            pointHighlightStroke: "rgba(151,187,195,1)",
+	            fillColor: "rgba(155, 89, 182,1.0)",
+	            pointHighlightStroke: "rgba(142, 68, 173,1.0)",
 	            data: data_abierto
 	        },{
 	            label: "Cerrados",
-	            fillColor: "rgba(151,111,205,0.2)",
-	            pointHighlightStroke: "rgba(151,187,205,1)",
+	            fillColor: "rgba(46, 204, 113,1.0)",
+	            pointHighlightStroke: "rgba(39, 174, 96,1.0)",
 	            data: data_cerrado
 	        },{
 	            label: "No resueltos",
-	            fillColor: "rgba(151,177,205,0.2)",
-	            pointHighlightStroke: "rgba(151,127,205,1)",
+	            fillColor: "rgba(231, 76, 60,1.0)",
+	            pointHighlightStroke: "rgba(192, 57, 43,1.0)",
 	            data: data_no_resuelto
 	        }]
 	    };

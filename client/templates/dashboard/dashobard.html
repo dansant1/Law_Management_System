@@ -3539,7 +3539,7 @@
 	<div class="cuadros-estadisticos">
 		{{> cantidadClientes}}
 
-    <div class="cuadro-unit" style="background-color: white; ">
+    <div class="cuadro-unit" style="background-color: white; margin: 0px;">
 			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
 				<i class="glyphicon glyphicon-tags" style="font-size: 40px; color: #34495e;"></i>
@@ -3552,7 +3552,7 @@
 			</div>
 		</div>
 
-		<div class="cuadro-unit" style="background-color: white;">
+		<div class="cuadro-unit" style="background-color: white; margin: 0px;">
 			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
 				<i class="glyphicon glyphicon-briefcase" style="font-size: 40px; color: #34495e;"></i>
@@ -3567,7 +3567,7 @@
 	</div>
 
 
-	<div class="box" style="padding-top: 0px; background: white;">
+	<div class="box" style="padding: 0px; background: white;">
 		{{>pieChart}}
     	{{>barChart}}
     	{{>newsCRM}}
@@ -3576,7 +3576,7 @@
 </template>
 
 <template name="cantidadClientes">
-	<div class="cuadro-unit" style="background-color: white; ">
+	<div class="cuadro-unit" style="background-color: white; margin: 0;">
 		<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
 			<div style="text-align: center; width: 50%;">
 				<i class="glyphicon glyphicon-user" style="font-size: 40px; color: #34495e;"></i>
@@ -5666,7 +5666,7 @@
 </template>
 
 <template name="newsCRM">
-  <div class="box-news" style="width: 100%; margin-top: 25px;">
+  <div class="box-news" style="width: 100%; margin-top: 0px;">
             <div class="asunto">
                 <h3>{{dia}}</h3>
                 <div class="asunto-contenido">
@@ -5674,7 +5674,7 @@
                     {{#each news}}
                         <div class="asunto-item">
                             <p class="asunto-trata">
-                                <a href="" class="asunto-usuario" style="color: #23527C;">{{creador.nombre}} </a>
+                                
                                 {{descripcion}}
                             </p>
                             <span class="asunto-fecha asunto-trata" style="position: absolute; right: 50px;">{{sucedio this.createdAt}}</span>
@@ -5695,39 +5695,33 @@
 
 <template name="pieChart">
 
-    <div class="cuadro-pie" style="display: block; width: 31%; height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center;">
-      <h2 style="margin-top: 10px; margin-bottom: 15px;">Contactos</h2>
-      <!--<svg id="pieChart" style="margin: 0 auto; display: block"></svg>-->
+    <div class="cuadro-pie" style="display: block; width: 33.33%; height: 350px; background-color: white;  padding: 20px; text-align: center;">
+    	
+      <h2 style="margin-top: 0px; margin-bottom: 0px;">Contactos</h2>
+      <br>
       <canvas id="myChart4" width="200" height="200"></canvas>
       <br><br>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> CONTACTOS </a>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #8e44ad;"> </span> PROSPECTOS </a>
-      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> CLIENTES </a>
-     <!-- <br>
-      <br>
-      <input type="button" id="add" value="sumar" style="display: inline;" />
-    <input type="button" id="remove" value="eliminar" style="display: inline;" />
-    <input type="button" id="randomize" value="Random" style="display: inline;"/>
-    <input type="button" id="toggleSort" value="Toggle" style="display: inline;"/>
-     -->
+      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> CLIENTES 
+      </a>
+     
 
     </div>
 </template>
 
 
 <template name="barChart">
-  <div class="cuadro-pie" style="display: block; width: 65.6%; min-height: 350px; background-color: white; border-radius: 5px; padding: 20px; text-align: center; margin-left: 30px;">
+  <div class="cuadro-pie" style="display: block; width: 66.6%; min-height: 350px; background-color: white; padding: 0px; text-align: center; margin-left: 0px;">
 
     <h2 style="color: #34495e; margin-top: 12px;">Negociaciones</h2>
 
     <canvas id="myChart" width="600" height="240"></canvas>
-
-   <!-- <br>
-    <br>
-    <input type="button" id="add" value="sumar" style="display: inline;"/>
-    <input type="button" id="remove" value="eliminar" style="display: inline;"/>
-    <input type="button" id="randomize" value="Random" style="display: inline;"/>
-    <input type="button" id="toggleSort" value="Toggle" style="display: inline;"/> -->
+	<br>
+	<a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #9b59b6;"> </span> En ejecución </a>
+      <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> Ganados </a>
+      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> Perdidos 
+      </a>
 
   </div>
 </template>
@@ -5769,7 +5763,7 @@
     </div>
   <div class="box">
     <canvas id="myChart4" width="400" height="400"></canvas>
-    <!--<canvas id="#pie-chart" width="400" height="400"></canvas>-->
+    
   </div>
 </template>
 
