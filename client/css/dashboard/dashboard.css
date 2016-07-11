@@ -73,7 +73,7 @@
 
 .sidebar-lista {
 	width: 100%;
-	min-height: 20px;
+	min-height: 0px;
 }
 
 .sidebar-item {

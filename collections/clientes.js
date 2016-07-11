@@ -127,7 +127,8 @@ EsquemaClientes = new SimpleSchema({
 		type:String
 	},
 	'facturacion.cobranza':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.alertas':{
 		type:Object

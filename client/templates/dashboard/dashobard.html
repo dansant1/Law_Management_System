@@ -88,10 +88,10 @@
 </template>
 
 <template name="itemMienbro">
-	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #f1c40f; background-color: #f1c40f; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
+	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #f1c40f; background-color: #f1c40f; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center; margin-top: 2.5px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
 </template>
 <template name="itemCliente">
-	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #e74c3c; background-color: #e74c3c; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.nombre this.apellido}}</span>
+	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #e74c3c; background-color: #e74c3c; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 5px; text-align: center; margin-right: 5px; margin-top: 2.5px;">{{getFirstLettersOfName this.nombre this.apellido}}</span>
 </template>
 
 <template name="asuntosSidebarDashboard">
@@ -124,7 +124,7 @@
     </h5>
   </div>
 {{#if hayTareas}}
-  <div class="sidebar-lista">
+  <div class="sidebar-lista" style="min-height: 0px;">
     {{#each tareas}}
       {{> itemTareas}}
     {{/each}}
@@ -290,7 +290,7 @@
 		  					  </div>
 		  					  <div class="col-md-6">
 		  						<div class="input-group">
-		  						  <span class="input-group-addon" id="basic-addon1">Telefono</span>
+		  						  <span class="input-group-addon" id="basic-addon1">Teléfono</span>
 		  						  <input type="text" name="telefono-solicitante" class="form-control" aria-describedby="basic-addon1">
 		  						</div>
 		  					  </div>
@@ -357,7 +357,7 @@
 		  					  <div class="col-md-6">
 		  						  <div class="input-group">
 		  							  <span class="input-group-addon" id="basic-addon1">Valor</span>
-		  							  <input type="text" name="valor-descuento" class="form-control" aria-describedby="basic-addon1">
+		  							  <input type="text" name="valor-descuento" class="form-control" value="0" aria-describedby="basic-addon1">
 		  						  </div>
 		  					  </div>
 		  				  </div>
@@ -806,7 +806,7 @@
                   <div class="col-md-11">
                     <div class="input-group">
                       <span class="input-group-addon" id="basic-addon1">Dirección</span>
-                      <input type="text" class="form-control" placeholder="Ingrese la dirección del contacto" aria-describedby="basic-addon1" name="direccion" style="width: 100%;">
+                      <input type="text" class="form-control" placeholder="Ingrese la dirección del contacto" aria-describedby="basic-addon1" name="direccion-contacto" style="width: 100%;">
                     </div>
                   </div>
               </div>
@@ -940,7 +940,7 @@
 				  <div class="row">
 					  <div class="col-md-6">
 						<div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1">Correo</span>
+						  <span class="input-group-addon" id="basic-addon1">Email</span>
 						  <input type="text" name="correo-solicitante" class="form-control" aria-describedby="basic-addon1">
 						</div>
 					  </div>
@@ -997,7 +997,7 @@
 					  <div class="col-md-6">
 						  <div class="input-group">
 							  <span class="input-group-addon" id="basic-addon1">Valor</span>
-							  <input type="text" name="valor-descuento" class="form-control" aria-describedby="basic-addon1">
+							  <input type="text" name="valor-descuento" class="form-control" value="0">
 						  </div>
 					  </div>
 				  </div>
@@ -1546,7 +1546,7 @@
 			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/asuntos2" >Todos los asuntos</a></p>
 		</div>
 	</div>
-  <div class="franja-filtros" style="padding-left: 18px;">
+  <div class="franja-filtros" style="padding-left: 4px;">
 
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad
@@ -1582,7 +1582,6 @@
     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><a class="por-fecha" href="#">Por fecha</a></li>
     <li><a class="abiertos" href="#">Abiertos</a></li>
     <li><a class="archivados" href="#">Archivados</a></li>
   </ul>
@@ -1632,12 +1631,16 @@
 			<a href="/clientes2/d/{{this.cliente.id}}" style="font-family: 'Open Sans'; font-size: initial;"><h5>{{this.cliente.nombre}}</h5></a>
       <div style="display: block;">
       <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block; width: 20px; margin: 0px;">
-            <img src="/banner3.jpg" alt="{{this.responsable.nombre}}" class="item-mienbro">
+            <span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #2ecc71; background-color: #2ecc71; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">		
+            		{{getFirstLettersOfName this.responsable.nombre this.n}}
+            </span>
         </div>
         <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block;">
 
           {{#each this.abogados}}
-            <img src="/banner.jpg" alt="{{this.nombre}}" class="item-mienbro">
+            	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">		
+            		{{getFirstLettersOfName this.nombre this.n}}
+             	</span>
           {{/each}}
 
           </div>
@@ -2904,7 +2907,7 @@
 			<p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/dashboard2" > Dashboard</a></p>
 		</div>
 	</div>
-	<div class="franja-filtros" style="padding-left: 18px;">
+	<div class="franja-filtros" style="padding-left: 4px;">
 
 		<a href="/dashboard2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
 			Actividad
@@ -3615,7 +3618,7 @@
         </div>
     </div>
 
-    <div class="franja-filtros" style="padding-left: 18px;">
+    <div class="franja-filtros" style="padding-left: 4px;">
 
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
@@ -3639,7 +3642,7 @@
             Facturación
         </a>
     </div>
-	<div class="franja-filtros">
+	<div class="franja-filtros" style="padding-left: 4px;">
 		<a href="/clientes2" class="menu-asunto-aim asunto-item-activo">
 			Miembros
 		</a>
@@ -5627,19 +5630,19 @@
               <div class="col-xs-12 col-sm-4">
                 <label for="type">Tipo</label>
                 <select name="type" class="form-control">
-                  <option selected="{{selected event.type 'Birthday' }}" value="Birthday">Birthday</option>
-                  <option selected="{{selected event.type 'Corporate' }}" value="Corporate">Corporate</option>
-                  <option selected="{{selected event.type 'Miscellaneous' }}" value="Miscellaneous">Miscellaneous</option>
-                  <option selected="{{selected event.type 'Wedding' }}" value="Wedding">Wedding</option>
+                  <option selected="{{selected event.type 'Reunión' }}" value="Reunión">Reunión</option>
+                  <option selected="{{selected event.type 'Venta' }}" value="Venta">Venta</option>
+                  <option selected="{{selected event.type 'Cobranza' }}" value="Cobranza">Cobranza</option>
+                  <option selected="{{selected event.type 'Comunicaciones' }}" value="Comunicaciones">Comunicaciones</option>
                 </select>
               </div>
               <div class="col-xs-12 col-sm-3">
                 <label for="start">Empieza</label>
-                <input disabled type="text" name="start" class="form-control" value="{{event.start}}">
+                <input type="text" name="start" class="form-control" value="{{event.start}}">
               </div>
               <div class="col-xs-12 col-sm-3">
                 <label for="end">Finaliza</label>
-                <input disabled type="text" name="end" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
+                <input type="text" name="end" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
               </div>
             </div>
           </div>
@@ -6341,18 +6344,7 @@
 
        <div class="sidebar-vertical-blanco">
 
-        <div class="btn-group">
-          <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-            Nuevo <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="persona agregar-hora"><a href="#">+ Hora</a></li>
-            <li class="empresa agregar-gasto"><a href="#">+ Gasto</a></li>
-            <li class="empresa"><a href="#">+ Cobro</a></li>
-            <li class="empresa"><a href="/facturacion/tarifas/nuevo">+ Tarifa</a></li>
-            <li class="empresa cambio"><a href="/facturacion/tarifas/nuevo">+ Tipo de cambio</a></li>
-          </ul>
-        </div>
+        {{> menuBotonesFacturacion}}
 
 
 
@@ -6375,7 +6367,7 @@
 
         <div class="cuadro-tarea-horas" style="padding: 0px; height: 715px;">
          <div class="franja-filtros" style="width: 80%; margin-left: 220px; padding-top: 15px; border-top: none;height: 715px;">
-          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style="border-radius: 5px; width: 90%; margin: 0 auto; border: 3px solid #2C3E50; display: block; height: 50px; padding-left: 15px; margin-bottom: 20px;">
+          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style=" width: 90%; margin: 0 auto; display: block; height: 50px; padding-left: 15px; margin-bottom: 20px;">
     <table class="table" style="width: 90%; margin: 0 auto;">
     <thead>
       <tr>

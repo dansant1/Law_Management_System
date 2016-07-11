@@ -414,7 +414,7 @@ Template.clienteNuevoModal.events({
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			apellido: template.find('[name="apellido"]').value || "",
-			direccion: template.find('[name="direccion"]').value || "",
+			direccion: template.find('[name="direccion-contacto"]').value || "",
 			telefono: template.find('[name="telefono"]').value || "",
 			celular: template.find('[name="celular"]').value || "",
 			email: template.find('[name="email"]').value || "",
@@ -431,7 +431,7 @@ Template.clienteNuevoModal.events({
 			&& template.find("[name='tarifa']").value!=""
 			&& template.find("[name='tipo-descuento']").value!=""
 			&& template.find("[name='valor-descuento']").value!=""
-			&& template.find("[name='cobranza']").value!=""){
+			){
 
 				datos.facturacion = {
 					ruc: template.find("[name='ruc']").value || "",
@@ -461,7 +461,7 @@ Template.clienteNuevoModal.events({
 					}
 				}
 			}
-		console.log(datos.facturacion);
+			console.log(datos.facturacion);
 
 		if (datos.nombre !== "") {
 			Meteor.call('crearCliente', datos, function (err, result) {
@@ -586,7 +586,7 @@ Template.cuadroAsuntos.events({
 
 Template.asuntosSidebarDashboard.helpers({
 	asuntos() {
-		return Asuntos.find({abierto:true},{limit:3})
+		return Asuntos.find({abierto:true}, {limit: 3})
 	},
 	verificado(){
 		return Asuntos.find({abierto:true}).count()>=3;
@@ -682,9 +682,6 @@ Template.asuntos2.events({
 	'click .nuevo': () => {
 		Modal.show('asuntoNuevoModal');
 	},
-	'click .por-fecha':() =>{
-
-	},
 	'click .abiertos':() =>{
 		Session.set('estado-asunto',true);
 
@@ -747,7 +744,7 @@ Template.asuntoItemCuadro.events({
 				confirmButtonColor: "#e74c3c",
 				confirmButtonText: "Si, archivar asunto",
 				cancelButtonText: "No, cancelar",
-				closeOnConfirm: false
+				closeOnConfirm: true
 			},
 			function() {
 				let asuntoId = $(event.target).data('id');
@@ -3048,7 +3045,8 @@ Template.asuntoNuevoModal.events({
 			 	&& template.find("[name='tarifa']").value!=""
 				&& template.find("[name='tipo-descuento']").value!=""
 				&& template.find("[name='valor-descuento']").value!=""
-				&& template.find("[name='cobranza']").value!=""){
+				//&& template.find("[name='cobranza']").value!=""
+				){
 
 					asunto.facturacion = {
 						ruc: template.find("[name='ruc']").value || "",
@@ -3078,14 +3076,6 @@ Template.asuntoNuevoModal.events({
 						}
 					}
 				}
-
-
-			// $('#integrantes :checked').each(function() {
-      //  			asunto.abogados.push({
-      //  				nombre: $(this).next("label").text(),
-      //  				id: $(this).val()
-      //  			});
-     	// 	});
 
 
 			asunto.area		= $( ".area option:selected" ).text();
@@ -4119,7 +4109,7 @@ Template.formularioParaCrearTarifa.events({
 		tarifa.miembros = tarifas_miembros;
 		tarifa.bufeteId = Meteor.user().profile.bufeteId;
 
-		if (tarifa.nombre !== "" || tarifa.nombre !== undefined) {
+		if (tarifa.nombre !== "") {
 			Meteor.call('registrarTarifa',tarifa,function (err) {
 				if(err) return Bert.alert('No se pudo registrar la tarifa, intentelo nuevamente','danger');
 				Bert.alert('Se registro correctamente la tarifa','success');

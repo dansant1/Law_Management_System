@@ -4,11 +4,7 @@ Template.crearEquipoModal.onRendered(function () {
     self.autorun(function () {
         self.subscribe('equipo',bufeteId)
     })
-})
-
-Template.crearEquipoModal.onCreated(function () {
-
-})
+});
 
 Template.crearEquipoModal.events({
     'click .agregar-equipo'(event,template){
