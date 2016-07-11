@@ -123,7 +123,7 @@ Meteor.methods({
 	'agregarEtapaAsunto':function (datos) {
 		check(datos,Object)
 
-		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
 
 			Etapas.insert(datos);
 

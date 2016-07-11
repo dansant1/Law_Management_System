@@ -127,9 +127,6 @@ Template.etapasAsunto.helpers({
 
 Template.etapasAsunto.events({
 	'keyup [name="crear-etapa"]': function (event, template) {
-
-
-
 		if(event.which == 13){
 			debugger;
 
@@ -146,7 +143,6 @@ Template.etapasAsunto.events({
 				}
 			}
 
-			//$(event.target).blur();
 			Meteor.call('agregarEtapaAsunto', datos, function (err, result) {
 				if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
 
