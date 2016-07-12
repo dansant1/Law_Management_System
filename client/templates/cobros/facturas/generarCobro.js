@@ -4,7 +4,7 @@ Template.generarCobroFacturaModal.onCreated(function () {
     self.autorun(function () {
         self.subscribe('facturas',bufeteId)
     })
-})
+});
 
 Template.generarCobroFacturaModal.helpers({
     conHonorarios(){
@@ -21,4 +21,21 @@ Template.generarCobroFacturaModal.helpers({
     gastos(){
         return Asuntos.find({'cliente.id':this.cliente.id,abierto:true});
     }
-})
+});
+
+Template.generarCobroFacturaModal.events({
+    'click .cerrar-modal': () => {
+        swal({  title: "¿Segúro que quieres cancelar la emisión de este cobro?",
+                text: "Los datos ingresados hasta ahora se perderán",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#e74c3c",
+                confirmButtonText: "Si, cerrar",
+                cancelButtonText: "No, cancelar",
+                closeOnConfirm: true
+            },
+            function() {
+                Modal.hide('generarCobroFacturaModal');
+            });
+    }
+});

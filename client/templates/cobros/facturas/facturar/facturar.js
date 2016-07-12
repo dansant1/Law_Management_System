@@ -1,7 +1,8 @@
 Template.facturarModal.onCreated(function () {
     let self = this;
-    let bufeteId = Meteor.user().profile.bufeteId
+    
     self.autorun(function () {
+        let bufeteId = Meteor.user().profile.bufeteId
         self.subscribe('clientes',bufeteId)
         self.subscribe('asuntos',bufeteId)
         self.subscribe('facturas',bufeteId);
@@ -64,8 +65,18 @@ function crearFacturas(clientesId,template) {
 
 
     Meteor.call('añadirFacturasBorrador',facturas,function (err) {
-        if(err) return Bert.alert('No se pudo añadir las facturas','danger')
-        Bert.alert('Se agrego correctamente las facturas en borrador','success');
+        if (err) {
+
+            return Bert.alert('No se pudo añadir las facturas','danger');
+        
+        } else {
+            Bert.alert('Se agrego correctamente las facturas en borrador','success');
+            Modal.hide('facturarModal');    
+            FlowRouter.go('/facturacion/cobros/borradores');
+        }
+
+        
+
     })
 }
 

@@ -754,7 +754,7 @@ Template.asuntoItemCuadro.events({
 					}
 
 				});
-				// swal("Asunto cerrado", "El asunto ha sido archivado correctamente.", "success");
+				
 			});
 	},
 	'click .editar-asunto': () => {
