@@ -26,3 +26,9 @@ Template.borradores.onCreated(function () {
 Template.borradores.onRendered(function () {
 
 })
+
+Template.borradoresxCliente.events({
+	'click .guardar-cobro'(){
+		Modal.show('generarCobroFacturaModal',this)
+	}
+})

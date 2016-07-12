@@ -19,8 +19,18 @@ Meteor.methods({
                 factura.bufeteId = Meteor.user().profile.bufeteId;
                 factura.borrador = true;
 
-                Facturas.insert(factura)
-
+                Facturas.update({'cliente.id':factura.cliente.id},
+                {
+                    $set:{
+                        codigo: factura.codigo,
+                        cliente: factura.cliente,
+                        facturarPor: factura.facturarPor,
+                        borrador:true,
+                        bufeteId:factura.bufeteId
+                    }
+                },{
+                    upsert:true
+                });
             })
 
 		} else {

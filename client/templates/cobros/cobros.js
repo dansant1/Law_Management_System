@@ -70,9 +70,11 @@ Template.asuntosxCliente.onCreated(function () {
     })
 })
 
-Template.botonGenerarFactura.events({
+Template.botonGenerarFactura.helpers({
 	hide(){
-		if(Session.get('clientes').length!=0) return '';
+		if(Session.get('clientes')!=undefined)
+			if(Session.get('clientes').length!=0) return '';
+			else return 'hide'
 	}
 })
 

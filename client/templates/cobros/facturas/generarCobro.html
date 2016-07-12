@@ -1,0 +1,97 @@
+<template name="generarCobroFacturaModal">
+	 <div id="agregar-modal" class="modal fade" data-backdrop="static"  data-keyboard="false">
+        <div class="modal-dialog" style="width:90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Facturar</h4>
+                </div>
+                <div class="modal-body">
+                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
+                    <fieldset>
+                        <div class="icon">
+                            <div class="form-group">
+                                <label for="">Asuntos</label>
+
+								<table>
+									<thead>
+										<td>
+											Caratula
+										</td>
+										<td>
+											Horas
+										</td>
+										<td>
+											Monto
+										</td>
+										<td>
+											Gastos
+										</td>
+									</thead>
+									<tbody>
+										{{#each gastos}}
+											<tr>
+												<th style="padding-left: 45px;">
+													<span class="fh-checkbox">
+														<label for="dan"> {{this.caratula}} </label>
+													</span>
+													<span class="co-name">
+														<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i>{{this.responsable.nombre}}</span>
+													</span>
+												</th>
+												<td>
+													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+														{{horas}}
+													</h5>
+												</td>
+												<td>
+													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+														{{monto}}
+													</h5>
+												</td>
+												<td>
+													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
+														S/. {{gastoMonto}}
+													</h5>
+												</td>
+											</tr>
+										{{/each}}
+
+									</tbody>
+								</table>
+
+                            </div>
+                        </div>
+                    </fieldset>
+					{{#if conHonorarios}}
+					<fieldset>
+						<div class="icon">
+							<div class="form-group">
+								<label for="">Horas</label>
+								{{#each horas}}
+
+								{{/each}}
+							</div>
+						</div>
+					</fieldset>
+					{{/if}}
+					{{#if conGastos}}
+						<fieldset>
+							<div class="icon">
+								<div class="form-group">
+									<label for="">Gastos</label>
+									{{#each gastos}}
+
+									{{/each}}
+								</div>
+							</div>
+						</fieldset>
+					{{/if}}
+                  </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
