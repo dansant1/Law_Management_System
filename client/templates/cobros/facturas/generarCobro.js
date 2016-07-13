@@ -18,9 +18,22 @@ Template.generarCobroFacturaModal.helpers({
     clientes(){
         return Clientes.find({_id:this.cliente.id})
     },
-    gastos(){
+    asuntos(){
         return Asuntos.find({'cliente.id':this.cliente.id,abierto:true});
-    }
+    },
+    monto(){
+
+    },
+    monto(){
+
+    },
+    totalGastos(){
+        let gastos = Gastos.find({'asunto.id':this._id}).fetch();
+        debugger;
+        return _(gastos).reduce(function (m,x) {
+            return m + x.monto
+        }, 0)
+    },
 });
 
 Template.generarCobroFacturaModal.events({
