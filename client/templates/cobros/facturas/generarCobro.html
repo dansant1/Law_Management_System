@@ -1,38 +1,36 @@
 <template name="generarCobroFacturaModal">
+
 	 <div id="agregar-modal" class="modal fade" data-backdrop="static"  data-keyboard="false">
         <div class="modal-dialog" style="width:90%;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Emitir cobro</h3>
                 </div>
-                <div class="modal-body" style="padding: 0px;">
-
-
-                   		<!-- Pasos a seguir -->
-						<div class="caja-pasos">
-							<div class="paso">
-								<span class="paso-circle paso-seleccionado-color">1</span>
-								<h4>Selecciona los asuntos</h4>
-							</div>
-							{{#if conHonorarios}}
-								<div class="paso">
-									<span class="paso-circle paso2-color">2</span>
-									<h4>Selecciona las horas</h4>
-								</div>
-							{{/if}}
-							{{#if conGastos}}
-								<div class="paso">
-									<span class="paso-circle paso3-color">3</span>
-									<h4>Selecciona los gastos</h4>
-								</div>
-							{{/if}}
-							<div class="paso">
-								<span class="paso-circle paso4-color">4</span>
-								<h4>Emitir cobro</h4>
-							</div>
+                <div class="modal-body" style="padding: 0px;">                   		<!-- Pasos a seguir -->
+					<div class="caja-pasos" style="height:90px;">
+						<div class="paso">
+							<span class="paso-circle choosed indicator" style="width:30px;height:30px"></span>
+							<h4>Selecciona los asuntos</h4>
 						</div>
-
-                        <div class="table-wrapper">
+						{{#if conHonorarios}}
+							<div class="paso">
+								<span class="paso-circle paso-sin-seleccionar paso-hora indicator" style="width:30px;height:30px"></span>
+								<h4>Selecciona las horas</h4>
+							</div>
+						{{/if}}
+						{{#if conGastos}}
+							<div class="paso">
+								<span class="paso-circle paso-sin-seleccionar paso-gasto indicator" style="width:30px;height:30px"></span>
+								<h4>Selecciona los gastos</h4>
+							</div>
+						{{/if}}
+						<div class="paso">
+							<span class="paso-circle paso-sin-seleccionar paso-cobro indicator" style="width:30px;height:30px"></span>
+							<h4>Emitir cobro</h4>
+						</div>
+					</div>
+					<div class="formulario-asuntos step">
+		                <div class="table-wrapper">
 							<table cellspacing="0" id="tech-companies">
 								<thead>
 									<tr>
@@ -64,7 +62,7 @@
 												<td>
 													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
 														<span class="fh-checkbox">
-															<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+															<input class="check-asunto" type="checkbox" id="{{this._id}}" name="mycheckbox" value="{{this._id}}">
 															<label for="{{this._id}}">{{this.caratula}}</label>
 														</span>
 													</h5>
@@ -81,7 +79,67 @@
 												</td>
 												<td>
 													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-														{{totalGastos}}
+														S/. {{totalGastos}}
+													</h5>
+												</td>
+											</tr>
+										{{/each}}
+									</tbody>
+							</table>
+						</div>
+					</div>
+					{{#if conHonorarios}}
+					<div class="formulario-horas step hide">
+						<div class="table-wrapper">
+							<table cellspacing="0" id="tech-companies">
+								<thead>
+									<tr>
+										<th class="persist essential" style="padding-top: 0px;">
+					 						<h3 style="text-align: center;">
+												<i class="fa fa-hdd-o" aria-hidden="true"></i>
+											</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+					 						<h3 style="text-align: center;">
+					 							<i class="fa fa-clock-o" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+											<h3 style="text-align: center;">
+												<i class="fa fa-money" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+											<h3 style="text-align: center;">
+												<i class="fa fa-cube" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+									</tr>
+								</thead>
+									<tbody>
+										{{#each horasCompletas}}
+											<tr>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														<span class="fh-checkbox">
+															<input class="check-hora" type="checkbox" id="{{this.id}}" name="mycheckbox" value="{{this.id}}">
+															<label for="{{this.id}}">{{this.responsable}}</label>
+														</span>
+													</h5>
+												</td>
+												<th>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.tiempo}}
+													</h5>
+												</th>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.asunto}}
+													</h5>
+												</td>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.precio}}
 													</h5>
 												</td>
 											</tr>
@@ -90,88 +148,24 @@
 							</table>
 						</div>
 
-                              <!--
-
-								<table>
-									<thead>
-										<td>
-											Caratula
-										</td>
-										<td>
-											Horas
-										</td>
-										<td>
-											Monto
-										</td>
-										<td>
-											Gastos
-										</td>
-									</thead>
-									<tbody>
-										{{#each gastos}}
-											<tr>
-												<th style="padding-left: 45px;">
-													<span class="fh-checkbox">
-														<label for="dan">
-															{{this.caratula}}
-														</label>
-													</span>
-
-												</th>
-												<td>
-													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-														{{horas}}
-													</h5>
-												</td>
-												<td>
-													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-														{{monto}}
-													</h5>
-												</td>
-												<td>
-													<h5 style="text-align: center; font-size: 14px; color: #34495e;">
-														S/. {{gastoMonto}}
-													</h5>
-												</td>
-											</tr>
-										{{/each}}
-
-									</tbody>
-								</table>
-
-
-
-
-					{{#if conHonorarios}}
-					<fieldset>
-						<div class="icon">
-							<div class="form-group">
-								<label for="">Horas</label>
-								{{#each horas}}
-
-								{{/each}}
-							</div>
-						</div>
-					</fieldset>
+					</div>
 					{{/if}}
 					{{#if conGastos}}
-						<fieldset>
-							<div class="icon">
-								<div class="form-group">
-									<label for="">Gastos</label>
-									{{#each gastos}}
+					<div class="formulario-gastos step hide">
 
-									{{/each}}
-								</div>
-							</div>
-						</fieldset>
+					</div>
 					{{/if}}
-                -->
-				<div style="width: 100%; padding: 10px; padding-left: 90px;">
-					<a href="#" class="btn nueva-tarea paso2-color" style="width: 15%; text-transform: capitalize; border-bottom: 0; ">
-						Seleccionar horas
-					</a>
-				</div>
+					<div class="formulario-cobro step hide">
+
+					</div>
+					<div style="width: 100%; padding: 10px; padding-left: 90px;">
+						<a href="#" class="btn nueva-tarea anterior-paso hide" style="width: 15%; text-transform: capitalize; border-bottom: 0; background-color:#3498DB ">
+							Anterior
+						</a>
+						<a href="#" class="btn nueva-tarea siguiente-paso" style="width: 15%; text-transform: capitalize; border-bottom: 0; background-color:#3498DB ">
+							Continuar
+						</a>
+					</div>
                 </div>
 
                 <div class="modal-footer">
