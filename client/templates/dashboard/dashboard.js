@@ -109,7 +109,7 @@ Template.etapa.events({
 
 Template.etapasAsunto.onRendered(function () {
 	let self = this;
-	
+
 	self.autorun(function () {
 		let asuntoId = FlowRouter.getParam('asuntoId');
 		Meteor.subscribe('etapasxasunto',asuntoId);
@@ -754,7 +754,7 @@ Template.asuntoItemCuadro.events({
 					}
 
 				});
-				
+
 			});
 	},
 	'click .editar-asunto': () => {
@@ -1442,7 +1442,7 @@ Template.fullScreenTareaAsunto.helpers({
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' de ' + d.getFullYear();
 	}
-	
+
 });
 
 Template.asuntosDocs3.onCreated( function () {
@@ -3081,8 +3081,8 @@ Template.asuntoNuevoModal.events({
 			asunto.inicio	= template.find( '[name="fecha"]' ).value;
 
 			asunto.responsable = {
-				nombre: $( ".responsable option:selected" ).text(),
-				id: $( ".responsable" ).val()
+				nombre: $(template.find( ".responsable option:selected" )).text(),
+				id: $(template.find( ".responsable" )).val()
 			}
 
 			asunto.bufeteId = Meteor.user().profile.bufeteId;
@@ -3483,7 +3483,7 @@ Template.pieChart.events({
 });
 
 Template.pieChart.onRendered(function(){
-	
+
 
 		function chartLine(){
 

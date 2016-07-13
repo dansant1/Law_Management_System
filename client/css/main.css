@@ -29,6 +29,19 @@ input:-webkit-autofill {
     outline: none;
 }
 
+.paso-sin-seleccionar{
+	background-color: #b5b5b5;
+}
+
+.completed{
+	background-color: #5cb85c;
+}
+
+.choosed{
+	background-color: #3498db;
+
+}
+
 .tt-query { /* UPDATE: newer versions use tt-input instead of tt-query */
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
@@ -835,7 +848,7 @@ a:hover {
 }
 
 .box-news {
-	
+
 	min-height: 125px;
 	background-color: white;
 	margin: 0;

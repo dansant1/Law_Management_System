@@ -209,7 +209,7 @@
 	                        <label>¿Que equipo trabajara en este asunto?</label>
 
 							<select class="form-control responsable" name="equipo">
-								<option value="">Todos</option>
+								<option value="Todos">Todos</option>
 							   {{#each equipos}}
 									<option value="{{this._id}}">{{this.nombre}}</option>
 								{{/each}}
@@ -1636,14 +1636,14 @@
 			<a href="/clientes2/d/{{this.cliente.id}}" style="font-family: 'Open Sans'; font-size: initial;"><h5>{{this.cliente.nombre}}</h5></a>
       <div style="display: block;">
       <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block; width: 20px; margin: 0px;">
-            <span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #2ecc71; background-color: #2ecc71; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">		
+            <span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #2ecc71; background-color: #2ecc71; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">
             		{{getFirstLettersOfName this.responsable.nombre this.n}}
             </span>
         </div>
         <div class="sidebar-circulos" style="padding-left: 0px; display: inline-block;">
 
           {{#each this.abogados}}
-            	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">		
+            	<span style="font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 20px; height: 20px; color: white; font-weight: initial; padding-top: 2px; text-align: center; margin-top: 1px; margin-right: 2px;">
             		{{getFirstLettersOfName this.nombre this.n}}
              	</span>
           {{/each}}
@@ -1727,7 +1727,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim" style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -1927,7 +1927,7 @@
 			</tr>
 			{{/each}}
 
-	
+
 </template>
 
 <template name="tareasEtapaAsunto">
@@ -3143,7 +3143,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -3188,7 +3188,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -3233,7 +3233,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -3317,7 +3317,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -3361,7 +3361,7 @@
 		<a href="/asuntos2/d/{{asuntoId}}/calendario" class="menu-asunto-aim " style="margin-left: 0px;">
 			Calendario
 		</a>
-		
+
 		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
 			Facturación
 		</a>
@@ -4851,7 +4851,7 @@
   </div>
 
   <div style="display: flex; flex-wrap;">
-    
+
 
    {{#with caso}}
 
@@ -5654,7 +5654,7 @@
                     {{#each news}}
                         <div class="asunto-item">
                             <p class="asunto-trata">
-                                
+
                                 {{descripcion}}
                             </p>
                             <span class="asunto-fecha asunto-trata" style="position: absolute; right: 50px;">{{sucedio this.createdAt}}</span>
@@ -5676,16 +5676,16 @@
 <template name="pieChart">
 
     <div class="cuadro-pie" style="display: block; width: 33.33%; height: 350px; background-color: white;  padding: 20px; text-align: center;">
-    	
+
       <h2 style="margin-top: 0px; margin-bottom: 0px;">Contactos</h2>
       <br>
       <canvas id="myChart4" width="200" height="200"></canvas>
       <br><br>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> CONTACTOS </a>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #8e44ad;"> </span> PROSPECTOS </a>
-      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> CLIENTES 
+      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> CLIENTES
       </a>
-     
+
 
     </div>
 </template>
@@ -5700,7 +5700,7 @@
 	<br>
 	<a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #9b59b6;"> </span> En ejecución </a>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> Ganados </a>
-      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> Perdidos 
+      <a style="font-size: 10px; color: #7f8c8d;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #e74c3c;"> </span> Perdidos
       </a>
 
   </div>
@@ -5743,7 +5743,7 @@
     </div>
   <div class="box">
     <canvas id="myChart4" width="400" height="400"></canvas>
-    
+
   </div>
 </template>
 
@@ -5765,7 +5765,7 @@
 <!-- Contenido del modulo dashboard -->
 
 <template name="mainDashboard">
-  
+
   <div style="width: 100%; margin: 0px ; display: flex; flex-wrap: wrap;">
      <div style="width: 50%; text-align: center;">
     {{>borradoresFacturaDashboard}}
@@ -5779,11 +5779,11 @@
 </template>
 
 <template name="tareasHoyDashboard">
-  
+
 </template>
 
 <template name="agendaHoyDashboard">
-  
+
 </template>
 
 <template name="borradoresFacturaDashboard">
@@ -6535,7 +6535,7 @@
 					<li class="persona agregar-etapa"> <a href="#">+ Etapa</a> </li>
     				<li class="persona nuevas-tareas task"><a href="#">+ Tarea</a></li>
                     <li class="empresa agregar-gasto"><a href="#">+ Workflow</a></li>
-					
+
   				</ul>
     		</div>
 </template>
