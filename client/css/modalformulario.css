@@ -1,3 +1,9 @@
+.modal-content  {
+    -webkit-border-radius: 4.5px !important;
+    -moz-border-radius: 4.5px !important;
+    border-radius: 4.5px !important; 
+}
+
 .modal-formulario {
 	display: flex;
 	flex-wrap: wrap;
