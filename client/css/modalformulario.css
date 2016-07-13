@@ -1,0 +1,152 @@
+.modal-formulario {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.side-help {
+	width: 24%;
+}
+
+.contenido-formulario {
+	width: 76%;
+	background-color: #FFFFFF;
+}
+
+.about-asunto {
+	min-height: 289.5px;
+	padding: 25px;
+}
+
+.about-asunto > h3 {
+	color: #34495e;
+	font-weight: initial;
+	font-size: 18.5px;
+	margin-bottom: 5px;
+}
+
+.about-asunto > h2 {
+	text-align: center;
+	color: white;
+	font-weight: initial;
+	font-size: 22.5px;
+	text-transform: uppercase;
+	margin-top: 0px;
+}
+
+.about-asunto > p {
+	color: #A8A8A8;
+	font-size: 1.3rem;
+	font-weight: initial;
+}
+
+.about-asunto > ul {
+	padding-left: 0px;
+}
+
+.about-asunto > ul > li {
+	color: white;
+}
+
+.fondo-bunqr {
+	background-color: #34495e;
+}
+
+.fondo-ayuda {
+	background-color: #F2F2F2;
+}
+
+.color-bunqr {
+	color: #2c3e50;
+}
+
+a.color-bunqr {
+	font-weight: initial;
+}
+
+.modal-dialog {
+	border-radius: 5px !important;
+}
+
+.cuadro-datos-asunto {
+	width: 100%;
+	min-height: 100px;
+	padding: 25px;
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+
+.cuadro-datos-asunto > h1 {
+	font-weight: initial;
+	font-size: 2.3rem;
+	margin-top: 15.5px;
+}
+
+.medio-ancho {
+	width: 48%;
+	display: inline-block;
+	margin-top: 8px;
+}
+
+.medio-ancho > label {
+	text-transform: uppercase;
+	color: #95a5a6;
+	font-weight: bold;
+	font-size: 10px;
+
+}
+
+.medio-ancho > input {
+	border: 2px solid #e5e5e5;
+	display: block;
+	width: 95%;
+	height: 45px;
+	margin-bottom: 5px;
+	padding-left: 15px;
+	font-weight: initial;
+
+	-webkit-transition: border-color 0.4s ease-out;
+    -moz-transition: border-color 0.4s ease-out;
+    -o-transition: border-color 0.4s ease-out;
+    transition: border-color 0.4s ease-out;
+}
+
+.medio-ancho > input:focus {
+	border: 2px solid #2ecc71;	
+}
+
+.medio-ancho > input:hover {
+	border: 2px solid #2ecc71;	
+}
+.cuadro-datos-asunto > input[type="button"] {
+	border-radius: 50em;
+	background-color: white;
+	border: 1px solid #2ecc71;
+	display: inline-block;
+	color: #2ecc71;
+	
+	float: right;
+
+	width: 30%;
+	height: 42.5px;
+	margin-top: 10px;
+	margin-right: 40px;
+
+	
+	
+	font-size: 12.5px;
+
+	text-align: center;
+	text-transform: uppercase;
+
+	padding-top: 5.5px;
+
+	-webkit-transition: background-color 0.4s ease-out;
+    -moz-transition: background-color 0.4s ease-out;
+    -o-transition: background-color 0.4s ease-out;
+    transition: background-color 0.4s ease-out;
+}
+
+.cuadro-datos-asunto > input[type="button"]:hover {
+	background-color: #2ecc71;
+	color: white;
+}

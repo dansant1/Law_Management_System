@@ -24,6 +24,9 @@ Template.menu.events({
 	},
 	'click .agregar-cliente': () =>{
 		Modal.show('clienteNuevoModal');
+	},
+	'click .asunto-modal': () => {
+		Modal.show('AsuntoNuevoModal');	
 	}
 });
 
