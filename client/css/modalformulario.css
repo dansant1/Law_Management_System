@@ -61,6 +61,11 @@
 
 a.color-bunqr {
 	font-weight: initial;
+	border-bottom: 1px dotted #AAA;
+}
+
+a.color-bunqr:hover {
+	cursor: help;
 }
 
 .modal-dialog {
