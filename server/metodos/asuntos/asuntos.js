@@ -35,7 +35,7 @@ Meteor.methods({
 			console.log(cliente);
 			console.log(asuntos.equipoId);
 			asuntos.abogados = [];
-			if(asuntos.equipoId) asuntos.abogados = Equipos.find({_id:asuntos.equipoId}).fetch()[0].miembros;
+			if(asuntos.equipoId) asuntos.abogados = Equipos.findOne({_id:asuntos.equipoId}).miembros;
 			else {
 				Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},
 						{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
