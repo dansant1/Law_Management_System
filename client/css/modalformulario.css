@@ -10,17 +10,21 @@
 }
 
 .side-help {
-	width: 24%;
+	width: 23%;
 }
 
 .contenido-formulario {
-	width: 76%;
+	width: 77%;
 	background-color: #FFFFFF;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .about-asunto {
-	min-height: 289.5px;
-	padding: 25px;
+	min-height: 185.5px;
+	padding: 20px;
+	padding-top: 55px;
+	padding-bottom: 5px;
 }
 
 .about-asunto > h3 {
@@ -79,8 +83,8 @@ a.color-bunqr:hover {
 }
 
 .cuadro-datos-asunto {
-	width: 100%;
-	min-height: 100px;
+	width: 98%;
+	min-height: 70px;
 	padding: 25px;
 	padding-top: 5px;
 	padding-bottom: 0px;
@@ -98,6 +102,44 @@ a.color-bunqr:hover {
 	margin-top: 8px;
 }
 
+.completo-ancho {
+	width: 100%;
+	display: inline-block;
+	margin-top: 8px;
+}
+
+.completo-ancho > label {
+	text-transform: uppercase;
+	color: #95a5a6;
+	font-weight: bold;
+	font-size: 10px;
+
+}
+
+.completo-ancho > input ,select {
+	border: 2px solid #e5e5e5;
+	display: block;
+	width: 95%;
+	height: 45px;
+	margin-bottom: 5px;
+	padding-left: 15px;
+	font-weight: initial;
+	background-color: white;
+
+	-webkit-transition: border-color 0.4s ease-out;
+    -moz-transition: border-color 0.4s ease-out;
+    -o-transition: border-color 0.4s ease-out;
+    transition: border-color 0.4s ease-out;
+}
+
+.completo-ancho > input:focus {
+	border: 2px solid #2ecc71;	
+}
+
+.completo-ancho > input:hover {
+	border: 2px solid #2ecc71;	
+}
+
 .medio-ancho > label {
 	text-transform: uppercase;
 	color: #95a5a6;
@@ -106,9 +148,10 @@ a.color-bunqr:hover {
 
 }
 
-.medio-ancho > input {
+.medio-ancho > input, select {
 	border: 2px solid #e5e5e5;
 	display: block;
+	background-color: white;
 	width: 95%;
 	height: 45px;
 	margin-bottom: 5px;
@@ -129,9 +172,9 @@ a.color-bunqr:hover {
 	border: 2px solid #2ecc71;	
 }
 .cuadro-datos-asunto > input[type="button"] {
-	border-radius: 50em;
+	
 	background-color: white;
-	border: 1px solid #2ecc71;
+	border: 2px solid #2ecc71;
 	display: inline-block;
 	color: #2ecc71;
 	
