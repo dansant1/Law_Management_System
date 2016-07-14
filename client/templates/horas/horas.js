@@ -540,14 +540,14 @@ Template.agregarHoras.events({
 		}
 
 
-
+		debugger;
 		datos.asunto = {
 			nombre: template.find( ".asunto option:selected" ).innerHTML,
 			id: template.find(".asunto").value
 		}
 
 		datos.responsable = {
-			nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile,
+			nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 			id: Meteor.userId()
 		}
 

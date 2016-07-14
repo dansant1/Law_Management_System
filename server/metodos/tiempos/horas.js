@@ -316,6 +316,7 @@ Meteor.methods({
 			datos.horasFacturables = datos.horas;
 			datos.minutosFacturables = datos.minutos;
 			datos.esTarea = datos.esTarea? true : false;
+			console.log("DATO FACTURACION",datos.cobrado);
 			datos.cobrable = !datos.cobrado;
 
 			// datos.total = datos.horas * datos.precio;

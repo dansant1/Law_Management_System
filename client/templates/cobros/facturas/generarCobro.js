@@ -3,6 +3,9 @@ Template.generarCobroFacturaModal.onCreated(function () {
     let bufeteId = Meteor.user().profile.bufeteId;
     Session.set("asuntosWizard",[])
     Session.set("horasWizard",[])
+    Session.set("gastosWizard",[])
+    Session.set("cobroWizard",[])
+    Session.set("step",0)
     self.autorun(function () {
         self.subscribe('facturas',bufeteId)
         self.subscribe('asuntos',bufeteId)
@@ -90,6 +93,51 @@ Template.generarCobroFacturaModal.helpers({
             return m + x.monto
         }, 0)
     },
+    gastosCompletos(){
+        return _(Gastos.find({'asunto.id':{$in:Session.get("asuntosWizard")}}).fetch()).map(function (gasto) {
+            debugger;
+            return {
+                id:gasto._id,
+                responsable:gasto.responsable.nombre,
+                descripcion : gasto.descripcion,
+                asunto: Asuntos.findOne({_id:gasto.asunto.id}).caratula,
+                precio: gasto.monto
+            }
+        })
+    },
+    verificarFormularioActual(){
+        debugger;
+
+        if(Session.get("step")){        }
+
+
+        if(Session.get("horasWizard")){
+            if ($(".step").not(".hide").hasClass("formulario-horas")) {
+                return Session.get("horasWizard").length!=0
+            }
+        }
+
+        if(Session.get("gastosWizard")){
+            if ($(".step").not(".hide").hasClass("formulario-gastos")) {
+                return Session.get("gastosWizard").length!=0
+            }
+        }
+
+        if(Session.get("asuntosWizard")){
+
+            if ($(".step").not(".hide").hasClass("formulario-asuntos")) {
+                return Session.get("asuntosWizard").length!=0
+            }
+        }
+
+        if(Session.get("cobroWizard")){
+            if ($(".step").not(".hide").hasClass("formulario-cobro")) {
+                return Session.get("cobroWizard").length!=0
+            }
+        }
+
+
+    }
 });
 
 Template.generarCobroFacturaModal.events({
@@ -107,8 +155,56 @@ Template.generarCobroFacturaModal.events({
                 Modal.hide('generarCobroFacturaModal');
             });
     },
+    'click .check-asunto'(event,template){
+        let asuntosWizard = Session.get("asuntosWizard");
+        let asuntoId = $(event.target).val();
+        if($(event.target).is(":checked")){
+            if(asuntosWizard.indexOf(asuntoId)==-1){
+                asuntosWizard.push(asuntoId);
+                Session.set('asuntosWizard',asuntosWizard)
+            }
+        }else {
+            let i = asuntosWizard.indexOf(asuntoId)
+            asuntosWizard.splice(i,1);
+            Session.set('asuntosWizard',asuntosWizard)
+        }
+    },
+    'click .check-hora'(event,template){
+        debugger;
+        let horasWizard = Session.get("horasWizard");
+        let horaId = $(event.target).val();
+        if($(event.target).is(":checked")){
+            if(horasWizard.indexOf(horaId)==-1){
+                horasWizard.push(horaId);
+                Session.set('horasWizard',horasWizard)
+            }
+        }else {
+            let i = horasWizard.indexOf(horaId)
+            horasWizard.splice(i,1);
+            Session.set('horasWizard',horasWizard)
+        }
+    },
+    'click .check-gasto'(event,template){
+        let gastosWizard = Session.get("gastosWizard");
+        let gastoId = $(event.target).val();
+        if($(event.target).is(":checked")){
+            if(gastosWizard.indexOf(gastoId)==-1){
+                gastosWizard.push(gastoId);
+                Session.set('gastosWizard',gastosWizard)
+            }
+        }else {
+            let i = gastosWizard.indexOf(gastoId)
+            gastosWizard.splice(i,1);
+            Session.set('gastosWizard',gastosWizard)
+        }
+
+    },
     'click .siguiente-paso'(){
 
+        // let factura = Facturas.findOne({_id:this._id});
+
+        // if(factura.facturarPor=="honorarios"||factura.facturarPor=="honorariosygastos")
+        debugger;
         let currentStep = $(".step").not(".hide");
         let index = $(".step").index(currentStep)
 
@@ -116,41 +212,33 @@ Template.generarCobroFacturaModal.events({
         let _index = $(".indicator").index(currentSepIndicator);
 
 
-        if($(".check-asunto:checked").length!=0){
-
-            if(Session.get("asuntosWizard").length==0){
-                let asuntosId = []
-                for (var i = 0; i < $(".check-asunto:checked").length; i++) {
-                    asuntosId.push($(".check-asunto:checked")[i].value)
-                }
-                Session.set("asuntosWizard",asuntosId);
-            }
+        // if(Session.get("asuntosWizard").length==0){
+        //     let asuntosId = []
+        //     for (var i = 0; i < $(".check-asunto:checked").length; i++) {
+        //         asuntosId.push($(".check-asunto:checked")[i].value)
+        //     }
+        //     Session.set("asuntosWizard",asuntosId);
+        // }
 
 
-            if(Session.get("horasWizard").length==0){
-                let horasId = []
-                for (var i = 0; i < $(".check-hora").length; i++) {
-                    horasId.push($(".check-hora:checked")[i].value)
-                }
-                Session.set("horasWizard",horasId)
-            }
+        // if(Session.get("horasWizard").length==0){
+        //     let horasId = []
+        //     for (var i = 0; i < $(".check-hora").length; i++) {
+        //         horasId.push($(".check-hora:checked")[i].value)
+        //     }
+        //     Session.set("horasWizard",horasId)
+        // }
 
-            $(".anterior-paso").removeClass("hide")
+        $(".anterior-paso").removeClass("hide")
 
-            currentSepIndicator.removeClass("paso-seleccionado-color").removeClass("choosed").addClass("completed");
-            $($(".indicator")[_index+1]).removeClass("paso-sin-seleccionar").addClass("paso-seleccionado-color").addClass("choosed");
+        currentSepIndicator.removeClass("paso-seleccionado-color").removeClass("choosed").addClass("completed");
+        $($(".indicator")[_index+1]).removeClass("paso-sin-seleccionar").addClass("paso-seleccionado-color").addClass("choosed");
 
-            currentStep.fadeOut("slow",function () {
-                $(this).addClass("hide")
-            })
+        currentStep.addClass("hide")
+        $($(".step")[index+1]).removeClass("hide");
 
-            $($(".step")[index+1]).fadeIn("slow",function () {
-                $(this).removeClass("hide");
-            })
-        }
-        else {
-            Bert.alert('Por favor escoja algun asunto antes de continuar','warning')
-        }
+        Session.set("step",index+1);
+
     },
     'click .anterior-paso'(){
 
@@ -164,14 +252,28 @@ Template.generarCobroFacturaModal.events({
         currentSepIndicator.removeClass("paso-seleccionado-color").removeClass("choosed").addClass("paso-sin-seleccionar");
         $($(".indicator")[_index-1]).removeClass("paso-sin-seleccionar").addClass("paso-seleccionado-color").addClass("choosed");
 
-        currentStep.fadeOut("slow",function () {
-            $(this).addClass("hide")
+        currentStep.addClass("hide")
+
+        $($(".step")[index-1]).removeClass("hide");
+
+        Session.set("step",index);
+    },
+    'click .guardar-estado'(){
+
+        let estado = {}
+
+        if(Session.get("asuntosWizard").length!=0) estado.asuntos = Session.get("asuntosWizard");
+        if(Session.get("horasWizard").length!=0) estado.horas = Session.get("horasWizard");
+        if(Session.get("gastosWizard").length!=0) estado.gastos = Session.get("gastosWizard");
+        estado.paso = {}
+        estado.paso.nro = Session.get("step");
+        estado.paso.nombre = $($(".step")[Session.get("step")]).data("nombre");
+
+        debugger;
+
+        Meteor.call("actualizarEstadoBorrador",estado,this._id,function (err) {
+            if(err) return Bert.alert("Error al guardar el estado de la facturar","danger");
+            Bert.alert("Se guardo la factura correctamente","success");
         })
-
-        $($(".step")[index-1]).fadeIn("slow",function () {
-            $(this).removeClass("hide");
-        })
-
-
     }
 });

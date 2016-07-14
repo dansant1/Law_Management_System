@@ -29,7 +29,7 @@
 							<h4>Emitir cobro</h4>
 						</div>
 					</div>
-					<div class="formulario-asuntos step">
+					<div class="formulario-asuntos step" data-nombre="asuntos">
 		                <div class="table-wrapper">
 							<table cellspacing="0" id="tech-companies">
 								<thead>
@@ -89,7 +89,7 @@
 						</div>
 					</div>
 					{{#if conHonorarios}}
-					<div class="formulario-horas step hide">
+					<div class="formulario-horas step hide" data-nombre="horas">
 						<div class="table-wrapper">
 							<table cellspacing="0" id="tech-companies">
 								<thead>
@@ -139,7 +139,7 @@
 												</td>
 												<td>
 													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
-														{{this.precio}}
+														S/. {{this.precio}}
 													</h5>
 												</td>
 											</tr>
@@ -151,24 +151,99 @@
 					</div>
 					{{/if}}
 					{{#if conGastos}}
-					<div class="formulario-gastos step hide">
+					<div class="formulario-gastos step hide" data-nombre="gastos">
+						<div class="table-wrapper">
+							<table cellspacing="0" id="tech-companies">
+								<thead>
+									<tr>
+										<th class="persist essential" style="padding-top: 0px;">
+					 						<h3 style="text-align: center;">
+												<i class="fa fa-hdd-o" aria-hidden="true"></i>
+											</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+					 						<h3 style="text-align: center;">
+					 							<i class="fa fa-clock-o" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+											<h3 style="text-align: center;">
+												<i class="fa fa-money" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+										<th class="essential" style="padding-top: 0px;">
+											<h3 style="text-align: center;">
+												<i class="fa fa-cube" aria-hidden="true"></i>
+					 						</h3>
+										</th>
+									</tr>
+								</thead>
+									<tbody>
+										{{#each gastosCompletos}}
+											<tr>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														<span class="fh-checkbox">
+															<input class="check-gasto" type="checkbox" id="{{this.id}}" name="mycheckbox" value="{{this.id}}">
+															<label for="{{this.id}}">{{this.descripcion}}</label>
+														</span>
+													</h5>
+												</td>
+												<th>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.responsable}}
+													</h5>
+												</th>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.asunto}}
+													</h5>
+												</td>
+												<td>
+													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+														S/. {{this.precio}}
+													</h5>
+												</td>
+											</tr>
+										{{/each}}
+									</tbody>
+							</table>
+						</div>
 
 					</div>
 					{{/if}}
-					<div class="formulario-cobro step hide">
+					<div class="formulario-cobro step hide" data-nombre="cobro">
+						<div class="">
+							<h1>Honorarios</h1>
+							<div class="">
+								<label for="">Trabajos</label>
+								<input type="text" name="name" value="">
+							</div>
+							<div class="">
+								<label for="">Tramites</label>
+								<input type="text" name="name" value="">
+							</div>
+							<div class="">
 
+							</div>
+						</div>
 					</div>
 					<div style="width: 100%; padding: 10px; padding-left: 90px;">
 						<a href="#" class="btn nueva-tarea anterior-paso hide" style="width: 15%; text-transform: capitalize; border-bottom: 0; background-color:#3498DB ">
 							Anterior
 						</a>
+						{{#if verificarFormularioActual}}
 						<a href="#" class="btn nueva-tarea siguiente-paso" style="width: 15%; text-transform: capitalize; border-bottom: 0; background-color:#3498DB ">
 							Continuar
 						</a>
+						{{/if}}
 					</div>
                 </div>
 
                 <div class="modal-footer">
+					<button type="button" class="btn boton-facturar guardar-estado">
+						Guardar estado
+					</button>
                     <button type="button" class="btn btn-default cerrar-modal">
                     	Cancelar
                     </button>

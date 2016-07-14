@@ -36,5 +36,25 @@ Meteor.methods({
 		} else {
 			return;
 		}
+    },
+    'actualizarEstadoBorrador'(estado,facturaId){
+        check(estado,Object);
+        check(facturaId,String)
+
+        if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+
+
+            Facturas.update({'_id':facturaId},
+                {
+                    $set:{
+                        estado:estado
+                    }
+                }
+            );
+
+		} else {
+			return;
+		}
+
     }
 })

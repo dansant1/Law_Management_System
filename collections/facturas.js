@@ -70,6 +70,34 @@ EsquemaFacturas = new SimpleSchema({
     },
 	bufeteId:{
 		type:String
+	},
+	estado:{
+		type:Object,
+		optional:true
+	},
+	'estado.asuntos':{
+		type:[String],
+		optional:true
+	},
+	'estado.horas':{
+		type:[String],
+		optional:true
+	},
+	'estado.gastos':{
+		type:[String],
+		optional:true
+	},
+	'estado.paso':{
+		type:Object
+	},
+	'estado.paso.nro':{
+		type:Number
+	},
+	'estado.paso.nombre':{
+		type:String
+	},
+	ultimaModificacion:{
+		type: Date
 	}
 });
 
