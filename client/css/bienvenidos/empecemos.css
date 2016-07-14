@@ -53,7 +53,7 @@
 
 .contenido-bienvenido-bunqr > h1, p, button {
 	font-weight: initial;
-	color: white;
+	
 }
 
 .contenido-bienvenido-bunqr > h1 {
@@ -93,7 +93,7 @@
 
 .contenido-bienvenido-bunqr > input {
 	width: 30%;
-	height: 45px;
+	height: 65px;
 	border: 2px solid #E5E5E5;
 	background-color: white;
 	padding-left: 15px;
