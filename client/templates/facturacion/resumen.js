@@ -249,10 +249,12 @@ Template.resumenHorasPersonal.helpers({
             totalMinutos += tiempoxAsunto[i].minutos;
         }
 
-        if(totalMinutos>60){
+        if(totalMinutos>=60){
             totalHoras += Number(String(totalMinutos/60).split(".")[0]);;
-            totalMinutos += totalMinutos%60;
+            totalMinutos = totalMinutos%60;
         }
+
+        debugger;
 
         return totalHoras + "h " + totalMinutos +"m " ;
 

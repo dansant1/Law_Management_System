@@ -14,6 +14,58 @@ Template.generarCobroFacturaModal.onCreated(function () {
     })
 });
 
+Template.generarCobroFacturaModal.onRendered(function () {
+    let factura = Facturas.findOne({_id:Session.get("factura-id")});
+
+    debugger;
+    if(factura.estado.asuntos)  Session.set("asuntosWizard",factura.estado.asuntos);
+    if(factura.estado.horas)    Session.set("horasWizard",factura.estado.horas);
+    if(factura.estado.gastos)   Session.set("gastosWizard",factura.estado.gastos);
+    let index = factura.estado.paso.nro;
+    Session.set("step",index);
+
+
+    for (var i = 0; i < $(".step").length; i++) {
+        if(index==i) $($(".step")[i]).removeClass("hide");
+        else $($(".step")[i]).addClass("hide");
+    }
+
+    $($(".indicator")[index]).addClass("choosed");
+
+    if(index>0) $(".anterior-paso").removeClass("hide");
+
+    for (var i = 0; i < index; i++) {
+        $($(".indicator")[i]).removeClass("paso-seleccionado-color").removeClass("choosed").addClass("completed");
+    }
+
+    if(factura.estado.asuntos){
+        for (var j = 0; j < factura.estado.asuntos.length; j++) {
+            for (var i = 0; i < $(".check-asunto").length; i++) {
+                if($($(".check-asunto")[i]).val()== factura.estado.asuntos[j]) $($(".check-asunto")[i]).attr("checked",true);
+            }
+        }
+    }
+
+    if(factura.estado.horas){
+        for (var j = 0; j < factura.estado.horas.length; j++) {
+            for (var i = 0; i < $(".check-hora").length; i++) {
+                if($($(".check-hora")[i]).val()== factura.estado.horas[j]) $($(".check-hora")[i]).attr("checked",true);
+            }
+        }
+    }
+
+    if(factura.estado.gastos){
+        for (var j = 0; j < factura.estado.gastos.length; j++) {
+            for (var i = 0; i < $(".check-gasto").length; i++) {
+                if($($(".check-gasto")[i]).val()== factura.estado.horas[j]) $($(".check-gasto")[i]).attr("checked",true);
+            }
+        }
+    }
+
+
+
+})
+
 Template.generarCobroFacturaModal.helpers({
     conHonorarios(){
         let factura = Facturas.findOne({_id:this._id});
@@ -30,8 +82,8 @@ Template.generarCobroFacturaModal.helpers({
         return Asuntos.find({'cliente.id':this.cliente.id,abierto:true});
     },
     horasCompletas(){
+        debugger
         return _(Horas.find({'asunto.id':{$in:Session.get("asuntosWizard")}}).fetch()).map(function (hora) {
-            debugger;
             return {
                 id:hora._id,
                 responsable:hora.responsable.nombre,
@@ -57,7 +109,6 @@ Template.generarCobroFacturaModal.helpers({
                         return m + x.horas;
                     },0),
                     minutos: _(g).reduce(function (m,x) {
-                        debugger
                         return m + x.minutos;
                     },0)
                 }
@@ -88,14 +139,12 @@ Template.generarCobroFacturaModal.helpers({
     },
     totalGastos(){
         let gastos = Gastos.find({'asunto.id':this._id}).fetch();
-        debugger;
         return _(gastos).reduce(function (m,x) {
             return m + x.monto
         }, 0)
     },
     gastosCompletos(){
         return _(Gastos.find({'asunto.id':{$in:Session.get("asuntosWizard")}}).fetch()).map(function (gasto) {
-            debugger;
             return {
                 id:gasto._id,
                 responsable:gasto.responsable.nombre,
@@ -106,7 +155,6 @@ Template.generarCobroFacturaModal.helpers({
         })
     },
     verificarFormularioActual(){
-        debugger;
 
         if(Session.get("step")){        }
 
@@ -170,7 +218,6 @@ Template.generarCobroFacturaModal.events({
         }
     },
     'click .check-hora'(event,template){
-        debugger;
         let horasWizard = Session.get("horasWizard");
         let horaId = $(event.target).val();
         if($(event.target).is(":checked")){
@@ -204,7 +251,6 @@ Template.generarCobroFacturaModal.events({
         // let factura = Facturas.findOne({_id:this._id});
 
         // if(factura.facturarPor=="honorarios"||factura.facturarPor=="honorariosygastos")
-        debugger;
         let currentStep = $(".step").not(".hide");
         let index = $(".step").index(currentStep)
 
@@ -268,8 +314,6 @@ Template.generarCobroFacturaModal.events({
         estado.paso = {}
         estado.paso.nro = Session.get("step");
         estado.paso.nombre = $($(".step")[Session.get("step")]).data("nombre");
-
-        debugger;
 
         Meteor.call("actualizarEstadoBorrador",estado,this._id,function (err) {
             if(err) return Bert.alert("Error al guardar el estado de la facturar","danger");

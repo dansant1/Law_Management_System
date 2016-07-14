@@ -47,7 +47,9 @@ Meteor.methods({
             Facturas.update({'_id':facturaId},
                 {
                     $set:{
-                        estado:estado
+                        estado:estado,
+                        ultimaModificacion: new Date(),
+                        modificadoPor: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
                     }
                 }
             );

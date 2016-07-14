@@ -259,7 +259,7 @@ Meteor.methods({
 			datos.horas = parseInt(datos.horas);
 			datos.minutos = parseInt(datos.minutos)
 
-			if(datos.minutos>60) {
+			if(datos.minutos>=60) {
 				let horas = Number(String(datos.minutos/60).split(".")[0]);
 				let minutos  = datos.minutos%60;
 
