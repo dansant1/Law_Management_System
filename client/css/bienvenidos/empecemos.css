@@ -1,0 +1,113 @@
+.bienvenido-bunqr {
+	width: 100%;
+	height:100vh;
+	padding: 40px;
+	background-color: white;
+
+}
+
+.logo-bunqr-small {
+	width: 95%;
+	margin: 0 auto;
+	padding-left: 30px;
+}
+
+.logo-bunqr-small > h1 {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	letter-spacing: 4.5px;
+	text-transform: uppercase;
+	color: #34495e;
+	margin: 0;
+	padding-bottom: 15px;
+	border-bottom: 1.6px solid #E5E5E5;
+}
+
+.imagen-bienvenido-bunqr {
+	width: 50%;
+	margin: 30px auto;
+	padding-top: 20px;
+	text-align: center;
+	margin-top: 65px;
+}
+
+.imagen-bienvenido-bunqr > img {
+	width: 80px;
+	height: 60px;
+	display: inline-block;
+	margin-right: 15px;
+}
+
+.imagen-bienvenido-bunqr > img.card {
+	width: 85px;
+	height: 45px;
+}
+
+.contenido-bienvenido-bunqr {
+	width: 60%;
+	margin: 0 auto;
+	height: 300px;
+	text-align: center;
+}
+
+.contenido-bienvenido-bunqr > h1, p, button {
+	font-weight: initial;
+	color: white;
+}
+
+.contenido-bienvenido-bunqr > h1 {
+	font-size: 3.4em
+	margin-bottom: 20px;
+	margin-top: 20px;
+	color: #34495e;
+}
+
+.contenido-bienvenido-bunqr > p {
+	font-size: 20px;
+	margin-bottom: 20px;
+	color: #7f8c8d;
+}
+
+.contenido-bienvenido-bunqr > button {
+	border: 1px solid #2ecc71;
+	border-radius: 4px;
+	display: block;
+	width: 200px;
+	text-align: center;
+	height: 40px;
+	background-color: #2ecc71;
+	margin: 0 auto;
+	padding: 5px;
+	
+	-webkit-transition: background-color 0.4s ease-out;
+    -moz-transition: background-color 0.4s ease-out;
+    -o-transition: background-color 0.4s ease-out;
+    transition: background-color 0.4s ease-out;
+}
+
+.contenido-bienvenido-bunqr > button:hover {
+	background-color: #27ae60;
+	border-color: #27ae60;
+}
+
+.contenido-bienvenido-bunqr > input {
+	width: 30%;
+	height: 45px;
+	border: 2px solid #E5E5E5;
+	background-color: white;
+	padding-left: 15px;
+
+	font-weight: initial;
+	margin-right: 10px;
+	margin-top: 15px;
+
+	-webkit-transition: border-color 0.4s ease-out;
+    -moz-transition: border-color 0.4s ease-out;
+    -o-transition: border-color 0.4s ease-out;
+    transition: border-color 0.4s ease-out;
+}
+
+.contenido-bienvenido-bunqr > input:hover, input:focus {
+	border-color: #2ecc71;
+}
