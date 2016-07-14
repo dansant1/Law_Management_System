@@ -1,95 +1,3 @@
-<template name="asuntoForm">
-	<form class="cd-form floating-labels">
-		<fieldset>
-			<legend>Información del asunto</legend>
-
-			<div class="icon">
-				<label class="cd-label" for="cd-email">Nombre del cliente</label>
-				<p class="cd-select icon">
-					<select class="budget cliente">
-						{{#each clientes}}
-							<option value="{{_id}}">{{this.nombre}} {{this.apellido}}</option>
-						{{/each}}
-					</select>
-				</p>
-			</div>
-
-		    <div class="icon">
-		    	<label class="cd-label" for="cd-company">Nombre de la carátula</label>
-				<input class="company" type="text" name="caratula" id="cd-company">
-		    </div>
-
-		    <div class="icon">
-		    	<label class="cd-label" for="cd-company">Número de carpeta</label>
-				<input class="company" type="text" name="carpeta" id="cd-company">
-		    </div>
-
-			<div class="icon">
-				<label class="cd-label" for="cd-email">Nombre del abogado responsable del asunto</label>
-				<p class="cd-select icon">
-					<select class="budget responsable">
-						{{#each miembros}}
-						<option value="{{_id}}">{{profile.nombre}} {{profile.apellido}}</option>
-						{{/each}}
-					</select>
-				</p>
-			</div>
-
-		     <div class="icon">
-		    	<label class="cd-label" for="cd-company">Nombre del Juzgado</label>
-				<input class="company" type="text" name="juzgado" id="cd-company">
-		    </div>
-
-		    <div class="icon">
-		    	<label class="cd-label" for="cd-company">Fecha de inicio</label>
-				<input class="company" type="text" name="fecha" id="datepicker">
-		    </div>
-
-
-			<div class="icon">
-				<label class="cd-label" for="cd-email">Area de practica</label>
-				<p class="cd-select icon">
-					<select class="budget area">
-						<option value="0">Área de practica</option>
-						<option value="1">Civil</option>
-						<option value="2">Judicial</option>
-						<option value="3">Corporativo</option>
-					</select>
-				</p>
-			</div>
-
-		</fieldset>
-
-		<fieldset>
-			<legend>Información del equipo</legend>
-			<div>
-				<h4>Integrantes conformados</h4>
-
-				<ul class="cd-form-list" id="integrantes">
-					{{#each miembros}}
-
-					<li>
-						<input type="checkbox" id="cd-checkbox-1" value="{{_id}}">
-						<label for="cd-checkbox-1">{{profile.nombre}} {{profile.apellido}}</label>
-					</li>
-
-					{{/each}}
-
-				</ul>
-			</div>
-
-			<div class="icon">
-				<label class="cd-label" for="cd-textarea">Observaciones</label>
-      			<textarea class="message" name="observaciones" id="cd-textarea" required></textarea>
-			</div>
-
-			<div class="centrar-boton">
-		      	<input type="submit" value="Guardar Asunto">
-		    </div>
-		</fieldset>
-	</form>
-</template>
-
 <template name="AsuntoNuevoModal">
 	<div class="modal fade" tabindex="-1" role="dialog">
   		<div class="modal-dialog modal-lg">
@@ -99,19 +7,14 @@
         			
         			<div class="modal-formulario">
 						<div class="side-help">
-							<div class="about-asunto fondo-bunqr">
+							<div class="about-asunto fondo-bunqr" style="height: 230px;">
 								<h2>
-									Asunto
+									Asuntos
 								</h2>
-								<ul>
-									<li> <i class="fa fa-check-square" aria-hidden="true"></i> Característica 1</li>
-									<li> <i class="fa fa-check-square" aria-hidden="true"></i> Característica 2</li>
-									<li> <i class="fa fa-check-square" aria-hidden="true"></i> Característica 3</li>
-									<li> <i class="fa fa-check-square" aria-hidden="true"></i> Característica 4</li>
-								</ul>
+								<p style="color: white;">Crea asuntos para organizar a tu equipo, sus tareas, su calendario, archivos y los datos de facturación. Todo es un solo lugar.</p>
 
 							</div>
-							<div class="about-asunto fondo-ayuda">
+							<div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
 								<h3>
 									¿Necesitas ayuda?
 								</h3>
@@ -121,7 +24,7 @@
 							</div>	
 						</div>
 
-						<div class="contenido-formulario">
+						<div class="contenido-formulario" style="height: 480px;">
 							<div class="cuadro-datos-asunto">
 								<h1 class="color-bunqr">Información básica</h1>
 								<hr>
@@ -149,35 +52,69 @@
 								</div>
 							</div>
 							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr">Información de equipo</h1>
+								<hr>
+								<div class="formulario-bunqr">
+									<div class="completo-ancho">
+										<label for="asunto">¿Que equipo trabajara en este asunto?*</label>
+										<select name="equipo">
+											<option value="todos">La firma</option>
+										</select>	
+									</div>
+									
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto">
 								<h1 class="color-bunqr">Datos de facturación</h1>
 								<hr>
 								<div class="formulario-bunqr">
 									<div class="medio-ancho">
-										<label for="asunto">¿Cómo se llamará el asunto?*</label>
-										<input type="text" name="asunto">	
+										<label for="asunto">¿Cuál es el RUC del cliente?</label>
+										<input type="text" name="ruc">	
 									</div>
 									<div class="medio-ancho">
-										<label for="cliente">¿Con que cliente está relacionado?*</label>
-										<input type="text" name="cliente">	
-									</div>
-									
-									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el número de este asunto?</label>
-										<input type="text" name="numero">
+										<label for="cliente">¿A que dirección vas a facturar este asunto?</label>
+										<input type="text" name="direccion">	
 									</div>
 									
 									<div class="medio-ancho">
-										<label for="responsable">¿Quién será el responsable de este asunto?*</label>
-										<input type="text" name="responsable">
+										<label for="numero">¿Cúal es el número de teléfono?</label>
+										<input type="text" name="telefono">
 									</div>
 									
+									<div class="medio-ancho">
+										<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
+										<input type="text" name="tarifa">
+									</div>
+
+									<div class="medio-ancho">
+										<label for="responsable">¿Como vas a cobrar este asunto?</label>
+										<input type="text" name="forma-cbro">
+									</div>
 									
+									<div class="medio-ancho">
+										<label for="responsable">¿Con que tipo de moneda facturaras el asunto?</label>
+										<input type="text" name="tipo-moneda">
+									</div>
+
+									<div class="medio-ancho">
+										<label for="responsable">¿Que tipo de descuento te gustaría aplicar?</label>
+										<input type="text" name="descuento" style="width: 47.5%; display: inline-block;">
+										<input type="number" name="descuento" style="width: 47.5%; display: inline-block;">
+									</div>
+									
+									<div class="medio-ancho">
+										<label for="responsable">¿Algún comentario que agregar?</label>
+										<input type="text" name="detalle">
+									</div>
+
 								</div>
 							</div>
-							<div class="cuadro-datos-asunto" style="height: 100px;">
+							
+						</div>
+						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
 								
 								<input type="button" value="Crear asunto">
-							</div>
 						</div>
 					</div>
 
