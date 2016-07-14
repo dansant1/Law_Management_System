@@ -6,11 +6,20 @@ Template.generarCobroFacturaModal.onCreated(function () {
     Session.set("gastosWizard",[])
     Session.set("cobroWizard",[])
     Session.set("step",0)
+
+
     self.autorun(function () {
         self.subscribe('facturas',bufeteId)
         self.subscribe('asuntos',bufeteId)
         self.subscribe('gastos',bufeteId)
         self.subscribe('horas',bufeteId)
+
+        let factura = Facturas.findOne({_id:Session.get("factura-id")});
+        if(factura.estado){
+            if(factura.estado.asuntos)  Session.set("asuntosWizard",factura.estado.asuntos);
+            if(factura.estado.horas)    Session.set("horasWizard",factura.estado.horas);
+            if(factura.estado.gastos)   Session.set("gastosWizard",factura.estado.gastos);
+        }
     })
 });
 
@@ -18,51 +27,55 @@ Template.generarCobroFacturaModal.onRendered(function () {
     let factura = Facturas.findOne({_id:Session.get("factura-id")});
 
     debugger;
-    if(factura.estado.asuntos)  Session.set("asuntosWizard",factura.estado.asuntos);
-    if(factura.estado.horas)    Session.set("horasWizard",factura.estado.horas);
-    if(factura.estado.gastos)   Session.set("gastosWizard",factura.estado.gastos);
     let index = factura.estado.paso.nro;
     Session.set("step",index);
 
+    if(factura.estado){
 
-    for (var i = 0; i < $(".step").length; i++) {
-        if(index==i) $($(".step")[i]).removeClass("hide");
-        else $($(".step")[i]).addClass("hide");
-    }
-
-    $($(".indicator")[index]).addClass("choosed");
-
-    if(index>0) $(".anterior-paso").removeClass("hide");
-
-    for (var i = 0; i < index; i++) {
-        $($(".indicator")[i]).removeClass("paso-seleccionado-color").removeClass("choosed").addClass("completed");
-    }
-
-    if(factura.estado.asuntos){
-        for (var j = 0; j < factura.estado.asuntos.length; j++) {
-            for (var i = 0; i < $(".check-asunto").length; i++) {
-                if($($(".check-asunto")[i]).val()== factura.estado.asuntos[j]) $($(".check-asunto")[i]).attr("checked",true);
+            for (var i = 0; i < $(".step").length; i++) {
+                if(index==i) $($(".step")[i]).removeClass("hide");
+                else $($(".step")[i]).addClass("hide");
             }
+
+            $($(".indicator")[index]).addClass("choosed");
+
+            if(index>0) $(".anterior-paso").removeClass("hide");
+
+            for (var i = 0; i < index; i++) {
+                $($(".indicator")[i]).removeClass("paso-seleccionado-color").removeClass("choosed").addClass("completed");
+            }
+
+            setTimeout(function () {
+                if(factura.estado.asuntos){
+                    for (var j = 0; j < factura.estado.asuntos.length; j++) {
+                        for (var i = 0; i < $(".check-asunto").length; i++) {
+                            if($($(".check-asunto")[i]).val()== factura.estado.asuntos[j]) $($(".check-asunto")[i]).attr("checked",true);
+                        }
+                    }
+                }
+
+                if(factura.estado.horas){
+                    for (var j = 0; j < factura.estado.horas.length; j++) {
+                        for (var i = 0; i < $(".check-hora").length; i++) {
+                            if($($(".check-hora")[i]).val()== factura.estado.horas[j]) $($(".check-hora")[i]).attr("checked",true);
+                        }
+                    }
+                }
+
+                if(factura.estado.gastos){
+                    for (var j = 0; j < factura.estado.gastos.length; j++) {
+                        for (var i = 0; i < $(".check-gasto").length; i++) {
+                            if($($(".check-gasto")[i]).val()== factura.estado.gastos[j]) $($(".check-gasto")[i]).attr("checked",true);
+                        }
+                    }
+                }
+            },200)
+
+    }else {
+        for (var i = 0; i < $(".check-gasto").length; i++) {
+            $($(".check-gasto")[i]).attr("checked",true);
         }
     }
-
-    if(factura.estado.horas){
-        for (var j = 0; j < factura.estado.horas.length; j++) {
-            for (var i = 0; i < $(".check-hora").length; i++) {
-                if($($(".check-hora")[i]).val()== factura.estado.horas[j]) $($(".check-hora")[i]).attr("checked",true);
-            }
-        }
-    }
-
-    if(factura.estado.gastos){
-        for (var j = 0; j < factura.estado.gastos.length; j++) {
-            for (var i = 0; i < $(".check-gasto").length; i++) {
-                if($($(".check-gasto")[i]).val()== factura.estado.horas[j]) $($(".check-gasto")[i]).attr("checked",true);
-            }
-        }
-    }
-
-
 
 })
 
@@ -203,7 +216,7 @@ Template.generarCobroFacturaModal.events({
                 Modal.hide('generarCobroFacturaModal');
             });
     },
-    'click .check-asunto'(event,template){
+    'change .check-asunto'(event,template){
         let asuntosWizard = Session.get("asuntosWizard");
         let asuntoId = $(event.target).val();
         if($(event.target).is(":checked")){
@@ -217,7 +230,7 @@ Template.generarCobroFacturaModal.events({
             Session.set('asuntosWizard',asuntosWizard)
         }
     },
-    'click .check-hora'(event,template){
+    'change .check-hora'(event,template){
         let horasWizard = Session.get("horasWizard");
         let horaId = $(event.target).val();
         if($(event.target).is(":checked")){
@@ -231,7 +244,7 @@ Template.generarCobroFacturaModal.events({
             Session.set('horasWizard',horasWizard)
         }
     },
-    'click .check-gasto'(event,template){
+    'change .check-gasto'(event,template){
         let gastosWizard = Session.get("gastosWizard");
         let gastoId = $(event.target).val();
         if($(event.target).is(":checked")){
@@ -302,12 +315,12 @@ Template.generarCobroFacturaModal.events({
 
         $($(".step")[index-1]).removeClass("hide");
 
-        Session.set("step",index);
+        Session.set("step",index-1);
     },
     'click .guardar-estado'(){
 
         let estado = {}
-
+        debugger;
         if(Session.get("asuntosWizard").length!=0) estado.asuntos = Session.get("asuntosWizard");
         if(Session.get("horasWizard").length!=0) estado.horas = Session.get("horasWizard");
         if(Session.get("gastosWizard").length!=0) estado.gastos = Session.get("gastosWizard");
@@ -318,6 +331,7 @@ Template.generarCobroFacturaModal.events({
         Meteor.call("actualizarEstadoBorrador",estado,this._id,function (err) {
             if(err) return Bert.alert("Error al guardar el estado de la facturar","danger");
             Bert.alert("Se guardo la factura correctamente","success");
+            Modal.hide("generarCobroFacturaModal");
         })
     }
 });

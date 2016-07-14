@@ -91,6 +91,32 @@
 					{{#if conHonorarios}}
 					<div class="formulario-horas step hide" data-nombre="horas">
 						<div class="table-wrapper">
+							<div class="">
+								<form class="cd-form" style="margin:0 auto">
+									<div class="row">
+										<div class="col-md-6" style="margin:0">
+											<div class="icon" style="margin:0">
+												<label for="" class="cd-label">Fecha de inicio</label>
+												<input type="text" name="name" value="" id="datepicker_start">
+											</div>
+										</div>
+										<div class="col-md-6" style="margin:0">
+											<div class="icon" style="margin:0">
+												<label for="" class="cd-label">Fecha de fin</label>
+												<input type="text" name="name" value="" id="datepicker_end">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="">
+								<h5 style="text-align: left; font-size: 17.5px; color: #34495e; font-weight: bold; margin-left:20px">
+									<span class="fh-checkbox">
+										<input class="check-hora" type="checkbox" id="todas-horas" name="mycheckbox" value="{{this.id}}">
+										<label for="todas-horas">Seleccionar todas las horas</label>
+									</span>
+								</h5>
+							</div>
 							<table cellspacing="0" id="tech-companies">
 								<thead>
 									<tr>
