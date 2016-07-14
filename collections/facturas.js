@@ -97,7 +97,8 @@ EsquemaFacturas = new SimpleSchema({
 		type:String
 	},
 	ultimaModificacion:{
-		type: Date
+		type: Date,
+		optional:true
 	},
 	modificadoPor:{
 		type:String,

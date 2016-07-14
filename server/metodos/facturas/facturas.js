@@ -27,6 +27,11 @@ Meteor.methods({
                         facturarPor: factura.facturarPor,
                         borrador:true,
                         bufeteId:factura.bufeteId
+                    },
+                    $unset:{
+                        estado:"",
+                        ultimaModificacion:"",
+                        modificadoPor:""
                     }
                 },{
                     upsert:true

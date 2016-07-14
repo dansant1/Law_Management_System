@@ -7,6 +7,10 @@ Template.generarCobroFacturaModal.onCreated(function () {
     Session.set("cobroWizard",[])
     Session.set("step",0)
 
+    let hoy = new Date();
+    hoy.setHours(0,0,0,0);
+    let mañana = new Date();
+
 
     self.autorun(function () {
         self.subscribe('facturas',bufeteId)
@@ -29,6 +33,10 @@ Template.generarCobroFacturaModal.onRendered(function () {
     debugger;
     let index = factura.estado.paso.nro;
     Session.set("step",index);
+    if(document.getElementById('datepicker_start')&&document.getElementById('datepicker_end')){
+        var picker_start = new Pikaday({ field: document.getElementById('datepicker_start') });
+        var picker_end = new Pikaday({field:document.getElementById('datepicker_end')});
+    }
 
     if(factura.estado){
 
@@ -46,6 +54,7 @@ Template.generarCobroFacturaModal.onRendered(function () {
             }
 
             setTimeout(function () {
+                debugger;
                 if(factura.estado.asuntos){
                     for (var j = 0; j < factura.estado.asuntos.length; j++) {
                         for (var i = 0; i < $(".check-asunto").length; i++) {
@@ -72,9 +81,12 @@ Template.generarCobroFacturaModal.onRendered(function () {
             },200)
 
     }else {
-        for (var i = 0; i < $(".check-gasto").length; i++) {
-            $($(".check-gasto")[i]).attr("checked",true);
+        let horasId = []
+        for (var i = 0; i < $(".check-hora").length; i++) {
+            $($(".check-hora")[i]).attr("checked",true);
+            horasId.push($($(".check-hora")[i]).val())
         }
+        Session.set("horasWizard",horasId);
     }
 
 })
@@ -96,7 +108,22 @@ Template.generarCobroFacturaModal.helpers({
     },
     horasCompletas(){
         debugger
-        return _(Horas.find({'asunto.id':{$in:Session.get("asuntosWizard")}}).fetch()).map(function (hora) {
+        let query;
+        if(Session.get("fecha-inicio")&&Session.get("fecha-fin")){
+
+            let inicio = new Date(Session.get("fecha-inicio"))
+            inicio.setHours(0,0,0,0);
+
+            let fin = new Date(Session.get("fecha-fin"))
+            fin.setHours(0,0,0,0)
+
+            query = {'asunto.id':{$in:Session.get("asuntosWizard")},fecha:{$lte:fin,$gt:inicio}}
+
+
+        }
+        else query = {'asunto.id':{$in:Session.get("asuntosWizard")}}
+
+        return _(Horas.find(query).fetch()).map(function (hora) {
             return {
                 id:hora._id,
                 responsable:hora.responsable.nombre,
@@ -146,9 +173,9 @@ Template.generarCobroFacturaModal.helpers({
     monto(){
         let horas = Horas.find({'asunto.id':this._id,cobrable:true}).fetch();
 
-        return "S/. " +  _(horas).reduce(function (m,x) {
+        return "S/. " +  (_(horas).reduce(function (m,x) {
             return m + x.precio
-        },0)
+        },0)).toFixed(2)
     },
     totalGastos(){
         let gastos = Gastos.find({'asunto.id':this._id}).fetch();
@@ -170,7 +197,7 @@ Template.generarCobroFacturaModal.helpers({
     verificarFormularioActual(){
 
         if(Session.get("step")){        }
-
+        debugger;
 
         if(Session.get("horasWizard")){
             if ($(".step").not(".hide").hasClass("formulario-horas")) {
@@ -216,6 +243,13 @@ Template.generarCobroFacturaModal.events({
                 Modal.hide('generarCobroFacturaModal');
             });
     },
+    'change .fecha-inicio'(event,template){
+
+        Session.set('fecha-inicio',$(event.target).val());
+    },
+    'change .fecha-fin'(event){
+        Session.set("fecha-fin",$(event.target).val())
+    },
     'change .check-asunto'(event,template){
         let asuntosWizard = Session.get("asuntosWizard");
         let asuntoId = $(event.target).val();
@@ -228,6 +262,7 @@ Template.generarCobroFacturaModal.events({
             let i = asuntosWizard.indexOf(asuntoId)
             asuntosWizard.splice(i,1);
             Session.set('asuntosWizard',asuntosWizard)
+            Session.set("horasWizard",[])
         }
     },
     'change .check-hora'(event,template){
@@ -296,8 +331,37 @@ Template.generarCobroFacturaModal.events({
         currentStep.addClass("hide")
         $($(".step")[index+1]).removeClass("hide");
 
+        if(Session.get("horasWizard")!=$(".check-hora").length) {
+            let horasId = []
+
+            for (var i = 0; i < $(".check-hora:checked").length; i++) {
+                horasId.push($($(".check-hora:checked")[i]).val())
+            }
+
+            Session.set("horasWizard",horasId);
+        }
+
         Session.set("step",index+1);
 
+    },
+    'click #todas-horas'(event,template){
+        let horasId = []
+        for (var i = 0; i < $(".check-hora").length; i++) {
+            $($(".check-hora")[i]).prop("checked",true);
+            horasId.push($($(".check-hora")[i]).val())
+        }
+        Session.set("horasWizard",horasId);
+        $(event.target).attr('id',"ninguna-hora");
+        $("#marcador").attr("for","ninguna-hora");
+
+    },
+    'click #ninguna-hora'(){
+        for (var i = 0; i < $(".check-hora").length; i++) {
+            $($(".check-hora")[i]).prop("checked",false);
+        }
+        Session.set("horasWizard",[])
+        $(event.target).attr('id',"todas-horas");
+        $("#marcador").attr("for","todas-horas");
     },
     'click .anterior-paso'(){
 
@@ -310,6 +374,7 @@ Template.generarCobroFacturaModal.events({
 
         currentSepIndicator.removeClass("paso-seleccionado-color").removeClass("choosed").addClass("paso-sin-seleccionar");
         $($(".indicator")[_index-1]).removeClass("paso-sin-seleccionar").addClass("paso-seleccionado-color").addClass("choosed");
+        if($($(".indicator")[index-1]).hasClass("completed")) $($(".indicator")[index-1]).removeClass("completed")
 
         currentStep.addClass("hide")
 
@@ -332,6 +397,12 @@ Template.generarCobroFacturaModal.events({
             if(err) return Bert.alert("Error al guardar el estado de la facturar","danger");
             Bert.alert("Se guardo la factura correctamente","success");
             Modal.hide("generarCobroFacturaModal");
+            Session.set("fecha-inicio",undefined)
+            Session.set("fecha-fin",undefined)
+            Session.set("asuntosWizard",[])
+            Session.set("horasWizard",[])
+            Session.set("gastosWizard",[])
+            Session.set("cobroWizard",[])
         })
     }
 });
