@@ -1,6 +1,6 @@
 # README #
 
-BUNQR practice law management softaware focus con Latam.
+BUNQR practice law management software focus on Latam.
 
 ### Features ###
 
