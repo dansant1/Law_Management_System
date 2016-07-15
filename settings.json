@@ -11,5 +11,10 @@
       		"Mixpanel": { "token": "6413b5fae3f7ec417e4193306d3a56d1", "people": true }
     	}
     },
-  "private": {}
+  "private": {
+  	"MailChimp": {
+      "apiKey": "fce9ae29b2b9cc89f721f80ef2a0f717-us13",
+      "listId": "b0c8fa0f26"
+    }
+  }
 }
