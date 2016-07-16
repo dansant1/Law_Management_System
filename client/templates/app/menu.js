@@ -88,7 +88,7 @@ Template.cronometro2.onRendered(function () {
 		chronometer.element = ".hora-crono";
 
 		if(localStorage.pause!="0")	{
-			$(".boton-play").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
+			$(".boton-play").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
 			$(".boton-play").removeClass("boton-play").addClass("boton-stop")
 			chronometer.timer();
 		}
@@ -97,34 +97,6 @@ Template.cronometro2.onRendered(function () {
 		$(".hora-crono")[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
 
 
-		//
-		// function timer() {
-		// 	localStorage.startCr =  1;
-		// 	localStorage.seconds = seconds;
-		// 	localStorage.minutes = minutes;
-		// 	localStorage.hours = hours;
-		//     t = setTimeout(add, 1000);
-		// }
-		//
-		//
-		// function add() {
-		//     seconds++;
-		//     if (seconds >= 60) {
-		//         seconds = 0;
-		//         minutes++;
-		//         if (minutes >= 60) {
-		//             minutes = 0;
-		//             hours++;
-		//         }
-		//     }
-		//
-		// 	$(".hora-crono")[0].textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
-		//
-		//     timer();
-		// }
-		//
-		// timer();
-
 	}
 
 })
@@ -132,7 +104,7 @@ Template.cronometro2.onRendered(function () {
 
 Template.cronometro2.events({
 	'click .boton-play'(){
-		$(".boton-play").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
+		$(".boton-play").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
 		$(".boton-play").removeClass("boton-play").addClass("boton-stop")
 		chronometer.element = ".hora-crono";
 		chronometer.timer();
@@ -140,7 +112,7 @@ Template.cronometro2.events({
 
 	},
 	'click .boton-stop'(){
-		$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+		$(".boton-stop").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
 		$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 		chronometer.stop();
 		Session.set("cronometro-pausado",true);
@@ -160,7 +132,7 @@ Template.cronometro2.events({
 			function() {
 				chronometer.reset();
 				if(!$(".boton-principal").hasClass("boton-play")){
-					$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+					$(".boton-stop").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
 					return $(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 				}
 				swal("Horas eliminadas", "El cronometro se reinicio correctamente", "success");
@@ -174,7 +146,7 @@ Template.cronometro2.events({
 		chronometer.addMinutes(5)
 	},
 	'click .boton-agregar-hora'(){
-		$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+		$(".boton-stop").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
 		$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 		chronometer.stop();
 		Session.set("cronometro-pausado",true);
@@ -205,7 +177,7 @@ Template.cronometro2.events({
 				if(err) return Bert.alert('Error al momento de crear las horas','danger');
 				chronometer.reset();
 				if(!$(".boton-principal").hasClass("boton-play")){
-					$(".boton-stop").find("i").removeClass("glyphicon-play").addClass("glyphicon-pause");
+					$(".boton-stop").find("i").removeClass("glyphicon-pause").addClass("glyphicon-play");
 					$(".boton-stop").removeClass("boton-stop").addClass("boton-play")
 				}
 

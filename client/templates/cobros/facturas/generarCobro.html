@@ -10,23 +10,23 @@
 					<div class="caja-pasos" style="height:90px;">
 						<div class="paso">
 							<span class="paso-circle choosed indicator" style="width:30px;height:30px"></span>
-							<h4>Selecciona los asuntos</h4>
+							<h4>1. Selecciona los asuntos</h4>
 						</div>
 						{{#if conHonorarios}}
 							<div class="paso">
 								<span class="paso-circle paso-sin-seleccionar paso-hora indicator" style="width:30px;height:30px"></span>
-								<h4>Selecciona las horas</h4>
+								<h4>2. Selecciona las horas</h4>
 							</div>
 						{{/if}}
 						{{#if conGastos}}
 							<div class="paso">
 								<span class="paso-circle paso-sin-seleccionar paso-gasto indicator" style="width:30px;height:30px"></span>
-								<h4>Selecciona los gastos</h4>
+								<h4>3. Selecciona los gastos</h4>
 							</div>
 						{{/if}}
 						<div class="paso">
 							<span class="paso-circle paso-sin-seleccionar paso-cobro indicator" style="width:30px;height:30px"></span>
-							<h4>Emitir cobro</h4>
+							<h4>4. Emitir cobro</h4>
 						</div>
 					</div>
 					<div class="formulario-asuntos step" data-nombre="asuntos">
@@ -60,7 +60,7 @@
 										{{#each asuntos}}
 											<tr>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														<span class="fh-checkbox">
 															<input class="check-asunto" type="checkbox" id="{{this._id}}" name="mycheckbox" value="{{this._id}}">
 															<label for="{{this._id}}">{{this.caratula}}</label>
@@ -68,17 +68,17 @@
 													</h5>
 												</td>
 												<th>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{horas}}
 													</h5>
 												</th>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{monto}}
 													</h5>
 												</td>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														S/. {{totalGastos}}
 													</h5>
 												</td>
@@ -146,7 +146,7 @@
 										{{#each horasCompletas}}
 											<tr>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														<span class="fh-checkbox">
 															<input class="check-hora" type="checkbox" id="{{this.id}}" name="mycheckbox" value="{{this.id}}">
 															<label for="{{this.id}}">{{this.responsable}}</label>
@@ -154,17 +154,17 @@
 													</h5>
 												</td>
 												<th>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{this.tiempo}}
 													</h5>
 												</th>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{this.asunto}}
 													</h5>
 												</td>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														S/. {{this.precio}}
 													</h5>
 												</td>
@@ -208,7 +208,7 @@
 										{{#each gastosCompletos}}
 											<tr>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														<span class="fh-checkbox">
 															<input class="check-gasto" type="checkbox" id="{{this.id}}" name="mycheckbox" value="{{this.id}}">
 															<label for="{{this.id}}">{{this.descripcion}}</label>
@@ -216,17 +216,17 @@
 													</h5>
 												</td>
 												<th>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{this.responsable}}
 													</h5>
 												</th>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														{{this.asunto}}
 													</h5>
 												</td>
 												<td>
-													<h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														S/. {{this.precio}}
 													</h5>
 												</td>

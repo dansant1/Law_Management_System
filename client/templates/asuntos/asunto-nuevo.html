@@ -19,7 +19,7 @@
 									¿Necesitas ayuda?
 								</h3>
 								<p>
-									Haz click <a href="#" data-elevio-module="articles" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+									Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
 								</p>
 							</div>
 						</div>
@@ -30,11 +30,11 @@
 								<hr>
 								<div class="formulario-bunqr">
 									<div class="medio-ancho">
-										<label for="asunto">¿Cómo se llamará el asunto?*</label>
+										<label for="asunto">Nombre del asunto*</label>
 										<input type="text" name="caratula">
 									</div>
 									<div class="medio-ancho">
-										<label for="cliente">¿Con que cliente está relacionado?*</label>
+										<label for="cliente">Nombre del cliente*</label>
 										<select class="cliente" id="sel1">
                                             {{#each clientes}}
                                                 <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
@@ -43,12 +43,12 @@
 									</div>
 
 									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el número de este asunto?</label>
+										<label for="numero">Número del asunto</label>
 										<input type="text" name="carpeta">
 									</div>
 
 									<div class="medio-ancho">
-										<label for="responsable">¿Quién será el responsable de este asunto?*</label>
+										<label for="responsable">Responsable del asunto*</label>
 										<select class="responsable">
 					                       {{#each miembros}}
 										   		{{#if elusuario}}
@@ -62,11 +62,11 @@
 								</div>
 							</div>
 							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse0">Información de equipo</a></h1>
+								<h1 class="color-bunqr"><a style="font-weight: initial;" data-toggle="collapse" href="#collapse0">Información de equipo</a></h1>
 								<hr>
 								<div id="collapse0"  class="formulario-bunqr panel-collapse collapse">
 									<div class="completo-ancho">
-										<label for="asunto">¿Que equipo trabajara en este asunto?*</label>
+										<label for="asunto">Equipo asignado*</label>
 										<select class="responsable" name="equipo">
 											<option value="">Todos</option>
 										   {{#each equipos}}
@@ -77,31 +77,31 @@
 								</div>
 							</div>
 							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse1">Datos de facturación</a></h1>
+								<h1 class="color-bunqr"><a style="font-weight: initial;" data-toggle="collapse" href="#collapse1">Datos de facturación</a></h1>
 								<hr>
 								<div id="collapse1"  class="formulario-bunqr panel-collapse collapse">
 									<div class="medio-ancho">
-										<label for="asunto">¿Cuál es el RUC del cliente?</label>
+										<label for="asunto">RUC del cliente</label>
 										<input type="text" name="ruc" value="{{ruc_cliente}}">
 									</div>
 									<div class="medio-ancho">
-										<label for="">¿Cual es el nombre del solicitante?</label>
+										<label for="">Nombre del solicitante</label>
 										<input type="text" name="nombre-solicitante" aria-describedby="basic-addon1" value="{{nombre_solicitante}}">
 									</div>
 									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el correo del solicitante?</label>
+										<label for="numero">Email del solicitante</label>
 										<input type="text" name="correo-solicitante" value="{{correo_solicitante}}">
 									</div>
 									<div class="medio-ancho">
-										<label for="cliente">¿A que dirección vas a facturar este asunto?</label>
+										<label for="cliente">Dirección de facturación</label>
 										<input type="text" name="direccion" value="{{direccion_facturacion}}" >
 									</div>
 									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el número de teléfono?</label>
+										<label for="numero">Número de teléfono</label>
 										<input type="text" name="telefono-facturacion" value="{{telefono_facturacion}}">
 									</div>
 									<div class="medio-ancho">
-										<label for="telefono-sol">¿Cúal es el telefono del solicitante?</label>
+										<label for="telefono-sol">Telefono del solicitante</label>
 										<input type="text" id="telefono-sol" name="telefono-solicitante" value="{{telefono_solicitante}}">
 									</div>
 									<div class="medio-ancho">
@@ -114,10 +114,10 @@
 									</div>
 									<div class="medio-ancho">
 										<label for="co">Cobranza</label>
-										<textarea name="cobranza" id="co" rows="8" cols="40">{{cobranza}}</textarea>
+										<textarea name="cobranza" id="co" rows="8" cols="40" style="height: 42.5px; width: 40%;">{{cobranza}}</textarea>
 									</div>
 									<div class="medio-ancho">
-										<label for="responsable">¿Como vas a cobrar este asunto?</label>
+										<label for="responsable">Tipo de cobro</label>
 										<select type="text" name="forma-cobro" aria-describedby="basic-addon1">
   										  <option value="horas hombre">Horas hombre</option>
   										  <option value="retainer">Retainer</option>
@@ -127,7 +127,7 @@
 									</div>
 
 									<div class="medio-ancho">
-										<label for="responsable">¿Con que tipo de moneda facturaras el asunto?</label>
+										<label for="responsable">Tipo de moneda</label>
 										<select type="text" name="tipo-moneda"  aria-describedby="basic-addon1">
   										  <option value="soles">Soles</option>
   										  <option value="dolares">Dolares</option>
@@ -135,7 +135,7 @@
 									</div>
 
 									<div class="medio-ancho">
-										<label for="responsable">¿Que tipo de descuento te gustaría aplicar?</label>
+										<label for="responsable">Tipo de descuento</label>
 										<select type="text" name="tipo-descuento"  aria-describedby="basic-addon1">
   		  	  							  <option >Moneda</option>
   		  	  							  <option >Porcentaje</option>
@@ -146,7 +146,7 @@
 										<input type="text" name="valor-descuento" value="{{valor_descuento}}" aria-describedby="basic-addon1">
 									</div>
 									<div class="medio-ancho">
-										<label for="responsable">¿Algún comentario que agregar?</label>
+										<label for="responsable">Comentarios adicionales</label>
 										<input type="text" name="detalle" value="{{comentario}}" >
 									</div>
 
@@ -154,9 +154,9 @@
 							</div>
 
 							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr"><a data-toogle="collapse" href="#collapse2">Alertas de facturacion</a></h1>
+								<h1 class="color-bunqr"><a style="font-weight: initial;" data-toogle="collapse" href="#collapse2">Alertas de facturacion</a></h1>
 								<hr>
-								<div id="collapse2" class="formulario-bunqr">
+								<div id="collapse2" class="formulario-bunqr panel-collapse collapse">
 									<div class="medio-ancho">
 										<label for="limitehora">Limite de horas</label>
 										<input type="text" name="horas" id="limitehora" value="{{limite_horas}}" aria-describedby="basic-addon1">
@@ -176,7 +176,7 @@
 								</div>
 							</div>
 							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse3">
+								<h1 class="color-bunqr"><a style="font-weight: initial;" data-toggle="collapse" href="#collapse3">
 									Agregar información
 								</a></h1>
 								<hr>
