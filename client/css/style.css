@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -21,7 +21,7 @@ a {
   text-decoration: none;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Form
 
@@ -86,7 +86,7 @@ Form
 .cd-form textarea,
 .cd-form select {
   /* general style for input elements */
-  padding: 12px;
+  padding: 2px;
   border: 1.2px solid #cfd9db;
   background-color: #ffffff;
   border-radius: .25em;
@@ -299,7 +299,7 @@ Form
   .cd-form input[type="number"],
   .cd-form textarea,
   .cd-form select {
-    padding: 16px;
+    padding: 14px;
   }
 }
 
@@ -335,7 +335,7 @@ Form
     transform: scale(0.8);
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
 Custom icons
 
@@ -371,9 +371,9 @@ Custom icons
   background: url("../img/cd-icon-message.svg") no-repeat 16px 16px, url("../img/cd-required.svg") no-repeat top right;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-FLoating labels 
+FLoating labels
 
 -------------------------------- */
 .js .floating-labels div {

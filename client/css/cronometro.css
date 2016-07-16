@@ -1,7 +1,8 @@
 .cronometro {
 	display: inline-block;
-	position: relative;
-	left: 12px;
+	position: absolute;;
+	top: 0px;
+	left: 205px;
 	width: 350px;
 	height: 60.5px;
 	padding: 2px;

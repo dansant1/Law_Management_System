@@ -59,7 +59,7 @@ Meteor.methods({
 
 
 			if (asuntos.inicio !== "") {
-				asuntos.inicio	= new Date(asuntos.inicio + " GMT-0500");
+				asuntos.inicio	= new Date(/*asuntos.inicio + " GMT-0500"*/);
 			} else {
 				asuntos.inicio = "";
 			}
@@ -101,7 +101,7 @@ Meteor.methods({
 					descripcion: 'creó el asunto ' + asuntos.caratula + ' [' + asuntos.carpeta + ']',
 					tipo: 'Expediente',
 					creador: {
-						nombre: asuntos.responsable.nombre,
+						nombre: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido ,
 						id: this.userId
 					},
 					asunto: {

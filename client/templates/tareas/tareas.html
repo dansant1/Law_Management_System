@@ -37,11 +37,11 @@
         <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px; text-align: left;">
             Documentos
         </a>
-        
+
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;width:100%">
-            
+
             {{>botonNuevoTareas}}
 
             <div class="btn-group">
@@ -110,11 +110,11 @@
         <a href="/tareas/documentos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
             Documentos
         </a>
-        
+
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;width:100%">
-            
+
             {{>botonNuevoTareas}}
 
             <!--<input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre y fecha de vencimiento..."> -->
@@ -129,7 +129,7 @@
 </template>
 
 <template name="listaDeArchivosDeTareas">
-	
+
 	<div class="table-wrapper">
 		<table cellspacing="0" id="tech-companies">
 	 		<thead>
@@ -149,25 +149,25 @@
 					 		<i class="fa fa-users" aria-hidden="true"></i>
 					 	</h3>
 					 </th>
-					 
+
 				</tr>
 	 		</thead>
 			<tbody>
 				{{#each documentos}}
 					<tr>
 						 <th>
-							
+
 							<label>{{this.metadata.nombre}}</label>
 							<a href="/tareas/{{this.metadata.tareaId}}"> <i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 						 <span class="co-name">
-						
+
 						 </span>
 						 </th>
 						 <td style="text-align:center;">
 						 	<h5>{{dia}}</h5>
 						 </td>
-						 
-						
+
+
 						 <td style="text-align: center;">
 						 	<div class="btn-group">
 								<button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -240,7 +240,7 @@
 								{{/if}}
 		    					<label for="{{this._id}}" style="color: white;">.</label>
 							</span>
-							<label ><a href="/tareas/{{this._id}}">{{this.descripcion}}</a></label>
+							<label ><a href="/tareas/{{this._id}}" style="font-weight: initial; color: #34495e;">{{this.descripcion}}</a></label>
 							<a href="/tareas/{{this._id}}"> <i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 						 <span class="co-name">
 						{{#if this.asunto}}
@@ -248,7 +248,7 @@
 								<i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
 							{{this.etapa.nombre}}
 						{{else}}
-							<a class="agregar-asunto-tarea" href="#">+ asunto</a>
+							<a class="agregar-asunto-tarea" href="#" style="font-weight: initial;">+ asunto</a>
 						{{/if}}
 						 </span></th>
 						 <td>

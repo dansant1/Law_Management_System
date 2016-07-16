@@ -2959,7 +2959,7 @@
 	<div class="contenedor-conversacion">
 		<div style="margin: 0 auto;  width: 90%;">
 			<div class="form-conversacion" style="margin-bottom: 30px;  width: 100%;">
-				<input type="text" name="nombre" placeholder="¿Sobre que tema te gustaria conversar?">
+				<input type="text" name="nombre" placeholder="¿Sobre que tema te gustaría conversar?">
 				<textarea name="descripcion" placeholder="Empieza una conversación en este asunto"></textarea>
 				<div class="div-conversacion">
 					<button type="button" class="enviar-conversacion" style="width: 110px;">Postear</button>
@@ -3400,10 +3400,9 @@
 		 {{#each miembros}}
 				<tr>
 					 <th>
-						<span class="fh-checkbox">
-	    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-	    					<label for="{{this._id}}"> {{this.profile.nombre}} {{this.profile.apellido}} </label>
-						</span>
+
+	    			<label> {{this.profile.nombre}} {{this.profile.apellido}} </label>
+
 						<a href="/equipo/d/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 					 <span class="co-name">
 					 </span></th>

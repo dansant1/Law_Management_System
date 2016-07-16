@@ -1,7 +1,7 @@
 .modal-content  {
     -webkit-border-radius: 4.5px !important;
     -moz-border-radius: 4.5px !important;
-    border-radius: 4.5px !important; 
+    border-radius: 4.5px !important;
 }
 
 .modal-formulario {
@@ -125,19 +125,21 @@ a.color-bunqr:hover {
 	padding-left: 15px;
 	font-weight: initial;
 	background-color: white;
-
+  -webkit-appearance:none;
+  border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;
     transition: border-color 0.4s ease-out;
 }
 
-.completo-ancho > input:focus {
-	border: 2px solid #2ecc71;	
+.completo-ancho > input:focus, select:focus {
+	border: 2px solid #2ecc71;
 }
 
-.completo-ancho > input:hover {
-	border: 2px solid #2ecc71;	
+.completo-ancho > input:hover, select:hover {
+	border: 2px solid #2ecc71;
+
 }
 
 .medio-ancho > label {
@@ -157,36 +159,36 @@ a.color-bunqr:hover {
 	margin-bottom: 5px;
 	padding-left: 15px;
 	font-weight: initial;
-
+  -webkit-appearance:none;
+  border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;
     transition: border-color 0.4s ease-out;
 }
 
-.medio-ancho > input:focus {
-	border: 2px solid #2ecc71;	
+.medio-ancho > input:focus, select:focus {
+	border: 2px solid #2ecc71;
 }
 
-.medio-ancho > input:hover {
-	border: 2px solid #2ecc71;	
+.medio-ancho > input:hover, select:hover {
+	border: 2px solid #2ecc71;
 }
 .cuadro-datos-asunto > input[type="button"] {
-	
+
 	background-color: white;
 	border: 2px solid #2ecc71;
 	display: inline-block;
 	color: #2ecc71;
-	
-	float: right;
 
+	float: right;
 	width: 30%;
 	height: 42.5px;
 	margin-top: 10px;
-	margin-right: 40px;
+	margin-right: 50px;
 
-	
-	
+
+
 	font-size: 12.5px;
 
 	text-align: center;

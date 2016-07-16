@@ -2,7 +2,7 @@
 /* Se dividira en sidebar, menu, contenido */
 
 .sidebar-vertical {
-	min-width: 240px;
+		width: 20%;
     height: 100%;
     position: fixed;
 
