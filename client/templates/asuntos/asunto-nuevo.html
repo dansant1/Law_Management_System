@@ -1,10 +1,10 @@
-<template name="AsuntoNuevoModal">
+<template name="asuntoNuevoModal">
 	<div class="modal fade" tabindex="-1" role="dialog">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
-     	 
+
       			<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
-        			
+
         			<div class="modal-formulario">
 						<div class="side-help">
 							<div class="about-asunto fondo-bunqr" style="height: 230px;">
@@ -21,7 +21,7 @@
 								<p>
 									Haz click <a href="#" data-elevio-module="articles" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
 								</p>
-							</div>	
+							</div>
 						</div>
 
 						<div class="contenido-formulario" style="height: 480px;">
@@ -31,95 +31,170 @@
 								<div class="formulario-bunqr">
 									<div class="medio-ancho">
 										<label for="asunto">¿Cómo se llamará el asunto?*</label>
-										<input type="text" name="asunto">	
+										<input type="text" name="caratula">
 									</div>
 									<div class="medio-ancho">
 										<label for="cliente">¿Con que cliente está relacionado?*</label>
-										<input type="text" name="cliente">	
-									</div>
-									
-									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el número de este asunto?</label>
-										<input type="text" name="numero">
-									</div>
-									
-									<div class="medio-ancho">
-										<label for="responsable">¿Quién será el responsable de este asunto?*</label>
-										<input type="text" name="responsable" value="Yo">
-									</div>
-									
-									
-								</div>
-							</div>
-							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr">Información de equipo</h1>
-								<hr>
-								<div class="formulario-bunqr">
-									<div class="completo-ancho">
-										<label for="asunto">¿Que equipo trabajara en este asunto?*</label>
-										<select name="equipo">
-											<option value="todos">Todo el equipo</option>
-										</select>	
-									</div>
-									
-								</div>
-							</div>
-							<div class="cuadro-datos-asunto">
-								<h1 class="color-bunqr">Datos de facturación</h1>
-								<hr>
-								<div class="formulario-bunqr">
-									<div class="medio-ancho">
-										<label for="asunto">¿Cuál es el RUC del cliente?</label>
-										<input type="text" name="ruc">	
-									</div>
-									<div class="medio-ancho">
-										<label for="cliente">¿A que dirección vas a facturar este asunto?</label>
-										<input type="text" name="direccion">	
-									</div>
-									
-									<div class="medio-ancho">
-										<label for="numero">¿Cúal es el número de teléfono?</label>
-										<input type="text" name="telefono">
-									</div>
-									
-									<div class="medio-ancho">
-										<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
-										<input type="text" name="tarifa">
+										<select class="cliente" id="sel1">
+                                            {{#each clientes}}
+                                                <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
+                                            {{/each}}
+                                        </select>
 									</div>
 
 									<div class="medio-ancho">
-										<label for="responsable">¿Como vas a cobrar este asunto?</label>
-										<input type="text" name="forma-cbro">
+										<label for="numero">¿Cúal es el número de este asunto?</label>
+										<input type="text" name="carpeta">
 									</div>
-									
+
+									<div class="medio-ancho">
+										<label for="responsable">¿Quién será el responsable de este asunto?*</label>
+										<select class="responsable">
+					                       {{#each miembros}}
+										   		{{#if elusuario}}
+					                        		<option value="{{this._id}}" checked>Yo</option>
+												{{else}}
+													<option value="{{this._id}}">{{this.profile.nombre}} {{this.profile.apellido}}</option>
+												{{/if}}
+					                        {{/each}}
+		                        		</select>
+									</div>
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse0">Información de equipo</a></h1>
+								<hr>
+								<div id="collapse0"  class="formulario-bunqr panel-collapse collapse">
+									<div class="completo-ancho">
+										<label for="asunto">¿Que equipo trabajara en este asunto?*</label>
+										<select class="responsable" name="equipo">
+											<option value="">Todos</option>
+										   {{#each equipos}}
+												<option value="{{this._id}}">{{this.nombre}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse1">Datos de facturación</a></h1>
+								<hr>
+								<div id="collapse1"  class="formulario-bunqr panel-collapse collapse">
+									<div class="medio-ancho">
+										<label for="asunto">¿Cuál es el RUC del cliente?</label>
+										<input type="text" name="ruc" value="{{ruc_cliente}}">
+									</div>
+									<div class="medio-ancho">
+										<label for="">¿Cual es el nombre del solicitante?</label>
+										<input type="text" name="nombre-solicitante" aria-describedby="basic-addon1" value="{{nombre_solicitante}}">
+									</div>
+									<div class="medio-ancho">
+										<label for="numero">¿Cúal es el correo del solicitante?</label>
+										<input type="text" name="correo-solicitante" value="{{correo_solicitante}}">
+									</div>
+									<div class="medio-ancho">
+										<label for="cliente">¿A que dirección vas a facturar este asunto?</label>
+										<input type="text" name="direccion" value="{{direccion_facturacion}}" >
+									</div>
+									<div class="medio-ancho">
+										<label for="numero">¿Cúal es el número de teléfono?</label>
+										<input type="text" name="telefono-facturacion" value="{{telefono_facturacion}}">
+									</div>
+									<div class="medio-ancho">
+										<label for="telefono-sol">¿Cúal es el telefono del solicitante?</label>
+										<input type="text" id="telefono-sol" name="telefono-solicitante" value="{{telefono_solicitante}}">
+									</div>
+									<div class="medio-ancho">
+										<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
+										<select type="text" name="tarifa" aria-describedby="basic-addon1">
+											{{#each tarifas}}
+											<option value="{{this._id}}">{{this.nombre}}</option>
+											{{/each}}
+										</select>
+									</div>
+									<div class="medio-ancho">
+										<label for="co">Cobranza</label>
+										<textarea name="cobranza" id="co" rows="8" cols="40">{{cobranza}}</textarea>
+									</div>
+									<div class="medio-ancho">
+										<label for="responsable">¿Como vas a cobrar este asunto?</label>
+										<select type="text" name="forma-cobro" aria-describedby="basic-addon1">
+  										  <option value="horas hombre">Horas hombre</option>
+  										  <option value="retainer">Retainer</option>
+										  <option value="proporcional">Proporcional</option>
+										  <option value="flat free">Flat free</option>
+										</select>
+									</div>
+
 									<div class="medio-ancho">
 										<label for="responsable">¿Con que tipo de moneda facturaras el asunto?</label>
-										<input type="text" name="tipo-moneda">
+										<select type="text" name="tipo-moneda"  aria-describedby="basic-addon1">
+  										  <option value="soles">Soles</option>
+  										  <option value="dolares">Dolares</option>
+  									  	</select>
 									</div>
 
 									<div class="medio-ancho">
 										<label for="responsable">¿Que tipo de descuento te gustaría aplicar?</label>
-										<input type="text" name="descuento" style="width: 47.5%; display: inline-block;">
-										<input type="number" name="descuento" style="width: 47.5%; display: inline-block;">
+										<select type="text" name="tipo-descuento"  aria-describedby="basic-addon1">
+  		  	  							  <option >Moneda</option>
+  		  	  							  <option >Porcentaje</option>
+  		  	  						  	</select>
+										<!-- <input type="number" name="descuento" style="width: 47.5%; display: inline-block;"> -->
 									</div>
-									
+									<div class="medio-ancho">
+										<input type="text" name="valor-descuento" value="{{valor_descuento}}" aria-describedby="basic-addon1">
+									</div>
 									<div class="medio-ancho">
 										<label for="responsable">¿Algún comentario que agregar?</label>
-										<input type="text" name="detalle">
+										<input type="text" name="detalle" value="{{comentario}}" >
 									</div>
 
 								</div>
 							</div>
-							
+
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr"><a data-toogle="collapse" href="#collapse2">Alertas de facturacion</a></h1>
+								<hr>
+								<div id="collapse2" class="formulario-bunqr">
+									<div class="medio-ancho">
+										<label for="limitehora">Limite de horas</label>
+										<input type="text" name="horas" id="limitehora" value="{{limite_horas}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="limitemonto">Limite de monto</label>
+										<input type="text" name="monto" id="limitemonto" value="{{limite_monto}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="limitenocobradas">Horas no cobradas</label>
+										<input id="limitenocobradas" type="text" name="horas-no-cobradas" value="{{horas_no_cobradas}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="montonocobradas">Monto de horas no cobradas</label>
+										<input type="text" name="monto-horas-no-cobradas" id="montonocobradas" value="{{monto_horas_no_cobradas}}" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr"><a data-toggle="collapse" href="#collapse3">
+									Agregar información
+								</a></h1>
+								<hr>
+								<div id="collapse3" class="formulario-bunqr panel-collapse collapse">
+									<br>
+									<div class="medio-ancho">
+										<label for="juzgado">¿Algún juzgado?</label>
+										<input type="text" id="juzgado" name="juzgado" aria-describedby="basic-addon1">
+									</div>
+									<br>
+								</div>
+							</div>
 						</div>
 						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
-								
-								<input type="button" value="Crear asunto">
+							<input class="agregar-asunto" type="button" value="Crear asunto">
 						</div>
 					</div>
-
       			</div>
-      
     		</div>
   		</div>
 	</div>

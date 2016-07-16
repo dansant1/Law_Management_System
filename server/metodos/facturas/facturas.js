@@ -13,7 +13,11 @@ Meteor.methods({
                 for (var i = 0; i < diff; i++) {
                     code += "0";
                 }
-                if(num>0) code = code + Facturas.find().count() ;
+
+                code += Facturas.find().count() ;
+
+                console.log(Facturas.find().count());
+                console.log(code);
 
                 factura.codigo = code;
                 factura.bufeteId = Meteor.user().profile.bufeteId;

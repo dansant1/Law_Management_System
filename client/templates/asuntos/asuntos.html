@@ -29,7 +29,7 @@
 	</div>
 </template>
 
-<template name="asuntoNuevoModal">
+<template name="AsuntoNuevoModal">
 	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
@@ -196,42 +196,42 @@
 		  					  </div>
 		  				  </div>
 		  				  <hr>
-		  				  <h3>Datos de cobranza</h3>
-		  				  <div class="row">
-		  					  <div class="col-md-6">
-		  						<div class="input-group">
-		  						  <span class="input-group-addon" id="basic-addon1">Tarifas horas</span>
-		  						  <select type="text" name="tarifa" class="form-control" aria-describedby="basic-addon1">
-		  							  {{#each tarifas}}
-		  							  	<option value="{{this._id}}">{{this.nombre}}</option>
-		  							  {{/each}}
-		  						  </select>
-		  						</div>
-		  					  </div>
-		  					  <div class="col-md-6">
-		  						<div class="input-group">
-		  						  <span class="input-group-addon" id="basic-addon1">Tipo de moneda</span>
-		  						  <select type="text" name="tipo-moneda" class="form-control" aria-describedby="basic-addon1">
-		  							  <option value="soles">Soles</option>
-		  							  <option value="dolares">Dolares</option>
-		  						  </select>
-		  						</div>
-		  					  </div>
-		  				  </div>
+						  <h3>Formas de cobro</h3>
+						  <div class="row">
+							  <div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Forma de cobro</span>
+									  <select type="text" name="forma-cobro" class="form-control" aria-describedby="basic-addon1">
+										  <option value="horas hombre">Horas hombre</option>
+										  <option value="retainer">Retainer</option>
+									  	<option value="proporcional">Proporcional</option>
+									  </select>
+								</div>
+							  </div>
+						  </div>
 		  				  <hr>
-		  				  <h3>Formas de cobro</h3>
-		  				  <div class="row">
-		  					  <div class="col-md-6">
-		  						<div class="input-group">
-		  							<span class="input-group-addon" id="basic-addon1">Forma de cobro</span>
-		    						  <select type="text" name="forma-cobro" class="form-control" aria-describedby="basic-addon1">
-		    							  <option value="horas hombre">Horas hombre</option>
-		    							  <option value="retainer">Retainer</option>
-		  							  <option value="proporcional">Proporcional</option>
-		    						  </select>
-		  						</div>
-		  					  </div>
-		  				  </div>
+						  <h3>Datos de cobranza</h3>
+						  <div class="row">
+							  <div class="col-md-6">
+								  <div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1">Tarifas horas</span>
+									  <select type="text" name="tarifa" class="form-control" aria-describedby="basic-addon1">
+										  {{#each tarifas}}
+										  <option value="{{this._id}}">{{this.nombre}}</option>
+										  {{/each}}
+									  </select>
+								  </div>
+							  </div>
+							  <div class="col-md-6">
+								  <div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1">Tipo de moneda</span>
+									  <select type="text" name="tipo-moneda" class="form-control" aria-describedby="basic-addon1">
+										  <option value="soles">Soles</option>
+										  <option value="dolares">Dolares</option>
+									  </select>
+								  </div>
+							  </div>
+						  </div>
 		  				  <hr>
 		  				  <h3>Descuentos</h3>
 		  				  <div class="row">

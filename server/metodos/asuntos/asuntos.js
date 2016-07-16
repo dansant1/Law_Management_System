@@ -9,24 +9,25 @@ Meteor.methods({
 
 	crearAsunto: function (asuntos) {
 
-		let dataCheck = {
-			cliente: Object,
-			caratula: String,
-			carpeta: String,
-			// abogados: [Object],
-			area: String,
-			juzgado: String,
-			observaciones: String,
-			inicio: String,
-			responsable: Object,
-			bufeteId: String,
-			equipoId: String
+		// let dataCheck = {
+		// 	cliente: Object,
+		// 	caratula: String,
+		// 	carpeta: String,
+		// 	// abogados: [Object],
+		// 	area: String,
+		// 	juzgado: String,
+		// 	observaciones: String,
+		// 	inicio: String,
+		// 	responsable: Object,
+		// 	bufeteId: String,
+		// 	equipoId: String
+		//
+		// }
 
-		}
+		check(asuntos,Object)
+		// if(asuntos.facturacion) dataCheck.facturacion = Object
 
-		if(asuntos.facturacion) dataCheck.facturacion = Object
-
-		check(asuntos, dataCheck);
+		// check(asuntos, dataCheck);
 
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
