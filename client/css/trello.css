@@ -2,7 +2,7 @@
 
 .cuerpo-trello {
   width: 100%;
-  min-height: 391px;
+  min-height: 403px;
 
   margin-top: 0;
   background-color: white;
@@ -28,7 +28,7 @@
 .list {
   background-color: #f1f1f1;
   border-radius: 5px;
-  min-height: 170px;
+  min-height: 185px;
   margin: 5px 5px;
   padding: 10px;
   padding-bottom: 5px;
@@ -52,7 +52,7 @@
   border-bottom: 1px solid #CCC;
   padding: 6px 8px;
   cursor: pointer;
-
+  min-height: 103px;
 }
 .list .card2:hover {
   background-color: #F0F0F0;
