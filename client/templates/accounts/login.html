@@ -1,22 +1,34 @@
 <template name="login">
-	<div class="menu-presentacion">
 
-  		<h1>BUNQR</h1>
+<div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 172.5px; top: 28px; font-size: 12px;">&reg;</span></a>    
+    </div>
+
+     <div style="display: inline-block; float: right; position: relative; top: 20px; font-weight: initial; color: #7f8c8d; right: 22.5px;">
+    	¿Aún no tienes una cuenta? <span style="color: #34495e;"><a href="/signup"  style="color: #34495e; font-weight: initial;">Regístrate.</a></span>
+    </div>
+   
+  </div>
+  </div>
 	
-	</div>
-	<form class="cd-form floating-labels">
-		<fieldset>
-		     <div class="icon">
-				<input class="company" type="email" name="email" id="cd-company" placeholder="Ingrese su email">
-		    </div>
+	<form class="formulario-login">
+				<h3>Bienvenido a BUNQR</h3>
+		    	<br>
+				<input  type="email" name="email"  placeholder="Ingrese su email">
+		    
 
-		    <div class="icon">
-				<input class="company" type="password" name="password" id="cd-company" placeholder="Ingrese su contraseña">
-		    </div>
-			<div class="centrar-boton">
+		    
+				<input  type="password" name="password"  placeholder="Ingrese su contraseña">
+		   
+		   		<hr>
+
+		   		<p class="aviso" style="text-align: right;"><a href="/recuperar-contrasenia">Olvidé mi contraseña</a></p>
+			
 		      	<input type="submit" value="Ingresar">
-		    </div>
+		    
 
-		</fieldset>
+		
 	</form>
 </template>

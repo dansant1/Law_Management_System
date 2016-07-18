@@ -12,7 +12,7 @@ Template.signup.events({
    			}
   		};
 
-  		if (user !== undefined) {
+  		if (user.email !== "" && user.password !== "" && user.profile.nombre !== "" && user.profile.apellido !== "" && user.profile.bufete !== "") {
         Meteor.call('crearUsuario', user, function (err, result) {
         if ( err ) {
             Bert.alert( err.reason, 'warning' );
