@@ -43,11 +43,6 @@
 									</div>
 
 									<div class="medio-ancho">
-										<label for="numero">Número del asunto</label>
-										<input type="text" name="carpeta">
-									</div>
-
-									<div class="medio-ancho">
 										<label for="responsable">Responsable del asunto*</label>
 										<select class="responsable">
 					                       {{#each miembros}}
@@ -58,6 +53,29 @@
 												{{/if}}
 					                        {{/each}}
 		                        		</select>
+									</div>
+									<div class="medio-ancho">
+										<label for="responsable">Tipo de cobro</label>
+										<select type="text" name="forma-cobro" aria-describedby="basic-addon1">
+  										  <option value="horas hombre">Horas hombre</option>
+  										  <option value="retainer">Retainer</option>
+										  <option value="proporcional">Proporcional</option>
+										  <option value="flat free">Flat fee</option>
+										</select>
+									</div>
+									<div class="medio-ancho tipo">
+										<div class="tarifa-campo cobro">
+											<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
+											<select type="text" name="tarifa" aria-describedby="basic-addon1">
+												{{#each tarifas}}
+												<option value="{{this._id}}">{{this.nombre}}</option>
+												{{/each}}
+											</select>
+										</div>
+										<div class="flatfree-campo cobro hide">
+											<label for="responsable">¿Cual es el monto que quiere aplicar?</label>
+											<input type="number" name="montogeneral" value="">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -104,27 +122,12 @@
 										<label for="telefono-sol">Teléfono del solicitante</label>
 										<input type="text" id="telefono-sol" name="telefono-solicitante" value="{{telefono_solicitante}}">
 									</div>
-									<div class="medio-ancho">
-										<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
-										<select type="text" name="tarifa" aria-describedby="basic-addon1">
-											{{#each tarifas}}
-											<option value="{{this._id}}">{{this.nombre}}</option>
-											{{/each}}
-										</select>
-									</div>
+
 									<div class="medio-ancho">
 										<label for="co">Cobranza</label>
 										<textarea name="cobranza" id="co" rows="8" cols="40" style="height: 42.5px; width: 40%;">{{cobranza}}</textarea>
 									</div>
-									<div class="medio-ancho">
-										<label for="responsable">Tipo de cobro</label>
-										<select type="text" name="forma-cobro" aria-describedby="basic-addon1">
-  										  <option value="horas hombre">Horas hombre</option>
-  										  <option value="retainer">Retainer</option>
-										  <option value="proporcional">Proporcional</option>
-										  <option value="flat free">Flat fee</option>
-										</select>
-									</div>
+
 
 									<div class="medio-ancho">
 										<label for="responsable">Tipo de moneda</label>
@@ -182,6 +185,10 @@
 								<hr>
 								<div id="collapse3" class="formulario-bunqr panel-collapse collapse">
 									<br>
+									<div class="medio-ancho">
+										<label for="numero">Número del asunto</label>
+										<input type="text" name="carpeta">
+									</div>
 									<div class="medio-ancho">
 										<label for="juzgado">¿Algún juzgado?</label>
 										<input type="text" id="juzgado" name="juzgado" aria-describedby="basic-addon1">

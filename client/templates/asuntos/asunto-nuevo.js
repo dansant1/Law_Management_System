@@ -81,6 +81,12 @@ Template.asuntoNuevoModal.events({
     'click .cliente'(event,template){
         Session.set("cliente-asunto-id",$(event.target).val());
     },
+	'change [name="forma-cobro"]'(event,template){
+
+		$(template.find(".cobro")).addClass("hide");
+		if(event.target.value=="horas hombre")	$(template.find(".tarifa-campo")).removeClass("hide");
+		if(event.target.value=="flat free") $(template.find(".flatfree-campo")).removeClass("hide");
+	},
 	'click .agregar-asunto': function (event, template) {
 			event.preventDefault();
 
@@ -96,43 +102,43 @@ Template.asuntoNuevoModal.events({
 			asunto.equipoId = template.find('[name="equipo"]').value;
 
 			// asunto.abogados = [];
-			if(template.find("[name='ruc']").value!=""
-				&& template.find("[name='direccion']").value!=""
-			 	&& template.find("[name='telefono-facturacion']").value != ""
-			 	&& template.find("[name='tarifa']").value!=""
-				&& template.find("[name='tipo-descuento']").value!=""
-				&& template.find("[name='valor-descuento']").value!=""
-				//&& template.find("[name='cobranza']").value!=""
-				){
 
-					asunto.facturacion = {
-						ruc: template.find("[name='ruc']").value || "",
-						direccion: template.find("[name='direccion']").value || "",
-						telefono: template.find("[name='telefono-facturacion']").value || "",
-						solicitante:{
-							nombre: template.find("[name='nombre-solicitante']").value || "",
-							telefono: template.find("[name='telefono-solicitante']").value || "",
-							correo: template.find("[name='correo-solicitante']").value || ""
-						},
-						tarifa:{
-							id:template.find("[name='tarifa']").value,
-							nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
-						},
-						forma_cobro: template.find("[name='forma-cobro']").value,
-						descuento:{
-							tipo:template.find("[name='tipo-descuento']").value,
-							valor:template.find("[name='valor-descuento']").value
-						},
-						tipo_moneda: template.find("[name='tipo-moneda']").value,
-						cobranza: template.find("[name='cobranza']").value,
-						alertas:{
-							horas: template.find("[name='horas']").value,
-							monto: template.find("[name='monto']").value,
-							horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
-							monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
-						}
-					}
+			if(template.find("[name='forma-cobro']").value=="") return Bert.alert("Por favor complete la forma de cobro antes de continuar",'warning');
+			asunto.facturacion = {
+				ruc: template.find("[name='ruc']").value || "",
+				direccion: template.find("[name='direccion']").value || "",
+				telefono: template.find("[name='telefono-facturacion']").value || "",
+				solicitante:{
+					nombre: template.find("[name='nombre-solicitante']").value || "",
+					telefono: template.find("[name='telefono-solicitante']").value || "",
+					correo: template.find("[name='correo-solicitante']").value || ""
+				},
+
+				forma_cobro: template.find("[name='forma-cobro']").value,
+				descuento:{
+					tipo:template.find("[name='tipo-descuento']").value,
+					valor:template.find("[name='valor-descuento']").value
+				},
+				tipo_moneda: template.find("[name='tipo-moneda']").value,
+				cobranza: template.find("[name='cobranza']").value,
+				alertas:{
+					horas: template.find("[name='horas']").value,
+					monto: template.find("[name='monto']").value,
+					horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
+					monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
 				}
+			}
+
+			if(template.find('[name="forma-cobro"]').value=="horas hombre"){
+				asunto.facturacion.tarifa = {
+					id:template.find("[name='tarifa']").value,
+					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+				}
+			}
+
+			if(template.find('[name="forma-cobro"]').value=="flat free"){
+				asunto.facturacion.montogeneral = template.find("[name='montogeneral']").value
+			}
 
 
 			// asunto.area		= $( ".area option:selected" ).text();

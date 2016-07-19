@@ -88,13 +88,19 @@ EsquemaAsuntos = new SimpleSchema({
 		optional:true
 	},
 	'facturacion.ruc':{
-		type:String
+		type:String,
+		optional:true
+
 	},
 	'facturacion.direccion':{
-		type:String
+		type:String,
+		optional:true
+
 	},
 	'facturacion.telefono':{
-		type:String
+		type:String,
+		optional:true
+
 	},
 	'facturacion.solicitante':{
 		type:Object,
@@ -114,19 +120,29 @@ EsquemaAsuntos = new SimpleSchema({
 		optional:true
 	},
 	'facturacion.tarifa':{
-		type:Object
+		type:Object,
+		optional:true
+	},
+	'facturacion.montogeneral':{
+		type:String,
+		optional:true
 	},
 	'facturacion.tarifa.id':{
 		type:String
 	},
 	'facturacion.tarifa.nombre':{
-		type:String
+		type:String,
+		optional:true
+
 	},
 	'facturacion.descuento.tipo':{
-		type:String
+		type:String,
+		optional:true
+
 	},
 	'facturacion.descuento.valor':{
-		type:String
+		type:String,
+		optional:true
 	},
 	'facturacion.forma_cobro':{
 		type:String
@@ -136,26 +152,32 @@ EsquemaAsuntos = new SimpleSchema({
 		optional: true
 	},
 	'facturacion.alertas':{
-		type:Object
+		type:Object,
+		optional:true
 	},
 	'facturacion.alertas.horas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional:true
 	},
 	'facturacion.alertas.monto':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional:true
 	},
 	'facturacion.alertas.horas_no_cobradas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional:true
 	},
 	'facturacion.alertas.monto_horas_no_cobradas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional:true
 	},
 	'facturacion.tipo_moneda':{
-		type:String
+		type:String,
+		optional:true
 	},
 	abierto: {
 		type: Boolean

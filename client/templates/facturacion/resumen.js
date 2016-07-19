@@ -50,7 +50,7 @@ Template.resumenHorasPersonal.onRendered(function () {
 
         var out = _(tiempoxAsunto).map(function (obj) {
             return {
-                value: obj.horas,
+                value: Number(obj.horas+"."+obj.minutos),
                 color: dynamicColors(),
                 label:Asuntos.find({_id:obj.type}).fetch()[0].caratula
             }
@@ -59,7 +59,14 @@ Template.resumenHorasPersonal.onRendered(function () {
         var data4 = out;
 
         let myPieChart = new Chart(ctx4).Pie(data4,{
-                animateScale: true
+            animateScale: true,
+            tooltipTemplate: function (l) {
+                return l.label + " : " + String(l.value).split(".")[0] + " h " + String(l.value).split(".")[1]+" m";
+            },
+    // String - Template string for multiple tooltips
+            multiTooltipTemplate: function (l) {
+                return l.label + " : " + String(l.value).split(".")[0] + " h " + String(l.value).split(".")[1]+" m";
+            },
         });
 
     }
