@@ -27,6 +27,9 @@ Template.menu.events({
 	},
 	'click .asunto-modal': () => {
 		Modal.show('AsuntoNuevoModal');	
+	},
+	'click .tour'() {
+		Modal.show('tourInicial');
 	}
 });
 

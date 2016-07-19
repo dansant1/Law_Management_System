@@ -55,7 +55,7 @@
 		                        		</select>
 									</div>
 									<div class="medio-ancho">
-										<label for="responsable">Tipo de cobro</label>
+										<label for="responsable">Tipo de cobro*</label>
 										<select type="text" name="forma-cobro" aria-describedby="basic-addon1">
   										  <option value="horas hombre">Horas hombre</option>
   										  <option value="retainer">Retainer</option>
@@ -65,7 +65,7 @@
 									</div>
 									<div class="medio-ancho tipo">
 										<div class="tarifa-campo cobro">
-											<label for="responsable">¿Que tarifa aplicaras a este asunto?</label>
+											<label for="responsable" class="mayuscula estilo-label">Tarifa a aplicar*</label>
 											<select type="text" name="tarifa" aria-describedby="basic-addon1">
 												{{#each tarifas}}
 												<option value="{{this._id}}">{{this.nombre}}</option>
@@ -73,8 +73,8 @@
 											</select>
 										</div>
 										<div class="flatfree-campo cobro hide">
-											<label for="responsable">¿Cual es el monto que quiere aplicar?</label>
-											<input type="number" name="montogeneral" value="">
+											<label for="montogeneral" class="mayuscula estilo-label">Monto a cobrar*</label>
+											<input class="input-general" type="number" name="montogeneral" value="" min="1" step="0.1">
 										</div>
 									</div>
 								</div>
@@ -190,7 +190,7 @@
 										<input type="text" name="carpeta">
 									</div>
 									<div class="medio-ancho">
-										<label for="juzgado">¿Algún juzgado?</label>
+										<label for="juzgado">Juzgado</label>
 										<input type="text" id="juzgado" name="juzgado" aria-describedby="basic-addon1">
 									</div>
 									<br>

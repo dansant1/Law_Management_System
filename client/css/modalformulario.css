@@ -116,6 +116,16 @@ a.color-bunqr:hover {
 
 }
 
+label.estilo-label {
+	color: #95a5a6;
+	font-weight: bold;
+	font-size: 10px;
+}
+
+.mayuscula {
+	text-transform: uppercase;
+}
+
 .completo-ancho > input ,select {
 	border: 2px solid #e5e5e5;
 	display: block;
@@ -125,12 +135,33 @@ a.color-bunqr:hover {
 	padding-left: 15px;
 	font-weight: initial;
 	background-color: white;
-  -webkit-appearance:none;
-  border-radius: 0px;
+  	-webkit-appearance:none;
+  	border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;
     transition: border-color 0.4s ease-out;
+}
+
+input.input-general {
+	border: 2px solid #e5e5e5;
+	display: block;
+	width: 95%;
+	height: 45px;
+	margin-bottom: 5px;
+	padding-left: 15px;
+	font-weight: initial;
+	background-color: white;
+  	-webkit-appearance:none;
+  	border-radius: 0px;
+	-webkit-transition: border-color 0.4s ease-out;
+    -moz-transition: border-color 0.4s ease-out;
+    -o-transition: border-color 0.4s ease-out;
+    transition: border-color 0.4s ease-out;
+}
+
+input.input-general:hover, input.input-general:focus {
+	border: 2px solid #2ecc71;
 }
 
 .completo-ancho > input:focus, select:focus {
