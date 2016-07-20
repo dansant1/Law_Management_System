@@ -82,10 +82,11 @@ Template.asuntoNuevoModal.events({
         Session.set("cliente-asunto-id",$(event.target).val());
     },
 	'change [name="forma-cobro"]'(event,template){
-
-		$(template.find(".cobro")).addClass("hide");
-		if(event.target.value=="horas hombre")	$(template.find(".tarifa-campo")).removeClass("hide");
-		if(event.target.value=="flat free") $(template.find(".flatfree-campo")).removeClass("hide");
+		debugger;
+		$(".cobro").addClass("hide");
+		if(event.target.value=="horas hombre")	$(".tarifa-campo").removeClass("hide");
+		if(event.target.value=="flat fee") $(".flatfee-campo").removeClass("hide");
+		if(event.target.value=="retainer") $(".retainer-campo").removeClass("hide");
 	},
 	'click .agregar-asunto': function (event, template) {
 			event.preventDefault();
@@ -136,8 +137,18 @@ Template.asuntoNuevoModal.events({
 				}
 			}
 
-			if(template.find('[name="forma-cobro"]').value=="flat free"){
+			if(template.find('[name="forma-cobro"]').value=="flat fee"){
 				asunto.facturacion.montogeneral = template.find("[name='montogeneral']").value
+			}
+
+			if(template.find('[name="forma-cobro"]').value=="retainer"){
+				asunto.facturacion.retainer = {}
+				asunto.facturacion.retainer.monto = template.find('[name="monto_cobro"]').value;
+				asunto.facturacion.retainer.horas_maxima = template.find('[name="maximo_horas"]').value;
+				asunto.facturacion.tarifa = {
+					id:template.find("[name='tarifa']").value,
+					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+				}
 			}
 
 
@@ -146,9 +157,9 @@ Template.asuntoNuevoModal.events({
 			// asunto.juzgado	= template.find( '[name="juzgado"]' ).value;
 			// asunto.observaciones = template.find( '[name="observaciones"]' ).value;
 			// asunto.inicio	= template.find( '[name="fecha"]' ).value;
-
+			let userSelected = Meteor.users.findOne({_id:$(template.find(".responsable")).val()})
 			asunto.responsable = {
-				nombre: $(template.find( ".responsable option:selected" )).text(),
+				nombre: userSelected.profile.nombre + " " + userSelected.profile.apellido,
 				id: $(template.find( ".responsable" )).val()
 			}
 

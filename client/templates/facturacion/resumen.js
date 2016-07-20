@@ -41,7 +41,7 @@ Template.resumenHorasPersonal.onRendered(function () {
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
 
-            if(tiempoxAsunto[i].minutos>60){
+            if(tiempoxAsunto[i].minutos>=60){
                 let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
                 tiempoxAsunto[i].horas += horas;
                 tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
@@ -50,7 +50,7 @@ Template.resumenHorasPersonal.onRendered(function () {
 
         var out = _(tiempoxAsunto).map(function (obj) {
             return {
-                value: Number(obj.horas+"."+obj.minutos),
+                value: Number(obj.horas+"."+ (String(obj.minutos)[1]=="0"? Number(obj.minutos+"11"): obj.minutos)),
                 color: dynamicColors(),
                 label:Asuntos.find({_id:obj.type}).fetch()[0].caratula
             }
@@ -61,7 +61,9 @@ Template.resumenHorasPersonal.onRendered(function () {
         let myPieChart = new Chart(ctx4).Pie(data4,{
             animateScale: true,
             tooltipTemplate: function (l) {
-                return l.label + " : " + String(l.value).split(".")[0] + " h " + String(l.value).split(".")[1]+" m";
+                let tiempo = String(l.value).split(".");
+
+                return l.label + " : " + tiempo[0] + " h " + (tiempo[1]? (tiempo[1][2]==="1"? tiempo[1][0] + "0"  :  tiempo[1] ) : 0 )+" m";
             },
     // String - Template string for multiple tooltips
             multiTooltipTemplate: function (l) {
@@ -190,7 +192,7 @@ Template.resumenHorasPersonal.helpers({
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
 
-            if(tiempoxAsunto[i].minutos>60){
+            if(tiempoxAsunto[i].minutos>=60){
                 let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
                 tiempoxAsunto[i].horas += horas;
                 tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
@@ -246,7 +248,7 @@ Template.resumenHorasPersonal.helpers({
         let totalMinutos = 0;
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
-            if(tiempoxAsunto[i].minutos>60){
+            if(tiempoxAsunto[i].minutos>=60){
                 let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
                 tiempoxAsunto[i].horas += horas;
                 tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;

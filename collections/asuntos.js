@@ -127,6 +127,18 @@ EsquemaAsuntos = new SimpleSchema({
 		type:String,
 		optional:true
 	},
+	'facturacion.retainer':{
+		type:Object,
+		optional:true
+	},
+	'facturacion.retainer.monto':{
+		type:Number,
+		optional:true
+	},
+	'facturacion.retainer.horas_maxima':{
+		type:Number,
+		optional:true
+	},
 	'facturacion.tarifa.id':{
 		type:String
 	},
