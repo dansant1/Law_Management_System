@@ -10,6 +10,8 @@
 	width: 45%;
 	height: 140px;
 	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 	border: 1px solid #efefef;
 	background-color: white;
 	margin: 15px; 
@@ -73,6 +75,8 @@
 	background-color: #27ae60;
 	border: none;
 	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 	color: white;
 	text-align: center;	
 	margin: 0 auto;

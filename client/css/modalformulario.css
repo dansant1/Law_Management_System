@@ -80,6 +80,8 @@ a.color-bunqr:hover {
 
 .modal-dialog {
 	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	-webkit-border-radius: 5px !important;
 }
 
 .cuadro-datos-asunto {
@@ -137,6 +139,8 @@ label.estilo-label {
 	background-color: white;
   	-webkit-appearance:none;
   	border-radius: 0px;
+  	-webkit-border-radius: 0px;
+  	-moz-border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;
@@ -154,6 +158,8 @@ input.input-general {
 	background-color: white;
   	-webkit-appearance:none;
   	border-radius: 0px;
+  	-webkit-border-radius: 0px;
+  	-moz-border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;
@@ -192,6 +198,8 @@ input.input-general:hover, input.input-general:focus {
 	font-weight: initial;
   -webkit-appearance:none;
   border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
 	-webkit-transition: border-color 0.4s ease-out;
     -moz-transition: border-color 0.4s ease-out;
     -o-transition: border-color 0.4s ease-out;

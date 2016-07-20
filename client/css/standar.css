@@ -52,6 +52,8 @@
 	width: 15px;
 	height: 15px;
 	border-radius: 70%;
+	-webkit-border-radius: 70%;
+	-moz-border-radius: 70%;
 	margin-right: 10px;
 	padding-top: 3px;
 }
@@ -63,6 +65,8 @@
 .boton-outline {
 	border: 0.7px solid #34495e;
 	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 	width: 30%;
 	height: 22px;
 	padding: 2px;

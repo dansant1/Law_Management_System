@@ -28,6 +28,8 @@
 .list {
   background-color: #f1f1f1;
   border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   min-height: 185px;
   margin: 5px 5px;
   padding: 10px;
@@ -43,6 +45,8 @@
 }
 .list article {
   border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   margin-top: 5px;
   min-height: 80px
 }
