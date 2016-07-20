@@ -38,6 +38,10 @@
             Documentos
         </a>
 
+        <a href="/tareas/workflows/d" class="menu-asunto-aim " style="margin-left: 10px; text-align: left;">
+            Workflows
+        </a>
+
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;width:100%">
@@ -107,17 +111,17 @@
         <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
             Tareas
         </a>
-        <a href="/tareas/documentos" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
+        <a href="/tareas/documentos/d" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
             Documentos
         </a>
-
+		<a href="/tareas/workflows/d" class="menu-asunto-aim " style="margin-left: 10px;">
+            Workflows
+        </a>
     </div>
     <div class="franja-filtros">
         <div class="progreso" style="padding-top: 15px;width:100%">
 
             {{>botonNuevoTareas}}
-
-            <!--<input type="text" class="buscador-bunqr buscador-tareas" style="width:55%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre y fecha de vencimiento..."> -->
 
         </div>
 
@@ -356,4 +360,59 @@
 
 <template name="tareaNuevo">
 	<a href="/tareas/nuevo" class="btn nueva-tarea nuevo-evento verde-flat">+ Tarea</a>
+</template>
+
+<template name="workflowsDeTareas">
+	 <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 4px;">
+
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+         <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+    <div class="franja-filtros" style="padding-left: 24px;">
+
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px; text-align: left;">
+            Tareas
+        </a>
+        <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px; text-align: left;">
+            Documentos
+        </a>
+
+        <a href="/tareas/workflows/d" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px; text-align: center;">
+            Workflows
+        </a>
+
+    </div>
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;width:100%">
+
+            {{>botonNuevoTareas}}
+
+        </div>
+
+    </div>
 </template>

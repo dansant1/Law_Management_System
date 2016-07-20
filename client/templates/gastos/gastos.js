@@ -1,26 +1,5 @@
 Template.gastos.helpers({
-    // gastos(){
-	// 	var query = new RegExp(".*"+Session.get('query')+".*","i");
-    //
-    //     let $and = [
-    //         {
-    //             administrativo:Session.get('gastos-admin')
-    //         },
-    //         {
-    //             $or:[
-    //                 {
-    //                     descripcion:query
-    //                 },
-    //                 {
-    //                     'asunto.name':query
-    //                 }
-    //             ]
-    //         }
-    //     ]
-    //
-    //
-    //     return Gastos.find({$and:$and});
-    // },
+    
     email() {
       return Meteor.user().emails[0].address
     },

@@ -1,4 +1,8 @@
-
+Template.workflowsDeTareas.helpers({
+	email() {
+		return Meteor.user().emails[0].address
+	}
+});
 
 Template.tareasGantt.onCreated(function () {
 	var self = this;
@@ -301,17 +305,7 @@ Template.tareas2.events({
 				Meteor.call('eliminarTarea',tareaId,function (err) {
 					if(err) return Bert.alert('Hubo un error al momento de eliminar','danger');
 					swal('Tarea eliminada','La tarea se elimino correctamente','success')
-				})
-				/*let asuntoId = FlowRouter.getParam('asuntoId');
-				Meteor.call('cerrarAsunto', asuntoId, function (err) {
-					if (err) {
-						Bert.alert('Hubo un error, vuelve a intentalo', 'warning');
-					} else {
-						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
-					}
-
-				}); */
-				// swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
+				});
 			});
 	},
 	'click .cerrar': function () {
@@ -353,86 +347,6 @@ Template.tareas2.events({
         	});
     	}
 	}
-});
-
-Template.tareasGantt.events({});
-
-Template.tareasGantt.onRendered(() => {
-
-	gantt.locale = {
-    date: {
-        month_full: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
-        month_short: ["Ene", "Feb", "Mar", "Abr", "Mayo", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-        day_full: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
-        day_short: ["Dom", "Lun", "Mar", "Mierc", "Jue", "Vier", "Sab"]
-    },
-    labels:{
-        new_task:"Tarea nueva",
-        icon_save:"agregar",
-        icon_cancel:"cancelar",
-        icon_details:"detalles",
-        icon_edit:"Modificar",
-        icon_delete:"Eliminar",
-        confirm_closing:"",//Vos modifications seront perdus, êtes-vous sûr ?
-        confirm_deleting:"¿Seguro que deseas eliminar la tarea?",
-
-        section_description:"Descripción",
-        section_time:"Periodo",
-        section_type:"Tipo",
-
-        /* grid columns */
-
-        column_text :  "Asuntos",
-        column_start_date : "Inició",
-        column_duration : "Duración",
-        column_add : "",
-
-
-        /* link confirmation */
-
-        type_task: "Tarea",
-        type_project: "Projecto",
-        type_milestone: "Hito",
-
-
-        minutes: "Minutos",
-        hours: "Horas",
-        days: "Dias",
-        weeks: "Semanas",
-        months: "Meses",
-        years: "Años"
-    }
-};
-	var scale_day = 0;
-
-	gantt.templates.date_scale = function(date) {
-    	var d = gantt.date.date_to_str("%F %d");
-    	return "<strong>Día " + (scale_day++) + "</strong><br/>" + d(date);
-	};
-
-	gantt.config.scale_height = 44;
-
-
-	//gantt.config.scale_unit = "week";
-	//gantt.config.date_scale = "Week #%W";
-
-	gantt.templates.scale_cell_class = function(date) {
-    	if(date.getDay()==0||date.getDay()==6){
-        return "weekend";
-    	}
-	};
-
-	gantt.templates.task_cell_class = function(item,date) {
-    	if(date.getDay()==0||date.getDay()==6){
-        	return "weekend" ;
-    	}
-	};
-
-	gantt.config.start_date = new Date();
-
-	gantt.init("gantt_here");
-
-	gantt.meteor({tasks: TasksCollection, links: LinksCollection});
 });
 
 
