@@ -1,0 +1,178 @@
+<template name="ModalClienteNuevo2">
+	<div class="modal fade" tabindex="-1" role="dialog">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+
+      			<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+
+        			<div class="modal-formulario">
+						<div class="side-help">
+							<div class="about-asunto fondo-bunqr" style="height: 230px;">
+								<h2>
+									Contactos
+								</h2>
+								<p style="color: white;">Los contactos hacen referencia a sus prospectos, clientes y contactos en si. Puede enlazarlo con sus asuntos, facturación y negociaciones.</p>
+
+							</div>
+							<div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+								<h3>
+									¿Necesitas ayuda?
+								</h3>
+								<p>
+									Haz click <a href="#" data-elevio-article="75101" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="contenido-formulario" style="height: 480px;">
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr">Información básica</h1>
+								<hr>
+								<div class="formulario-bunqr">
+									<div class="medio-ancho">
+										<label for="asunto">Nombre*</label>
+										<input type="text" name="nombre">
+									</div>
+									<div class="medio-ancho">
+										<label for="asunto">Apellido</label>
+										<input type="text" name="apellido">
+									</div>
+
+									<div class="medio-ancho">
+										<label for="telefono">Teléfono</label>
+										<input type="text" name="telefono">
+									</div>
+									<div class="medio-ancho">
+										<label for="celular">Celular</label>
+										<input type="text" name="celular">
+									</div>
+									<div class="medio-ancho">
+										<label for="email">Email</label>
+										<input type="text" name="email">
+									</div>
+									<div class="medio-ancho tipo">
+
+										<label for="direccion-contacto">Dirección</label>
+										<input type="text" name="direccion-contacto">
+										
+									</div>
+								</div>
+							</div>
+							
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr">
+								<a style="font-weight: initial;" data-toggle="collapse" href="#collapse1">
+								Datos de facturación
+								</a>
+								</h1>
+								<hr>
+								<div id="collapse1"  class="formulario-bunqr panel-collapse collapse">
+									<div class="medio-ancho">
+										<label for="asunto">RUC del cliente</label>
+										<input type="text" name="ruc" value="">
+									</div>
+									<div class="medio-ancho">
+										<label for="">Nombre del solicitante</label>
+										<input type="text" name="nombre-solicitante" aria-describedby="basic-addon1" value="">
+									</div>
+									<div class="medio-ancho">
+										<label for="numero">Email del solicitante</label>
+										<input type="text" name="correo-solicitante" value="">
+									</div>
+									<div class="medio-ancho">
+										<label for="cliente">Dirección de facturación</label>
+										<input type="text" name="direccion" value="" >
+									</div>
+									<div class="medio-ancho">
+										<label for="numero">Número de teléfono</label>
+										<input type="text" name="telefono-facturacion" value="">
+									</div>
+									<div class="medio-ancho">
+										<label for="telefono-solicitante">Teléfono del solicitante</label>
+										<input type="text" id="telefono-sol" name="telefono-solicitante" value="">
+									</div>
+
+									<div class="medio-ancho">
+										<label for="co">Detalle de cobranza</label>
+										<textarea name="cobranza" id="co" rows="8" cols="40" style="height: 42.5px; width: 40%;"></textarea>
+									</div>
+
+
+									<div class="medio-ancho">
+										<label for="tipo-moneda">Tipo de moneda</label>
+										<select type="text" name="tipo-moneda"  aria-describedby="basic-addon1">
+  										  <option value="soles">Soles</option>
+  										  <option value="dolares">Dólares</option>
+  									  	</select>
+									</div>
+
+									<div class="medio-ancho">
+										<label for="tipo-descuento">Tipo de descuento</label>
+										<select type="text" name="tipo-descuento"  aria-describedby="basic-addon1">
+  		  	  							  <option >Moneda</option>
+  		  	  							  <option >Porcentaje</option>
+  		  	  						  	</select>
+										<!-- <input type="number" name="descuento" style="width: 47.5%; display: inline-block;"> -->
+									</div>
+									<div class="medio-ancho">
+										<input type="text" name="valor-descuento" value="{{valor_descuento}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="responsable">Comentarios adicionales</label>
+										<input type="text" name="detalle" value="{{comentario}}" >
+									</div>
+
+								</div>
+							</div>
+
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr">
+								<a style="font-weight: initial;" data-toogle="collapse" href="#collapse2">
+								Alertas de facturacion
+								</a>
+								</h1>
+								<hr>
+								<div id="collapse2" class="formulario-bunqr ">
+									<div class="medio-ancho">
+										<label for="limitehora">Limite de horas</label>
+										<input type="text" name="horas" id="limitehora" value="{{limite_horas}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="limitemonto">Limite de monto</label>
+										<input type="text" name="monto" id="limitemonto" value="{{limite_monto}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="limitenocobradas">Horas no cobradas</label>
+										<input id="limitenocobradas" type="text" name="horas-no-cobradas" value="{{horas_no_cobradas}}" aria-describedby="basic-addon1">
+									</div>
+									<div class="medio-ancho">
+										<label for="montonocobradas">Monto de horas no cobradas</label>
+										<input type="text" name="monto-horas-no-cobradas" id="montonocobradas" value="{{monto_horas_no_cobradas}}" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr"><a style="font-weight: initial;" data-toggle="collapse" href="#collapse3">
+									Agregar información
+								</a></h1>
+								<hr>
+								<div id="collapse3" class="formulario-bunqr panel-collapse collapse">
+									
+									<div class="medio-ancho">
+										<label for="nota">Nota</label>
+										<input type="text" name="nota">
+									</div>
+									
+									<br>
+								</div>
+							</div>
+						</div>
+						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+							<input class="agregar-contacto" type="button" value="Agregar contacto">
+						</div>
+					</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+</template>

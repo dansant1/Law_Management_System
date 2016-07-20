@@ -266,7 +266,7 @@ Template.facturacion.helpers({
 						$in:asuntosId
 					}
 				})
-				// query.$and.push({'asunto.id':Session.get('asunto-hora')})
+				
 			}
 			else {
 				query.$and = []
@@ -275,7 +275,7 @@ Template.facturacion.helpers({
 						$in:asuntosId
 					}
 				})
-				// query.$and.push({'asunto.id': Session.get('asunto-hora')});
+				
 				query.$and.push({$or:$or})
 			}
 
@@ -308,13 +308,7 @@ Template.facturacion.helpers({
 		}
 
 		return Horas.find(query);
-		// debugger;
-		// var filtro = {}
-		//
-		// filtro['asunto.id'] = Session.get('asunto-hora')
-		// filtro.fecha = $.isEmptyObject(Session.get('filtro-hora'))? {}: Session.get('filtro-hora').fecha
-		//
-		// return Horas.find(filtro);
+	
 
 	},
 	cliente(){
@@ -395,15 +389,7 @@ Template.facturacion.events({
 					if(err) return Bert.alert('Hubo un error al momento de eliminar','danger');
 					swal('Hora eliminada','La hora se elimino correctamente','success')
 				})
-				/*let asuntoId = FlowRouter.getParam('asuntoId');
-				Meteor.call('cerrarAsunto', asuntoId, function (err) {
-					if (err) {
-						Bert.alert('Hubo un error, vuelve a intentalo', 'warning');
-					} else {
-						swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
-					}
-
-				}); */
+				
 				swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
 			});
 	},
@@ -477,7 +463,7 @@ Template.agregarHoras.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('equipo', bufeteId);
-		// self.subscribe('asuntos', bufeteId);
+		
    });
 });
 
@@ -494,10 +480,7 @@ Template.agregarHoras.helpers({
 		return Tareas.find({horas:{$exists:false}}).fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
 	},
 	selected(event, suggestion, datasetName) {
-	    // event - the jQuery event object
-	    // suggestion - the suggestion object
-	    // datasetName - the name of the dataset the suggestion belongs to
-	    // TODO your event handler here
+	   
 	    console.log(suggestion.id);
 	}
 });
@@ -525,7 +508,6 @@ Template.agregarHoras.events({
 			bufeteId: Meteor.user().profile.bufeteId,
 			horas: template.find('[name="horas"]').value,
 			minutos: template.find('[name="minutos"]').value,
-			// precio: template.find('[name="precio"]').value,
 			cobrado: $(".cobrado").is(":checked"),
 			esTarea: $(".es-tarea").is(":checked"),
 			creador: {
@@ -553,12 +535,22 @@ Template.agregarHoras.events({
 
 		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "") {
 
+			if (datos.minutos === "") {
+				datos.minutos = 0;
+			}
+
+
 			Meteor.call('agregarHora', datos, function (err, result) {
-				if (err) return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
+				if (err) {
+
+					return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
+					Modal.hide('agregarHoras');
+				}
 
 				if(Session.get("cronometro-pausado")) chronometer.reset();
-				$('#agregar-modal').modal('hide');
+				Modal.hide('agregarHoras');
 				Bert.alert('Agregaste horas', 'success');
+				
 			});
 
 		} else {

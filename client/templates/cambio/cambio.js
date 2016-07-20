@@ -7,16 +7,24 @@ Template.agregarTipoCambio.events({
             bufeteId : Meteor.user().profile.bufeteId
         }
 
-        Meteor.call('insertarCambio',data,function (err) {
+        if (data.cambio !== "") {
+            Meteor.call('insertarCambio',data,function (err) {
             if(err) {
                 return Bert.alert('No se añadio correctamente, intentelo nuevamente','danger');
-                template.find("[name='cambio']").value = "";   
+                template.find("[name='cambio']").value = "";
+                Modal.hide('agregarTipoCambio');   
             } else {
                 Bert.alert('Se añadio correctamente el cambio','success');
                 template.find("[name='cambio']").value = "";
+                Modal.hide('agregarTipoCambio');
             }
             
         })
+        } else {
+            Bert.alert('Agregue el valor correctamente','warning');
+        }
+
+        
     }
 })
 

@@ -30,6 +30,18 @@ Template.menu.events({
 	},
 	'click .tour'() {
 		Modal.show('tourInicial');
+	},
+	'click .modal-cliente'() {
+		Modal.show('ModalClienteNuevo2');
+	},
+	'click .workflow-modal'() {
+		Modal.show('workflowModal');
+	},
+	'click .hora-modal'() {
+		Modal.show('horaModal');
+	},
+	'click .tarifa-modal'() {
+		Modal.show('tarifaModal');
 	}
 });
 

@@ -29,8 +29,8 @@
 		</button>
 		<ul class="dropdown-menu">
 			<li class="persona agregar-hora"><a href="#">Hora</a></li>
-			<li class="empresa agregar-gasto"><a href="#">Gasto</a></li>
-			<li class="empresa agregar-gasto-administrativo"><a href="#">Gasto Administrativo</a></li>
+			<li class="empresa agregar-gasto"><a href="#">Gasto Administrativo</a></li>
+			<li class="empresa agregar-gasto-administrativo"><a href="#">Gasto</a></li>
 			<li class="empresa"><a href="/facturacion/tarifas/nuevo">Tarifa</a></li>
 			<li class="empresa agregar-tipo-cambio"><a href="#">Tipo de cambio</a></li>
 		</ul>
@@ -515,4 +515,44 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="horaModal">
+  <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+
+              <div class="modal-formulario">
+            <div class="side-help">
+              <div class="about-asunto fondo-bunqr" style="height: 230px;">
+                <h2>
+                  Trabajos
+                </h2>
+                <p style="color: white;">Agrega horas de trabajo y enlazalo con los asuntos de tu cliente. Lleva reportes de cliente, asunto y compara tu rentabilidad</p>
+
+              </div>
+              <div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+                <h3>
+                  ¿Necesitas ayuda?
+                </h3>
+                <p>
+                  Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="contenido-formulario" style="height: 480px;">
+              
+            </div>
+            
+            <div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+              <input class="agregar-hora" type="button" value="Agregar hora">
+            </div>
+          </div>
+            </div>
+        </div>
+      </div>
+  </div>
 </template>
