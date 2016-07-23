@@ -352,7 +352,7 @@ Template.tareasSidebarDashboard.helpers({
 
 Template.tareasSidebarDashboard.events({
 	'click .nueva-tarea-dash'(){
-		Modal.show('nuevaTareaModal');
+		Modal.show('nuevaTareaModal2');
 	}
 })
 
@@ -372,7 +372,7 @@ Template.teamSidebarDahboard.helpers({
 
 Template.teamSidebarDahboard.events({
 	'click .nuevo': () => {
-		Modal.show('usuarioForm');
+		Modal.show('usuarioForm2');
 	}
 });
 

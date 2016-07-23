@@ -21,15 +21,17 @@ _elev.account_id = '5781c9e2e4dad';
       </div>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
+      
 
 
       <ul class="nav navbar-nav navbar-right">
-
-
-
+        {{#if tieneAcceso}}
+        {{>cambio}}
+        {{/if}}
+     
       {{#with nombre}}
       <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
-
+              
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
               Hola, {{profile.nombre}}
@@ -46,14 +48,20 @@ _elev.account_id = '5781c9e2e4dad';
             <li style="display: inline-block; width: 100%;"><a class="logout" style="color: #e74c3c; display: inline-block; text-align: center; width: 100%;"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
           </ul>
         </li>
-        {{/with}}
 
+        {{/with}}
+         
 
       </ul>
 
     </div>
   </div>
 </div>
+</template>
+
+<template name="cambio">
+  <i class="fa fa-usd simbolo" aria-hidden="true"></i>
+  <input type="text" name="tipo-cambio" class="cambio" value="{{valor}}">
 </template>
 
 <template name="cronometro2">

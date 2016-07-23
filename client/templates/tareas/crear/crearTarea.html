@@ -72,3 +72,89 @@
     </div>
 
 </template>
+
+<template name="nuevaTareaModal2">
+    <div class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+
+                    <div class="modal-formulario">
+                        <div class="side-help">
+                            <div class="about-asunto fondo-bunqr" style="height: 230px;">
+                                <h2>
+                                    Tareas
+                                </h2>
+                                <p style="color: white;">Agrega tareas y organizalos por asuntos y etapas, asignale fecha de vencimiento y haz tu vida mas fácil.</p>
+
+                            </div>
+                            <div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+                                <h3>
+                                    ¿Necesitas ayuda?
+                                </h3>
+                                <p>
+                                    Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contenido-formulario" style="height: 480px;">
+                            
+                            <div class="cuadro-datos-asunto">
+                                <h1 class="color-bunqr">Información</h1>
+                                <hr>
+                                <div class="formulario-bunqr">
+                                    <div class="medio-ancho">
+                                        <label for="asunto">Descripción*</label>
+                                        <input type="text" name="descripcion">
+                                    </div>
+                                    <div class="medio-ancho">
+                                        <label for="fecha">Fecha de vencimiento*</label>
+                                       <input type="text" name="fecha" id="datepicker" readonly>
+                                    </div>
+                                    <div class="medio-ancho">
+                                        <label >Asunto*</label>
+                                        <select class="budget asunto">
+                                            <option value="ninguno">Elige un asunto</option>
+                                            {{#each asuntos}}
+                                                <option value="{{_id}}">{{caratula}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="medio-ancho">
+                                        <label for="etapa">Etapa por asunto*</label>
+                                        <select name="etapa">
+                                            {{#each etapas}}
+                                                <option value="{{this._id}}">{{this.nombre}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                   
+
+                                    <div class="medio-ancho">
+                                        <label for="tipo">Tipo</label>
+                                        <select class="budget tipo" name="tipo">
+                                            <option value="General">General</option>
+                                            <option value="Comunicaciones">Comunicaciones</option>
+                                            <option value="Escritos">Escritos</option>
+                                            <option value="Tribunales">Tribunales</option>
+                                            <option value="Facturacion">Facturación</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            
+                        </div>
+                        <div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+                            <input class="agregar-tareas" type="button" value="Crear tarea">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

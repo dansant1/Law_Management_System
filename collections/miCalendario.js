@@ -18,12 +18,13 @@ let MiCalendarioSchema = new SimpleSchema({
     label: '¿De que trata el evento?'
   },
   'start': {
-    type: Date,
-    label: '¿Cuando empieza el evento?'
+    type: String,
+    label: '¿Cuando empieza el evento?',
   },
   'end': {
-    type: Date,
-    label: '¿Cuando finaliza el evento?'
+    type: String,
+    label: '¿Cuando finaliza el evento?',
+    optional: true
   },
   'type': {
     type: String,
@@ -34,10 +35,12 @@ let MiCalendarioSchema = new SimpleSchema({
     type: String
   },
   userId: {
-    type: String
+    type: String,
+    optional: true
   },
   'asunto': {
-    type: Object
+    type: Object,
+    optional: true
   },
   'asunto.nombre': {
     type: String

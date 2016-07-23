@@ -32,7 +32,8 @@ let EsquemaEventos = new SimpleSchema({
 		type: String
 	},
 	end: {
-		type: String
+		type: String,
+		optional:true
 	},
 	color: {
 		type: String,
