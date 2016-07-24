@@ -12,26 +12,26 @@ _elev.account_id = '5781c9e2e4dad';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      
+
     		<a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 175px; top: 28px; font-size: 12px;">&reg;</span></a>
-  		
-      <div class="cronometro">
-        <div class="cuadro-crono"><h2 class="hora-crono" style="margin: 0; color: #34495e; margin-right: 5px;">00:00</h2></div>
+
+
+
         {{>cronometro2}}
-      </div>
+      
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
-      
+
 
 
       <ul class="nav navbar-nav navbar-right">
         {{#if tieneAcceso}}
         {{>cambio}}
         {{/if}}
-     
+
       {{#with nombre}}
       <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
-              
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
               Hola, {{profile.nombre}}
@@ -50,7 +50,7 @@ _elev.account_id = '5781c9e2e4dad';
         </li>
 
         {{/with}}
-         
+
 
       </ul>
 
@@ -65,12 +65,16 @@ _elev.account_id = '5781c9e2e4dad';
 </template>
 
 <template name="cronometro2">
-  <div class="cuadro-crono" style="position: ">
-          <button class="boton-lateral boton-disminuir"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
-          <button class="boton-principal boton-play"><i class="glyphicon glyphicon-play"></i></button>
-          <button class="boton-lateral boton-aumentar"><i class="glyphicon glyphicon-forward" style="position: relative; right: -1px; top: 3px;"></i></button>
-          <button class="boton-lateral boton-resetear" style="display:inline-block; margin-left: 15px;"><i class="glyphicon glyphicon-refresh" style="position: relative; right: 1px; top: 3px;"></i></button>
-          <button class="boton-lateral boton-agregar-hora" style="background-color:#34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: 1px; top: 3px;"></i></button>
-          <button class="boton-lateral boton-guardar-hora" style="margin-left: 5px; ;background-color: white;"><i class="glyphicon glyphicon-open" style="position: relative; right: 1px; top: 3px;  color: #34495e;"></i></button>
-        </div>
+  <div class="cronometro">
+    <div class="cuadro-crono"><h2 class="hora-crono" style="margin: 0; color: #34495e; margin-right: 5px;">00:00</h2></div>
+    <div class="cuadro-crono" style="position: ">
+            <button class="boton-lateral boton-disminuir"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
+            <button class="boton-principal boton-play"><i class="glyphicon glyphicon-play"></i></button>
+            <button class="boton-lateral boton-aumentar"><i class="glyphicon glyphicon-forward" style="position: relative; right: -1px; top: 3px;"></i></button>
+            <button class="boton-lateral boton-resetear" style="display:inline-block; margin-left: 15px;"><i class="glyphicon glyphicon-refresh" style="position: relative; right: 1px; top: 3px;"></i></button>
+            <button class="boton-lateral boton-agregar-hora" style="background-color:#34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: 1px; top: 3px;"></i></button>
+            <button class="boton-lateral boton-guardar-hora" style="margin-left: 5px; ;background-color: white;"><i class="glyphicon glyphicon-open" style="position: relative; right: 1px; top: 3px;  color: #34495e;"></i></button>
+    </div>
+  </div>
+
 </template>

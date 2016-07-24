@@ -39,7 +39,7 @@ Meteor.methods({
 		if (this.userId) {
 			datos.bufeteId  = Meteor.users.findOne({_id: this.userId}).profile.bufeteId;
 
-			var tarea TareasNegociaciones.insert(datos);
+			var tarea = TareasNegociaciones.insert(datos);
 			if (tarea) {
 				NewsFeedCasos.insert({
 					descripcion: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido + " creó la tarea " + datos.descripcion + " en la negociación " + Casos.findOne({_id: datos.casoId}).nombre,
