@@ -379,7 +379,7 @@ Template.teamSidebarDahboard.events({
 
 Template.botonNuevosContactos.events({
 	'click .persona': function () {
-		Modal.show('clienteNuevoModal');
+		Modal.show('ModalClienteNuevo2');
 	},
 	'click .empresa': function () {
 		Modal.show('empresaNuevoModal');
@@ -389,7 +389,7 @@ Template.botonNuevosContactos.events({
 	}
 });
 
-Template.clienteNuevoModal.onRendered(function () {
+Template.clienteNuevoModal.onCreated(function () {
 	var self = this;
 	let bufeteId = Meteor.user().profile.bufeteId;
 	self.autorun(function () {
@@ -406,7 +406,7 @@ Template.clienteNuevoModal.helpers({
 Template.clienteNuevoModal.events({
 	'click .guardar-contacto': function (event, template) {
 		event.preventDefault();
-		debugger;
+		//debugger;
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			apellido: template.find('[name="apellido"]').value || "",
@@ -616,7 +616,7 @@ Template.clientesSidebarDashboard.helpers({
 
 Template.clientesSidebarDashboard.events({
 	'click .nuevo': () => {
-		Modal.show('clienteNuevoModal');
+		Modal.show('ModalClienteNuevo2');
 	}
 });
 
@@ -3788,7 +3788,7 @@ Template.cambioConfiguracion.helpers({
 
 })
 
-Template.formularioParaCrearTarifa.onRendered(function () {
+Template.formularioParaCrearTarifa.onCreated(function () {
 
 	let self = this;
 	let bufeteId = Meteor.user().profile.bufeteId;

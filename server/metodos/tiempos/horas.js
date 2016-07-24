@@ -78,7 +78,7 @@ calcularTotal = function (datos) {
 		// console.log(hora);
 		let suma = 0;
 		let costoResponsable = {}
-		let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
+		let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id});
 		if(tarifa==undefined) return;
 		tarifa.miembros.forEach(function (miembro) {
 			// console.log(miembro);

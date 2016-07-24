@@ -79,13 +79,16 @@ EsquemaClientes = new SimpleSchema({
 		optional:true
 	},
 	'facturacion.ruc':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.direccion':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.telefono':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.solicitante':{
 		type:Object,
@@ -106,7 +109,8 @@ EsquemaClientes = new SimpleSchema({
 	},
 
 	'facturacion.tarifa':{
-		type:Object
+		type:Object,
+		optional: true
 	},
 	'facturacion.tarifa.id':{
 		type:String
@@ -118,10 +122,12 @@ EsquemaClientes = new SimpleSchema({
 		type:String
 	},
 	'facturacion.descuento.tipo':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.descuento.valor':{
-		type:String
+		type:String,
+		optional: true
 	},
 	'facturacion.forma_cobro':{
 		type:String
@@ -135,19 +141,23 @@ EsquemaClientes = new SimpleSchema({
 	},
 	'facturacion.alertas.horas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional: true
 	},
 	'facturacion.alertas.monto':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional: true
 	},
 	'facturacion.alertas.horas_no_cobradas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional: true
 	},
 	'facturacion.alertas.monto_horas_no_cobradas':{
 		type:Number,
-		decimal:true
+		decimal:true,
+		optional: true
 	},
 	nombreCompleto:{
 		type:String

@@ -54,11 +54,11 @@
 
 										<label for="direccion-contacto">Dirección</label>
 										<input type="text" name="direccion-contacto">
-										
+
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="cuadro-datos-asunto">
 								<h1 class="color-bunqr">
 								<a style="font-weight: initial;" data-toggle="collapse" href="#collapse1">
@@ -70,6 +70,23 @@
 									<div class="medio-ancho">
 										<label for="asunto">RUC del cliente</label>
 										<input type="text" name="ruc" value="">
+									</div>
+									<div class="medio-ancho">
+										<label for="forma-cobro">Forma de cobro</label>
+										<select type="text" name="forma-cobro" >
+											<option value="horas hombre">Horas hombre</option>
+											<option value="retainer">Retainer</option>
+											<option value="flat-fee">Flat fee</option>
+											<option value="proporcional">Proporcional</option>
+										</select>
+									</div>
+									<div class="medio-ancho">
+										<label for="tarifa">Tarifa</label>
+										<select type="text" name="tarifa">
+											{{#each tarifas}}
+												<option value="{{this._id}}">{{this.nombre}}</option>
+											{{/each}}
+										</select>
 									</div>
 									<div class="medio-ancho">
 										<label for="">Nombre del solicitante</label>
@@ -109,8 +126,8 @@
 									<div class="medio-ancho">
 										<label for="tipo-descuento">Tipo de descuento</label>
 										<select type="text" name="tipo-descuento"  aria-describedby="basic-addon1">
-  		  	  							  <option >Moneda</option>
-  		  	  							  <option >Porcentaje</option>
+  		  	  							  <option>Moneda</option>
+  		  	  							  <option>Porcentaje</option>
   		  	  						  	</select>
 										<!-- <input type="number" name="descuento" style="width: 47.5%; display: inline-block;"> -->
 									</div>
@@ -157,12 +174,20 @@
 								</a></h1>
 								<hr>
 								<div id="collapse3" class="formulario-bunqr panel-collapse collapse">
-									
+
 									<div class="medio-ancho">
-										<label for="nota">Nota</label>
-										<input type="text" name="nota">
+										<label for="identificacion">DNI</label>
+										<input type="text" name="identificacion">
 									</div>
-									
+
+									<div class="medio-ancho">
+										<label for="pais">País</label>
+										<input type="text" name="pais">
+									</div>
+									<div class="medio-ancho">
+										<label for="provincia">Provincia</label>
+										<input type="text" name="provincia">
+									</div>
 									<br>
 								</div>
 							</div>

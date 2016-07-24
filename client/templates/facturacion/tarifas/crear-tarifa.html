@@ -1,0 +1,107 @@
+<template name="crearTarifaModal">
+
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 0; background-color: #F2F2F2;">
+        <div class="modal-formulario">
+          <div class="side-help">
+            <div class="about-asunto fondo-bunqr" style="height: 230px;">
+              <h2>
+                Tarifas
+              </h2>
+              <p style="color: white;">
+                Crea tarifas para asignar el precio por hora a tu trabajo y al de tu equipo por asunto, cliente o tarifas generales.
+              </p>
+
+            </div>
+            <div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+              <h3>
+                ¿Necesitas ayuda?
+              </h3>
+              <p>
+                Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+              </p>
+            </div>
+          </div>
+          <div class="contenido-formulario">
+
+          <input type="text" name="nombre-tarifa" placeholder="Escriba el nombre de la tarifa" style=" margin-top: 14px; border-bottom: 1px solid #efefef; display: block; width: 100%; padding: 10px; border-top: none; border-right: none; border-left: none; font-weight: initial;">
+          <table style="font-size: 13px;">
+          <thead>
+          <tr>
+            <th >Categoría</th>
+            <th style="text-align: center;">Sol (S/)</th>
+            <th style="text-align: center;">Dólar</th>
+          </tr>
+          </thead>
+          <tbody class="roles">
+          <tr class="administrador">
+            <td><span>Administrador</span></td>
+            <td><input class="valor-soles" type="number" min="0"></td>
+            <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+          <tr class="socio-senior">
+            <td><span>Asociado senior</span></td>
+            <td><input class="valor-soles" type="number" min="0"></td>
+            <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+          <tr class="socio-junior">
+            <td><span>Asociado junior</span></td>
+            <td><input class="valor-soles" type="number" min="0"></td>
+            <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+           <tr class="procurador">
+            <td><span>Procurador</span></td>
+            <td><input class="valor-soles" type="number" min="0"></td>
+            <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+          <tr class="secretario">
+          <td><span>Secretario</span></td>
+          <td><input class="valor-soles" type="number" min="0"></td>
+          <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+
+           <tr class="socio">
+            <td><span>Socio</span></td>
+            <td><input class="valor-soles" type="number" min="0"></td>
+            <td><input class="valor-dolares" type="number" min="0"></td>
+          </tr>
+          </tbody>
+          </table>
+          <br>
+          <table style="font-size: 13px;">
+          <thead>
+          <tr>
+            <th >Miembro</th>
+            <th style="text-align: center;">Sol (S/)</th>
+            <th style="text-align: center;">Dólar</th>
+          </tr>
+          </thead>
+          <tbody class="miembros-roles">
+          {{#each miembros}}
+          {{#if this.roles}}
+              <tr class="{{rol}}">
+            <td style="display:none; text-align: left;">
+              <h1>{{this._id}}</h1>
+            </td>
+                <td style="text-align: left;"><span>{{this.profile.nombre}} {{this.profile.apellido}}</span></td>
+                <td><input type="number" class="valor-soles-miembro"  min="0"></td>
+                <td><input type="number" class="valor-dolares-miembro" min="0"></td>
+              </tr>
+          {{/if}}
+          {{/each}}
+          </tbody>
+          </table>
+          </div>
+          <div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+            <input class="registrar-tarifa" type="button" value="Crear tarifa">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</template>

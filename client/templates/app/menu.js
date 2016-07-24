@@ -36,7 +36,7 @@ Template.menu.events({
 		Modal.show('clienteNuevoModal');
 	},
 	'click .asunto-modal': () => {
-		Modal.show('AsuntoNuevoModal');	
+		Modal.show('AsuntoNuevoModal');
 	},
 	'click .tour'() {
 		Modal.show('tourInicial');
@@ -51,7 +51,7 @@ Template.menu.events({
 		Modal.show('horaModal');
 	},
 	'click .tarifa-modal'() {
-		Modal.show('tarifaModal');
+		Modal.show('crearTarifaModal');
 	}
 });
 
@@ -162,7 +162,7 @@ Template.cronometro2.events({
 				}
 				swal("Horas eliminadas", "El cronometro se reinicio correctamente", "success");
 			});
-		
+
 	},
 	'click .boton-disminuir'(){
 		chronometer.removeMinutes(5)
@@ -193,7 +193,7 @@ Template.cronometro2.events({
 				},
 				responsable:{
 					id: Meteor.user()._id,
-					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido					
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 				}
 			}
 
@@ -236,6 +236,6 @@ Template.cambio.helpers({
 
 Template.cambio.events({
 	'keyup .cambio'() {
-		console.log('Funciona!');	
+		console.log('Funciona!');
 	}
 });

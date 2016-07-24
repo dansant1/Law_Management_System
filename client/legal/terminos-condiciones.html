@@ -1,18 +1,33 @@
 <template name="terminosCondiciones">
 	{{>menuLogin}}
+	{{>sidebarLegalTC}}
+	<div class="escrito-legal">
+
+	</div>
 </template>
 
 <template name="menuLogin">
 	<div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
   <div class="container-fluid">
     <div class="navbar-header">
-    <a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 172.5px; top: 28px; font-size: 12px;">&reg;</span></a>    
+    <a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 172.5px; top: 28px; font-size: 12px;">&reg;</span></a>
     </div>
 
      <div style="display: inline-block; float: right; position: relative; top: 20px; font-weight: initial; color: #7f8c8d; right: 22.5px;">
     	¿Aún no tienes una cuenta? <span style="color: #34495e;"><a href="/signup"  style="color: #34495e; font-weight: initial;">Regístrate.</a></span>
     </div>
-   
+
   </div>
   </div>
+</template>
+
+<template name="sidebarLegalTC">
+	<div class="sidebar-legal">
+		<br>
+		<br>
+		<br>
+		<br>
+			<a href="/terminos-condiciones" id="marcado-legal">Términos y condiciones</a>
+			<a href="/politicas-privacidad">Políticas de privacidad</a>
+	</div>
 </template>

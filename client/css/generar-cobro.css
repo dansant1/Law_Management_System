@@ -1,0 +1,48 @@
+.resumen-cobro {
+  width: 90%;
+  min-height: 400px;
+  margin: 0 auto;
+  border: 2px solid #efefef;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+.fila-cobro {
+  width: 100%;
+  margin: 0;
+}
+
+.titulo-cobro {
+  height: 60px;
+  padding: 20px;
+  text-align: left;
+  border-bottom: 2px solid #efefef;
+}
+
+.titulo-cobro > h3 {
+  font-size: 18px;
+}
+
+.contenido-cobro {
+  margin: 5px 20px;
+  min-height: 50px;
+}
+
+.contenido-cobro > h5 {
+  font-size: 16px;
+  height: 22.5px;
+  border-bottom: 2px solid #efefef;
+}
+
+.contenido-cobro > p {
+  margin: 10px 0px;
+}
+
+.contenido-cobro > p > a {
+  color: #34495e;
+  text-decoration: underline;
+  display: inline-block;
+  margin-left: 10px;
+}

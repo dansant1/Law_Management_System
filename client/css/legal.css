@@ -1,0 +1,60 @@
+.sidebar-legal {
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  border-right: 3px solid #ecf0f1;
+  background: white;
+  overflow: overlay;
+}
+
+.sidebar-legal > a {
+  display: block;
+  width: 100%;
+  border-right: 3px solid white;
+  height: 40px;
+  padding-left: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: initial;
+  color: #bdc3c7;
+  padding-top: 7px;
+  padding-bottom: 10px;
+}
+
+.sidebar-legal > a:hover {
+  border-color: #34495e;
+  color: #34495e;
+}
+
+#marcado-legal {
+  border-color: #34495e;
+  color: #34495e;
+}
+
+.escrito-legal {
+  width: 80%;
+  position: absolute;
+  right: 0px;
+  min-height: 650px;
+  background: white;
+  overflow: overlay;
+  padding: 30px;
+  padding-top: 95px;
+}
+
+.escrito-legal > h1 {
+  width: 80%;
+  margin: 0 auto;
+  color: #34495e;
+  font-size: 20px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.escrito-legal > h3 {
+  margin: 15px 0;
+}
+
+.escrito-legal > p {
+  color: #95a5a6;
+  font-weight: initial;
+}
