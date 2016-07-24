@@ -235,7 +235,23 @@ Template.cambio.helpers({
 });
 
 Template.cambio.events({
-	'keyup .cambio'() {
-		console.log('Funciona!');
+	'keyup .cambio': function (e, t) {
+
+
+		if (e.which == 13) {
+			let datos = {
+				id: Meteor.user().profile.bufeteId,
+				cambio: t.find('[name="tipo-cambio"]').value
+			}
+
+			Meteor.call('actualizarCambio', datos, function (err) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Actualizaste el tipo de cambio', 'success');
+				}
+			});
+		}
+
 	}
 });
