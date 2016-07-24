@@ -36,7 +36,7 @@ Meteor.methods({
 			// Modulo para crear evento sobre que se ha creado una tarea
 			if (tarea) {
 				var date = moment(datos.fecha);
-				
+
 
 				let evento = {
 					title: datos.descripcion,
@@ -337,7 +337,7 @@ Meteor.methods({
 				$set: {
 					start: formatDate(new Date(fecha+" GMT-0500"))
 				}
-			});	
+			});
 		} else {
 			MiCalendario.insert({
 				title: 'Vence la tarea ' + Tareas.findOne({_id: tareaId}).descripcion,
@@ -352,7 +352,7 @@ Meteor.methods({
 			});
 		}*/
 
-		
+
 
 		var tareas = Tareas.find({_id:tareaId,vence:{$exists:true},asignado:{$exists:true}}).fetch()
 		if(tareas.length!=0) scheduleMail(tareas[0],tareas[0]._id);
@@ -618,6 +618,24 @@ Meteor.methods({
 					abierto: true
 				}
 			});
-		}
-	}
+		} else {
+      return;
+    }
+	},
+  actualizarNombreEtapa: function (datos) {
+    check(datos, {
+      nombre: String,
+      id: String
+    });
+
+    if (this.userId) {
+      Etapas.update({_id: datos.id}, {
+        $set: {
+          nombre: datos.nombre
+        }
+      });
+    } else {
+      return;
+    }
+  }
 });

@@ -97,7 +97,7 @@ Template.etapa.events({
 			});
 		}
 
-		
+
 	},
 	'change .check-tarea': function () {
 		if (this.abierto === true) {
@@ -1204,7 +1204,7 @@ Template.cuadroSubTareas.events({
 				} else {
 					Bert.alert('Completaste la subtarea', 'success');
 				}
-			});	
+			});
 		} else if (this.abierto === false) {
 			Meteor.call('abrirSubtarea', this._id, function (err, result) {
 				if (err) {
@@ -3662,7 +3662,7 @@ Template.trelloLikeTareas.helpers({
 		return Etapas.find({});
 	},
 	tareas(etapaId) {
-		return Tareas.find({'etapa.id': etapaId, abierto: true}, {sort: {createdAt: -1}});
+		return Tareas.find({'etapa.id': etapaId}, {sort: {createdAt: -1}});
 	},
 	borde(tipo) {
 		if (tipo === "General") {
@@ -3692,6 +3692,13 @@ Template.trelloLikeTareas.helpers({
 			return this.asignado.nombre
 		}
 	},
+	esMiTarea() {
+		if (this.asignado.id === Meteor.userId()) {
+			return true;
+		} else {
+			return false;
+		}
+	},
 	documentos(){
 		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
 	},
@@ -3709,6 +3716,13 @@ Template.trelloLikeTareas.helpers({
     	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	checked: function () {
+		if (this.abierto === true) {
+			return "";
+		} else if (this.abierto === false) {
+			return "checked";
+		}
 	}
 });
 
@@ -3743,7 +3757,7 @@ Template.trelloLikeTareas.events({
 
         	template.find('[name="tarea-nueva"]').value = "";
         	Meteor.call('crearTareaKanban', datos, function (err, result) {
-				debugger;
+			//	debugger;
         		if (err) {
         			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
         			template.find('[name="tarea-nueva"]').value = "";
@@ -3761,4 +3775,43 @@ Template.trelloLikeTareas.events({
 	'click .establecer-fecha'(event,template){
 		Modal.show('fechaTareaModal',this)
 	},
+	'change [name="checkbox"]': function () {
+			if (this.abierto === true) {
+				Meteor.call('cerrarTarea', this._id, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Completaste la tarea', 'success');
+					}
+				});
+			} else if (this.abierto === false) {
+				Meteor.call('abrirTarea', this._id, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Desmarcaste la tarea', 'success');
+					}
+				});
+			}
+	},
+	'keyup .etapa-input': function (event, template) {
+
+		if(event.which == 13) {
+
+				let datos = {
+						id: this._id
+				}
+
+				datos.nombre = template.find(`[name="${this._id}"]`).value;
+
+				Meteor.call('actualizarNombreEtapa', datos, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Actualizaste el nombre de la etapa', 'success');
+					}
+				});
+
+    	}
+	}
 });

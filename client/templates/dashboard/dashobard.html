@@ -925,8 +925,8 @@
             CRM
         </a>
     </div>
-    
- 
+
+
 </template>
 
 <template name="miembroTareaModal" >
@@ -1496,7 +1496,7 @@
 
 	 </tbody>
 </table>
-	
+
 	</div>
 
 </template>
@@ -6166,17 +6166,23 @@
 {{#transition in="zoomIn" out="bounceOut"}}
 	{{#each etapas}}
 	<section class="list">
- <h3>{{this.nombre}}</h3>
+ <h3><input type="text" value="{{this.nombre}}" name="{{this._id}}" class="etapa-input" ></h3>
  <input type="text" name="tarea-nueva" placeholder="escriba una tarea..." class="kanban-input">
  {{#each tareas this._id}}
- <a href="/tareas/{{this._id}}">
+
   <article class="card2 {{borde this.tipo}} ir-detalle">
 	<h4>
+	{{#if esMiTarea}}
 	<span class="fh-checkbox">
-    	<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-    	<label for="{{this._id}}" style="font-weight: initial;"> {{this.descripcion}}</label>
+    	<input type="checkbox" {{checked}} id="{{this._id}}" name="checkbox">
+    	<label for="{{this._id}}" class="{{checked}}" style="font-weight: initial;"> <a href="/tareas/{{this._id}}"> {{this.descripcion}} </a> </label>
 	</span>
+	{{else}}
+	<span class="fh-checkbox">
 
+    	<label for="{{this._id}}" class="{{checked}}" style="font-weight: initial;"> <a href="/tareas/{{this._id}}"> {{this.descripcion}} </a> </label>
+	</span>
+	{{/if}}
 
     	{{#if this.asignado.nombre}}
     	<span style="margin-right: 5px; font-size: 10px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 25px; height: 25px; color: white; font-weight: initial; padding-top: 3px; text-align: center;">DD</span>
@@ -6200,7 +6206,7 @@
 		{{/if}}
     </div>
   </article>
-</a>
+
  {{/each}}
 </section>
 {{/each}}
