@@ -110,7 +110,6 @@ Template.resumenGastos.helpers({
     Gastos.find().forEach(function (index) {
       suma = suma + index.monto;
     });
-
     return suma;
   }
 });
