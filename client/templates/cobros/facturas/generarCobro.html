@@ -97,13 +97,13 @@
 										<div class="col-md-6" style="margin:0">
 											<div class="icon" style="margin:0">
 												<label for="" class="cd-label">Fecha de inicio</label>
-												<input type="text" name="name" value="" class="fecha-inicio" id="datepicker_start">
+												<input type="text" name="name" value="" class="fecha-inicio" id="datepicker_start" readonly>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin:0">
 											<div class="icon" style="margin:0">
 												<label for="" class="cd-label">Fecha de fin</label>
-												<input type="text" name="name" value="" class="fecha-fin" id="datepicker_end">
+												<input type="text" name="name" value="" class="fecha-fin" id="datepicker_end" readonly>
 											</div>
 										</div>
 									</div>
@@ -238,7 +238,7 @@
 
 					</div>
 					{{/if}}
-					<div class="formulario-cobro step hide" data-nombre="cobro">
+					<div class="formulario-cobro step hide" data-nombre="cobro" style="">
 						<div class="resumen-cobro">
 
 							<div class="fila-cobro">
@@ -284,13 +284,17 @@
 								<div class="titulo-cobro" style="border-top: 2px solid #efefef;"><h3>Resumen final del cobro</h3></div>
 								<div class="fila-resumen-cobro">
 									<div class="columna-resumen-cobro">
-
+										<h4>Trabajos</h4>
 									</div>
 									<div class="columna-resumen-cobro">
-
+										<h4>Gastos</h4>
 									</div>
-									<div class="columna-resumen-cobro">
+									<div class="columna-resumen-cobro" style="border-right: none;">
+										<h4>Resumen total</h4>
+									</div>
 
+									<div class="columna-imprimir">
+										<h4>Imprimir</h4>
 									</div>
 								</div>
 							</div>

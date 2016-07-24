@@ -41,7 +41,8 @@ EsquemaSubtareas = new SimpleSchema({
 		type: String
 	},
 	abierto: {
-		type: Boolean
+		type: Boolean,
+		optional: true
 	}
 });
 

@@ -1,0 +1,11 @@
+.bug-check:before {
+	padding-top: 4px;
+}
+
+.checked {
+    text-decoration: line-through;
+}
+
+.green {
+	background-color: #2ecc71;
+}

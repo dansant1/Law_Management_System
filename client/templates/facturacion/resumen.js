@@ -269,3 +269,17 @@ Template.resumenHorasPersonal.helpers({
 
     }
 })
+
+Template.ultimosGastos.onCreated(function () {
+    var self = this;
+    var bufeteId = Meteor.user().profile.bufeteId;
+    self.autorun(function () {
+        self.subscribe('ultimosGastos', bufeteId);
+    })
+});
+
+Template.ultimosGastos.helpers({
+    gastos: function () {
+        return Gastos.find({}, {sort: {fecha: -1}});
+    }
+});

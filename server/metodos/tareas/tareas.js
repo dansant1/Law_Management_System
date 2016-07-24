@@ -371,6 +371,18 @@ Meteor.methods({
 			return;
 		}
 	},
+	abrirTarea: function (tareaId) {
+		check(tareaId, String);
+		if (this.userId) {
+			Tareas.update({_id: tareaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		} else {
+			return;
+		}
+	},
 	agregarComentarioATarea: function (datos) {
 		check(datos, {
 			comentario: String,
@@ -424,6 +436,7 @@ Meteor.methods({
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.createdAt = new Date();
 			datos.creadorId = this.userId;
+			datos.abierto = true;
 			Subtareas.insert(datos);
 		} else {
 			return;
@@ -552,6 +565,59 @@ Meteor.methods({
 					createdAt: datos.createdAt
 				});
 			}
+		}
+	},
+	cerrarSubTarea: function (SubtareaId) {
+		check(SubtareaId, String);
+
+		if (this.userId) {
+			Subtareas.update({_id: SubtareaId}, {
+				$set: {
+					abierto: false
+				}
+			});
+		}
+	},
+	abrirSubtarea: function (SubtareaId) {
+		check(SubtareaId, String);
+
+		if (this.userId) {
+			Subtareas.update({_id: SubtareaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		}
+	},
+	abrirTarea: function (tareaId) {
+		check(tareaId, String);
+
+		if (this.userId) {
+			Tareas.update({_id: tareaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		}
+	},
+	cerrarEtapa: function (etapaId) {
+		check(etapaId, String);
+		if (this.userId) {
+			Etapas.update({_id: etapaId}, {
+				$set: {
+					abierto: false
+				}
+			});
+		}
+	},
+	abrirEtapa: function (etapaId) {
+		check(etapaId, String);
+		if (this.userId) {
+			Etapas.update({_id: etapaId}, {
+				$set: {
+					abierto: true
+				}
+			});
 		}
 	}
 });

@@ -139,14 +139,14 @@
 
 <template name="itemTareas">
   <p >
-    <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.descripcion}}
+    <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px;">{{this.descripcion}}
     </a>
   </p>
 </template>
 
 
 <template name="itemAsuntos">
-	<p><a class="sidebar-item" href="/asuntos2/d/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 2.5px; padding-bottom: 2.5;">{{this.caratula}}</a></p>
+	<p><a class="sidebar-item" href="/asuntos2/d/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px;">{{this.caratula}}</a></p>
 </template>
 
 <template name="clientesSidebarDashboard">
@@ -925,29 +925,8 @@
             CRM
         </a>
     </div>
-    <div class="franja-filtros">
-        <div class="progreso" style="padding-top: 15px;">
-            <a class="btn nuevas-tareas nuevo-evento verde-flat nuevo"><strong>+ TAREA</strong></a>
-
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
-                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="abiertos" href="#">Abiertos</a></li>
-                    <li><a class="cerrados" href="#">Cerrados</a></li>
-
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-  <div class="box">
-    <div id="diagrama" style="width: 100%; height: 350px; background: white; border-radius: 5px;">
-
-    </div>
-  </div>
+    
+ 
 </template>
 
 <template name="miembroTareaModal" >
@@ -1176,8 +1155,8 @@
 
 
 				<span class="fh-checkbox cerrar" style="font-size: 28px; width: 25px; height: 25px;">
-						<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-						<label id="label-custom" for="{{this._id}}" style="font-weight: initial;">  {{this.descripcion}} </label>
+						<input type="checkbox" {{hecho}}  id="{{this._id}}" name="mycheckbox">
+						<label id="label-custom" for="{{this._id}}" class="bug-check" style="font-weight: initial;">  {{this.descripcion}} </label>
 				</span>
 				<a style="display: inline-block; margin-left: 12px; font-size: 17.5px;" class="adjuntar-archivo-tarea">
 	        <i class="glyphicon glyphicon-paperclip"></i>
@@ -1227,9 +1206,9 @@
    <p><input type="text" name="crear-subtarea" class="item-lista-tareas" placeholder="Nueva Sub tarea" style="border: none; padding: 0;"></p>
   {{#each subtareas}}
   	<div>
-		<span class="fh-checkbox cerrar" >
-			<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-			<label for="{{this._id}}" style="font-weight: initial;">  {{this.descripcion}} </label>
+		<span class="fh-checkbox cerrar-subtarea" >
+			<input type="checkbox" {{checked}} id="{{this._id}}" name="mycheckbox">
+			<label for="{{this._id}}" class="{{checked}}" style="font-weight: initial;">  {{this.descripcion}} </label>
 		</span>
 	</div>
   {{/each}}
@@ -1481,13 +1460,6 @@
 	<input type="text" name="crear-etapa" class="buscador-bunqr" placeholder="Nueva Etapa" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none; margin-bottom: 0; width: 100%; ">
 </div>
 
-
-		<!--<div style="margin-left:25px;">
-			{{#each tareasSinEtapas}}
-				<p style="color: #34495e;"><a href="/asuntos2/d/{{asuntoId}}/tarea/{{this._id}}" style="color: color: #34495e;"><h5 style="display: inline-block; color: #34495e;">{{this.descripcion}}</h5></a></p>
-			{{/each}}
-		</div> -->
-
 		<div class="table-wrapper">
 
 <table cellspacing="0" id="tech-companies">
@@ -1524,9 +1496,7 @@
 
 	 </tbody>
 </table>
-		<!--{{#each etapas}}
-			{{> etapa}}
-		{{/each}} -->
+	
 	</div>
 
 </template>
@@ -1537,8 +1507,8 @@
 				 <th>
 
 					<span class="fh-checkbox">
-    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
-    					<label for="{{this._id}}" > {{this.nombre}} </label>
+    					<input type="checkbox" {{checked}} id="{{this._id}}" class="etapa" name="{{this._id}}">
+    					<label for="{{this._id}}" class="{{checked}}"> {{this.nombre}} </label>
 					</span>
 
 				 	<span class="co-name"></span>
@@ -1596,11 +1566,11 @@
 
 					<span class="fh-checkbox">
 						{{#if mitarea}}
-    					<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+    					<input type="checkbox" id="{{this._id}}" class="check-tarea" name="mycheckbox">
 						{{/if}}
     					<label for="{{this._id}}" style="color: white;">.</label>
 					</span>
-					<label ><a style="font-weight: initial; color: #34495e;" href="/tareas/{{this._id}}">{{this.descripcion}}</a></label>
+					<label class="{{checked}}" ><a style="font-weight: initial; color: #34495e;" href="/tareas/{{this._id}}">{{this.descripcion}}</a></label>
 					<a href="/tareas/{{this._id}}"><i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 				 	<span class="co-name">
 						<span style="color: #3498db; font-weight: initial;"><i class="fa fa-user" aria-hidden="true"></i> {{dia this.createdAt}}</span>
@@ -4258,6 +4228,19 @@
 
 </template>
 
+<template name="statusNegociacion">
+   <div class="btn-group">
+  <button type="button" class="btn dropdown-toggle nueva-tarea {{color}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px;  border-bottom: none; margin-top: 15px;">
+    {{this.estatus}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li class="abierto"><a href="#" style="color: #9b59b6;">En ejecución</a></li>
+    <li class="cerrado"><a href="#" style="color: #2ecc71;">Ganado</a></li>
+    <li class="no-resuelto"><a href="#" style="color: #e74c3c;">Perdido</a></li>
+  </ul>
+    </div>
+</template>
+
 <template name="casoDetalle">
   <!-- Menu -->
   <div class="franja-progreso">
@@ -4325,13 +4308,10 @@
 
    <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 14px;">
 
-    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 350px; text-align: left; margin-left: 20px; color: #34495e">
       {{this.nombre}} de {{this.contacto.nombre}}
     </a>
-    <i class="glyphicon glyphicon-queen"></i>
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 75px; text-align:left">
-      {{this.estatus}}
-    </a>
+   {{>statusNegociacion}}
 
     <i class="glyphicon glyphicon-user"></i>
     <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
@@ -4449,13 +4429,10 @@
 
    <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 14px;">
 
-    <a href="#" class="menu-asunto-aim caso-nombre" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+    <a href="#" class="menu-asunto-aim caso-nombre" style="text-transform: initial; width: 350px; text-align: left; margin-left: 20px; color: #34495e;">
       {{this.nombre}} de {{this.contacto.nombre}}
     </a>
-    <i class="glyphicon glyphicon-queen"></i>
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 75px; text-align:left">
-      {{this.estatus}}
-    </a>
+   {{>statusNegociacion}}
 
     <i class="glyphicon glyphicon-user"></i>
     <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
@@ -4545,7 +4522,7 @@
     </a>
   </div>
 
-  <div class="franja-filtros" style="margin-bottom: 2.5px;">
+  <div class="franja-filtros" style="margin-bottom: 2.5px; padding-left: 14px;">
     <a href="/clientes2" class="menu-asunto-aim">
       Resúmen
     </a>
@@ -4561,19 +4538,14 @@
   </div>
 
   <div style="display: flex; flex-wrap;">
-
-
    {{#with caso}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none;">
+   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 14px;">
 
-    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
+    <a href="#" class="menu-asunto-aim" style="text-transform: initial; width: 350px; text-align: left; margin-left: 20px; color: #34495e;">
       {{this.nombre}} de {{this.contacto.nombre}}
     </a>
-    <i class="glyphicon glyphicon-queen"></i>
-    <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-      {{this.estatus}}
-    </a>
+    {{>statusNegociacion}}
 
     <i class="glyphicon glyphicon-user"></i>
     <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">

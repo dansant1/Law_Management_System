@@ -118,28 +118,9 @@
         </div>
       </div>
       <div class="columna" id="sin-padding">
-        <div class="fila-cuadro-2">
-          <h4>Ultimos gastos ingresados hoy</h4>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-        </div>
-
+      
+        {{>ultimosGastos}}
+      
       </div>
 
       <div class="columna" id="sin-padding" style="min-height: 200px; border-bottom: none;">
@@ -154,6 +135,17 @@
         </div>
       </div>
   </div>
+</template>
+
+<template name="ultimosGastos">
+    <div class="fila-cuadro-2">
+          <h4>Ultimos gastos ingresados</h4>
+          {{#each gastos}}
+          <div class="columna-cuadro-2">
+            <p>{{this.descripcion}} <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ {{this.monto}} </p>
+          </div>
+          {{/each}}
+        </div>
 </template>
 
 <template name="resumenHorasPersonal">
