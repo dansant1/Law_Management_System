@@ -40,8 +40,19 @@ Meteor.publish('gastosxmiembro',function (bufeteId) {
 Meteor.publish('ultimosGastos', function (bufeteId) {
 	check(bufeteId, String);
 
-	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['encargado comercial'], 'bufete' )) {
+	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['encargado comercial'], 'bufete' ) || Roles.userIsInRole( this.userId, ['socio'], 'bufete' ) ) {
 		return Gastos.find({bufeteId: bufeteId, administrativo: true}, {limit: 6});
+	} else {
+		this.stop();
+		return;
+	}
+});
+
+Meteor.publish('totalGastos', function (bufeteId) {
+	check(bufeteId, String);
+
+	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['encargado comercial'], 'bufete' ) || Roles.userIsInRole( this.userId, ['socio'], 'bufete' ) ) {
+		return Gastos.find({bufeteId: bufeteId, administrativo: true});
 	} else {
 		this.stop();
 		return;

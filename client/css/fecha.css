@@ -1,0 +1,11 @@
+.fecha {
+  display: inline-block;
+  width: 75%;
+  height: 42.5px;
+  border: 1px dashed white;
+  background-color: white;
+}
+
+.fecha:hover, .fecha:focus {
+  border-color: #34495e;
+}

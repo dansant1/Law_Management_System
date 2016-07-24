@@ -142,3 +142,16 @@ Meteor.publish('tareasTrello', function (asuntoId) {
 	}
 
 });
+
+Meteor.publish('TareasxNegociacion', function (casoId) {
+
+	check(casoId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return TareasNegociaciones.find({casoId: casoId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});

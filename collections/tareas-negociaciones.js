@@ -47,6 +47,9 @@ EsquemaTareasNegociaciones  = new SimpleSchema({
 	},
 	casoId: {
 		type: String
+	},
+	abierto: {
+		type: Boolean
 	}
 });
 

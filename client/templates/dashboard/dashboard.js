@@ -2826,12 +2826,14 @@ Template.casoTareas.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-
+		let casoId = FlowRouter.getParam('casoId');
     	self.subscribe('casos2', bufeteId);
-
+			self.subscribe('TareasxNegociacion', casoId);
 
    });
 });
+
+
 
 Template.casoTareas.helpers({
 	caso() {
@@ -2854,10 +2856,70 @@ Template.casoTareas.helpers({
 	},
 	casoId() {
 		return FlowRouter.getParam('casoId');
+	},
+	tareas: function () {
+		return TareasNegociaciones.find({}, {sort: {createdAt: -1} });
+	},
+	responsable: function () {
+		if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+			return "Tú"
+		} else {
+			return this.asignado.nombre
+		}
+	},
+	checked: function () {
+		if (this.abierto === true) {
+			return "";
+		} else if (this.abierto === false) {
+				return "checked";
+		}
 	}
 });
 
-Template.notaCliente.onRendered(function () {
+Template.casoTareas.events({
+	'keyup [name="tarea"]': function (e, t) {
+			if (e.which == 13) {
+				let datos = {
+					descripcion: t.find("[name='tarea']").value,
+					casoId: FlowRouter.getParam('casoId'),
+					asignado: {
+						nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+						id: Meteor.userId()
+					}
+				}
+
+				Meteor.call('crearTareaCRMRapido', datos, function (e, r) {
+					if (e) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Agregaste la tarea en la negociación', 'success');
+						t.find("[name='tarea']").value = "";
+					}
+				});
+			}
+	},
+	'click .tarea-crm': function () {
+		if (this.abierto === true) {
+				Meteor.call('cerrarTareaCRM', this._id, function (error) {
+					if (error) {
+						Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+					} else {
+						Bert.alert('Completaste la tarea', 'success');
+					}
+				});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirTareaCRM', this._id, function (error) {
+				if (error) {
+					Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+				} else {
+					Bert.alert('Abriste la tarea', 'success');
+				}
+			});
+		}
+	}
+});
+
+Template.notaCliente.onCreated(function () {
 
 	let self = this;
 	self.autorun(function () {

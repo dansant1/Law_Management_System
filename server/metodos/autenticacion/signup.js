@@ -72,14 +72,14 @@ Meteor.methods({
 		let usuarioId = Accounts.createUser(datos);
 
 		if (datos.profile.tipo === "encargado comercial") {
-			Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');	
-		} else if (datos.profile.tipo === "socio") {
 			Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');
+		} else if (datos.profile.tipo === "socio") {
+			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
 		} else {
 			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
 		}
 
-		
+
 
 
 	}

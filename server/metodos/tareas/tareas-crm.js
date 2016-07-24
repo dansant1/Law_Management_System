@@ -9,7 +9,7 @@ Meteor.methods({
 
 		if (this.userId) {
 			datos.bufeteId = Meteor.users.findOne({_id: this.userId}).profile.bufeteId;
-
+			datos.abierto = true;
 			var tarea = TareasNegociaciones.insert(datos);
 			if (tarea) {
 				NewsFeedCasos.insert({
@@ -38,7 +38,7 @@ Meteor.methods({
 
 		if (this.userId) {
 			datos.bufeteId  = Meteor.users.findOne({_id: this.userId}).profile.bufeteId;
-
+			datos.abierto = true;
 			var tarea = TareasNegociaciones.insert(datos);
 			if (tarea) {
 				NewsFeedCasos.insert({
@@ -56,5 +56,31 @@ Meteor.methods({
 				});
 			}
 		}
+	},
+	cerrarTareaCRM: function (tareaId) {
+			check(tareaId, String);
+
+			if (this.userId) {
+				TareasNegociaciones.update({_id: tareaId}, {
+					$set: {
+						abierto: false
+					}
+				});
+			} else {
+				return;
+			}
+	},
+	abrirTareaCRM: function (tareaId) {
+			check(tareaId, String);
+
+			if (this.userId) {
+				TareasNegociaciones.update({_id: tareaId}, {
+					$set: {
+						abierto: true
+					}
+				});
+			} else {
+				return;
+			}
 	}
 });

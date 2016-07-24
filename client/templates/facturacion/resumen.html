@@ -75,10 +75,7 @@
         <h4>Ingresos</h4>
         <p>S/ 2, 450.00</p>
       </div>
-      <div class="columna" style="height: 80px;">
-        <h4>Gastos</h4>
-        <p>S/ 1,200.00</p>
-      </div>
+      {{>resumenGastos}}
       <div class="columna" style="height: 80px;">
         <h4>Monto total</h4>
         <p>S/ 4, 650.00</p>
@@ -118,9 +115,9 @@
         </div>
       </div>
       <div class="columna" id="sin-padding">
-      
+
         {{>ultimosGastos}}
-      
+
       </div>
 
       <div class="columna" id="sin-padding" style="min-height: 200px; border-bottom: none;">
@@ -134,6 +131,13 @@
           {{> charts}}
         </div>
       </div>
+  </div>
+</template>
+
+<template name="resumenGastos">
+  <div class="columna" style="height: 80px;">
+    <h4>Gastos</h4>
+    <p>S/ {{gastos}}</p>
   </div>
 </template>
 
