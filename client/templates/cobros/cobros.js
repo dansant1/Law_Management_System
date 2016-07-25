@@ -80,7 +80,6 @@ Template.botonGenerarFactura.helpers({
 
 Template.asuntosxCliente.events({
     'click [name="mycheckbox"]'(event,template){
-        debugger
         let clienteId = $(event.target).attr('id');
         let clientesId = Session.get('clientes')
         if($(event.target).is(":checked")){
@@ -103,7 +102,6 @@ Template.asuntosxCliente.helpers({
     },
     gastoMonto(){
         let gastos = Gastos.find({'asunto.id':this._id}).fetch();
-        debugger;
         return _(gastos).reduce(function (m,x) {
             return m + x.monto
         }, 0)
@@ -114,7 +112,6 @@ Template.asuntosxCliente.helpers({
         let totalMontoGasto = 0;
         asuntos.forEach(function (asunto) {
             let gastos = Gastos.find({'asunto.id':asunto._id}).fetch()
-            debugger;
             let montoGasto = _(gastos).reduce(function (m,x) {
                 return m + x.monto
             }, 0)
@@ -130,16 +127,39 @@ Template.asuntosxCliente.helpers({
         let montoTotal = 0;
 
         asuntos.forEach(function (asunto) {
-            let horas = Horas.find({'asunto.id':asunto._id,cobrable:true}).fetch();
 
-            let montoSubtotal = horas.reduce(function (m,x) {
-                return m + x.precio;
-            },0)
+			let horas = Horas.find({'asunto.id':asunto._id,cobrable:true,precio:{$exists:true}}).fetch();
+			if(asunto.facturacion.forma_cobro=="horas hombre"){
 
-            montoTotal+=montoSubtotal;
+	            // let horas = Horas.find({'asunto.id':asunto._id,cobrable:true}).fetch();
+
+	            let montoSubtotal = horas.reduce(function (m,x) {
+	                return m + x.precio;
+	            },0)
+
+	            montoTotal+=montoSubtotal;
+			}
+
+			if(asunto.facturacion.forma_cobro=="flat fee"){
+				montoTotal+=Number(asunto.facturacion.montogeneral)
+			}
+
+			if(asunto.facturacion.forma_cobro=="retainer"){
+				// let horas = Horas.find({'asunto.id':asunto._id,cobrable:true,precio:{$exists:true}}).fetch();
+				let subtotal = Number(asunto.facturacion.retainer.monto);
+				debugger;
+				if(horas){
+					if(horas.length!=0){
+						subtotal += horas.reduce(function (m,x) {
+							return m + x.precio;
+						},0)
+					}
+				}
+
+	            montoTotal+=subtotal;
+			}
         })
         // debugger
-
         return montoTotal.toFixed(2);
     },
     totalHoras(){
@@ -170,7 +190,7 @@ Template.asuntosxCliente.helpers({
         let totalMinutos = 0;
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
-            if(tiempoxAsunto[i].minutos>60){
+            if(tiempoxAsunto[i].minutos>=60){
                 let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
                 tiempoxAsunto[i].horas += horas;
                 tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
@@ -180,7 +200,7 @@ Template.asuntosxCliente.helpers({
             totalMinutos += tiempoxAsunto[i].minutos;
         }
 
-        if(totalMinutos>60){
+        if(totalMinutos>=60){
             totalHoras += Number(String(totalMinutos/60).split(".")[0]);;
             totalMinutos += totalMinutos%60;
         }
@@ -193,7 +213,7 @@ Template.asuntosxCliente.helpers({
         var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
         })
-        // debugger;
+
         var tiempoxAsunto = _(grupos).map(function (g,key) {
             return {
                     type:key,
@@ -201,7 +221,6 @@ Template.asuntosxCliente.helpers({
                         return m + x.horas;
                     },0),
                     minutos: _(g).reduce(function (m,x) {
-                        debugger
                         return m + x.minutos;
                     },0)
                 }
@@ -209,7 +228,7 @@ Template.asuntosxCliente.helpers({
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
 
-            if(tiempoxAsunto[i].minutos>60){
+            if(tiempoxAsunto[i].minutos>=60){
                 let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
                 tiempoxAsunto[i].horas += horas;
                 tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
@@ -226,10 +245,30 @@ Template.asuntosxCliente.helpers({
 
     },
     monto(){
-        let horas = Horas.find({'asunto.id':this._id,cobrable:true}).fetch();
 
-        return "S/. " +  _(horas).reduce(function (m,x) {
-            return m + x.precio
-        },0)
+		if(this.facturacion.forma_cobro=="horas hombre"){
+
+	        let horas = Horas.find({'asunto.id':this._id,cobrable:true}).fetch();
+
+	        return "S/. " +  _(horas).reduce(function (m,x) {
+	            return m + x.precio
+	        },0)
+		}
+
+		if(this.facturacion.forma_cobro=="flat fee"){
+			return "S/. " + this.facturacion.montogeneral
+		}
+
+		if(this.facturacion.forma_cobro=="retainer"){
+			let horas = Horas.find({'asunto.id':this._id,cobrable:true,precio:{$exists:true}}).fetch();
+			let subtotal = 0;
+			if(horas.length!=0){
+		        subtotal += _(horas).reduce(function (m,x) {
+		            return m + x.precio
+		        },0);
+			}
+
+			return "S/. " + (this.facturacion.retainer.monto + subtotal);
+		}
     }
 })

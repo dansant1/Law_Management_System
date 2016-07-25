@@ -1,3 +1,38 @@
+
+totalHorasAcumuladas = function (asuntoId) {
+
+	var horas = Horas.find({'asunto.id':asuntoId,cobrable:true}).fetch();
+	var asunto = Asuntos.findOne({_id:asuntoId});
+	var grupos = _(horas).groupBy(function (hora) {
+		return hora.asunto.id;
+	})
+	// debugger;
+	var tiempoxAsunto = _(grupos).map(function (g,key) {
+		return {
+				type:key,
+				horas: _(g).reduce(function (m,x) {
+					return m + x.horas;
+				},0),
+				minutos: _(g).reduce(function (m,x) {
+					debugger
+					return m + x.minutos;
+				},0)
+			}
+	})
+
+	for (var i = 0; i < tiempoxAsunto.length; i++) {
+
+		if(tiempoxAsunto[i].minutos>=60){
+			let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+			tiempoxAsunto[i].horas += horas;
+			tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
+		}
+	}
+
+	if(tiempoxAsunto[0])  return tiempoxAsunto[0].horas;
+	return 0;
+}
+
 calcularTotal = function (datos) {
 	var horasNoFacturadas,
 		horas,
@@ -70,7 +105,7 @@ calcularTotal = function (datos) {
 	costoNoFacturadoResponsables = [],
 	totalContable = 0,
 	totalNoFacturado = 0,
-	tipo_moneda = asunto.facturacion.tipo_moneda;
+	tipo_moneda = asunto.facturacion? asunto.facturacion.tipo_moneda:'';
 
 
 
@@ -78,7 +113,8 @@ calcularTotal = function (datos) {
 		// console.log(hora);
 		let suma = 0;
 		let costoResponsable = {}
-		let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
+		let tarifa;
+		if(asunto.facturacion.tarifa) tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
 		if(tarifa==undefined) return;
 		tarifa.miembros.forEach(function (miembro) {
 			// console.log(miembro);
@@ -272,8 +308,9 @@ Meteor.methods({
 
 			let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0]
 			console.log(asunto);
-			if(asunto.forma_cobro=="horas hombre"){
+			if(asunto.facturacion.forma_cobro=="horas hombre"){
 
+				console.log('entro aqui');
 				let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
 				let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
 
@@ -311,13 +348,63 @@ Meteor.methods({
 						}
 					})
 				}
-				// console.log(datos.precio);
+				console.log(datos.precio);
 
 				datos.precio = datos.precio.toFixed(2)
 			}
 
 			if(asunto.forma_cobro=="flat fee"){
 
+			}
+
+			if(asunto.facturacion.forma_cobro=="retainer"){
+
+				if(asunto.facturacion.retainer.horas_maxima<=totalHorasAcumuladas(datos.asunto.id)){
+
+
+
+					// console.log('ENTRO AQUI');
+					let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
+					let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
+
+					tarifa.miembros.some(function (miembro) {
+						if(miembro.id==datos.responsable.id){
+							let costoxminuto, costoxhora;
+							costoxhora = miembro.soles*datos.horas;
+							costoxminuto = (miembro.soles/60)*datos.minutos;
+
+							return datos.precio = Number(costoxhora) + Number(costoxminuto);
+						}
+					})
+
+					if(!datos.precio){
+						let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
+						tarifa.roles.some(function (roles) {
+							let costoxminuto, costoxhora;
+							if(user.roles.bufete.length==1)
+								if(user.roles.bufete[0]==roles.nombre){
+
+									costoxhora = roles.soles*datos.horas;
+									costoxminuto = (roles.soles/60)*datos.minutos;
+
+									return datos.precio = Number(costoxhora) + Number(costoxminuto);
+
+									// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+
+								}
+							else {
+								if(user.roles.bufete[1]==roles.nombre){
+									costoxhora = roles.soles*datos.horas;
+									costoxminuto = (roles.soles/60)*datos.minutos;
+									return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+								}
+							}
+						})
+					}
+					console.log(datos.precio);
+
+					datos.precio = datos.precio.toFixed(2)
+				}
 			}
 
 			// datos.precio = parseInt(datos.precio);
@@ -377,18 +464,6 @@ Meteor.methods({
 		console.log('entro aqui');
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
-			//  Tareas.insert({
-			// 	descripcion:datos.descripcion,
-			// 	vence:new Date(datos.fecha+" GMT-0500"),
-			// 	responsable:datos.responsable,
-			// 	asunto:datos.asunto,
-			// 	bufeteId:datos.bufeteId,
-			// 	createdAt: new Date(),
-			// 	creador: datos.creador,
-			// 	abierto:true
-			// })
-
-
 
 
 			datos.fecha = new Date(datos.fecha + " GMT-0500");
@@ -396,7 +471,7 @@ Meteor.methods({
 			datos.horas = parseInt(datos.horas);
 			datos.minutos = parseInt(datos.minutos)
 
-			if(datos.minutos>60) {
+			if(datos.minutos>=60) {
 				let horas = Number(String(datos.minutos/60).split(".")[0]);
 				let minutos  = datos.minutos%60;
 

@@ -266,7 +266,7 @@ Template.facturacion.helpers({
 						$in:asuntosId
 					}
 				})
-				
+
 			}
 			else {
 				query.$and = []
@@ -275,7 +275,7 @@ Template.facturacion.helpers({
 						$in:asuntosId
 					}
 				})
-				
+
 				query.$and.push({$or:$or})
 			}
 
@@ -308,7 +308,7 @@ Template.facturacion.helpers({
 		}
 
 		return Horas.find(query);
-	
+
 
 	},
 	cliente(){
@@ -353,7 +353,7 @@ Template.facturacion.events({
 	'click .todos'(){
 		Session.set('asunto-hora',undefined);
 		Session.set('filtro-hora',{})
-		Session.set('cliente-hora',"")
+		Session.set('cliente-hora',undefined)
 	},
 	'click .asuntos'(){
 		Modal.show('filtroAsuntoHoraModal',this);
@@ -389,7 +389,7 @@ Template.facturacion.events({
 					if(err) return Bert.alert('Hubo un error al momento de eliminar','danger');
 					swal('Hora eliminada','La hora se elimino correctamente','success')
 				})
-				
+
 				swal("Asunto cerrado", "El asunto ha sido cerrado correctamente.", "success");
 			});
 	},
@@ -463,7 +463,7 @@ Template.agregarHoras.onCreated(function () {
 		let bufeteId = Meteor.user().profile.bufeteId;
 
     	self.subscribe('equipo', bufeteId);
-		
+
    });
 });
 
@@ -480,7 +480,7 @@ Template.agregarHoras.helpers({
 		return Tareas.find({horas:{$exists:false}}).fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
 	},
 	selected(event, suggestion, datasetName) {
-	   
+
 	    console.log(suggestion.id);
 	}
 });
@@ -550,7 +550,7 @@ Template.agregarHoras.events({
 				if(Session.get("cronometro-pausado")) chronometer.reset();
 				Modal.hide('agregarHoras');
 				Bert.alert('Agregaste horas', 'success');
-				
+
 			});
 
 		} else {
