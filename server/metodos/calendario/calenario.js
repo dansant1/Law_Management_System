@@ -94,3 +94,32 @@ Meteor.methods({
     }
   }
 });
+
+Meteor.methods({
+	agregarNuevoEvento: function (datos) {
+		check(datos, Object);
+
+		if (this.userId) {
+
+				let data = {
+					title: datos.title,
+					start: datos.start + "T" + datos.horai + ":" + datos.minutoi + ":00Z",
+					end: datos.end + "T" + datos.horaf + ":" + datos.minutof + ":00Z",
+					type: datos.type,
+					bufeteId: Meteor.users.findOne({_id: this.userId}).profile.bufeteId,
+					userId: this.userId,
+					creador: {
+						nombre: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido,
+						id: this.userId
+					}
+				}
+
+				//console.log(data);
+
+				MiCalendario.insert(data);
+
+		} else {
+			return;
+		}
+	}
+});

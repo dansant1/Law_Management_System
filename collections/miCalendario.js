@@ -26,6 +26,10 @@ let MiCalendarioSchema = new SimpleSchema({
     label: '¿Cuando finaliza el evento?',
     optional: true
   },
+  fecha: {
+    type: Date,
+    optional: true
+  },
   'type': {
     type: String,
     label: '¿Que tipo de evento es?',
@@ -49,7 +53,16 @@ let MiCalendarioSchema = new SimpleSchema({
     type: String
   },
   creador: {
-    type: Object
+    type: Object,
+    optional: true
+  },
+  'creador.nombre': {
+    type: String
+
+  },
+  'creador.id': {
+    type: String
+
   },
   'hora': {
     type: Object,

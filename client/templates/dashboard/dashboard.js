@@ -3154,7 +3154,7 @@ Template.miCalendario.onRendered( () => {
     	events( start, end, timezone, callback ) {
 
       		let data = MiCalendario.find().fetch().map( ( event ) => {
-        		event.editable = true //!isPast( event.start );
+        		//event.editable = true //!isPast( event.start );
         		return event;
       		});
 
@@ -3164,8 +3164,7 @@ Template.miCalendario.onRendered( () => {
     	},
     	eventRender( event, element ) {
       		element.find( '.fc-content' ).html(
-        		`<h4>${ event.title }</h4>
-         		<p class="type-${ event.type }">#${ event.type }</p>
+        		`<h5>${ event.title }</h5>
         		`
       		);
     	},
@@ -3199,7 +3198,7 @@ Template.miCalendario.onRendered( () => {
       		Session.set( 'eventModal', { type: 'edit', event: event._id } );
       		$( '#add-edit-event-modal' ).modal( 'show' );
     	},
-    	editable: true
+    	//editable: true
 	 });
 
 	 Tracker.autorun( () => {
@@ -3875,5 +3874,46 @@ Template.trelloLikeTareas.events({
 				});
 
     	}
+	}
+});
+
+Template.miCalendario.events({
+	'click .crear'() {
+		Modal.show('modalNuevoEvento');
+	}
+});
+
+Template.modalNuevoEvento.onRendered(function () {
+	var picker = new Pikaday({ field: document.getElementById('datepicker1') });
+	var picker2 = new Pikaday({ field: document.getElementById('datepicker2') });
+});
+
+Template.modalNuevoEvento.events({
+	'click .agregar-evento': function (e, t) {
+		let datos = {
+			title: t.find("[name='descripcion']").value,
+			type: $( "#type option:selected" ).text()
+		}
+
+	datos.start = t.find("[name='empieza']").value;
+	datos.end = t.find("[name='finaliza']").value;
+
+	datos.horai = $( "#horai" ).val() ;
+	datos.minutoi = $( "#minutoi" ).val();
+
+	datos.horaf = $( "#horaf" ).val();
+	datos.minutof = $( "#minutof" ).val();
+
+		if (datos.title !== "" && datos.start !== "" && datos.end !== "") {
+			Meteor.call('agregarNuevoEvento', datos, function (err) {
+				if (err) {
+					Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+				} else {
+					Modal.hide('modalNuevoEvento');
+					Bert.alert('Agregaste un nuevo evento', 'success');
+
+				}
+			});
+		}
 	}
 });
