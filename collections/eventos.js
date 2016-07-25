@@ -32,7 +32,8 @@ let EsquemaEventos = new SimpleSchema({
 		type: String
 	},
 	end: {
-		type: String
+		type: String,
+		optional:true
 	},
 	color: {
 		type: String,
@@ -61,6 +62,26 @@ let EsquemaEventos = new SimpleSchema({
 	},
 	createdAt: {
 		type: Date
+	},
+	'hora': {
+		type: Object,
+		optional: true
+	},
+	'hora.nombre': {
+		type: String,
+	},
+	'hora.id': {
+		type: String
+	},
+	'tarea': {
+		type: Object,
+		optional: true
+	},
+	'tarea.nombre': {
+		type: String
+	},
+	'tarea.id': {
+		type: String
 	}
 });
 

@@ -93,7 +93,26 @@ Template.resumenHorasPersonal.onCreated(function () {
         Meteor.subscribe('horas',bufeteId);
     })
 
-})
+});
+
+Template.resumenGastos.onCreated(function () {
+  var self = this;
+  var bufeteId = Meteor.user().profile.bufeteId;
+  self.autorun(function () {
+      self.subscribe('totalGastos',bufeteId);
+  })
+});
+
+Template.resumenGastos.helpers({
+  gastos() {
+    let suma = 0;
+
+    Gastos.find().forEach(function (index) {
+      suma = suma + index.monto;
+    });
+    return suma;
+  }
+});
 
 
 Template.resumenHorasPersonal.events({
@@ -269,3 +288,17 @@ Template.resumenHorasPersonal.helpers({
 
     }
 })
+
+Template.ultimosGastos.onCreated(function () {
+    var self = this;
+    var bufeteId = Meteor.user().profile.bufeteId;
+    self.autorun(function () {
+        self.subscribe('ultimosGastos', bufeteId);
+    })
+});
+
+Template.ultimosGastos.helpers({
+    gastos: function () {
+        return Gastos.find({}, {sort: {fecha: -1}});
+    }
+});

@@ -1,0 +1,21 @@
+.boton-agregar-evento {
+  display: inline-block;
+  margin-bottom: 10px;
+  background-color: #3498db;
+  height: 40px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  width: 200px;
+}
+
+.boton-agregar-evento:hover {
+  background-color: #2980b9;
+}

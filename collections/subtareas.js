@@ -39,6 +39,10 @@ EsquemaSubtareas = new SimpleSchema({
 	},
 	bufeteId: {
 		type: String
+	},
+	abierto: {
+		type: Boolean,
+		optional: true
 	}
 });
 

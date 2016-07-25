@@ -2,12 +2,11 @@ Meteor.publish('cambios',function (bufeteId) {
 
     check(bufeteId,String);
 
-
-    return Cambio.find({bufeteId:bufeteId})
-    // if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
-	// } else {
-	// 	this.stop();
-	// 	return;
-	// }
+    if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['encargado comercial'], 'bufete' ) || Roles.userIsInRole( this.userId, ['socio'], 'bufete' ) ) {
+		return Cambio.find({bufeteId:bufeteId})	
+	} else {
+	this.stop();
+		return;
+	}
 
 })

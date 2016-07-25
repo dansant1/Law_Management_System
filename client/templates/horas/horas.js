@@ -173,6 +173,19 @@ Template.agregarHoras.onRendered(function () {
 	});
 });
 
+Template.agregarHoras2.onRendered(function () {
+	if(Session.get("cronometro-pausado")){
+		$("#agregar-horas-modal").find("[name='horas']").val(chronometer.hours);
+		$("#agregar-horas-modal").find("[name='minutos']").val(chronometer.minutes);
+	}
+	Meteor.typeahead.inject();
+	var picker = new Pikaday({ field: document.getElementById('datepicker') });
+
+	$('#tarea-typeahead').bind('typeahead:selected', function(obj, datum, name) {
+		Session.set("tarea-hora",datum)
+	});
+});
+
 Template.facturacion.onRendered(function(){
 	var self = this;
 	var bufeteId = Meteor.user().profile.bufeteId
@@ -326,16 +339,19 @@ Template.facturacion.helpers({
 
 Template.menuBotonesFacturacion.events({
 	'click .agregar-gasto'(){
-		Modal.show('agregarGasto')
+		Modal.show('agregarGasto2')
 	},
 	'click .agregar-hora'(){
 		Modal.show('agregarHoras')
 	},
 	'click .agregar-gasto-administrativo': function (event,template) {
-        Modal.show('agregarGastoAdministrativo')
+        Modal.show('agregarGastoAdministrativo2')
     },
 	'click .agregar-tipo-cambio'(){
 		Modal.show('agregarTipoCambio')
+	},
+	'click .agregar-tarifa'() {
+		Modal.show('crearTarifaModal');
 	}
 
 })
@@ -464,6 +480,21 @@ Template.agregarHoras.onCreated(function () {
 
     	self.subscribe('equipo', bufeteId);
 
+// <<<<<<< HEAD
+// =======
+//    });
+// });
+//
+// Template.agregarHoras2.onCreated(function () {
+// 	var self = this;
+//
+// 	self.autorun(function() {
+//
+// 		let bufeteId = Meteor.user().profile.bufeteId;
+//
+//     	self.subscribe('equipo', bufeteId);
+//
+// >>>>>>> fa1b06772e023a3099e618a33900604162868e6c
    });
 });
 
@@ -481,6 +512,27 @@ Template.agregarHoras.helpers({
 	},
 	selected(event, suggestion, datasetName) {
 
+// <<<<<<< HEAD
+// =======
+// 	    console.log(suggestion.id);
+// 	}
+// });
+//
+// Template.agregarHoras2.helpers({
+// 	asunto: () => {
+// 		Session.set('asunto-select-id',Asuntos.findOne({abogados:{$elemMatch:{id:Meteor.userId()}}})._id);
+// 		return Asuntos.find({abierto:true,abogados:{$elemMatch:{id:Meteor.userId()}}});
+// 	},
+// 	responsable: () => {
+//
+// 		return Asuntos.findOne({_id:Session.get('asunto-select-id')}).abogados;
+// 	},
+// 	tareasHoras(){
+// 		return Tareas.find({horas:{$exists:false}}).fetch().map(function(tarea){ return {id: tarea._id, value: tarea.descripcion}; });
+// 	},
+// 	selected(event, suggestion, datasetName) {
+//
+// >>>>>>> fa1b06772e023a3099e618a33900604162868e6c
 	    console.log(suggestion.id);
 	}
 });
@@ -524,7 +576,7 @@ Template.agregarHoras.events({
 
 		debugger;
 		datos.asunto = {
-			nombre: template.find( ".asunto option:selected" ).innerHTML,
+			nombre: Asuntos.findOne({_id:template.find(".asunto").value}).caratula,
 			id: template.find(".asunto").value
 		}
 
@@ -551,6 +603,83 @@ Template.agregarHoras.events({
 				Modal.hide('agregarHoras');
 				Bert.alert('Agregaste horas', 'success');
 
+// <<<<<<< HEAD
+// =======
+// 			});
+//
+// 		} else {
+// 			Bert.alert('Completa los datos, y luego vuelve a intentarlo', 'warning');
+// 		}
+// 	}
+// });
+//
+// Template.agregarHoras2.events({
+// 	'change #tarea-select'(event,template){
+// 		if($(event.target).is(":checked")){
+// 			$(template.find(".descripcion-tarea")).addClass('hide');
+// 			$(template.find(".buscar-tarea")).removeClass('hide')
+// 		}else {
+// 			$(template.find(".descripcion-tarea")).removeClass('hide');
+// 			$(template.find(".buscar-tarea")).addClass('hide')
+// 		}
+//
+// 	},
+// 	'change [name="asunto"]'(event,template){
+// 		Session.set('asunto-select-id',event.target.value);
+// 	},
+// 	'click .agregar-trabajo': function (event, template) {
+// 		event.preventDefault();
+// 		debugger;
+// 		let datos = {
+// 			descripcion: template.find('[name="descripcion"]').value,
+// 			fecha: template.find('[name="fecha"]').value,
+// 			bufeteId: Meteor.user().profile.bufeteId,
+// 			horas: template.find('[name="horas"]').value,
+// 			minutos: template.find('[name="minutos"]').value,
+// 			cobrado: $(".cobrado").is(":checked"),
+// 			esTarea: $(".es-tarea").is(":checked"),
+// 			creador: {
+// 				id: Meteor.user()._id,
+// 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+// 			}
+// 		}
+//
+// 		if($(".es-tarea").is(":checked")) datos.tarea = {
+// 			id: Session.get('tarea-hora').id,
+// 			nombre: Session.get('tarea-hora').value
+// 		}
+//
+//
+// 		debugger;
+// 		datos.asunto = {
+// 			nombre: template.find( ".asunto option:selected" ).innerHTML,
+// 			id: template.find(".asunto").value
+// 		}
+//
+// 		datos.responsable = {
+// 			nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+// 			id: Meteor.userId()
+// 		}
+//
+// 		if (datos.horas !== "" && datos.asunto !== undefined && datos.fecha !== "") {
+//
+// 			if (datos.minutos === "") {
+// 				datos.minutos = 0;
+// 			}
+//
+//
+// 			Meteor.call('agregarHora', datos, function (err, result) {
+// 				if (err) {
+//
+// 					return Bert.alert('Algo salió mal, vuelve a intentarlo', 'warning');
+// 					Modal.hide('agregarHoras');
+// 				}
+//
+// 				if(Session.get("cronometro-pausado")) chronometer.reset();
+// 				Modal.hide('agregarHoras2');
+// 				Bert.alert('Agregaste horas', 'success');
+//
+// >>>>>>> fa1b06772e023a3099e618a33900604162868e6c
 			});
 
 		} else {
@@ -558,6 +687,7 @@ Template.agregarHoras.events({
 		}
 	}
 });
+
 
 // Template Gastos
 

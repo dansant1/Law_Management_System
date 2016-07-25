@@ -62,12 +62,20 @@
   background-color: #F0F0F0;
 }
 
-.list > h3 {
+.list > h3 > input {
+  display: block;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   color: #2c3e50;
   margin-bottom: 8px;
+  background-color: #f1f1f1;
+  border: 1px solid #f1f1f1;
+  width: 100%;
+}
+
+.list > h3 > input:hover, .list > h3 > input:focus {
+  border: 1px dashed #34495e;
 }
 
 .card2 > h4 {

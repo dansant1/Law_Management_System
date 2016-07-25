@@ -135,7 +135,20 @@ Meteor.publish('tareasTrello', function (asuntoId) {
 	check(asuntoId, String);
 
 	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
-		return Tareas.find({'asunto.id': asuntoId, abierto: true});
+		return Tareas.find({'asunto.id': asuntoId});
+	} else {
+		this.stop();
+		return;
+	}
+
+});
+
+Meteor.publish('TareasxNegociacion', function (casoId) {
+
+	check(casoId, String);
+
+	if (  Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+		return TareasNegociaciones.find({casoId: casoId});
 	} else {
 		this.stop();
 		return;

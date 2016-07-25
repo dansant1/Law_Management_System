@@ -8,6 +8,16 @@ Template.menu.onRendered(function () {
 	});
 });
 
+Template.menu.helpers({
+	tieneAcceso() {
+		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) || Roles.userIsInRole( Meteor.userId(), ['encargado comercial'], 'bufete' ) || Roles.userIsInRole( Meteor.userId(), ['socio'], 'bufete' ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+});
+
 Template.menu.events({
 	'click .logout': () => {
 		Meteor.logout();
@@ -26,7 +36,7 @@ Template.menu.events({
 		Modal.show('clienteNuevoModal');
 	},
 	'click .asunto-modal': () => {
-		Modal.show('AsuntoNuevoModal');	
+		Modal.show('AsuntoNuevoModal');
 	},
 	'click .tour'() {
 		Modal.show('tourInicial');
@@ -41,7 +51,7 @@ Template.menu.events({
 		Modal.show('horaModal');
 	},
 	'click .tarifa-modal'() {
-		Modal.show('tarifaModal');
+		Modal.show('crearTarifaModal');
 	}
 });
 
@@ -152,7 +162,7 @@ Template.cronometro2.events({
 				}
 				swal("Horas eliminadas", "El cronometro se reinicio correctamente", "success");
 			});
-		
+
 	},
 	'click .boton-disminuir'(){
 		chronometer.removeMinutes(5)
@@ -183,7 +193,7 @@ Template.cronometro2.events({
 				},
 				responsable:{
 					id: Meteor.user()._id,
-					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido					
+					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
 				}
 			}
 
@@ -206,3 +216,42 @@ Template.cronometro2.events({
 	}
 
 })
+
+Template.cambio.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+
+		let bufeteId = Meteor.user().profile.bufeteId;
+
+    	self.subscribe('cambios', bufeteId);
+   });
+});
+
+Template.cambio.helpers({
+	valor() {
+		return Cambio.findOne({bufeteId: Meteor.user().profile.bufeteId}).cambio;
+	}
+});
+
+Template.cambio.events({
+	'keyup .cambio': function (e, t) {
+
+
+		if (e.which == 13) {
+			let datos = {
+				id: Meteor.user().profile.bufeteId,
+				cambio: t.find('[name="tipo-cambio"]').value
+			}
+
+			Meteor.call('actualizarCambio', datos, function (err) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Actualizaste el tipo de cambio', 'success');
+				}
+			});
+		}
+
+	}
+});

@@ -1,0 +1,60 @@
+.lbl {
+  position: relative;
+  display: inline-block;
+  height: 20px;
+  width: 44px;
+  margin: 0px auto;
+
+  background-color: #898989;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.lbl:after {
+  position: absolute;
+  left: -2px;
+  top: -3px;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  background: #fff;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -o-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  -o-box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  content: '';
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.lbl:active:after { transform: scale(1.15, 0.85); }
+
+.cbx:checked ~ label { background: #6fbeb5; }
+
+.cbx:checked ~ label:after {
+  left: 20px;
+  background: #179588;
+}
+
+.cbx:disabled ~ label {
+  background: #d5d5d5;
+  pointer-events: none;
+}
+
+.cbx:disabled ~ label:after { background: #bcbdbc; }
+
+.hidden { display: none; }

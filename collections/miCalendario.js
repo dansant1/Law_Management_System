@@ -18,23 +18,70 @@ let MiCalendarioSchema = new SimpleSchema({
     label: '¿De que trata el evento?'
   },
   'start': {
-    type: Date,
-    label: '¿Cuando empieza el evento?'
+    type: String,
+    label: '¿Cuando empieza el evento?',
   },
   'end': {
+    type: String,
+    label: '¿Cuando finaliza el evento?',
+    optional: true
+  },
+  fecha: {
     type: Date,
-    label: '¿Cuando finaliza el evento?'
+    optional: true
   },
   'type': {
     type: String,
     label: '¿Que tipo de evento es?',
     optional: true
-    //allowedValues: [ 'Birthday', 'Corporate', 'Wedding', 'Miscellaneous' ]
   },
   bufeteId: {
     type: String
   },
   userId: {
+    type: String,
+    optional: true
+  },
+  'asunto': {
+    type: Object,
+    optional: true
+  },
+  'asunto.nombre': {
+    type: String
+  },
+  'asunto.id': {
+    type: String
+  },
+  creador: {
+    type: Object,
+    optional: true
+  },
+  'creador.nombre': {
+    type: String
+
+  },
+  'creador.id': {
+    type: String
+
+  },
+  'hora': {
+    type: Object,
+    optional: true
+  },
+  'hora.nombre': {
+    type: String,
+  },
+  'hora.id': {
+    type: String
+  },
+  'tarea': {
+    type: Object,
+    optional: true
+  },
+  'tarea.nombre': {
+    type: String
+  },
+  'tarea.id': {
     type: String
   }
 });

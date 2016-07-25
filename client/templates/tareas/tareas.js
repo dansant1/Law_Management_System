@@ -137,6 +137,15 @@ Template.tablat.helpers({
 			false;
 		}
 	},
+	checked: function () {
+		var hecho = this.abierto;
+
+		if (hecho) {
+			return "";
+		} else {
+			return "checked";
+		}
+	}
 });
 
 Template.tablat.events({

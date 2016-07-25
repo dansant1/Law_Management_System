@@ -360,8 +360,8 @@ Meteor.methods({
 			if(asunto.facturacion.forma_cobro=="retainer"){
 
 				if(asunto.facturacion.retainer.horas_maxima<=totalHorasAcumuladas(datos.asunto.id)){
-
-
+					// let diferencia = asunto.fac
+					
 
 					// console.log('ENTRO AQUI');
 					let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]

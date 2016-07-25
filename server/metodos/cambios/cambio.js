@@ -12,5 +12,14 @@ Meteor.methods({
             console.log(err);
         });
 
+    },
+    actualizarCambio: function (datos) {
+      check(datos, Object);
+
+      Cambio.update({bufeteId: datos.id}, {
+        $set: {
+          cambio: datos.cambio
+        }
+      });
     }
 })

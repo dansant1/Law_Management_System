@@ -53,7 +53,7 @@ Template.usuarioNuevo.helpers({
 	}
 });
 
-Template.usuarioForm.onRendered(function () {
+Template.usuarioForm.onCreated(function () {
 	var self = this;
 	let bufeteId = Meteor.user().profile.bufeteId
 	self.autorun(function () {
@@ -65,7 +65,7 @@ Template.usuarioForm.helpers({
 	areas(){
 		return Areas.find()
 	}
-})
+});
 
 Template.usuarioForm.events({
 	'submit form': (event, template) => {
@@ -98,6 +98,55 @@ Template.usuarioForm.events({
 				template.find( '[name="nombre"]' ).value = "";
 				template.find( '[name="apellido"]' ).value = "";
 				template.find( '[name="telefono"]').value = "";
+			});
+		} else {
+			Bert.alert( 'Ingrese sus datos', 'warning' );
+		}
+
+	}
+});
+
+
+Template.usuarioForm2.onCreated(function () {
+	var self = this;
+	let bufeteId = Meteor.user().profile.bufeteId
+	self.autorun(function () {
+		self.subscribe('areas',bufeteId);
+	})
+})
+
+Template.usuarioForm2.helpers({
+	areas(){
+		return Areas.find()
+	}
+});
+
+Template.usuarioForm2.events({
+	'click .agregar-miembro': (event, template) => {
+		event.preventDefault();
+
+		let datos = {
+			email: template.find( '[name="email"]' ).value,
+    		password: template.find( '[name="password"]' ).value,
+   			profile: {
+   				nombre: template.find( '[name="nombre"]' ).value,
+   				apellido: template.find( '[name="apellido"]' ).value,
+					telefono: template.find('[name="telefono"]').value,
+					tipo: template.find('[name="tipo"]').value,
+				area:{
+					id:template.find('.areas').value,
+					nombre: template.find('.areas option:selected').innerHTML
+				}
+   			}
+		}
+
+		datos.profile.bufete = Meteor.user().profile.bufete;
+		datos.profile.bufeteId = Meteor.user().profile.bufeteId;
+
+		if (datos.profile.nombre !== "" && datos.profile.apellido !== "" && datos.profile.tipo !== "" && datos.password !== "" && datos.email !== "") {
+			Meteor.call('agregarUsuarioEquipo', datos, function (err, result) {
+				Bert.alert( 'Agregaste un nuevo usuario al equipo', 'success' );
+				Modal.hide('usuarioForm2');
 			});
 		} else {
 			Bert.alert( 'Ingrese sus datos', 'warning' );

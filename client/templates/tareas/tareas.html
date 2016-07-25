@@ -240,11 +240,11 @@
 						 <th>
 							<span class="fh-checkbox">
 								{{#if esMiTarea}}
-		    						<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+		    						<input type="checkbox" {{checked}} id="{{this._id}}" name="mycheckbox">
 								{{/if}}
-		    					<label for="{{this._id}}" style="color: white;">.</label>
+		    					<label for="{{this._id}}"  style="color: white;">.</label>
 							</span>
-							<label ><a href="/tareas/{{this._id}}" style="font-weight: initial; color: #34495e;">{{this.descripcion}}</a></label>
+							<label class="{{checked}}" ><a href="/tareas/{{this._id}}" style="font-weight: initial; color: #34495e;">{{this.descripcion}}</a></label>
 							<a href="/tareas/{{this._id}}"> <i class="fa fa-long-arrow-right cursor ir-tarea" aria-hidden="true" style="color: #3498db;"></i></a>
 						 <span class="co-name">
 						{{#if this.asunto}}

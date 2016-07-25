@@ -1,0 +1,89 @@
+.resumen-cobro {
+  width: 90%;
+  min-height: 400px;
+  margin: 0 auto;
+  border: 2px solid #efefef;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.caja-pasos {
+  margin-bottom: 0;
+}
+
+.fila-cobro {
+  width: 100%;
+  margin: 0;
+  background-color: white;
+}
+
+.titulo-cobro {
+  height: 60px;
+  padding: 20px;
+  text-align: left;
+  border-bottom: 2px solid #efefef;
+}
+
+.titulo-cobro > h3 {
+  font-size: 18px;
+}
+
+.contenido-cobro {
+  margin: 5px 20px;
+  min-height: 50px;
+  background-color: white;
+  margin-bottom: 0;
+}
+
+.contenido-cobro > h5 {
+  font-size: 16px;
+  height: 22.5px;
+  border-bottom: 2px solid #efefef;
+}
+
+.contenido-cobro > p {
+  margin: 10px 0px;
+}
+
+.contenido-cobro > p > a {
+  color: #34495e;
+  text-decoration: underline;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.fila-resumen-cobro {
+  width: 100%;
+  margin: 0px 0px; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.columna-resumen-cobro {
+  width: 33.3%;
+  height: 150px;
+  border-bottom: 2px solid #efefef;
+  background-color: white;
+  border-right: 2px solid #efefef;
+}
+
+.columna-resumen-cobro > h4 {
+  width: 120px;
+  margin: 10px auto;
+}
+
+.columna-imprimir {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  height: 100px;
+  background-color: white; 
+}
+
+.columna-imprimir > h4 {
+  margin-left: 20px;
+}

@@ -40,7 +40,7 @@ EsquemaEtapas = new SimpleSchema({
 	nombre: {
 		type: String
 	},
-	completado: {
+	abierto: {
 		type: Boolean,
 		optional: true
 	}

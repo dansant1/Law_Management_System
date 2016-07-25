@@ -2,7 +2,7 @@ Template.editarTareaModal.events({
     'click .editar-tareas'(events,template){
         events.preventDefault();
         events.stopPropagation();
-        debugger;
+        //debugger;
         let datos = {
             descripcion: template.find('[name="descripcion"]').value,
             fecha: template.find('[name="fecha"]').value,
@@ -26,6 +26,7 @@ Template.editarTareaModal.events({
             }
         }
 
+        console.log(datos.fecha);
 
         if (datos.asunto.nombre === "Elige un asunto" && datos.asunto.id === "") {
             datos.asunto.nombre = undefined;

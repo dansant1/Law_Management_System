@@ -88,5 +88,44 @@ Meteor.methods({
 		} else {
 			return;
 		}
+	},
+	actualizarStatusCaso: function (CasoId, estatus) {
+		check(CasoId, String);
+		check(estatus, String);
+
+		if (this.userId) {
+			Casos.update({_id: CasoId}, {
+				$set: {
+					estatus: estatus
+				}
+			});
+		}
+	},
+	eliminarCaso: function (CasoId) {
+		check(CasoId, String);
+		if (this.userId) {
+			let caso = Casos.findOne({_id: CasoId});
+			Casos.remove({_id: CasoId});
+
+			NewsFeedCasos.insert({
+					descripcion: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido + " eliminó el caso " + caso.nombre + " de " + caso.contacto.nombre,
+					creador: {
+						nombre: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido,
+						id: this.userId
+					},
+					caso: {
+						nombre: caso.nombre,
+						id: CasoId
+					},
+					contacto: {
+						nombre: caso.contacto.nombre,
+						id: caso.contacto.id
+					},
+					bufeteId: caso.bufeteId,
+					createdAt: new Date()
+				});
+		} else {
+			return;
+		}
 	}
 });

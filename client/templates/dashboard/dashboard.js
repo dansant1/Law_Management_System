@@ -47,7 +47,7 @@ Template.etapa.helpers({
 		return FlowRouter.getParam('asuntoId')
 	},
 	tareasSinEtapas(){
-		return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
+		//return Tareas.find({'asunto.id':FlowRouter.getParam('asuntoId'),etapa:{$exists:false}})
 	},
 	dia(date) {
 		var d = date,
@@ -60,6 +60,13 @@ Template.etapa.helpers({
 	},
 	mitarea(){
 		return this.asignado.id == Meteor.userId();
+	},
+	checked: function () {
+		if (this.abierto === true) {
+			return "";
+		} else if (this.abierto === false) {
+			return "checked";
+		}
 	}
 })
 
@@ -70,11 +77,46 @@ Template.etapa.events({
 	'click .agregar-miembro-tarea'(){
 		Modal.show('miembroTareaModal',this);
 	},
-	'click [name="mycheckbox"]'(){
-		Meteor.call('cerrarTarea',this._id,function (err) {
-			if(err) return Bert.alert('No se pudo cerrar la tarea','danger');
-			Bert.alert('Se cerro la tarea correctamente','success')
-		})
+	'change .etapa': function (){
+
+		if (this.abierto === true) {
+			Meteor.call('cerrarEtapa', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Completaste la etapa', 'success');
+				}
+			});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirEtapa', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Abriste la etapa', 'success');
+				}
+			});
+		}
+
+
+	},
+	'change .check-tarea': function () {
+		if (this.abierto === true) {
+			Meteor.call('cerrarTarea', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Completaste la tarea', 'success');
+				}
+			});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirTarea', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Abriste la tarea', 'success');
+				}
+			});
+		}
 	},
 	'keyup [name="crear-tarea-etapa"]'(event,template){
 		let datos = {
@@ -95,7 +137,7 @@ Template.etapa.events({
 		}
 
 
-		debugger;
+		//debugger;
 		if(event.which == 13){
         	//$(event.target).blur();
         	Meteor.call('agregarTarea', datos, function (err, result) {
@@ -107,7 +149,7 @@ Template.etapa.events({
 	}
 })
 
-Template.etapasAsunto.onRendered(function () {
+Template.etapasAsunto.onCreated(function () {
 	let self = this;
 
 	self.autorun(function () {
@@ -140,7 +182,8 @@ Template.etapasAsunto.events({
 				creador: {
 					nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
 					id: Meteor.userId()
-				}
+				},
+				abierto: true
 			}
 
 			Meteor.call('agregarEtapaAsunto', datos, function (err, result) {
@@ -153,105 +196,6 @@ Template.etapasAsunto.events({
 		}
 	}
 })
-
-
-
-
-
-
-Template.tareasGantt.onCreated(function () {
-	var self = this;
-
-	self.autorun(function() {
-		self.subscribe('TareasGantt');
-		self.subscribe('LinksGantt');
-	});
-});
-
-Template.tareasGantt.events({});
-
-Template.tareasGantt.onRendered(() => {
-
-	gantt.locale = {
-		date: {
-			month_full: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
-			month_short: ["Ene", "Feb", "Mar", "Abr", "Mayo", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-			day_full: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
-			day_short: ["Dom", "Lun", "Mar", "Mierc", "Jue", "Vier", "Sab"]
-		},
-		labels:{
-			new_task:"Tarea nueva",
-			icon_save:"agregar",
-			icon_cancel:"cancelar",
-			icon_details:"detalles",
-			icon_edit:"Modificar",
-			icon_delete:"Eliminar",
-			confirm_closing:"",//Vos modifications seront perdus, êtes-vous sûr ?
-			confirm_deleting:"¿Seguro que deseas eliminar la tarea?",
-
-			section_description:"Descripción",
-			section_time:"Periodo",
-			section_type:"Tipo",
-
-			/* grid columns */
-
-			column_text :  "Asuntos",
-			column_start_date : "Inició",
-			column_duration : "Duración",
-			column_add : "",
-
-
-			/* link confirmation */
-
-			type_task: "Tarea",
-			type_project: "Projecto",
-			type_milestone: "Hito",
-
-
-			minutes: "Minutos",
-			hours: "Horas",
-			days: "Dias",
-			weeks: "Semanas",
-			months: "Meses",
-			years: "Años"
-		}
-	};
-	var scale_day = 0;
-
-	gantt.templates.date_scale = function(date) {
-		var d = gantt.date.date_to_str("%F %d");
-		return "<strong>Día " + (scale_day++) + "</strong><br/>" + d(date);
-	};
-
-	gantt.config.scale_height = 44;
-
-
-
-	//gantt.config.scale_unit = "week";
-	//gantt.config.date_scale = "Week #%W";
-
-	gantt.templates.scale_cell_class = function(date) {
-		if(date.getDay()==0||date.getDay()==6){
-			return "weekend";
-		}
-	};
-
-	gantt.templates.task_cell_class = function(item,date) {
-		if(date.getDay()==0||date.getDay()==6){
-			return "weekend" ;
-		}
-	};
-
-	gantt.init("gantt_here");
-
-	gantt.meteor({tasks: TasksCollection, links: LinksCollection});
-});
-
-
-
-
-
-
 
 Template.tareasCerradas.onCreated(function () {
 	var self = this;
@@ -352,7 +296,7 @@ Template.tareasSidebarDashboard.helpers({
 
 Template.tareasSidebarDashboard.events({
 	'click .nueva-tarea-dash'(){
-		Modal.show('nuevaTareaModal');
+		Modal.show('nuevaTareaModal2');
 	}
 })
 
@@ -372,14 +316,14 @@ Template.teamSidebarDahboard.helpers({
 
 Template.teamSidebarDahboard.events({
 	'click .nuevo': () => {
-		Modal.show('usuarioForm');
+		Modal.show('usuarioForm2');
 	}
 });
 
 
 Template.botonNuevosContactos.events({
 	'click .persona': function () {
-		Modal.show('clienteNuevoModal');
+		Modal.show('ModalClienteNuevo2');
 	},
 	'click .empresa': function () {
 		Modal.show('empresaNuevoModal');
@@ -389,7 +333,7 @@ Template.botonNuevosContactos.events({
 	}
 });
 
-Template.clienteNuevoModal.onRendered(function () {
+Template.clienteNuevoModal.onCreated(function () {
 	var self = this;
 	let bufeteId = Meteor.user().profile.bufeteId;
 	self.autorun(function () {
@@ -406,7 +350,7 @@ Template.clienteNuevoModal.helpers({
 Template.clienteNuevoModal.events({
 	'click .guardar-contacto': function (event, template) {
 		event.preventDefault();
-		debugger;
+		//debugger;
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			apellido: template.find('[name="apellido"]').value || "",
@@ -616,7 +560,7 @@ Template.clientesSidebarDashboard.helpers({
 
 Template.clientesSidebarDashboard.events({
 	'click .nuevo': () => {
-		Modal.show('clienteNuevoModal');
+		Modal.show('ModalClienteNuevo2');
 	}
 });
 
@@ -1070,17 +1014,26 @@ Template.tareasDetalle2.events({
         	});
     	}
 	},
-	'click .cerrar': function () {
+	'change .cerrar': function () {
 		let tareaId = this._id;
 
-		Meteor.call('cerrarTarea', tareaId,function (err, result) {
-			if (err) {
-				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
-			} else {
+		if (this.abierto === true) {
+				Meteor.call('cerrarTarea', tareaId,function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
 				Bert.alert('Completaste la tarea', 'success');
-				//FlowRouter.go('/asuntos2/d/' + FlowRouter.getParam('asuntoId'));
-			}
-		});
+				}
+			});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirTarea', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Desmarcaste la tarea', 'success');
+				}
+			});
+		}
 	},
 	'click .comentar': function (event, template) {
 		debugger;
@@ -1127,7 +1080,15 @@ Template.tareasDetalle2.onCreated( function () {
 });
 
 Template.tareasDetalle2.helpers({
+	hecho: function () {
+		var hecho = this.abierto;
 
+		if (hecho) {
+			return "";
+		} else {
+			return "checked";
+		}
+	},
 	asuntoId: () => {
     	return FlowRouter.getParam('asuntoId');
   	},
@@ -1197,7 +1158,15 @@ Template.cuadroSubTareas.onCreated( function () {
 Template.cuadroSubTareas.helpers({
 	subtareas() {
 		return Subtareas.find({}, {sort: {createdAt: -1}});
-	}
+	},
+	'checked': function(){
+        var isCompleted = this.abierto;
+        if(isCompleted){
+            return "";
+        } else {
+            return "checked";
+        }
+    }
 });
 
 Template.cuadroSubTareas.events({
@@ -1225,6 +1194,26 @@ Template.cuadroSubTareas.events({
         		}
         	});
     	}
+	},
+	'change .cerrar-subtarea': function () {
+
+		if (this.abierto === true) {
+			Meteor.call('cerrarSubTarea', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Completaste la subtarea', 'success');
+				}
+			});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirSubtarea', this._id, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Desmarcaste la subtarea', 'success');
+				}
+			});
+		}
 	}
 });
 
@@ -2632,6 +2621,105 @@ Template.casoDetalle.onCreated(function () {
    });
 });
 
+Template.statusNegociacion.events({
+	'click .cerrado': function () {
+		var status = "cerrado";
+		var casoId = FlowRouter.getParam('casoId');
+		Meteor.call('actualizarStatusCaso', casoId, status, function (err) {
+			if (err) {
+				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+			} else {
+				Bert.alert('Ganaste la negociación', 'success');
+			}
+		});
+	},
+	'click .abierto': function () {
+		var status = "abierto"
+		var casoId = FlowRouter.getParam('casoId');
+		Meteor.call('actualizarStatusCaso', casoId, status, function (err) {
+			if (err) {
+				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+			} else {
+				Bert.alert('La negociación sigue en ejecución', 'success');
+			}
+		});
+	},
+	'click .no-resuelto': function () {
+		var status = "no resuelto"
+		var casoId = FlowRouter.getParam('casoId');
+		Meteor.call('actualizarStatusCaso', casoId, status, function (err) {
+			if (err) {
+				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+			} else {
+				Bert.alert('Perdiste la negociación', 'success');
+			}
+		});
+	}
+});
+
+Template.statusNegociacion.helpers({
+	color: function () {
+		if (this.estatus === "abierto") {
+			return "morado-flat"
+		} else if (this.estatus === "cerrado") {
+			return "green"
+		} else {
+			return "rojo-flat"
+		}
+	}
+});
+
+Template.pieChart.onCreated(function () {
+
+	var self = this;
+
+	self.autorun(function() {
+    	self.subscribe('slices');
+
+   });
+
+	Session.setDefault('pieChartSort','none');
+	Session.setDefault('pieChartSortModifier',undefined);
+});
+
+
+
+Template.pieChart.onRendered(function(){
+
+
+		function chartLine(){
+
+			var ctx4 = document.getElementById("myChart4").getContext("2d");
+
+			var data4 = [
+				{
+						value: Clientes.find({estatus:"contacto"}).count(),
+						color:"#27ae60",
+						highlight: "#2ecc71",
+						label: "Contactos"
+				},
+				{
+						value: Clientes.find({estatus:'prospecto'}).count(),
+						color: "#8e44ad",
+						highlight: "#9b59b6",
+						label: "Prospectos"
+				},
+				{
+						value: Clientes.find({estatus:'cliente'}).count(),
+						color: "#c0392b",
+						highlight: "#e74c3c",
+						label: "Clientes"
+				}]
+
+				let myPieChart = new Chart(ctx4).Pie(data4,{
+						animateScale: true
+				});
+
+		}
+
+		Tracker.autorun(chartLine);
+});
+
 Template.casoDetalle.helpers({
 	caso() {
 		return Casos.findOne({_id: FlowRouter.getParam('casoId')});
@@ -2738,12 +2826,14 @@ Template.casoTareas.onCreated(function () {
 
 	self.autorun(function() {
 		let bufeteId = Meteor.user().profile.bufeteId;
-
+		let casoId = FlowRouter.getParam('casoId');
     	self.subscribe('casos2', bufeteId);
-
+			self.subscribe('TareasxNegociacion', casoId);
 
    });
 });
+
+
 
 Template.casoTareas.helpers({
 	caso() {
@@ -2766,10 +2856,70 @@ Template.casoTareas.helpers({
 	},
 	casoId() {
 		return FlowRouter.getParam('casoId');
+	},
+	tareas: function () {
+		return TareasNegociaciones.find({}, {sort: {createdAt: -1} });
+	},
+	responsable: function () {
+		if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
+			return "Tú"
+		} else {
+			return this.asignado.nombre
+		}
+	},
+	checked: function () {
+		if (this.abierto === true) {
+			return "";
+		} else if (this.abierto === false) {
+				return "checked";
+		}
 	}
 });
 
-Template.notaCliente.onRendered(function () {
+Template.casoTareas.events({
+	'keyup [name="tarea"]': function (e, t) {
+			if (e.which == 13) {
+				let datos = {
+					descripcion: t.find("[name='tarea']").value,
+					casoId: FlowRouter.getParam('casoId'),
+					asignado: {
+						nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+						id: Meteor.userId()
+					}
+				}
+
+				Meteor.call('crearTareaCRMRapido', datos, function (e, r) {
+					if (e) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Agregaste la tarea en la negociación', 'success');
+						t.find("[name='tarea']").value = "";
+					}
+				});
+			}
+	},
+	'click .tarea-crm': function () {
+		if (this.abierto === true) {
+				Meteor.call('cerrarTareaCRM', this._id, function (error) {
+					if (error) {
+						Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+					} else {
+						Bert.alert('Completaste la tarea', 'success');
+					}
+				});
+		} else if (this.abierto === false) {
+			Meteor.call('abrirTareaCRM', this._id, function (error) {
+				if (error) {
+					Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+				} else {
+					Bert.alert('Abriste la tarea', 'success');
+				}
+			});
+		}
+	}
+});
+
+Template.notaCliente.onCreated(function () {
 
 	let self = this;
 	self.autorun(function () {
@@ -3004,7 +3154,7 @@ Template.miCalendario.onRendered( () => {
     	events( start, end, timezone, callback ) {
 
       		let data = MiCalendario.find().fetch().map( ( event ) => {
-        		event.editable = true //!isPast( event.start );
+        		//event.editable = true //!isPast( event.start );
         		return event;
       		});
 
@@ -3014,8 +3164,7 @@ Template.miCalendario.onRendered( () => {
     	},
     	eventRender( event, element ) {
       		element.find( '.fc-content' ).html(
-        		`<h4>${ event.title }</h4>
-         		<p class="type-${ event.type }">#${ event.type }</p>
+        		`<h5>${ event.title }</h5>
         		`
       		);
     	},
@@ -3049,7 +3198,7 @@ Template.miCalendario.onRendered( () => {
       		Session.set( 'eventModal', { type: 'edit', event: event._id } );
       		$( '#add-edit-event-modal' ).modal( 'show' );
     	},
-    	editable: true
+    	//editable: true
 	 });
 
 	 Tracker.autorun( () => {
@@ -3208,354 +3357,10 @@ Template.newsCRM.helpers({
 	}
 });
 
-
-
-// Logica del Gantt
-
-Template.Gantt.onCreated(function () {
-	var self = this;
-
-	self.autorun(function() {
-    	self.subscribe('TareasGantt');
-    	self.subscribe('LinksGantt');
-   });
-});
-
-
-Template.Gantt.onRendered(() => {
-
-	// Cambiamos a español
-	gantt.locale = {
-    date: {
-        month_full: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
-        month_short: ["Ene", "Feb", "Mar", "Abr", "Mayo", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-        day_full: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
-        day_short: ["Dom", "Lun", "Mar", "Mierc", "Jue", "Vier", "Sab"]
-    },
-    labels:{
-        new_task:"Tarea nueva",
-        icon_save:"agregar",
-        icon_cancel:"cancelar",
-        icon_details:"detalles",
-        icon_edit:"Modificar",
-        icon_delete:"Eliminar",
-        confirm_closing:"",//Vos modifications seront perdus, êtes-vous sûr ?
-        confirm_deleting:"¿Seguro que deseas eliminar la tarea?",
-
-        section_description:"Descripción",
-        section_time:"Periodo",
-        section_type:"Tipo",
-
-        /* grid columns */
-
-        column_text :  "Asuntos",
-        column_start_date : "Inició",
-        column_duration : "Duración",
-        column_add : "",
-
-
-        /* link confirmation */
-
-        type_task: "Tarea",
-        type_project: "Projecto",
-        type_milestone: "Hito",
-
-
-        minutes: "Minutos",
-        hours: "Horas",
-        days: "Dias",
-        weeks: "Semanas",
-        months: "Meses",
-        years: "Años"
-    	}
-	};
-
-	gantt.attachEvent("onAfterTaskAdd", function(id,item){
-
-	});
-
-
-	gantt.config.start_date = new Date(new Date().getFullYear(),0,1);
-
-	gantt.config.end_date = new Date(new Date().getFullYear(), 11, 31)
-
-
-	// Inicializamos el Gantt
-	gantt.init("diagrama");
-
-	// Conectamos la base de datos
-	gantt.meteor({tasks: TasksCollection.find(), links: LinksCollection.find()},
-				{tasks: TasksCollection, links: LinksCollection}
-		);
-	gantt.showDate(new Date())
-
-});
-
-//usage
-
-Template.Gantt.helpers({
-	email() {
-		return Meteor.user().emails[0].address
-	}
-});
-
-// logica de cliente para hacer el chart tipo pie
-
-Template.pieChart.onCreated(function () {
-
-	var self = this;
-
-	self.autorun(function() {
-    	self.subscribe('slices');
-
-   });
-
-	Session.setDefault('pieChartSort','none');
-	Session.setDefault('pieChartSortModifier',undefined);
-});
-
-Template.pieChart.events({
-	'click #add':function(){
-		Meteor.call('add-slice', function (error, result) {
-
-		});
-	},
-	'click #remove':function(){
-		Meteor.call('remove-slice', function (error, result) {
-
-		});
-	},
-	'click #randomize':function(){
-		Meteor.call('random-slice', function (error, result) {
-
-		});
-	},
-	'click #toggleSort':function(){
-		if(Session.equals('pieChartSort', 'none')){
-			Session.set('pieChartSort','asc');
-			Session.set('pieChartSortModifier',{sort:{value:1}});
-		}else if(Session.equals('pieChartSort', 'asc')){
-			Session.set('pieChartSort','desc');
-			Session.set('pieChartSortModifier',{sort:{value:-1}});
-		}else{
-			Session.set('pieChartSort','none');
-			Session.set('pieChartSortModifier',{});
-		}
-	}
-});
-
-Template.pieChart.onRendered(function(){
-
-
-		function chartLine(){
-
-			var ctx4 = document.getElementById("myChart4").getContext("2d");
-
-			var data4 = [
-				{
-						value: Clientes.find({estatus:"contacto"}).count(),
-						color:"#27ae60",
-						highlight: "#2ecc71",
-						label: "Contactos"
-				},
-				{
-						value: Clientes.find({estatus:'prospecto'}).count(),
-						color: "#8e44ad",
-						highlight: "#9b59b6",
-						label: "Prospectos"
-				},
-				{
-						value: Clientes.find({estatus:'cliente'}).count(),
-						color: "#c0392b",
-						highlight: "#e74c3c",
-						label: "Clientes"
-				}]
-
-				let myPieChart = new Chart(ctx4).Pie(data4,{
-						animateScale: true
-				});
-
-		}
-
-		Tracker.autorun(chartLine);
-});
-
 function random() {
     return Math.floor((Math.random() * 100) + 1);
 }
 
-// Logica de cliente para hacer un chart de tipo line chart
-
-Template.charts.onRendered(function() {
-    // Get the context of the canvas element we want to select
-
-    /*var ctx2 = document.getElementById("myChart2").getContext("2d");
-    var ctx3 = document.getElementById("myChart3").getContext("2d");
-    var ctx4 = document.getElementById("myChart4").getContext("2d");
-    var ctx5 = document.getElementById("myChart5").getContext("2d");*/
-
-    // Set the options
-    function chartLine () {
-    	var ctx  = document.getElementById("myChart").getContext("2d");
-    var options = {
-
-        ///Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
-
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
-
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-
-        //Boolean - Whether the line is curved between points
-        bezierCurve: true,
-
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension: 0.4,
-
-        //Boolean - Whether to show a dot for each point
-        pointDot: true,
-
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 4,
-
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
-
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 20,
-
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
-
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
-
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill: true,
-
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-    };
-
-    var options2 = {
-        //Boolean - Whether to show lines for each scale point
-        scaleShowLine: true,
-
-        //Boolean - Whether we show the angle lines out of the radar
-        angleShowLineOut: true,
-
-        //Boolean - Whether to show labels on the scale
-        scaleShowLabels: false,
-
-        // Boolean - Whether the scale should begin at zero
-        scaleBeginAtZero: true,
-
-        //String - Colour of the angle line
-        angleLineColor: "rgba(0,0,0,.1)",
-
-        //Number - Pixel width of the angle line
-        angleLineWidth: 1,
-
-        //String - Point label font declaration
-        pointLabelFontFamily: "'Arial'",
-
-        //String - Point label font weight
-        pointLabelFontStyle: "normal",
-
-        //Number - Point label font size in pixels
-        pointLabelFontSize: 10,
-
-        //String - Point label font colour
-        pointLabelFontColor: "#666",
-
-        //Boolean - Whether to show a dot for each point
-        pointDot: true,
-
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 3,
-
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
-
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 20,
-
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
-
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
-
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill: true,
-
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-    }
-
-    // Set the data
-     var data = {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-        datasets: [{
-            label: "My First dataset",
-            fillColor: "rgba(189, 195, 199,1.0)",
-            strokeColor: "rgba(44, 62, 80,1.0)",
-            pointColor: "#ecf0f1",
-            pointStrokeColor: "#7f8c8d",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#34495e",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }, {
-            label: "My second dataset",
-            fillColor: "rgba(52, 73, 94,1.0)",
-            strokeColor: "rgba(44, 62, 80,1.0)",
-            pointColor: "#ecf0f1",
-            pointStrokeColor: "#7f8c8d",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#34495e",
-            data: [random(), random(), random(), random(), random(), random(), random()]
-        }]
-    };
-
-
-
-    // draw the charts
-    var myLineChart = new Chart(ctx).Line(data, options);
-     /*var myRadarChart = new Chart(ctx2).Radar(data2, options2);
-    var myPolarArea = new Chart(ctx3).PolarArea(data3, {
-        segmentStrokeColor: "#000000"
-    });
-    // For a pie chart
-    var myPieChart = new Chart(ctx4).Pie(data4,{
-        animateScale: true
-    });
-
-    // And for a doughnut chart
-    var myDoughnutChart = new Chart(ctx5).Doughnut(data4,{
-        animateScale: true
-    });*/
-    }
-
-    Tracker.autorun(chartLine);
-
-
-});
-
-Template.charts.helpers({
-	email() {
-		return Meteor.user().emails[0].address
-	}
-});
 
 Template.resumenFacturacion.helpers({
 	email() {
@@ -3788,7 +3593,7 @@ Template.cambioConfiguracion.helpers({
 
 })
 
-Template.formularioParaCrearTarifa.onRendered(function () {
+Template.formularioParaCrearTarifa.onCreated(function () {
 
 	let self = this;
 	let bufeteId = Meteor.user().profile.bufeteId;
@@ -3918,7 +3723,7 @@ Template.trelloLikeTareas.helpers({
 		return Etapas.find({});
 	},
 	tareas(etapaId) {
-		return Tareas.find({'etapa.id': etapaId, abierto: true}, {sort: {createdAt: -1}});
+		return Tareas.find({'etapa.id': etapaId}, {sort: {createdAt: -1}});
 	},
 	borde(tipo) {
 		if (tipo === "General") {
@@ -3948,6 +3753,13 @@ Template.trelloLikeTareas.helpers({
 			return this.asignado.nombre
 		}
 	},
+	esMiTarea() {
+		if (this.asignado.id === Meteor.userId()) {
+			return true;
+		} else {
+			return false;
+		}
+	},
 	documentos(){
 		return DocumentosTareas.find({'metadata.tareaId':this._id}).fetch().length;
 	},
@@ -3965,6 +3777,13 @@ Template.trelloLikeTareas.helpers({
     	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
+	},
+	checked: function () {
+		if (this.abierto === true) {
+			return "";
+		} else if (this.abierto === false) {
+			return "checked";
+		}
 	}
 });
 
@@ -3999,7 +3818,7 @@ Template.trelloLikeTareas.events({
 
         	template.find('[name="tarea-nueva"]').value = "";
         	Meteor.call('crearTareaKanban', datos, function (err, result) {
-				debugger;
+			//	debugger;
         		if (err) {
         			Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
         			template.find('[name="tarea-nueva"]').value = "";
@@ -4014,7 +3833,87 @@ Template.trelloLikeTareas.events({
 		console.log(this._id);
 		//FlowRouter.go('/tareas/' + this._id);
 	},
-	'click .establecer-fecha': () => {
-		//Modal.show('fechaTareaModal',this);
+	'click .establecer-fecha'(event,template){
+		Modal.show('fechaTareaModal',this)
+	},
+	'change [name="checkbox"]': function () {
+			if (this.abierto === true) {
+				Meteor.call('cerrarTarea', this._id, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Completaste la tarea', 'success');
+					}
+				});
+			} else if (this.abierto === false) {
+				Meteor.call('abrirTarea', this._id, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Desmarcaste la tarea', 'success');
+					}
+				});
+			}
+	},
+	'keyup .etapa-input': function (event, template) {
+
+		if(event.which == 13) {
+
+				let datos = {
+						id: this._id
+				}
+
+				datos.nombre = template.find(`[name="${this._id}"]`).value;
+
+				Meteor.call('actualizarNombreEtapa', datos, function (err) {
+					if (err) {
+						Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+					} else {
+						Bert.alert('Actualizaste el nombre de la etapa', 'success');
+					}
+				});
+
+    	}
+	}
+});
+
+Template.miCalendario.events({
+	'click .crear'() {
+		Modal.show('modalNuevoEvento');
+	}
+});
+
+Template.modalNuevoEvento.onRendered(function () {
+	var picker = new Pikaday({ field: document.getElementById('datepicker1') });
+	var picker2 = new Pikaday({ field: document.getElementById('datepicker2') });
+});
+
+Template.modalNuevoEvento.events({
+	'click .agregar-evento': function (e, t) {
+		let datos = {
+			title: t.find("[name='descripcion']").value,
+			type: $( "#type option:selected" ).text()
+		}
+
+	datos.start = t.find("[name='empieza']").value;
+	datos.end = t.find("[name='finaliza']").value;
+
+	datos.horai = $( "#horai" ).val() ;
+	datos.minutoi = $( "#minutoi" ).val();
+
+	datos.horaf = $( "#horaf" ).val();
+	datos.minutof = $( "#minutof" ).val();
+
+		if (datos.title !== "" && datos.start !== "" && datos.end !== "") {
+			Meteor.call('agregarNuevoEvento', datos, function (err) {
+				if (err) {
+					Bert.alert('Hubo un error, vuevle a intentarlo', 'warning');
+				} else {
+					Modal.hide('modalNuevoEvento');
+					Bert.alert('Agregaste un nuevo evento', 'success');
+
+				}
+			});
+		}
 	}
 });

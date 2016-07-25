@@ -31,7 +31,7 @@
 			<li class="persona agregar-hora"><a href="#">Hora</a></li>
 			<li class="empresa agregar-gasto"><a href="#">Gasto Administrativo</a></li>
 			<li class="empresa agregar-gasto-administrativo"><a href="#">Gasto</a></li>
-			<li class="empresa"><a href="/facturacion/tarifas/nuevo">Tarifa</a></li>
+			<li class="empresa agregar-tarifa"><a href="#">Tarifa</a></li>
 			<li class="empresa agregar-tipo-cambio"><a href="#">Tipo de cambio</a></li>
 		</ul>
 	</div>
@@ -447,7 +447,7 @@
 </template>
 
 
-<template name="agregarHoras">
+<template name="agregarHoras2">
 	 <div id="agregar-horas-modal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -490,7 +490,7 @@
 							</p>
 						</div>
 
-						<div class="icon">
+												<div class="icon">
                         	<label class="cd-label" for="cd-company">Tiempo horas</label>
                         	<input class="company" type="number" step="1" min="1" name="horas" id="cd-company">
                       	</div>
@@ -498,10 +498,10 @@
                             <label class="cd-label" for="cd-company">Tiempo minutos</label>
                             <input class="company" type="number" step="1" min="1" name="minutos" id="cd-company">
                         </div>
-						<div class="fh-checkbox">
-							<input class="es-tarea cobrado" style="opacity:100"  type="checkbox" name="" >
-							<label class="cd-label"  for="tarea-select">No es cobrable</label>
-						</div>
+												<div class="fh-checkbox">
+												<input class="cobrado" style="opacity:100"  type="checkbox" name="" >
+												<label class="cd-label"  for="tarea-select">No es cobrable</label>
+												</div>
 
                       	<input type="submit" value="Agregar horas">
                     </fieldset>
@@ -515,6 +515,95 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="agregarHoras">
+	<div class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+					<form class="">
+						<div class="modal-formulario">
+							<div class="side-help">
+								<div class="about-asunto fondo-bunqr" style="height: 230px;">
+									<h2>
+										Trabajos
+									</h2>
+									<p style="color: white;">
+										Agrega horas de trabajo y enlazalo con los asuntos de tu cliente. Lleva reportes de cliente, asunto y compara tu rentabilidad.
+									</p>
+
+								</div>
+								<div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+									<h3>
+										¿Necesitas ayuda?
+									</h3>
+									<p>
+										Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+									</p>
+								</div>
+							</div>
+							<div class="contenido-formulario">
+								<div class="cuadro-datos-asunto">
+									<h1 class="color-bunqr">Agregar trabajo</h1>
+									<hr>
+									<div class="formulario-bunqr">
+										<div class="medio-ancho">
+											<div class="fh-checkbox">
+												<input class="es-tarea " style="opacity:100" id="tarea-select"  type="checkbox"  name="" >
+												<label class="cd-label" for="tarea-select">¿Es una tarea?</label>
+											</div>
+										</div>
+										<div class="medio-ancho hide buscar-tarea">
+												<input class="typeahead" id="tarea-typeahead" name="tareas" type="text"
+														 placeholder="Tareas"
+														 autocomplete="on" spellcheck="off"
+														 data-source="tareasHoras"
+														 style="width: 40%; height: 42.5px border: 2px solid red;"/>
+										</div>
+
+										<div class="medio-ancho descripcion-tarea">
+											<label for="asunto">Descripción*</label>
+											<input type="text" name="descripcion">
+										</div>
+										<div class="medio-ancho">
+											<label for="fecha">Fecha</label>
+												<input class="company" type="text" name="fecha" id="datepicker" readonly value="Hoy">
+										</div>
+										<div class="medio-ancho">
+											<label for="asunto">Asunto*</label>
+											<select class="budget asunto" name="asunto">
+												{{#each asunto}}
+												<option value="{{_id}}">{{caratula}} - {{cliente.nombre}}</option>
+												{{/each}}
+											</select>
+										</div>
+										<div class="medio-ancho">
+											<label class="cd-label" for="cd-company">Tiempo horas</label>
+											<input  type="number" step="1" min="1" name="horas">
+										</div>
+										<div class="medio-ancho">
+												<label class="cd-label" for="cd-company">Tiempo minutos</label>
+												<input type="number" step="1" min="1" name="minutos">
+										</div>
+										<div class="medio-ancho">
+											<div class="fh-checkbox">
+												<input class="cobrado" style="opacity:100"  type="checkbox" name="" >
+												<label class="cd-label">No es cobrable</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+								<input class="agregar-trabajo" type="submit" value="Agregar trabajo">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="horaModal">
@@ -544,9 +633,9 @@
             </div>
 
             <div class="contenido-formulario" style="height: 480px;">
-              
+
             </div>
-            
+
             <div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
               <input class="agregar-hora" type="button" value="Agregar hora">
             </div>

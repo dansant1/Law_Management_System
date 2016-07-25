@@ -75,10 +75,7 @@
         <h4>Ingresos</h4>
         <p>S/ 2, 450.00</p>
       </div>
-      <div class="columna" style="height: 80px;">
-        <h4>Gastos</h4>
-        <p>S/ 1,200.00</p>
-      </div>
+      {{>resumenGastos}}
       <div class="columna" style="height: 80px;">
         <h4>Monto total</h4>
         <p>S/ 4, 650.00</p>
@@ -118,27 +115,8 @@
         </div>
       </div>
       <div class="columna" id="sin-padding">
-        <div class="fila-cuadro-2">
-          <h4>Ultimos gastos ingresados hoy</h4>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-          <div class="columna-cuadro-2">
-            <p>Notaria <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ 1,200.00 </p>
-          </div>
-        </div>
+
+        {{>ultimosGastos}}
 
       </div>
 
@@ -154,6 +132,24 @@
         </div>
       </div>
   </div>
+</template>
+
+<template name="resumenGastos">
+  <div class="columna" style="height: 80px;">
+    <h4>Gastos</h4>
+    <p>S/ {{gastos}}</p>
+  </div>
+</template>
+
+<template name="ultimosGastos">
+    <div class="fila-cuadro-2">
+          <h4>Ultimos gastos ingresados</h4>
+          {{#each gastos}}
+          <div class="columna-cuadro-2">
+            <p>{{this.descripcion}} <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #3498db;"></i> S/ {{this.monto}} </p>
+          </div>
+          {{/each}}
+        </div>
 </template>
 
 <template name="resumenHorasPersonal">

@@ -19,6 +19,16 @@ Meteor.methods({
 		let usuarioId = Accounts.createUser(datos);
 		Accounts.sendVerificationEmail( usuarioId );
 
+		Areas.insert({
+			nombre: "General",
+			bufeteId: datos.profile.bufeteId
+		});
+
+		Cambio.insert({
+			bufeteId: datos.profile.bufeteId,
+			cambio: 3.33
+		});
+
 		Roles.addUsersToRoles(usuarioId, ['administrador'], 'bufete');
 
 		Meteor.defer(function() {
@@ -61,7 +71,15 @@ Meteor.methods({
 
 		let usuarioId = Accounts.createUser(datos);
 
-		Roles.addUsersToRoles(usuarioId, ['abogado',datos.profile.tipo], 'bufete');
+		if (datos.profile.tipo === "encargado comercial") {
+			Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');
+		} else if (datos.profile.tipo === "socio") {
+			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+		} else {
+			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+		}
+
+
 
 
 	}

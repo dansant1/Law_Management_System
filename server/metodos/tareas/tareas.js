@@ -1,3 +1,14 @@
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 Meteor.methods({
 	crearTarea: function (datos) {
 		console.log('Entro aqui');
@@ -24,23 +35,29 @@ Meteor.methods({
 
 			// Modulo para crear evento sobre que se ha creado una tarea
 			if (tarea) {
+				var date = moment(datos.fecha);
+
 
 				let evento = {
-					title: "Vencimiento de tarea: " + datos.descripcion + " - Asunto: " + datos.asunto.nombre + " - Asignado a " + datos.creador.nombre,
-					start: datos.fecha,
-					end: datos.fecha,
+					title: datos.descripcion,
+					start: formatDate(datos.vence),
 					asunto: datos.asunto,
 					bufeteId: datos.bufeteId,
 					creador: datos.creador,
 					createdAt: datos.createdAt,
-					color: '#34495e'
+					color: '#34495e',
+					tarea: {
+						nombre: datos.descripcion,
+						id: tarea
+					}
 				}
 
 				scheduleMail(datos,tarea);
 				Eventos.insert(evento);
+				MiCalendario.insert(evento);
 
-				NewsFeed.insert({
-					descripcion: datos.asignado.nombre + 'asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
+				/*NewsFeed.insert({
+					descripcion: datos.creador.nombre + ' asignado a la tarea ' + datos.descripcion + ' en el asunto ' + datos.asunto.nombre,
 					tipo: 'Tarea',
 					creador: {
 						nombre: datos.creador.nombre,
@@ -52,7 +69,7 @@ Meteor.methods({
 					},
 					bufeteId: datos.bufeteId,
 					createdAt: new Date()
-				});
+				});*/
 
 				return {
 					_id: tarea
@@ -72,9 +89,16 @@ Meteor.methods({
 	editarTareas: function (datos,tareaId) {
 		check(datos,Object)
 		check(tareaId,String)
+
+		datos.vence = new Date(datos.fecha+" GMT-0500");
+
+		var date = moment(datos.fecha);
+		date.toISOString();
+		//console.log(date.toISOString());
+
 		Tareas.update({_id:tareaId},{
 			$set:datos
-		})
+		});
 
 	},
 	eliminarTarea:function (tareaId) {
@@ -172,7 +196,7 @@ Meteor.methods({
 		})
 
 
-				// Modulo para crear evento sobre que se ha creado una tarea
+		// Modulo para crear evento sobre que se ha creado una tarea
 
 
 
@@ -277,7 +301,6 @@ Meteor.methods({
 			})
 		}
 	},
-
 	actualizarMiembroTarea(tareaId,asignado){
 		check(tareaId,String)
 		check(asignado,{
@@ -307,6 +330,30 @@ Meteor.methods({
 			}
 		})
 
+		/*var date = moment(fecha).toISOString();
+
+		if (MiCalendario.findOne({'tarea.id': tareaId})) {
+			MiCalendario.update({'tarea.id': tareaId}, {
+				$set: {
+					start: formatDate(new Date(fecha+" GMT-0500"))
+				}
+			});
+		} else {
+			MiCalendario.insert({
+				title: 'Vence la tarea ' + Tareas.findOne({_id: tareaId}).descripcion,
+				start: formatDate(new Date(fecha+" GMT-0500")),
+				bufeteId: Meteor.users.findOne({_id: this.userId}).profile.bufeteId,
+				creador: {
+					nombre: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido,
+					id: this.userId
+				},
+				userId: this.userId,
+				type: 'Tarea'
+			});
+		}*/
+
+
+
 		var tareas = Tareas.find({_id:tareaId,vence:{$exists:true},asignado:{$exists:true}}).fetch()
 		if(tareas.length!=0) scheduleMail(tareas[0],tareas[0]._id);
 
@@ -318,6 +365,18 @@ Meteor.methods({
 			Tareas.update({_id: tareaId}, {
 				$set: {
 					abierto: false
+				}
+			});
+		} else {
+			return;
+		}
+	},
+	abrirTarea: function (tareaId) {
+		check(tareaId, String);
+		if (this.userId) {
+			Tareas.update({_id: tareaId}, {
+				$set: {
+					abierto: true
 				}
 			});
 		} else {
@@ -377,6 +436,7 @@ Meteor.methods({
 		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 			datos.createdAt = new Date();
 			datos.creadorId = this.userId;
+			datos.abierto = true;
 			Subtareas.insert(datos);
 		} else {
 			return;
@@ -506,5 +566,76 @@ Meteor.methods({
 				});
 			}
 		}
-	}
+	},
+	cerrarSubTarea: function (SubtareaId) {
+		check(SubtareaId, String);
+
+		if (this.userId) {
+			Subtareas.update({_id: SubtareaId}, {
+				$set: {
+					abierto: false
+				}
+			});
+		}
+	},
+	abrirSubtarea: function (SubtareaId) {
+		check(SubtareaId, String);
+
+		if (this.userId) {
+			Subtareas.update({_id: SubtareaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		}
+	},
+	abrirTarea: function (tareaId) {
+		check(tareaId, String);
+
+		if (this.userId) {
+			Tareas.update({_id: tareaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		}
+	},
+	cerrarEtapa: function (etapaId) {
+		check(etapaId, String);
+		if (this.userId) {
+			Etapas.update({_id: etapaId}, {
+				$set: {
+					abierto: false
+				}
+			});
+		}
+	},
+	abrirEtapa: function (etapaId) {
+		check(etapaId, String);
+		if (this.userId) {
+			Etapas.update({_id: etapaId}, {
+				$set: {
+					abierto: true
+				}
+			});
+		} else {
+      return;
+    }
+	},
+  actualizarNombreEtapa: function (datos) {
+    check(datos, {
+      nombre: String,
+      id: String
+    });
+
+    if (this.userId) {
+      Etapas.update({_id: datos.id}, {
+        $set: {
+          nombre: datos.nombre
+        }
+      });
+    } else {
+      return;
+    }
+  }
 });
