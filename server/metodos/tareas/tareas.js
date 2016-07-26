@@ -103,6 +103,8 @@ Meteor.methods({
 	},
 	eliminarTarea:function (tareaId) {
 		check(tareaId,String)
+        MiCalendario.remove({'tarea.id':tareaId})
+        Eventos.remove({'tarea.id':tareaId});
 		Tareas.remove({_id:tareaId})
 
 	},
@@ -130,7 +132,7 @@ Meteor.methods({
 
 		let tareaId = datos.id;
 
-		if(datos.minutos>60) {
+		if(datos.minutos>=60) {
 			let horas = Number(String(datos.minutos/60).split(".")[0]);
 			let minutos  = datos.minutos%60;
 
@@ -178,7 +180,7 @@ Meteor.methods({
 					}
 				})
 			}
-			console.log(datos.precio);
+			// console.log(datos.precio);
 
 			datos.precio = datos.precio.toFixed(2)
 		}
@@ -213,8 +215,6 @@ Meteor.methods({
 
 			let tarea = Tareas.insert(datos);
 			// Modulo para crear evento sobre que se ha creado una tarea
-
-
 
 		} else {
 
@@ -324,11 +324,47 @@ Meteor.methods({
 		check(tareaId,String)
 		check(fecha,String)
 
+        let tarea = Tareas.findOne({_id:tareaId});
+
 		Tareas.update({_id:tareaId},{
 			$set:{
 				vence: new Date(fecha+" GMT-0500")
 			}
 		})
+
+        var date = moment(datos.fecha);
+
+
+        // let evento = {
+        //     title: tarea.descripcion,
+        //     start: formatDate(datos.vence),
+        //     asunto: tarea.asunto,
+        //     bufeteId: tarea.bufeteId,
+        //     creador: tarea.creador,
+        //     createdAt: tarea.createdAt,
+        //     color: '#34495e',
+        //     tarea: {
+        //         nombre: tarea.descripcion,
+        //         id: tareaId
+        //     }
+        // }
+        Eventos.update({'tarea.id':tareaId},{
+            $set:{
+                start: formatDate(fecha)
+            }
+        })
+
+
+        MiCalendario.update({'tarea.id':tareaId},{
+            $set:{
+                start: formatDate(fecha)
+            }
+        });
+
+
+        // Eventos.insert(evento);
+        // MiCalendario.insert(evento);
+
 
 		/*var date = moment(fecha).toISOString();
 

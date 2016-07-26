@@ -3163,10 +3163,15 @@ Template.miCalendario.onRendered( () => {
       		}
     	},
     	eventRender( event, element ) {
-      		element.find( '.fc-content' ).html(
-        		`<h5>${ event.title }</h5>
-        		`
-      		);
+			console.log(event);
+			let tarea =  Tareas.findOne({_id:event.tarea.id});
+			let abierto = false;
+			if(tarea) abierto = tarea.abierto;
+
+			console.log("[R]" + abierto);
+			let title = abierto? '<h5>' + event.title +'</h5>' : '<h5> <i class="fa fa-check"> </i> ' + event.title + '</h5>';
+
+      		element.find( '.fc-content' ).html(title);
     	},
     	eventDrop( event, delta, revert ) {
 
