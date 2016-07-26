@@ -29,7 +29,7 @@ Meteor.methods({
 			cambio: 3.33
 		});
 
-		Roles.addUsersToRoles(usuarioId, ['administrador'], 'bufete');
+		Roles.addUsersToRoles(usuarioId, ['abogado', 'administrador'], 'bufete');
 
 		Meteor.defer(function() {
   			SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
@@ -78,9 +78,6 @@ Meteor.methods({
 		} else {
 			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
 		}
-
-
-
 
 	}
 });
