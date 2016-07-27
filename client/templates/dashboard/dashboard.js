@@ -3172,38 +3172,7 @@ Template.miCalendario.onRendered( () => {
 			let title = abierto? '<h5>' + event.title +'</h5>' : '<h5> <i class="fa fa-check"> </i> ' + event.title + '</h5>';
 
       		element.find( '.fc-content' ).html(title);
-    	},
-    	eventDrop( event, delta, revert ) {
-
-      			let date = event.start.format();
-
-      			console.log(delta);
-
-
-        		let update = {
-          			_id: event._id,
-          			start: date,
-          			end: date,
-          			bufeteId: Meteor.user().profile.bufeteId
-        		};
-
-        		Meteor.call( 'editEvent', update, ( error ) => {
-          			if ( error ) {
-            		Bert.alert( error.reason, 'danger' );
-          			}
-        		});
-
-
-    	},
-    	dayClick( date ) {
-      		Session.set( 'eventModal', { type: 'add', date: date.format() } );
-      		$( '#add-edit-event-modal' ).modal( 'show' );
-    	},
-    	eventClick( event ) {
-      		Session.set( 'eventModal', { type: 'edit', event: event._id } );
-      		$( '#add-edit-event-modal' ).modal( 'show' );
-    	},
-    	//editable: true
+    	}
 	 });
 
 	 Tracker.autorun( () => {
@@ -3212,9 +3181,15 @@ Template.miCalendario.onRendered( () => {
   	});
 });
 
-Template.miCalendario.onCreated( () => {
-	let template = Template.instance();
-  	template.subscribe('miCalendario');
+Template.miCalendario.onCreated(function () {
+
+	var self = this;
+
+	self.autorun(function () {
+
+		self.subscribe('miCalendario');
+	});
+	
 });
 
 Template.miCalendario.helpers({

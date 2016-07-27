@@ -332,7 +332,7 @@ Meteor.methods({
 			}
 		})
 
-        var date = moment(datos.fecha);
+        var date = moment(fecha);
 
 
         // let evento = {
