@@ -3142,7 +3142,7 @@ let isPast = ( date ) => {
   return moment( today ).isAfter( date );
 };
 
-Template.miCalendario.onRendered( () => {
+Template.miCalendario.onRendered( function ()  {
 	 $( '#calendario' ).fullCalendar({
 	 	lang: 'es',
 	 	header: {
@@ -3162,20 +3162,28 @@ Template.miCalendario.onRendered( () => {
         		callback( data );
       		}
     	},
-    	eventRender( event, element ) {
+    	/*eventRender( event, element ) {
 			console.log(event);
-			let tarea =  Tareas.findOne({_id:event.tarea.id});
-			let abierto = false;
-			if(tarea) abierto = tarea.abierto;
 
-			console.log("[R]" + abierto);
-			let title = abierto? '<h5>' + event.title +'</h5>' : '<h5> <i class="fa fa-check"> </i> ' + event.title + '</h5>';
+			if (event.tarea.id !== undefined) {
+				let tarea =  Tareas.findOne({_id:event.tarea.id});
+				let abierto = false;
+				if(tarea) abierto = tarea.abierto;
 
-      		element.find( '.fc-content' ).html(title);
-    	}
+				console.log("[R]" + abierto);
+				let title = abierto? '<h5>' + event.title +'</h5>' : '<h5> <i class="fa fa-check"> </i> ' + event.title + '</h5>';
+
+      			element.find( '.fc-content' ).html(title);
+			} else {
+				console.log('funciona :,)');
+			}
+							
+
+			
+    	}*/
 	 });
 
-	 Tracker.autorun( () => {
+	 this.autorun( () => {
     	MiCalendario.find().fetch();
     	$( '#calendario' ).fullCalendar( 'refetchEvents' );
   	});
