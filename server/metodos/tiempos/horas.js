@@ -277,19 +277,6 @@ Meteor.methods({
 
 		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
 
-			//  Tareas.insert({
-			// 	descripcion:datos.descripcion,
-			// 	vence:new Date(datos.fecha+" GMT-0500"),
-			// 	responsable:datos.responsable,
-			// 	asunto:datos.asunto,
-			// 	bufeteId:datos.bufeteId,
-			// 	createdAt: new Date(),
-			// 	creador: datos.creador,
-			// 	abierto:true
-			// })
-
-
-
 
 			datos.fecha = new Date(datos.fecha + " GMT-0500");
 
@@ -308,104 +295,57 @@ Meteor.methods({
 
 			let asunto = Asuntos.find({_id:datos.asunto.id}).fetch()[0]
 			console.log(asunto);
-			if(asunto.facturacion.forma_cobro=="horas hombre"){
+			// if(asunto.facturacion.forma_cobro=="horas hombre"){
+			//
+			// 	console.log('entro aqui');
+			// 	let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
+			// 	let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
+			//
+			// 	tarifa.miembros.some(function (miembro) {
+			// 		if(miembro.id==datos.responsable.id){
+			// 			let costoxminuto, costoxhora;
+			// 			costoxhora = miembro.soles*datos.horas;
+			// 			costoxminuto = (miembro.soles/60)*datos.minutos;
+			//
+			// 			return datos.precio = Number(costoxhora) + Number(costoxminuto);
+			// 		}
+			// 	})
+			//
+			// 	if(!datos.precio){
+			// 		let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
+			// 		tarifa.roles.some(function (roles) {
+			// 			let costoxminuto, costoxhora;
+			// 			if(user.roles.bufete.length==1)
+			// 				if(user.roles.bufete[0]==roles.nombre){
+			//
+			// 					costoxhora = roles.soles*datos.horas;
+			// 					costoxminuto = (roles.soles/60)*datos.minutos;
+			//
+			// 					return datos.precio = Number(costoxhora) + Number(costoxminuto);
+			//
+			// 					// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+			//
+			// 				}
+			// 			else {
+			// 				if(user.roles.bufete[1]==roles.nombre){
+			// 					costoxhora = roles.soles*datos.horas;
+			// 					costoxminuto = (roles.soles/60)*datos.minutos;
+			// 					return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+			// 				}
+			// 			}
+			// 		})
+			// 	}
+			// 	console.log(datos.precio);
+			//
+			// 	datos.precio = datos.precio.toFixed(2)
+			// }
 
-				console.log('entro aqui');
-				let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
-				let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
+			// if(asunto.forma_cobro=="flat fee"){
+			//
+			// }
 
-				tarifa.miembros.some(function (miembro) {
-					if(miembro.id==datos.responsable.id){
-						let costoxminuto, costoxhora;
-						costoxhora = miembro.soles*datos.horas;
-						costoxminuto = (miembro.soles/60)*datos.minutos;
 
-						return datos.precio = Number(costoxhora) + Number(costoxminuto);
-					}
-				})
 
-				if(!datos.precio){
-					let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
-					tarifa.roles.some(function (roles) {
-						let costoxminuto, costoxhora;
-						if(user.roles.bufete.length==1)
-							if(user.roles.bufete[0]==roles.nombre){
-
-								costoxhora = roles.soles*datos.horas;
-								costoxminuto = (roles.soles/60)*datos.minutos;
-
-								return datos.precio = Number(costoxhora) + Number(costoxminuto);
-
-								// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
-
-							}
-						else {
-							if(user.roles.bufete[1]==roles.nombre){
-								costoxhora = roles.soles*datos.horas;
-								costoxminuto = (roles.soles/60)*datos.minutos;
-								return datos.precio =  Number(costoxhora) + Number(costoxminuto);
-							}
-						}
-					})
-				}
-				console.log(datos.precio);
-
-				datos.precio = datos.precio.toFixed(2)
-			}
-
-			if(asunto.forma_cobro=="flat fee"){
-
-			}
-
-			if(asunto.facturacion.forma_cobro=="retainer"){
-
-				if(asunto.facturacion.retainer.horas_maxima<=totalHorasAcumuladas(datos.asunto.id)){
-					// let diferencia = asunto.fac
-					
-
-					// console.log('ENTRO AQUI');
-					let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
-					let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
-
-					tarifa.miembros.some(function (miembro) {
-						if(miembro.id==datos.responsable.id){
-							let costoxminuto, costoxhora;
-							costoxhora = miembro.soles*datos.horas;
-							costoxminuto = (miembro.soles/60)*datos.minutos;
-
-							return datos.precio = Number(costoxhora) + Number(costoxminuto);
-						}
-					})
-
-					if(!datos.precio){
-						let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
-						tarifa.roles.some(function (roles) {
-							let costoxminuto, costoxhora;
-							if(user.roles.bufete.length==1)
-								if(user.roles.bufete[0]==roles.nombre){
-
-									costoxhora = roles.soles*datos.horas;
-									costoxminuto = (roles.soles/60)*datos.minutos;
-
-									return datos.precio = Number(costoxhora) + Number(costoxminuto);
-
-									// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
-
-								}
-							else {
-								if(user.roles.bufete[1]==roles.nombre){
-									costoxhora = roles.soles*datos.horas;
-									costoxminuto = (roles.soles/60)*datos.minutos;
-									return datos.precio =  Number(costoxhora) + Number(costoxminuto);
-								}
-							}
-						})
-					}
-					console.log(datos.precio);
-
-					datos.precio = datos.precio.toFixed(2)
-				}
-			}
 
 			// datos.precio = parseInt(datos.precio);
 			datos.horasFacturables = datos.horas;
@@ -427,6 +367,96 @@ Meteor.methods({
 				minutos:datos.minutos
 			}
 			let horaId = Horas.insert(datos);
+
+			if(asunto.facturacion.forma_cobro=="retainer"){
+				if(asunto.facturacion.retainer.horas_maxima<=totalHorasAcumuladas(asunto._id)){
+
+					let query = {
+						sobrelimite:true
+					}
+
+					if(!asunto.facturacion.excedido){
+						query.diferencia = Number(totalHorasAcumuladas(asunto._id))  - Number(asunto.facturacion.retainer.horas_maxima);
+
+						Asuntos.update({_id:datos.asunto.id},{
+							$set:{
+								'facturacion.excedido':true
+							}
+						})
+					}
+
+					Horas.update({_id:horaId},{
+						$set:query
+					});
+				}
+			}
+
+
+			// if(asunto.facturacion.forma_cobro=="retainer"){
+			//
+			// 	console.log(datos.precio);
+			// 	if(asunto.facturacion.retainer.horas_maxima<=totalHorasAcumuladas(datos.asunto.id)){
+			//
+			// 		if(!asunto.facturacion.excedido){
+			// 			let diferencia = totalHorasAcumuladas(datos.asuntos.id) - asunto.facturacion.retainer.horas_maxima;
+			// 			datos.horas = diferencia;
+			// 			Asuntos.update({_id:datos.asunto.id},{
+			// 				$set:{
+			// 					'facturacion.excedido':true
+			// 				}
+			// 			})
+			// 		}
+			//
+			// 		// console.log('ENTRO AQUI');
+			// 		let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0]
+			// 		let cambio = Cambio.find({bufeteId:datos.bufeteId}).fetch()[0]
+			//
+			// 		tarifa.miembros.some(function (miembro) {
+			// 			if(miembro.id==datos.responsable.id){
+			// 				let costoxminuto, costoxhora;
+			// 				costoxhora = miembro.soles*datos.horas;
+			// 				costoxminuto = (miembro.soles/60)*datos.minutos;
+			//
+			// 				return datos.precio = Number(costoxhora) + Number(costoxminuto);
+			// 			}
+			// 		})
+			//
+			// 		if(!datos.precio){
+			// 			let user = Meteor.users.find({_id:datos.responsable.id}).fetch()[0];
+			// 			tarifa.roles.some(function (roles) {
+			// 				let costoxminuto, costoxhora;
+			// 				if(user.roles.bufete.length==1)
+			// 					if(user.roles.bufete[0]==roles.nombre){
+			//
+			// 						costoxhora = roles.soles*datos.horas;
+			// 						costoxminuto = (roles.soles/60)*datos.minutos;
+			//
+			// 						return datos.precio = Number(costoxhora) + Number(costoxminuto);
+			//
+			// 						// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
+			//
+			// 					}
+			// 				else {
+			// 					if(user.roles.bufete[1]==roles.nombre){
+			// 						costoxhora = roles.soles*datos.horas;
+			// 						costoxminuto = (roles.soles/60)*datos.minutos;
+			// 						return datos.precio =  Number(costoxhora) + Number(costoxminuto);
+			// 					}
+			// 				}
+			// 			})
+			// 		}
+			//
+			// 		datos.precio = datos.precio.toFixed(2)
+			// 		Horas.update({_id:horaId},{
+			// 			$set:{
+			// 				precio: datos.precio
+			// 			}
+			// 		})
+			// 	}
+			// }
+
+
+
 			console.log(tarea);
 			if(datos.esTarea)
 				Tareas.update({_id:tarea.id},{

@@ -192,7 +192,7 @@ Template.facturacion.onRendered(function(){
 	Session.set('filtro-hora',{})
 
 	self.autorun(function(){
-		debugger;
+		// debugger;
 		self.subscribe('cambios',bufeteId)
 		if(Meteor.user().roles.bufete[0]=="administrador") return self.subscribe('horas',bufeteId)
 		return self.subscribe('horasxmiembro',bufeteId,Meteor.userId())
@@ -201,23 +201,152 @@ Template.facturacion.onRendered(function(){
 
 Template.facturacion.onCreated(function () {
 	Session.set('buscador-valor',"");
+
+	let self = this;
+	let bufeteId = Meteor.user().profile.bufeteId;
+	self.autorun(function () {
+		self.subscribe('tarifas',bufeteId);
+		self.subscribe('cambios',bufeteId);
+	})
 })
+
+function totalHorasAcumuladas(asuntoId) {
+
+	var horas = Horas.find({'asunto.id':asuntoId,cobrable:true}).fetch();
+	var asunto = Asuntos.findOne({_id:asuntoId});
+	var grupos = _(horas).groupBy(function (hora) {
+		return hora.asunto.id;
+	})
+	// debugger;
+	var tiempoxAsunto = _(grupos).map(function (g,key) {
+		return {
+				type:key,
+				horas: _(g).reduce(function (m,x) {
+					return m + x.horas;
+				},0),
+				minutos: _(g).reduce(function (m,x) {
+					debugger
+					return m + x.minutos;
+				},0)
+			}
+	})
+
+	for (var i = 0; i < tiempoxAsunto.length; i++) {
+
+		if(tiempoxAsunto[i].minutos>=60){
+			let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+			tiempoxAsunto[i].horas += horas;
+			tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
+		}
+	}
+
+	if(tiempoxAsunto[0])  return tiempoxAsunto[0].horas;
+	return 0;
+}
+
+
+function calcularTarifa(trabajo) {
+	let asunto = Asuntos.findOne({_id:trabajo.asunto.id}),
+		tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id}),
+		cambio = Cambio.findOne({bufeteId:trabajo.bufeteId}),
+		precio;
+
+
+
+	tarifa.miembros.some(function (miembro) {
+		if(miembro.id==trabajo.responsable.id){
+			let costoxminuto, costoxhora;
+
+			if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+			else costoxhora = miembro.soles*trabajo.horas;
+
+			costoxminuto = (miembro.soles/60)*trabajo.minutos;
+
+			return precio = Number(costoxhora) + Number(costoxminuto);
+		}
+	})
+
+	if(!precio){
+		let user = Meteor.users.findOne({_id:trabajo.responsable.id});
+		tarifa.roles.some(function (roles) {
+			let costoxminuto, costoxhora;
+			if(user.roles.bufete.length==1)
+				if(user.roles.bufete[0]==roles.nombre){
+
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+
+					return precio = Number(costoxhora) + Number(costoxminuto);
+
+				}
+			else {
+				if(user.roles.bufete[1]==roles.nombre){
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+					return precio =  Number(costoxhora) + Number(costoxminuto);
+				}
+			}
+		})
+	}
+
+	return precio;
+
+}
+
+function calcularPorTipoDeCobro(trabajo) {
+	let precio,
+		asunto = Asuntos.findOne({_id:trabajo.asunto.id})
+	debugger;
+	if(asunto.facturacion.forma_cobro=="horas hombre") return calcularTarifa(trabajo).toFixed(2)
+	if(asunto.forma_cobro=="flat fee") return "";
+
+	if(asunto.facturacion.forma_cobro=="retainer"){
+
+			// if(!asunto.facturacion.excedido){
+			// 	let diferencia = totalHorasAcumuladas(datos.asuntos.id) - asunto.facturacion.retainer.horas_maxima;
+			// 	datos.horas = diferencia;
+			// 	Asuntos.update({_id:datos.asunto.id},{
+			// 		$set:{
+			// 			'facturacion.excedido':true
+			// 		}
+			// 	})
+			// }
+			//
+			// console.log('ENTRO AQUI');
+			debugger;
+		if(trabajo.sobrelimite) return calcularTarifa(trabajo).toFixed(2)
+		return;
+	}
+
+	return precio;
+}
 
 Template.facturacion.helpers({
 	email() {
 		return Meteor.user().emails[0].address
 	},
 	precio(){
-        if(Session.get('tipo-cambio')!="dolares") return "S/ "+ this.precio;
-        return "$ " + (this.precio/Cambio.find().fetch()[0].cambio).toFixed(2);
+		debugger;
+		let self = this;
+		debugger;
+		let precio = calcularPorTipoDeCobro(self);
+		if(precio!=undefined){
+			if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+			return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+		}
+		return;
+
 	},
 	moneda(){
-		debugger;
+		// debugger;
 		let asunto = Asuntos.find({_id:this.asunto.id}).fetch[0];
 		return (asunto.facturacion.tipo_moneda == "soles")? "S/." : "$";
 	},
 	horas(){
-		debugger;
+		// debugger;
 		var buscador = new RegExp(".*"+Session.get('buscador-valor')+".*","i");
 
 		let _asuntos = Asuntos.find({'cliente.nombre':buscador}).fetch();
@@ -306,7 +435,7 @@ Template.facturacion.helpers({
 
 		if(!$.isEmptyObject(Session.get('miembro-equipo'))){
 			let _asuntos = Asuntos.find({'abogados':{ $elemMatch:{ id: Session.get('miembro-equipo')}}}).fetch();
-			debugger;
+			// debugger;
 			let ids = _(_asuntos).map(function (_asunto) {
 				return _asunto._id;
 			})
@@ -331,7 +460,7 @@ Template.facturacion.helpers({
 		return Meteor.user().roles.bufete.indexOf("administrador")>=0||Meteor.user().roles.bufete.indexOf("encargado comercial")>=0;
 	},
 	tipo_cambio(){
-		debugger;
+		// debugger;
 		if(Asuntos.find({_id:this.asunto.id}).fetch()[0].facturacion.tipo_moneda == "soles") return "S/. "
 		return "$ "
 	}
@@ -384,12 +513,12 @@ Template.facturacion.events({
 		Session.set('buscador-valor',event.target.value);
 	},
 	'click .editar-hora'(event,template){
-		debugger;
+		// debugger;
 		Session.set('hora-id',$(event.target).data('id'));
 		Modal.show('editarHoraModal',this)
 	},
 	'click .eliminar-hora'(event,template){
-		debugger;
+		// debugger;
 		swal({  title: "¿Seguro que quieres eliminar esta hora?",
 				text: "Esta hora ya no estara disponible para el resto de tu equipo",
 				type: "warning",
@@ -553,7 +682,7 @@ Template.agregarHoras.events({
 	},
 	'submit form': function (event, template) {
 		event.preventDefault();
-		debugger;
+		// debugger;
 		let datos = {
 			descripcion: template.find('[name="descripcion"]').value,
 			fecha: template.find('[name="fecha"]').value,
@@ -574,7 +703,7 @@ Template.agregarHoras.events({
 		}
 
 
-		debugger;
+		// debugger;
 		datos.asunto = {
 			nombre: Asuntos.findOne({_id:template.find(".asunto").value}).caratula,
 			id: template.find(".asunto").value

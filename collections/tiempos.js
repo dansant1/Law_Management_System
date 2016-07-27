@@ -58,6 +58,10 @@ EsquemaHoras = new SimpleSchema({
 	'asunto.nombre': {
 		type: String
 	},
+	sobrelimite:{
+		type:Boolean,
+		optional:true
+	},
 	'asunto.id': {
 		type: String
 	},
@@ -80,6 +84,10 @@ EsquemaHoras = new SimpleSchema({
 	},
 	cobrable: {
 		type: Boolean,
+		optional:true
+	},
+	diferencia:{
+		type:Number,
 		optional:true
 	},
 	precio:{

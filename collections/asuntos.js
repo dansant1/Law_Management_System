@@ -159,6 +159,10 @@ EsquemaAsuntos = new SimpleSchema({
 	'facturacion.forma_cobro':{
 		type:String
 	},
+	'facturacion.excedido':{
+		type:Boolean,
+		optional:true
+	},
 	'facturacion.cobranza':{
 		type:String,
 		optional: true
