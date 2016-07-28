@@ -38,9 +38,6 @@ Template.menu.events({
 	'click .asunto-modal': () => {
 		Modal.show('AsuntoNuevoModal');
 	},
-	'click .tour'() {
-		Modal.show('tourInicial');
-	},
 	'click .modal-cliente'() {
 		Modal.show('ModalClienteNuevo2');
 	},
