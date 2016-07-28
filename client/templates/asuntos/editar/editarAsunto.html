@@ -1,8 +1,7 @@
-<template name="asuntoNuevoModal">
-	<div class="modal fade" tabindex="-1" role="dialog">
+<template name="editarAsuntoModal">
+    <div class="modal fade" tabindex="-1" role="dialog">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
-
       			<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
 
         			<div class="modal-formulario">
@@ -86,7 +85,7 @@
 										</div>
 										<div class="medio-ancho" style="padding-top: 20px;">
 											<a style="display: inline-block; margin-right: 10px; font-weight: initial; font-family: 'Open Sans'; ">Soles</a>
-											<input type="checkbox" id="unchecked" class="cbx tipo-cambio-f hidden"/>
+											<input type="checkbox" id="unchecked" class="cbx tipo-cambio-ff hidden"/>
 											<label for="unchecked" class="lbl"></label>
 											<a style="display:inline-block; margin-left: 10px; font-weight: initial; font-family: 'Open Sans'; ">Dólares</a>
 										</div>
@@ -167,6 +166,7 @@
 										<label for="co">Cobranza</label>
 										<textarea name="cobranza" id="co" rows="8" cols="40" style="height: 42.5px; width: 40%;">{{cobranza}}</textarea>
 									</div>
+
 									<div class="medio-ancho">
 										<label for="responsable">Tipo de descuento</label>
 										<select type="text" name="tipo-descuento"  aria-describedby="basic-addon1">
@@ -228,7 +228,7 @@
 							</div>
 						</div>
 						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
-							<input class="agregar-asunto" type="button" value="Crear asunto">
+							<input class="editar-asunto" type="button" value="Editar asunto">
 						</div>
 					</div>
       			</div>

@@ -338,7 +338,6 @@ Template.facturacion.helpers({
 			return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
 		}
 		return;
-
 	},
 	moneda(){
 		// debugger;
@@ -629,6 +628,7 @@ Template.agregarHoras.onCreated(function () {
 
 Template.agregarHoras.helpers({
 	asunto: () => {
+		debugger;
 		Session.set('asunto-select-id',Asuntos.findOne({abogados:{$elemMatch:{id:Meteor.userId()}}})._id);
 		return Asuntos.find({abierto:true,abogados:{$elemMatch:{id:Meteor.userId()}}});
 	},

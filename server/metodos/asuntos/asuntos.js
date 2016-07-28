@@ -35,8 +35,13 @@ Meteor.methods({
 			let cliente = Clientes.findOne({_id: asuntos.cliente.id})
 			console.log(cliente);
 			console.log(asuntos.equipoId);
+			asuntos.equipo={}
 			asuntos.abogados = [];
-			if(asuntos.equipoId) asuntos.abogados = Equipos.findOne({_id:asuntos.equipoId}).miembros;
+			if(asuntos.equipoId){
+				asuntos.abogados = Equipos.findOne({_id:asuntos.equipoId}).miembros;
+				asuntos.equipo.id = asuntos.equipoId;
+				asuntos.equipo.nombre = Equipos.findOne({_id:asuntos.equipoId}).nombre;
+			}
 			else {
 				Meteor.users.find({'profile.bufeteId':asuntos.bufeteId},
 						{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
@@ -120,6 +125,42 @@ Meteor.methods({
 		} else {
 			return;
 		}
+	},
+	editarAsunto:function (datos,asuntoId) {
+		check(datos,Object);
+		check(asuntoId,String)
+
+		if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )  ) {
+			console.log(asuntoId);
+			console.log(datos);
+			datos.abogados = []
+			datos.equipo = {}
+			if(datos.equipoId){
+				datos.abogados = Equipos.findOne({_id:datos.equipoId}).miembros;
+				datos.equipo.id = datos.equipoId;
+				datos.equipo.nombre = Equipos.findOne({_id:datos.equipoId}).nombre;
+			}
+			else {
+				Meteor.users.find({'profile.bufeteId':datos.bufeteId},
+						{'profile.nombre':1,'profile.apellido':1}).forEach(function (cliente) {
+							datos.abogados.push(
+								{
+									id: cliente._id,
+									nombre: cliente.profile.nombre + " " + cliente.profile.apellido
+								}
+						);
+				});
+			}
+
+			Asuntos.update({_id:asuntoId},{
+				$set:datos
+			})
+
+		} else {
+			return;
+		}
+
+
 	},
 	'agregarEtapaAsunto':function (datos) {
 		check(datos,Object)

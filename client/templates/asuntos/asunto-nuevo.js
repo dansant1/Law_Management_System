@@ -120,7 +120,6 @@ Template.asuntoNuevoModal.events({
 					tipo:template.find("[name='tipo-descuento']").value,
 					valor:template.find("[name='valor-descuento']").value
 				},
-				tipo_moneda: template.find("[name='tipo-moneda']").value,
 				cobranza: template.find("[name='cobranza']").value,
 				alertas:{
 					horas: template.find("[name='horas']").value,
@@ -130,24 +129,29 @@ Template.asuntoNuevoModal.events({
 				}
 			}
 
+
+
 			if(template.find('[name="forma-cobro"]').value=="horas hombre"){
+				asunto.facturacion.tipo_moneda =  $(template.find(".tipo-cambio-hh")).is(":checked")? 'dolares':'soles';
 				asunto.facturacion.tarifa = {
-					id:template.find("[name='tarifa']").value,
-					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+					id:template.find("[name='tarifa-h']").value,
+					nombre: $(template.find("[name='tarifa-h']")).find("option:selected").html()
 				}
 			}
 
 			if(template.find('[name="forma-cobro"]').value=="flat fee"){
+				asunto.facturacion.tipo_moneda =  $(template.find(".tipo-cambio-f")).is(":checked")? 'dolares':'soles';
 				asunto.facturacion.montogeneral = template.find("[name='montogeneral']").value
 			}
 
 			if(template.find('[name="forma-cobro"]').value=="retainer"){
 				asunto.facturacion.retainer = {}
+				asunto.facturacion.tipo_moneda =  $(template.find(".tipo-cambio-r")).is(":checked")? 'dolares':'soles';
 				asunto.facturacion.retainer.monto = template.find('[name="monto_cobro"]').value;
 				asunto.facturacion.retainer.horas_maxima = template.find('[name="maximo_horas"]').value;
 				asunto.facturacion.tarifa = {
-					id:template.find("[name='tarifa']").value,
-					nombre: $(template.find("[name='tarifa']")).find("option:selected").html()
+					id:template.find("[name='tarifa-r']").value,
+					nombre: $(template.find("[name='tarifa-r']")).find("option:selected").html()
 				}
 			}
 

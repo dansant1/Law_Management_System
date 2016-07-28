@@ -1,5 +1,5 @@
 Template.gastos.helpers({
-    
+
     email() {
       return Meteor.user().emails[0].address
     },
@@ -155,7 +155,7 @@ Template.gastos.events({
 		Session.set('filtro-hora',{})
         Session.set('asunto-hora',{})
         Session.set('miembro-equipo',{})
-		Session.set('cliente-hora',"")
+		Session.set('cliente-hora',undefined)
 	},
     'click .editar-gasto'(event){
         debugger;

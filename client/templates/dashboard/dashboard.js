@@ -701,8 +701,9 @@ Template.asuntoItemCuadro.events({
 
 			});
 	},
-	'click .editar-asunto': () => {
-		Modal.show('asuntoEditarModal');
+	'click .editar-asunto': (event,template) => {
+		Session.set('asunto-escogido-id',$(event.target).data('id'))
+		Modal.show('editarAsuntoModal',this);
 	}
 });
 
@@ -3177,9 +3178,9 @@ Template.miCalendario.onRendered( function ()  {
 			} else {
 				console.log('funciona :,)');
 			}
-							
 
-			
+
+
     	}*/
 	 });
 
@@ -3197,7 +3198,7 @@ Template.miCalendario.onCreated(function () {
 
 		self.subscribe('miCalendario');
 	});
-	
+
 });
 
 Template.miCalendario.helpers({

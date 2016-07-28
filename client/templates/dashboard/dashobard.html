@@ -1344,7 +1344,7 @@
     <li><a href="/asuntos2/d/{{this._id}}/calendario">Calendario</a></li>
     <li><a href="/asuntos2/d/{{this._id}}/documentos">Archivos</a></li>
     <li><a href="/asuntos2/d/{{this._id}}/">Tareas</a></li>
-    <li class="editar-asunto"><a style="color: #3498db;">Editar</a></li>
+    <li class="editar-asunto"><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
     <li role="separator" class="divider"></li>
     {{#if esAdministrador}}
           {{#if this.abierto}}

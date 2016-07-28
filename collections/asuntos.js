@@ -171,6 +171,18 @@ EsquemaAsuntos = new SimpleSchema({
 		type:Object,
 		optional:true
 	},
+	equipo:{
+		type:Object,
+		optional:true
+	},
+	'equipo.id':{
+		type:String,
+		optional:true
+	},
+	'equipo.nombre':{
+		type:String,
+		optional:true
+	},
 	'facturacion.alertas.horas':{
 		type:Number,
 		decimal:true,

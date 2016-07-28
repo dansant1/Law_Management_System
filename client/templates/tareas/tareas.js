@@ -185,8 +185,6 @@ Template.tablat.events({
 			}
 		}
 
-
-
 		if(event.which == 13){
         	//$(event.target).blur();
         	template.find('[name="crear-tarea-simple"]').value = "";
