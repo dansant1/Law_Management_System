@@ -45,7 +45,7 @@ Template.menu.events({
 		Modal.show('workflowModal');
 	},
 	'click .hora-modal'() {
-		Modal.show('horaModal');
+		Modal.show('agregarHoras');
 	},
 	'click .tarifa-modal'() {
 		Modal.show('crearTarifaModal');
