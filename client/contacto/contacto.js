@@ -51,6 +51,6 @@ Template.formularioDemo.events({
 		} else {
 			Bert.alert('Complete los datos por favor. Intentelo nuevamente', 'warning');
 		}
-	}
+	
 	}
 });
