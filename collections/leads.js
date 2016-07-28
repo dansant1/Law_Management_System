@@ -54,6 +54,10 @@ EsquemaLeads = new SimpleSchema({
   	tipo: {
   		type: String,
   		allowedValues: ['lead', 'cliente', 'contacto']
+  	},
+  	vendedorId: {
+  		type: String,
+  		optional: true
   	}
 });
 
