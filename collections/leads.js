@@ -46,14 +46,15 @@ EsquemaLeads = new SimpleSchema({
   		optional: true
   	},
   	pais: {
-  		type: String
+  		type: String,
+  		optional: true
   	},
   	firma: {
   		type: String
   	},
   	tipo: {
   		type: String,
-  		allowedValues: ['lead', 'cliente', 'contacto']
+  		allowedValues: ['lead', 'cliente', 'contacto', 'prueba']
   	},
   	vendedorId: {
   		type: String,

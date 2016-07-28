@@ -17,19 +17,39 @@ Meteor.methods({
 		datos.profile.bufeteId = bufeteId;
 
 		let usuarioId = Accounts.createUser(datos);
-		Accounts.sendVerificationEmail( usuarioId );
+		
 
-		Areas.insert({
-			nombre: "General",
-			bufeteId: datos.profile.bufeteId
-		});
+		if (usuarioId) {
+			Accounts.sendVerificationEmail( usuarioId );
+			Areas.insert({
+				nombre: "General",
+				bufeteId: datos.profile.bufeteId
+			});
 
-		Cambio.insert({
-			bufeteId: datos.profile.bufeteId,
-			cambio: 3.33
-		});
+			Cambio.insert({
+				bufeteId: datos.profile.bufeteId,
+				cambio: 3.33
+			});
 
-		Roles.addUsersToRoles(usuarioId, ['abogado', 'administrador'], 'bufete');
+			Roles.addUsersToRoles(usuarioId, ['abogado', 'administrador'], 'bufete');
+
+			Leads.insert({
+				nombre: datos.profile.nombre,
+				apellido: datos.profile.apellido,
+				firma: datos.profile.bufete,
+				contacto: {
+					email: datos.email
+				}
+				tipo: 'prueba'
+			});
+
+		} else {
+			return
+		}
+
+		
+
+		
 
 		Meteor.defer(function() {
   			SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
@@ -71,13 +91,47 @@ Meteor.methods({
 
 		let usuarioId = Accounts.createUser(datos);
 
-		if (datos.profile.tipo === "encargado comercial") {
-			Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');
-		} else if (datos.profile.tipo === "socio") {
-			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+		if (usuarioId) {
+			Accounts.sendVerificationEmail( usuarioId );
+			if (datos.profile.tipo === "encargado comercial") {
+				Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');
+			} else if (datos.profile.tipo === "socio") {
+				Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+			} else {
+				Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+			}
+
+			Leads.insert({
+				nombre: datos.profile.nombre,
+				apellido: datos.profile.apellido,
+				firma: datos.profile.bufete,
+				contacto: {
+					email: datos.email,
+					telefono: datos.profile.telefono
+				},
+				tipo: 'prueba'
+			});
+
+			Meteor.defer(function() {
+  				SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
+
+				var emailData = {
+  					nombre: datos.profile.nombre + " " + datos.profile.apellido
+				};
+
+				Email.send({
+  					to: datos.email,
+  					from: "daniel@grupoddv.com",
+  					subject: "Bienvenido a BUNQR",
+  					html: SSR.render( 'htmlEmail', emailData )
+				});
+			});
+
 		} else {
-			Roles.addUsersToRoles(usuarioId, ['abogado', datos.profile.tipo], 'bufete');
+			return;
 		}
+
+		
 
 	}
 });
