@@ -55,7 +55,7 @@
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
 		<a href="/calendario2" style="text-decoration:none;">Calendario</a>
-		<!-- <i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i> -->
+		<i class="glyphicon glyphicon-plus icono-hover nuevo-event" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i>
 		</h5>
 	</div>
 </template>
@@ -138,10 +138,17 @@
 </template>
 
 <template name="itemTareas">
-  <p >
-    <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px;">{{this.descripcion}}
-    </a>
-  </p>
+  
+  
+    <span class="fh-checkbox">          
+      <input type="checkbox" id="" name="{{this._id}}">
+      <label for="{{this._id}}" style="margin-left: 35px;">
+        <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px; padding: 0;">{{this.descripcion}}
+        </a>
+      </label>
+    </span>
+
+  
 </template>
 
 
@@ -5284,7 +5291,7 @@
       <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/calendario2" > Calendario</a></p>
     </div>
   </div>
-   <div class="franja-filtros" style="padding-left: 18px;">
+   <div class="franja-filtros" style="padding-left: 4px;">
 
     <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
       Actividad

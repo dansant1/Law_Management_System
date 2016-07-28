@@ -39,7 +39,7 @@ Meteor.methods({
 				firma: datos.profile.bufete,
 				contacto: {
 					email: datos.email
-				}
+				},
 				tipo: 'prueba'
 			});
 

@@ -24,6 +24,12 @@ Template.tareasDetalle2.helpers({
 	}
 });
 
+Template.calendarioSidebar.events({
+	'click .nuevo-event': function () {
+		Modal.show('modalNuevoEvento');
+	}
+});
+
 Template.teamSidebarDahboard.onCreated(function () {
 	var self = this;
 
