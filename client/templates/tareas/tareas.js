@@ -217,7 +217,7 @@ Template.tareas2.events({
 		Session.set('tipo-tarea',false)
 	},
 	'click .nuevas-tareas'(){
-		Modal.show('nuevaTareaModal')
+		Modal.show('nuevaTareaModal2')
 	},
 	'keyup .buscador-tareas'(event){
 		Session.set('query',event.target.value);
