@@ -17,6 +17,8 @@ Template.generarCobroFacturaModal.onCreated(function () {
         self.subscribe('asuntos',bufeteId)
         self.subscribe('gastos',bufeteId)
         self.subscribe('horas',bufeteId)
+        self.subscribe('tarifas',bufeteId)
+        self.subscribe('misequipos',bufeteId)
 
         let factura = Facturas.findOne({_id:Session.get("factura-id")});
         if(factura.estado){
@@ -90,6 +92,119 @@ Template.generarCobroFacturaModal.onRendered(function () {
 
 })
 
+function totalHorasAcumuladas(asuntoId) {
+
+	var horas = Horas.find({'asunto.id':asuntoId,cobrable:true}).fetch();
+	var asunto = Asuntos.findOne({_id:asuntoId});
+	var grupos = _(horas).groupBy(function (hora) {
+		return hora.asunto.id;
+	})
+	// debugger;
+	var tiempoxAsunto = _(grupos).map(function (g,key) {
+		return {
+				type:key,
+				horas: _(g).reduce(function (m,x) {
+					return m + x.horas;
+				},0),
+				minutos: _(g).reduce(function (m,x) {
+					debugger
+					return m + x.minutos;
+				},0)
+			}
+	})
+
+	for (var i = 0; i < tiempoxAsunto.length; i++) {
+
+		if(tiempoxAsunto[i].minutos>=60){
+			let horas = Number(String(tiempoxAsunto[i].minutos/60).split(".")[0]);
+			tiempoxAsunto[i].horas += horas;
+			tiempoxAsunto[i].minutos  = tiempoxAsunto[i].minutos%60;
+		}
+	}
+
+	if(tiempoxAsunto[0])  return tiempoxAsunto[0].horas;
+	return 0;
+}
+
+
+function calcularTarifa(trabajo) {
+    debugger;
+	let asunto = Asuntos.findOne({_id:trabajo.asunto.id}),
+		tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id}),
+		cambio = Cambio.findOne({bufeteId:trabajo.bufeteId}),
+		precio;
+
+
+
+	tarifa.miembros.some(function (miembro) {
+		if(miembro.id==trabajo.responsable.id){
+			let costoxminuto, costoxhora;
+
+			if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+			else costoxhora = miembro.soles*trabajo.horas;
+
+			costoxminuto = (miembro.soles/60)*trabajo.minutos;
+
+			return precio = Number(costoxhora) + Number(costoxminuto);
+		}
+	})
+
+	if(!precio){
+		let user = Meteor.users.findOne({_id:trabajo.responsable.id});
+		tarifa.roles.some(function (roles) {
+			let costoxminuto, costoxhora;
+			if(user.roles.bufete.length==1)
+				if(user.roles.bufete[0]==roles.nombre){
+
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+
+					return precio = Number(costoxhora) + Number(costoxminuto);
+
+				}
+			else {
+				if(user.roles.bufete[1]==roles.nombre){
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+					return precio =  Number(costoxhora) + Number(costoxminuto);
+				}
+			}
+		})
+	}
+
+	return precio;
+
+}
+
+function calcularPorTipoDeCobro(trabajo) {
+	let precio,
+		asunto = Asuntos.findOne({_id:trabajo.asunto.id})
+	if(asunto.facturacion.forma_cobro=="horas hombre") return calcularTarifa(trabajo).toFixed(2)
+	if(asunto.forma_cobro=="flat fee") return "";
+
+	if(asunto.facturacion.forma_cobro=="retainer"){
+
+			// if(!asunto.facturacion.excedido){
+			// 	let diferencia = totalHorasAcumuladas(datos.asuntos.id) - asunto.facturacion.retainer.horas_maxima;
+			// 	datos.horas = diferencia;
+			// 	Asuntos.update({_id:datos.asunto.id},{
+			// 		$set:{
+			// 			'facturacion.excedido':true
+			// 		}
+			// 	})
+			// }
+			//
+			// console.log('ENTRO AQUI');
+		if(trabajo.sobrelimite) return calcularTarifa(trabajo).toFixed(2)
+		return;
+	}
+
+	return precio;
+}
+
 Template.generarCobroFacturaModal.helpers({
     conHonorarios(){
         let factura = Facturas.findOne({_id:this._id});
@@ -106,7 +221,7 @@ Template.generarCobroFacturaModal.helpers({
         return Asuntos.find({'cliente.id':this.cliente.id,abierto:true});
     },
     horasCompletas(){
-        debugger
+        // debugger
         let query;
         if(Session.get("fecha-inicio")&&Session.get("fecha-fin")){
 
@@ -117,21 +232,30 @@ Template.generarCobroFacturaModal.helpers({
             fin.setHours(0,0,0,0)
 
             query = {'asunto.id':{$in:Session.get("asuntosWizard")},fecha:{$lte:fin,$gt:inicio}}
-
-
         }
-        else query = {'asunto.id':{$in:Session.get("asuntosWizard")}}
-
-        return _(Horas.find(query).fetch()).map(function (hora) {
+        else query = {'asunto.id':{$in:Session.get("asuntosWizard")},}
+        // debugger;
+        return _(Horas.find(query).fetch().filter(function(hora){
+            let asunto = Asuntos.findOne({_id:hora.asunto.id});
+            if(asunto.facturacion.forma_cobro=="retainer") return hora.sobrelimite;
+            return asunto.facturacion.forma_cobro!="flat fee"
+        })).map(function (hora) {
+            // debugger;
+            let asunto = Asuntos.findOne({_id:hora.asunto.id});
             return {
                 id:hora._id,
-                responsable:hora.responsable.nombre,
+                responsableNombre:hora.responsable.nombre,
                 tiempo : hora.horas + "h " + hora.minutos + "m",
-                asunto: Asuntos.findOne({_id:hora.asunto.id}).caratula,
-                precio: hora.precio
+                caratulaAsunto: asunto.caratula,
+                precio: hora.precio,
+                asunto:{
+                    id:asunto._id
+                },
+                responsable:{
+                    id:hora.responsable.id
+                },
+                sobrelimite:hora.sobrelimite
             }
-
-
         })
     },
     horas(){
@@ -170,11 +294,39 @@ Template.generarCobroFacturaModal.helpers({
         return "0 h 0 m";
     },
     monto(){
-        let horas = Horas.find({'asunto.id':this._id,cobrable:true}).fetch();
+        let self = this;
+		let asunto = Asuntos.findOne({_id:this._id});
+		let total=0;
+		let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+		if(asunto.facturacion.forma_cobro=="horas hombre"){
+			for (var i = 0; i < horas.length; i++) {
+				let precio = Number(calcularPorTipoDeCobro(horas[i]));
+				if(precio!=undefined){
+					// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+					// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+					total += precio;
+				}
+			}
+			return "S/. " + total;
+		}
+		if(asunto.facturacion.forma_cobro=="retainer"){
+			// debugger;
+			for (var i = 0; i < horas.length; i++) {
+				if(horas[i].excedido){
+					let precio = Number(calcularPorTipoDeCobro(horas[i]));
+					if(precio!=undefined){
+						// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+						// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+						total += precio;
+					}
+				}
+			}
+			return "S/. " + (total+=Number(asunto.facturacion.retainer.monto));
 
-        return "S/. " +  (_(horas).reduce(function (m,x) {
-            return m + x.precio
-        },0)).toFixed(2)
+		}
+
+		return "S/. " + (total+= Number(asunto.facturacion.montogeneral));
+
     },
     totalGastos(){
         let gastos = Gastos.find({'asunto.id':this._id}).fetch();
@@ -193,10 +345,20 @@ Template.generarCobroFacturaModal.helpers({
             }
         })
     },
+    total(){
+        let self = this;
+        // debugger;
+        let precio = calcularPorTipoDeCobro(self);
+        if(precio!=undefined){
+            if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+            return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+        }
+        return;
+    },
     verificarFormularioActual(){
 
         if(Session.get("step")){        }
-        debugger;
+        // debugger;
 
         if(Session.get("horasWizard")){
             if ($(".step").not(".hide").hasClass("formulario-horas")) {
@@ -384,7 +546,7 @@ Template.generarCobroFacturaModal.events({
     'click .guardar-estado'(){
 
         let estado = {}
-        debugger;
+        // debugger;
         if(Session.get("asuntosWizard").length!=0) estado.asuntos = Session.get("asuntosWizard");
         if(Session.get("horasWizard").length!=0) estado.horas = Session.get("horasWizard");
         if(Session.get("gastosWizard").length!=0) estado.gastos = Session.get("gastosWizard");

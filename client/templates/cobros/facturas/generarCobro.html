@@ -54,6 +54,11 @@
 												<i class="fa fa-cube" aria-hidden="true"></i>
 					 						</h3>
 										</th>
+										<th class="essential" style="padding-top: 0px;">
+											<h3 style="text-align: center;">
+												<i class="fa fa-cube" aria-hidden="true"></i>
+					 						</h3>
+										</th>
 									</tr>
 								</thead>
 									<tbody>
@@ -80,6 +85,11 @@
 												<td>
 													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														S/. {{totalGastos}}
+													</h5>
+												</td>
+												<td>
+													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
+														{{this.facturacion.forma_cobro}}
 													</h5>
 												</td>
 											</tr>
@@ -149,7 +159,7 @@
 													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
 														<span class="fh-checkbox">
 															<input class="check-hora" type="checkbox" id="{{this.id}}" name="mycheckbox" value="{{this.id}}">
-															<label for="{{this.id}}">{{this.responsable}}</label>
+															<label for="{{this.id}}">{{this.responsableNombre}}</label>
 														</span>
 													</h5>
 												</td>
@@ -160,12 +170,12 @@
 												</th>
 												<td>
 													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
-														{{this.asunto}}
+														{{this.caratulaAsunto}}
 													</h5>
 												</td>
 												<td>
 													<h5 style=" font-size: 17.5px; color: #34495e; font-weight: bold;">
-														S/. {{this.precio}}
+														{{total}}
 													</h5>
 												</td>
 											</tr>

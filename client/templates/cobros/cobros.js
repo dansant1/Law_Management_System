@@ -239,19 +239,38 @@ Template.asuntosxCliente.helpers({
 
         let asuntos = Asuntos.find({'cliente.id':this._id}).fetch();
 		let montoTotal = 0;
+		// debugger;
 		asuntos.forEach(function (asunto) {
+			// debugger;
 			let horas = Horas.find({'asunto.id':asunto._id}).fetch();
 			let total=0;
-
-			for (var i = 0; i < horas.length; i++) {
-				let precio = Number(calcularPorTipoDeCobro(horas[i]));
-				if(precio!=undefined){
-					// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
-					// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
-					total += precio;
+			if(asunto.facturacion.forma_cobro=="horas hombre"){
+				for (var i = 0; i < horas.length; i++) {
+					let precio = Number(calcularPorTipoDeCobro(horas[i]));
+					if(precio!=undefined){
+						// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+						// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+						total += precio;
+					}
 				}
+				return montoTotal+=total;
 			}
-			montoTotal+=total;
+			if(asunto.facturacion.forma_cobro=="retainer"){
+				for (var i = 0; i < horas.length; i++) {
+					if(horas[i].excedido){
+						let precio = Number(calcularPorTipoDeCobro(horas[i]));
+						if(precio!=undefined){
+							// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+							// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+							total += precio;
+						}
+					}
+				}
+
+				return montoTotal+=(total+Number(asunto.facturacion.retainer.monto));
+			}
+
+			return montoTotal+= Number(asunto.facturacion.montogeneral);
 
 		})
 
@@ -380,17 +399,36 @@ Template.asuntosxCliente.helpers({
     monto(){
 
 		let self = this;
-		let horas = Horas.find({'asunto.id':this._id}).fetch();
+		let asunto = Asuntos.findOne({_id:this._id});
 		let total=0;
-
-		for (var i = 0; i < horas.length; i++) {
-			let precio = Number(calcularPorTipoDeCobro(horas[i]));
-			if(precio!=undefined){
-				// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
-				// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
-				total += precio;
+		let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+		if(asunto.facturacion.forma_cobro=="horas hombre"){
+			for (var i = 0; i < horas.length; i++) {
+				let precio = Number(calcularPorTipoDeCobro(horas[i]));
+				if(precio!=undefined){
+					// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+					// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+					total += precio;
+				}
 			}
+			return "S/. " + total;
 		}
-		return "S/. " + total;
+		if(asunto.facturacion.forma_cobro=="retainer"){
+			debugger;
+			for (var i = 0; i < horas.length; i++) {
+				if(horas[i].excedido){
+					let precio = Number(calcularPorTipoDeCobro(horas[i]));
+					if(precio!=undefined){
+						// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+						// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+						total += precio;
+					}
+				}
+			}
+			return "S/. " + (total+=Number(asunto.facturacion.retainer.monto));
+
+		}
+
+		return "S/. " + (total+= Number(asunto.facturacion.montogeneral));
     }
 })
