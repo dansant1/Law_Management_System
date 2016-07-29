@@ -363,7 +363,7 @@ Template.generarCobroFacturaModal.helpers({
             totalMontoGasto += montoGasto;
         })
 
-        if(Session.get('moneda')=="dolar")  totalMontoGasto = totalMontoGasto/Session.get('cambio-dolar');
+        if(Session.get('moneda')=="dolar")  totalMontoGasto = (totalMontoGasto/Session.get('cambio-dolar')).toFixed(2);
         Session.set('totalGastosCobro',totalMontoGasto)
 
         return totalMontoGasto;
@@ -429,11 +429,10 @@ Template.generarCobroFacturaModal.helpers({
 			return montoTotal+= Number(asunto.facturacion.montogeneral)*Cambio.findOne().cambio;
 		})
 
-        if(Session.get('moneda')=="dolar")   montoTotal = montoTotal/Session.get('cambio-dolar')
+        if(Session.get('moneda')=="dolar")   montoTotal = (montoTotal/Session.get('cambio-dolar'))
         Session.set('totalMontoTrabajo',montoTotal.toFixed(2))
 
 		return montoTotal.toFixed(2);
-
 
     },
     total(){
