@@ -40,6 +40,7 @@ Template.generarCobroFacturaModal.onRendered(function () {
         let index = factura.estado.paso.nro;
         Session.set("step",index);
         var pickerCobro = new Pikaday({ field: document.getElementById('datepicker_cobro') });
+        pickerCobro.setDate(new Date());
         if(document.getElementById('datepicker_start')&&document.getElementById('datepicker_end')){
             var picker_start = new Pikaday({ field: document.getElementById('datepicker_start') });
             var picker_end = new Pikaday({field:document.getElementById('datepicker_end')});
@@ -491,6 +492,9 @@ Template.generarCobroFacturaModal.helpers({
         let totalTrabajosIGV = Number(Session.get('totalGastosCobro')) + Session.get('igv')*Number(Session.get('totalGastosCobro'));
 
         return (totalGastosIGV+totalTrabajosIGV).toFixed(2);
+    },
+    ultimoPaso(){
+        return Session.get('step')==($(".indicator").length-1)
     }
 });
 
@@ -506,6 +510,15 @@ Template.generarCobroFacturaModal.events({
                 closeOnConfirm: true
             },
             function() {
+                Session.set("fecha-inicio",undefined)
+                Session.set("fecha-fin",undefined)
+                Session.set("asuntosWizard",[])
+                Session.set("horasWizard",[])
+                Session.set("gastosWizard",[])
+                Session.set("cobroWizard",[])
+                Session.set('igv',undefined)
+                Session.set('cambio-dolar',undefined);
+                Session.set('moneda',undefined);
                 Modal.hide('generarCobroFacturaModal');
             });
     },
@@ -532,7 +545,11 @@ Template.generarCobroFacturaModal.events({
         }
     },
     'change [name="tipo-moneda"]'(event,template){
-        if($(event.target).is(":checked")) return Session.set('moneda','dolar');
+        if($(event.target).is(":checked")){
+            $(template.find("[name='valor-cambio']")).prop('disabled',false)
+            template.find("[name='valor-cambio']").value = Cambio.findOne().cambio;
+            return Session.set('moneda','dolar');
+        }
         return Session.set('moneda','sol');
     },
     'change .check-hora'(event,template){
@@ -566,6 +583,10 @@ Template.generarCobroFacturaModal.events({
     'keyup [name="igv-cobro"]'(event,template){
         if(event.target.value=="") return Session.set('igv',0.18);
         return Session.set('igv',event.target.value/100);
+    },
+    'keyup [name="valor-cambio"]'(event,template){
+        if(event.target.value=="") return Session.set('cambio-dolar',Cambio.findOne().cambio);
+        Session.set('cambio-dolar',event.target.value);
     },
     'click .siguiente-paso'(){
 
@@ -676,6 +697,10 @@ Template.generarCobroFacturaModal.events({
             Session.set("horasWizard",[])
             Session.set("gastosWizard",[])
             Session.set("cobroWizard",[])
+            Session.set('igv',undefined)
+            Session.set('cambio-dolar',undefined);
+            Session.set('moneda',undefined);
+
         })
     }
 });
