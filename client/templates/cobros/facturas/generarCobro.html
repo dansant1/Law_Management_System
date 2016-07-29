@@ -255,24 +255,20 @@
 								<div class="titulo-cobro"><h3>Parámetros del cobro</h3></div>
 								<div class="contenido-cobro">
 									<h5>Período</h5>
-									<p>Hasta: 31/12/2016 <a>Editar</a></p>
+									<input type="text" id="datepicker_cobro" name="" readonly value="">
+									<!-- <p>Hasta: 31/12/2016 <a>Editar</a></p> -->
 								</div>
 								<div class="contenido-cobro">
 									<h5>Moneda</h5>
 									<p>
-										<div class="fh-checkbox" style="display: inline-block">
-											<label class="cd-label" style="margin-left: 70px;" for="soles">Soles</label>
-											<input type="checkbox" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;" name="soles" >
-											<input type="number" min="1" style="display: block;">
-										</div>
 										<div class="fh-checkbox" style="display: inline-block; margin-left: 20px;">
 											<label class="cd-label" style="margin-left: 70px;" for="dolares">Dólares</label>
-											<input type="checkbox" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;"  name="dolares" >
-		                  <input type="number" min="1" style="display: block;">
+											<input type="checkbox" name="tipo-moneda" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;"  >
+		                  					<input type="number" min="1" style="display: block;">
 										</div>
 									</p>
 								</div>
-								<div class="contenido-cobro">
+								<!-- <div class="contenido-cobro">
 									<h5>Forma de cobro</h5>
 									<br>
 									<div class="fh-checkbox" style="display: inline-block">
@@ -287,6 +283,29 @@
 										<label class="cd-label" for="retainer">Retainer</label>
 										<input type="checkbox" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;" >
 									</div>
+								</div> -->
+								<div class="contenido-cobro">
+									<h5>Subtotal</h5>
+									<div class="fh-checkbox" style="display: inline-block">
+										<label class="cd-label" style="margin-left: 70px;" for="soles">Trabajos</label>
+										<input type="checkbox" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;" name="soles" >
+										<label for="">{{simbolo_moneda}}</label>
+										<input type="number" value="{{trabajos}}" min="1" style="display: block;">
+									</div>
+									<div class="fh-checkbox" style="display: inline-block; margin-left: 20px;">
+										<label class="cd-label" style="margin-left: 70px;" for="dolares">Gastos</label>
+										<input type="checkbox" style="display: block; opacity: 100; width: 20px; height: 20px; margin: 0 auto;"  name="dolares" >
+										<label for="">{{simbolo_moneda}}</label>
+										<input type="number" value="{{gastos}}" min="1" style="display: block;">
+									</div>
+								</div>
+								<div class="contenido-cobro">
+									<h5>IGV</h5>
+									<br>
+									<div class="fh-checkbox" style="display: inline-block; margin-left: 20px;">
+										<label class="cd-label" style="margin-left: 70px;" for="dolares">Valor</label>
+										<input type="number" name="igv-cobro" min="1" style="display: block;">
+									</div>
 								</div>
 							</div>
 
@@ -295,12 +314,15 @@
 								<div class="fila-resumen-cobro">
 									<div class="columna-resumen-cobro">
 										<h4>Trabajos</h4>
+										<h3>{{simbolo_moneda}} {{montoTrabajoConIGV}}</h3>
 									</div>
 									<div class="columna-resumen-cobro">
 										<h4>Gastos</h4>
+										<h3>{{simbolo_moneda}} {{montoGastosConIGV}}</h3>
 									</div>
 									<div class="columna-resumen-cobro" style="border-right: none;">
 										<h4>Resumen total</h4>
+										<h3>{{simbolo_moneda}} {{totalgeneral}}</h3>
 									</div>
 
 									<div class="columna-imprimir">
