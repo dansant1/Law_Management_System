@@ -14,10 +14,12 @@ Meteor.methods({
 
 
 
-		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+		if (Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) || Roles.userIsInRole( this.userId, ['socio'], 'bufete' ) || Roles.userIsInRole( this.userId, ['encargado comercial'], 'bufete' ) ) {
 
 			// datos._id = new Meteor.Collection.ObjectID();
 
+			let c = Clientes.findOne({_id: datos.contacto.id})
+			console.log(c);
 			if ( Clientes.findOne({_id: datos.contacto.id}).estatus === "contacto" ) {
 				Clientes.update({_id: datos.contacto.id}, {
 					$set: {

@@ -851,7 +851,7 @@
 
         <div class="form-group">
           <label for="sel1">Adjunta un contacto</label>
-            <select class="form-control cliente" id="sel1">
+            <select class="form-control cliente" id="sel1" name="clienteselect">
             {{#each contactos}}
               <option value="{{this._id}}">{{this.nombre}} {{this.apellido}}</option>
             {{/each}}
@@ -1419,9 +1419,9 @@
 			Calendario
 		</a>
 
-		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
+		<!--<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
 			Facturación
-		</a>
+		</a> -->
 		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
 			Conversación
 		</a>
@@ -2832,9 +2832,7 @@
 			Calendario
 		</a>
 
-		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-			Facturación
-		</a>
+
 		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
 			Conversación
 		</a>
@@ -2877,9 +2875,7 @@
 			Calendario
 		</a>
 
-		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-			Facturación
-		</a>
+
 		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
 			Conversación
 		</a>
@@ -2922,9 +2918,7 @@
 			Calendario
 		</a>
 
-		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-			Facturación
-		</a>
+
 		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 15px;">
 			Conversación
 		</a>
@@ -3006,9 +3000,7 @@
 			Calendario
 		</a>
 
-		<a href="/asuntos2/d/{{asuntoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-			Facturación
-		</a>
+
 		<a href="/asuntos2/d/{{asuntoId}}/conversacion" class="menu-asunto-aim" style="margin-left: 15px;">
 			Conversación
 		</a>
@@ -5985,12 +5977,12 @@
         <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
             Gastos
         </a>
-        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+        <!--<a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
             Cobros
         </a>
         <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
             Reportes
-        </a>
+        </a> -->
         <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
             Configuración
         </a>
@@ -6088,12 +6080,12 @@
         <a href="/facturacion/gastos" class="menu-asunto-aim" style="margin-left: 10px;">
             Gastos
         </a>
-        <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
+      <!--  <a href="/facturacion/cobros" class="menu-asunto-aim" style="margin-left: 10px;">
             Cobros
         </a>
         <a href="/facturacion/reportes" class="menu-asunto-aim" style="margin-left: 10px;">
             Reportes
-        </a>
+        </a> -->
         <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
             Configuración
         </a>

@@ -2363,7 +2363,7 @@ Template.casoNuevoModal.events({
 			createdAt: new Date(),
 			contacto: {
 				nombre: $( ".cliente option:selected" ).text(),
-				id: $( ".cliente" ).val()
+				id: $('select[name=clienteselect]').val()
 			},
 			creador: {
 				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
