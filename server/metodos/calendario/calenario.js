@@ -114,7 +114,8 @@ Meteor.methods({
 					}
 				}
 
-				//console.log(data);
+				data.fecha = new Date(datos.start + " GMT-0500");
+				console.log(data.fecha);
 
 				MiCalendario.insert(data);
 

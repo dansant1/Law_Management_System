@@ -496,7 +496,7 @@ Template.asuntosSidebarDashboard.onCreated( function () {
 
 Template.asuntosSidebarDashboard.helpers({
 	esAdministrador() {
-		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) || Roles.userIsInRole( Meteor.userId(), ['socio'], 'bufete' )) {
 			return true;
 		} else {
 			return false;
@@ -596,7 +596,7 @@ Template.asuntos2.helpers({
 		return estado;
  	},
  	esAdministrador() {
- 		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) ) {
+ 		if ( Roles.userIsInRole( Meteor.userId(), ['administrador'], 'bufete' ) || Roles.userIsInRole( Meteor.userId(), ['socio'], 'bufete' ) ) {
 			return true;
 		} else {
 			return false;

@@ -332,7 +332,7 @@ Meteor.methods({
 			}
 		})
 
-        var date = moment(fecha);
+      //  var date = moment(fecha);
 
 
         // let evento = {
@@ -348,7 +348,7 @@ Meteor.methods({
         //         id: tareaId
         //     }
         // }
-        Eventos.update({'tarea.id':tareaId},{
+        /*Eventos.update({'tarea.id':tareaId},{
             $set:{
                 start: formatDate(fecha)
             }
@@ -359,14 +359,14 @@ Meteor.methods({
             $set:{
                 start: formatDate(fecha)
             }
-        });
+        });*/
 
 
         // Eventos.insert(evento);
         // MiCalendario.insert(evento);
 
 
-		/*var date = moment(fecha).toISOString();
+		var date = moment(fecha).toISOString();
 
 		if (MiCalendario.findOne({'tarea.id': tareaId})) {
 			MiCalendario.update({'tarea.id': tareaId}, {
@@ -376,7 +376,7 @@ Meteor.methods({
 			});
 		} else {
 			MiCalendario.insert({
-				title: 'Vence la tarea ' + Tareas.findOne({_id: tareaId}).descripcion,
+				title: Tareas.findOne({_id: tareaId}).descripcion,
 				start: formatDate(new Date(fecha+" GMT-0500")),
 				bufeteId: Meteor.users.findOne({_id: this.userId}).profile.bufeteId,
 				creador: {
@@ -384,9 +384,14 @@ Meteor.methods({
 					id: this.userId
 				},
 				userId: this.userId,
-				type: 'Tarea'
+				type: 'Tarea',
+        tarea: {
+          nombre: Tareas.findOne({_id: tareaId}).descripcion,
+          id: tareaId
+        },
+        fecha: fecha
 			});
-		}*/
+		}
 
 
 

@@ -14,7 +14,7 @@ Meteor.publish('miCalendario', function () {
 });
 
 Meteor.publish('eventosxhoy',function () {
-	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' ) ) {
+	if ( this.userId ) {
 
 		let hoy = new Date()
 	    hoy.setHours(0,0,0,0);
@@ -23,7 +23,7 @@ Meteor.publish('eventosxhoy',function () {
 	    mañana.setDate(mañana.getDate()+1)
 	    mañana.setHours(0,0,0,0)
 
-		console.log('[ID del Usuario]',this.userId);
+		//console.log('[ID del Usuario]',this.userId);
 		return MiCalendario.find({end:{$gte:hoy,$lt:mañana}, userId: this.userId});
 
 	} else {

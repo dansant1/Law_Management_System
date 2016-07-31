@@ -4,7 +4,7 @@
             <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
         </div>
     </div>
-    <div class="franja-filtros" style="padding-left: 4px;">
+    <div class="franja-filtros" style="padding-left: 12px;">
 
         <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
             Actividad
@@ -29,16 +29,16 @@
             Facturación
         </a>
     </div>
-    <div class="franja-filtros" style="padding-left: 24px;">
+    <div class="franja-filtros" style="padding-left: 0px;">
 
-        <a href="/tareas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px; text-align: left;">
+        <a href="/tareas" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px; text-align: center;">
             Tareas
         </a>
-        <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px; text-align: left;">
+        <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px; text-align: center;">
             Documentos
         </a>
 
-        <a href="/tareas/workflows/d" class="menu-asunto-aim " style="margin-left: 10px; text-align: left;">
+        <a href="/tareas/workflows/d" class="menu-asunto-aim " style="margin-left: 10px; text-align: center;">
             Workflows
         </a>
 
@@ -53,7 +53,7 @@
                     <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-					
+
                     <li><a class="abiertos" href="#">Abiertos</a></li>
                     <li><a class="cerrados" href="#">Cerrados</a></li>
 					<li> <a class="hoy" href="">Vencen hoy</a></li>
@@ -257,7 +257,7 @@
 						 </span></th>
 						 <td>
 						 	{{#if this.vence}}
-						 	<h5 style="text-align: center;">
+						 	<h5 style="text-align: center;" class="agregar-fecha-tarea">
 						 		{{dia this.vence}}
 						 	</h5>
 						 	{{else}}
