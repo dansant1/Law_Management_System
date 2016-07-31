@@ -162,6 +162,7 @@ srp@1.0.9
 standard-minifier-css@1.0.7
 standard-minifier-js@1.0.7
 tap:i18n@1.8.2
+templates:array@1.0.3
 templating@1.1.11
 templating-tools@1.0.4
 themeteorchef:bert@2.1.0
