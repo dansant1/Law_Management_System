@@ -110,9 +110,18 @@
 
 .kanban-input {
   border: none;
+  border-bottom: 1px dashed #f1f1f1;
   background-color: #f1f1f1;
   display: block;
   margin-bottom: 10px;
+  width: 99%;
+  -webkit-transition: border-color 0.4s ease-out;
+  -moz-transition: border-color 0.4s ease-out;
+  -o-transition: border-color 0.4s ease-out;
+  transition: border-color 0.4s ease-out;
+}
+.kanban-input:hover, .kanban-input:focus {
+  border-color: #34495e;
 }
 
 .detail {

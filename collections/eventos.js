@@ -35,12 +35,17 @@ let EsquemaEventos = new SimpleSchema({
 		type: String,
 		optional:true
 	},
+	vence: {
+		type: Date,
+		optional: true
+	},
 	color: {
 		type: String,
 		optional: true
 	},
 	'asunto': {
-		type: Object
+		type: Object,
+		optional: true
 	},
 	'asunto.nombre': {
 		type: String
@@ -86,5 +91,3 @@ let EsquemaEventos = new SimpleSchema({
 });
 
 Eventos.attachSchema(EsquemaEventos);
-
-

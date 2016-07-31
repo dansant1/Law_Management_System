@@ -105,7 +105,8 @@ Meteor.methods({
 		check(tareaId,String)
         MiCalendario.remove({'tarea.id':tareaId})
         Eventos.remove({'tarea.id':tareaId});
-		Tareas.remove({_id:tareaId})
+		    Tareas.remove({_id:tareaId});
+        
 
 	},
 	agregarHoraTarea: function (datos) {
@@ -140,50 +141,6 @@ Meteor.methods({
 			datos.minutos = minutos
 		}
 
-		// if(datos.asunto){
-		// 	let asunto = Asuntos.findOne({_id:datos.asunto.id})
-		// 	console.log(asunto);
-		// 	let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id})
-		// 	let cambio = Cambio.findOne({bufeteId:datos.bufeteId})
-        //
-		// 	tarifa.miembros.some(function (miembro) {
-		// 		if(miembro.id==datos.responsable.id){
-		// 			let costoxminuto, costoxhora;
-		// 			costoxhora = miembro.soles*datos.horas;
-		// 			costoxminuto = (miembro.soles/60)*datos.minutos;
-        //
-		// 			return datos.precio = Number(costoxhora) + Number(costoxminuto);
-		// 		}
-		// 	})
-        //
-		// 	if(!datos.precio){
-		// 		let user = Meteor.users.findOne({_id:datos.responsable.id});
-		// 		tarifa.roles.some(function (roles) {
-		// 			let costoxminuto, costoxhora;
-		// 			if(user.roles.bufete.length==1)
-		// 				if(user.roles.bufete[0]==roles.nombre){
-        //
-		// 					costoxhora = roles.soles*datos.horas;
-		// 					costoxminuto = (roles.soles/60)*datos.minutos;
-        //
-		// 					return datos.precio = Number(costoxhora) + Number(costoxminuto);
-        //
-		// 					// return datos.precio = ((asunto.facturacion.tarifa.tipo_moneda=="soles")? roles.soles*datos.horas : (roles.soles/cambio.cambio)*datos.horas).toFixed(2);
-        //
-		// 				}
-		// 			else {
-		// 				if(user.roles.bufete[1]==roles.nombre){
-		// 					costoxhora = roles.soles*datos.horas;
-		// 					costoxminuto = (roles.soles/60)*datos.minutos;
-		// 					return datos.precio =  Number(costoxhora) + Number(costoxminuto);
-		// 				}
-		// 			}
-		// 		})
-		// 	}
-		// 	// console.log(datos.precio);
-        //
-		// 	datos.precio = datos.precio.toFixed(2)
-		// }
 
 		let horaId = Horas.insert(datos);
 		console.log(horaId);
@@ -335,36 +292,41 @@ Meteor.methods({
       //  var date = moment(fecha);
 
 
-        // let evento = {
-        //     title: tarea.descripcion,
-        //     start: formatDate(datos.vence),
-        //     asunto: tarea.asunto,
-        //     bufeteId: tarea.bufeteId,
-        //     creador: tarea.creador,
-        //     createdAt: tarea.createdAt,
-        //     color: '#34495e',
-        //     tarea: {
-        //         nombre: tarea.descripcion,
-        //         id: tareaId
-        //     }
-        // }
-        /*Eventos.update({'tarea.id':tareaId},{
-            $set:{
-                start: formatDate(fecha)
+        let evento = {
+             title: Tareas.findOne({_id: tareaId}).descripcion + " asignado a " + Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido,
+             start: formatDate(new Date(fecha+" GMT-0500")),
+             bufeteId: Meteor.users.findOne({_id: this.userId}).profile.bufeteId,
+             creador: {
+               nombre: Meteor.users.findOne({_id: this.userId}).profile.nombre + " " + Meteor.users.findOne({_id: this.userId}).profile.apellido,
+               id: this.userId
+             },
+             createdAt: new Date(),
+             tarea: {
+                 nombre: Tareas.findOne({_id: tareaId}).descripcion,
+                 id: tareaId
+             },
+             vence: new Date(fecha+" GMT-0500")
+         }
+
+         //console.log(Tareas.findOne({_id: tareaId}).asunto.id);
+         console.log(evento);
+         if ( Tareas.findOne({_id: tareaId}).asunto !== undefined ) {
+            evento.asunto = {};
+            evento.asunto.id = Tareas.findOne({_id: tareaId}).asunto.id;
+            evento.asunto.nombre = Tareas.findOne({_id: tareaId}).asunto.nombre;
+            console.log(evento);
+
+            if ( Eventos.findOne({'tarea.id': tareaId}) ) {
+              Eventos.update({'tarea.id':tareaId},{
+                  $set:{
+                      start: formatDate(new Date(fecha+" GMT-0500"))
+                  }
+              })
+            } else {
+              Eventos.insert(evento);
             }
-        })
 
-
-        MiCalendario.update({'tarea.id':tareaId},{
-            $set:{
-                start: formatDate(fecha)
-            }
-        });*/
-
-
-        // Eventos.insert(evento);
-        // MiCalendario.insert(evento);
-
+         }
 
 		var date = moment(fecha).toISOString();
 
