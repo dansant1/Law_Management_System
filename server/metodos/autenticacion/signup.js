@@ -60,7 +60,7 @@ Meteor.methods({
 
 			Email.send({
   				to: datos.email,
-  				from: "daniel@grupoddv.com",
+  				from: "BUNQR <daniel@grupoddv.com>",
   				subject: "Bienvenido a BUNQR",
   				html: SSR.render( 'htmlEmail', emailData )
 			});
