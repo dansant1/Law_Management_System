@@ -3891,7 +3891,12 @@ Template.modalNuevoEvento.events({
 		}
 
 	datos.start = t.find("[name='empieza']").value;
-	datos.end = t.find("[name='finaliza']").value;
+	if (t.find("[name='finaliza']").value === "") {
+		datos.end = datos.start;
+	} else {
+		datos.end = t.find("[name='finaliza']").value;	
+	}
+	
 
 	datos.horai = $( "#horai" ).val() ;
 	datos.minutoi = $( "#minutoi" ).val();

@@ -67,7 +67,7 @@
 
 <template name="gastosChart">
   <div  style="display: inline-block; width: 96%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 0px;">
-    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;"> Gastos</h4>
+    <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; text-align: center;">Gastos Administrativos</h4>
     <!-- <select name="rangos" class="select-bunqr">
     	<option value="semana">Rango de tiempo semanal</option>
     	<option value="semana">Rango de tiempo mensual</option>
@@ -86,49 +86,11 @@
   </div>
   <div class="reportes-facturacion">
     <div class="fila">
-      <!-- <div class="columna" style="height: 80px;">
-        <h4>Ingresos</h4>
-        <p>S/ 2, 450.00</p>
-      </div> -->
+     
       {{>resumenGastos}}
-      <!-- <div class="columna" style="height: 80px;">
-        <h4>Monto total</h4>
-        <p>S/ 4, 650.00</p>
-      </div> -->
-    </div>
-    <div class="fila">
-      <div class="columna" id="sin-padding">
-        <div class="fila-cuadro">
-          <div class="columna-cuadro">
-            <h5>Facturas en borrador</h5>
-            <p>2</p>
-          </div>
-          <div class="columna-cuadro">
-            <h5>Monto total</h5>
-            <p>S/ 1, 256.00</p>
-          </div>
-        </div>
-        <div class="fila-cuadro">
-          <div class="columna-cuadro">
-            <h5>Espera de pago</h5>
-            <p>1</p>
-          </div>
-          <div class="columna-cuadro">
-            <h5>Monto total</h5>
-            <p>S/ 3, 152.50</p>
-          </div>
-        </div>
-        <div class="fila-cuadro">
-          <div class="columna-cuadro fuera-fecha">
-            <h5>Facturas fuera de fecha</h5>
-            <p>1</p>
-          </div>
-          <div class="columna-cuadro fuera-fecha">
-            <h5>Monto total</h5>
-            <p>S/ 2, 559.00</p>
-          </div>
-        </div>
-      </div>
+    
+   
+      
       <div class="columna" id="sin-padding">
 
         {{>ultimosGastos}}
@@ -140,6 +102,7 @@
           {{>resumenHorasPersonal}}
         </div>
       </div>
+
     </div>
      <div class="fila" style="width: 66.65%;">
         <div style="width: 100%; min-height: 400px; border: 1px solid #f1f1f1; border-right-width: 2px;">
@@ -173,8 +136,8 @@
 </template>
 
 <template name="resumenGastos">
-  <div class="columna" style="height: 80px;">
-    <h4>Gastos</h4>
+  <div class="columna" style="padding-top: 20px;">
+    <h4>Gastos Administrativos</h4>
     <p>S/ {{gastos}}</p>
   </div>
 </template>

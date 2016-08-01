@@ -5634,15 +5634,8 @@
 
 <template name="mainDashboard">
 
-  <div style="width: 100%; margin: 0px ; display: flex; flex-wrap: wrap;">
-     <div style="width: 50%; text-align: center;">
-    {{>borradoresFacturaDashboard}}
-
-    {{>facturasEsperaPagoDashboard}}
-    {{>facturasAtrasadasDashboard}}
-    </div>
-    {{>hitosHorasDashboard}}
-
+  <div style="width: 100%; margin: 0px ; text-align: center; display: flex; flex-wrap: wrap;">
+      {{>horaMiembrosChart}}
   </div>
 </template>
 

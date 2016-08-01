@@ -3,7 +3,7 @@
 		{ "env":
 			{ 	
         "ROOT_URL": "https://app.grupoddv.com",
-				"MONGO_URL": "mongodb://danieldelgadilloh:developer24@waffle.modulusmongo.net:27017/wiWy3jiv"
+				"MONGO_URL": "mongodb://bunqr:developer24@ds047692.mlab.com:47692/bunqrdb"
 			}
 		},
 	"public": {

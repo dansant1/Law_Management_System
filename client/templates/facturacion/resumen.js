@@ -214,7 +214,7 @@ Template.horaMiembrosChart.onRendered(function () {
             legendTemplate : '<ul>'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
                     +'<li>'
-                    +'<div style=\"display: flex;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<div style=\"display: flex; width: 86%; margin: 0 auto;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'
@@ -311,7 +311,7 @@ Template.gastosChart.onRendered(function () {
 
 
 
-        debugger
+        //debugger
 
         // var gastosxasunto = _(Gastos.find({'asunto':{$exists:true}}).fetch()).groupBy(function (gasto) {
         //     return gastos.asunto.id;
@@ -346,7 +346,7 @@ Template.gastosChart.onRendered(function () {
             legendTemplate : '<ul>'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
                     +'<li>'
-                    +'<div style=\"display: flex;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<div style=\"display: flex; width: 86%; margin: 0 auto;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'
