@@ -161,9 +161,11 @@ Template.nuevoHoras.events({
 });
 
 Template.agregarHoras.onRendered(function () {
+	debugger;
+	let template = this;
 	if(Session.get("cronometro-pausado")){
-		$("#agregar-horas-modal").find("[name='horas']").val(chronometer.hours);
-		$("#agregar-horas-modal").find("[name='minutos']").val(chronometer.minutes);
+		$(template.find("[name='horas']")).val(chronometer.hours);
+		$(template.find("[name='minutos']")).val(chronometer.minutes);
 	}
 	Meteor.typeahead.inject();
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });

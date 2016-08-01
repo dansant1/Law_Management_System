@@ -144,31 +144,33 @@ calcularTotal = function (datos) {
 	totalHorasNoCobradas.forEach(function (hora) {
 		let suma = 0;
 		let costoResponsable = {}
-		let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
-		if(tarifa==undefined) return;
-		tarifa.miembros.forEach(function (miembro) {
+		if(asunto.facturacion.tarifa){
+			let tarifa = Tarifas.find({_id:asunto.facturacion.tarifa.id}).fetch()[0];
+			if(tarifa==undefined) return;
+			tarifa.miembros.forEach(function (miembro) {
 
-			if(miembro.id==hora.responsable.id){
-				if(tipo_moneda=="soles") suma += hora.horas*miembro.soles;
-				else suma += hora.horas*(miembro.soles/cambio)
-				return;
-			}
-
-			let responsable = Meteor.users.find({_id:hora.responsable.id}).fetch()[0];
-			let rol_responsable = responsable.roles.bufete[1];
-
-			tarifa.roles.forEach(function (rol) {
-				if(rol_responsable==rol.nombre){
-					if (tipo_moneda=="soles") suma+= hora.horas*rol.soles
-					else suma+= hora.horas*(rol.soles/cambio);
+				if(miembro.id==hora.responsable.id){
+					if(tipo_moneda=="soles") suma += hora.horas*miembro.soles;
+					else suma += hora.horas*(miembro.soles/cambio)
+					return;
 				}
+
+				let responsable = Meteor.users.find({_id:hora.responsable.id}).fetch()[0];
+				let rol_responsable = responsable.roles.bufete[1];
+
+				tarifa.roles.forEach(function (rol) {
+					if(rol_responsable==rol.nombre){
+						if (tipo_moneda=="soles") suma+= hora.horas*rol.soles
+						else suma+= hora.horas*(rol.soles/cambio);
+					}
+				})
+
 			})
+			costoResponsable.id = hora.responsable.id;
+			costoResponsable.total = suma;
 
-		})
-		costoResponsable.id = hora.responsable.id;
-		costoResponsable.total = suma;
-
-		costoNoFacturadoResponsables.push(costoResponsable);
+			costoNoFacturadoResponsables.push(costoResponsable);
+		}
 
 	})
 

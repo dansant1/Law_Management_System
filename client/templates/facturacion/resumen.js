@@ -17,7 +17,7 @@ Template.resumenHorasPersonal.onRendered(function () {
         // var hoy = new Date()
         // hoy.setHours(0,0,0,0)
 
-        debugger;
+        // debugger;
         var horas = Horas.find({$and:[{'asunto':{$exists:true}},{'responsable.id':Meteor.user()._id},Session.get('filtro-hora')]}).fetch();
 
         var grupos = _(horas).groupBy(function (hora) {
@@ -31,13 +31,13 @@ Template.resumenHorasPersonal.onRendered(function () {
                         return m + x.horas;
                     },0),
                     minutos: _(g).reduce(function (m,x) {
-                        debugger
+                        // debugger
                         return m + x.minutos;
                     },0)
                 }
         })
 
-        debugger;
+        // debugger;
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
 
@@ -100,8 +100,276 @@ Template.resumenGastos.onCreated(function () {
   var bufeteId = Meteor.user().profile.bufeteId;
   self.autorun(function () {
       self.subscribe('totalGastos',bufeteId);
+      self.subscribe('gastos',bufeteId);
   })
 });
+
+Template.horaMiembrosChart.onCreated(function () {
+    let self = this;
+    let bufeteId = Meteor.user().profile.bufeteId;
+
+    self.autorun(function () {
+        self.subscribe('horas',bufeteId);
+        self.subscribe('equipo',bufeteId)
+    })
+})
+
+Template.horaMiembrosChart.onRendered(function () {
+    function chartLine() {
+        // var dynamicColors = function() {
+        //     var r = Math.floor(Math.random() * 255);
+        //     var g = Math.floor(Math.random() * 255);
+        //     var b = Math.floor(Math.random() * 255);
+        //     return "rgb(" + r + "," + g + "," + b + ")";
+        // }
+        //
+
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",0.2)";
+        }
+
+
+        let horasxmiembro = _(_(Horas.find({'responsable':{$exists:true}}).map(function (hora) {
+            let mes = hora.fecha.getMonth()
+            return {
+                _id:hora._id,
+                horas:hora.horas,
+                minutos:hora.minutos,
+                responsable:hora.responsable,
+                mes:mes+1
+            }
+        })).groupBy(function (hora) {
+            return hora.responsable.id + "-"+ hora.mes;
+        })).map(function (g,key) {
+            return {
+                id:key.split("-")[0],
+                horas: _(g).reduce(function (m,x) {
+                    return m + x.horas;
+                },0),
+                minutos: _(g).reduce(function (m,x) {
+                    return m + x.minutos
+                },0),
+                mes: Number(key.split("-")[1])
+            }
+        })
+
+        let responsablexhorasxmes = _(horasxmiembro).groupBy(function (responsable) {
+            return responsable.id;
+        })
+
+        // debugger;
+        let datasets = []
+
+        for (var responsable in responsablexhorasxmes ) {
+            if (responsablexhorasxmes.hasOwnProperty(responsable)) {
+                let info = {}
+                let data = []
+                let backgroundColors = []
+                let color = dynamicColors();
+
+                info.label = Meteor.users.findOne(responsable).profile.nombre + " " + Meteor.users.findOne(responsable).profile.apellido ;
+                for (var i = 1; i <= 12; i++) {
+                    let query = _.where(responsablexhorasxmes[responsable],{mes:i});
+                    // if(query.length>0){
+                    //
+                    // }
+                    let horas = query.length>0? query[0].horas:0;
+                    data.push(horas)
+                    backgroundColors.push(color)
+                }
+                info.data = data;
+                info.fillColor= backgroundColors;
+                info.color = backgroundColors;
+                info.borderColor = backgroundColors;
+                datasets.push(info)
+            }
+        }
+
+
+        // for (var gastos in gastosxasunto) {
+        //     if (gastosxasunto.hasOwnProperty(gastos)) {
+        //         let mes = gastos.groupBy(function (gasto) {
+        //             return gasto.mes
+        //         })
+        //         meses.push(mes);
+        //     }
+        // }
+
+
+
+        debugger
+
+        var ctx = document.getElementById("horasMiembrosChart").getContext("2d");
+
+        let meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+        let myPieChart = new Chart(ctx).Bar({
+            labels: meses,
+            datasets: datasets
+        },{
+            animateScale: true,
+            legendTemplate : '<ul>'
+                  +'<% for (var i=0; i<datasets.length; i++) { %>'
+                    +'<li>'
+                    +'<div style=\"display: flex;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'</p>'
+                  +'</li>'
+                +'<% } %>'
+              +'</ul>'
+        });
+
+        document.getElementById("legendDivhorasmiembros").innerHTML = myPieChart.generateLegend();
+    }
+
+    Tracker.autorun(chartLine);
+
+})
+
+
+
+Template.gastosChart.onRendered(function () {
+    function chartLine() {
+        // var dynamicColors = function() {
+        //     var r = Math.floor(Math.random() * 255);
+        //     var g = Math.floor(Math.random() * 255);
+        //     var b = Math.floor(Math.random() * 255);
+        //     return "rgb(" + r + "," + g + "," + b + ")";
+        // }
+        //
+
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",0.5)";
+        }
+
+
+        let gastosxasunto = _(_(Gastos.find({'asunto':{$exists:true}}).map(function (gasto) {
+            let mes = gasto.fecha.getMonth()
+            return {
+                _id:gasto._id,
+                monto:gasto.monto,
+                asunto:gasto.asunto,
+                mes:mes+1
+            }
+        })).groupBy(function (gasto) {
+            return gasto.asunto.id + "-"+gasto.mes;
+        })).map(function (g,key) {
+            return {
+                    id:key.split("-")[0],
+                    monto: _(g).reduce(function (m,x) {
+                        return m + x.monto;
+                    },0),
+                    mes: Number(key.split("-")[1])
+                }
+        })
+
+        let gastosxasuntoxmes = _(gastosxasunto).groupBy(function (asunto) {
+            return asunto.id;
+        })
+
+        let datasets = []
+
+        for (var asunto in gastosxasuntoxmes) {
+            if (gastosxasuntoxmes.hasOwnProperty(asunto)) {
+                let info = {}
+                let data = []
+                info.label = Asuntos.findOne(asunto).caratula;
+                // info.fill = false
+                let backgroundColors = []
+                let color = dynamicColors();
+
+                for (var i = 1; i <= 12; i++) {
+                    backgroundColors.push(color)
+                    let query = _.where(gastosxasuntoxmes[asunto],{mes:i});
+                    let monto = query.length>0? query[0].monto:0;
+                    data.push(monto)
+                }
+                info.data = data;
+                info.fillColor= dynamicColors();
+                info.highlightFill = "rgba(220,220,220,0.75)"
+                info.highlightStroke = "rgba(220,220,220,1)"
+                info.strokeColor= "rgba(220,220,220,0.8)",
+
+                datasets.push(info)
+            }
+        }
+
+
+        // for (var gastos in gastosxasunto) {
+        //     if (gastosxasunto.hasOwnProperty(gastos)) {
+        //         let mes = gastos.groupBy(function (gasto) {
+        //             return gasto.mes
+        //         })
+        //         meses.push(mes);
+        //     }
+        // }
+
+
+
+        debugger
+
+        // var gastosxasunto = _(Gastos.find({'asunto':{$exists:true}}).fetch()).groupBy(function (gasto) {
+        //     return gastos.asunto.id;
+        // })
+        //
+        //
+        //
+        // .map(function (g,key) {
+        //     return {
+        //             type:key,
+        //             monto: _(g).reduce(function (m,x) {
+        //                 return m + x.horas;
+        //             },0),
+        //             minutos: _(g).reduce(function (m,x) {
+        //                 debugger
+        //                 return m + x.minutos;
+        //             },0)
+        //         }
+        // })
+
+
+
+        var ctx = document.getElementById("gastosChart").getContext("2d");
+
+        let meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+        let myPieChart = new Chart(ctx).Line({
+            labels: meses,
+            datasets: datasets
+        },{
+            animateScale: true,
+            legendTemplate : '<ul>'
+                  +'<% for (var i=0; i<datasets.length; i++) { %>'
+                    +'<li>'
+                    +'<div style=\"display: flex;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'</p>'
+                  +'</li>'
+                +'<% } %>'
+              +'</ul>'
+        });
+
+        document.getElementById("legendDivGastos").innerHTML = myPieChart.generateLegend();
+    }
+
+    Tracker.autorun(chartLine);
+})
+
+Template.gastosChart.onCreated(function () {
+    let self = this;
+    let bufeteId = Meteor.user().profile.bufeteId;
+    self.autorun(function () {
+        self.subscribe('asuntos',bufeteId)
+    })
+})
+
+Template.gastosChart.helpers(function () {
+
+})
 
 Template.resumenGastos.helpers({
   gastos() {
@@ -111,7 +379,17 @@ Template.resumenGastos.helpers({
       suma = suma + index.monto;
     });
     return suma;
-  }
+    },
+    gastosxasunto(){
+        let asuntos = Asuntos.find().fetch();
+        let gastos = Gastos.find({'asunto.id':{$exists:true}}).fetch();
+        let grupos = _(gastos).groupBy(function (gasto) {
+            return gasto.asunto.id;
+        })
+
+
+
+    }
 });
 
 
@@ -128,7 +406,7 @@ Template.resumenHorasPersonal.events({
             return Session.set('filtro-hora',{fecha:{$lt:mañana,$gte:hoy}})
         }
         if(event.target.value=="semana"){
-            debugger;
+            // debugger;
             function getMonday(d) {
     		  d = new Date(d);
     		  var day = d.getDay(),
@@ -187,7 +465,7 @@ Template.resumenHorasPersonal.events({
 Template.resumenHorasPersonal.helpers({
     horas(){
 
-        debugger;
+        // debugger;
         var horas = Horas.find({$and:[{'asunto':{$exists:true}},{'responsable.id':Meteor.userId()},Session.get('filtro-hora')]}).fetch();
 
         var grupos = _(horas).groupBy(function (hora) {
@@ -201,13 +479,13 @@ Template.resumenHorasPersonal.helpers({
                         return m + x.horas;
                     },0),
                     minutos: _(g).reduce(function (m,x) {
-                        debugger
+                        // debugger
                         return m + x.minutos;
                     },0)
                 }
         })
 
-        debugger;
+        // debugger;
 
         for (var i = 0; i < tiempoxAsunto.length; i++) {
 
@@ -282,7 +560,7 @@ Template.resumenHorasPersonal.helpers({
             totalMinutos = totalMinutos%60;
         }
 
-        debugger;
+        // debugger;
 
         return totalHoras + "h " + totalMinutos +"m " ;
 
