@@ -31,42 +31,45 @@
           <thead>
           <tr>
             <th >Categoría</th>
-            <th style="text-align: center;">Sol (S/)</th>
+            <th style="text-align: center;">Moneda local</th>
             <th style="text-align: center;">Dólar</th>
           </tr>
           </thead>
           <tbody class="roles">
           <tr class="administrador">
-            <td><span>Administrador</span></td>
-            <td><input class="valor-soles" type="number" min="0"></td>
-            <td><input class="valor-dolares" type="number" min="0"></td>
+            <td><span>Administrador*</span></td>
+            <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+
+            <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
+          </tr>
+           <tr class="socio">
+            <td><span>Socio</span></td>
+            <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+            <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
           </tr>
           <tr class="socio-senior">
             <td><span>Asociado senior</span></td>
-            <td><input class="valor-soles" type="number" min="0"></td>
-            <td><input class="valor-dolares" type="number" min="0"></td>
+            <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+            <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
           </tr>
           <tr class="socio-junior">
             <td><span>Asociado junior</span></td>
-            <td><input class="valor-soles" type="number" min="0"></td>
-            <td><input class="valor-dolares" type="number" min="0"></td>
-          </tr>
-           <tr class="procurador">
-            <td><span>Procurador</span></td>
-            <td><input class="valor-soles" type="number" min="0"></td>
-            <td><input class="valor-dolares" type="number" min="0"></td>
+            <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+            <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
           </tr>
           <tr class="secretario">
           <td><span>Secretario</span></td>
-          <td><input class="valor-soles" type="number" min="0"></td>
-          <td><input class="valor-dolares" type="number" min="0"></td>
+          <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+          <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
           </tr>
+           <tr class="procurador">
+            <td><span>Procurador</span></td>
+            <td><input class="valor-soles input-tarifa" type="number" min="0"></td>
+            <td><input disabled class="valor-dolares input-tarifa" type="number" min="0"></td>
+          </tr>
+          
 
-           <tr class="socio">
-            <td><span>Socio</span></td>
-            <td><input class="valor-soles" type="number" min="0"></td>
-            <td><input class="valor-dolares" type="number" min="0"></td>
-          </tr>
+          
           </tbody>
           </table>
           <br>
@@ -86,8 +89,8 @@
               <h1>{{this._id}}</h1>
             </td>
                 <td style="text-align: left;"><span>{{this.profile.nombre}} {{this.profile.apellido}}</span></td>
-                <td><input type="number" class="valor-soles-miembro"  min="0"></td>
-                <td><input type="number" class="valor-dolares-miembro" min="0"></td>
+                <td><input type="number" class="valor-soles-miembro input-tarifa"  min="0"></td>
+                <td><input disabled type="number" class="valor-dolares-miembro input-tarifa" min="0"></td>
               </tr>
           {{/if}}
           {{/each}}
