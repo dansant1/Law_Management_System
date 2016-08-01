@@ -86,10 +86,10 @@
   </div>
   <div class="reportes-facturacion">
     <div class="fila">
-      <div class="columna" style="height: 80px;">
+      <!-- <div class="columna" style="height: 80px;">
         <h4>Ingresos</h4>
         <p>S/ 2, 450.00</p>
-      </div>
+      </div> -->
       {{>resumenGastos}}
       <!-- <div class="columna" style="height: 80px;">
         <h4>Monto total</h4>
@@ -150,7 +150,6 @@
          <div style="width: 100%; min-height: 400px; border: 1px solid #f1f1f1; border-right-width: 2px;">
            {{> horaMiembrosChart}}
          </div>
-         <div id="legendDivhorasmiembros"></div>
 
        </div>
 
@@ -169,6 +168,7 @@
       </select> -->
       <br>
       <canvas id="horasMiembrosChart" width="625" height="300"></canvas>
+      <div id="legendDivhorasmiembros"></div>
     </div>
 </template>
 
