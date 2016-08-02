@@ -146,6 +146,10 @@ Template.usuarioForm2.events({
 		if (datos.profile.nombre !== "" && datos.profile.apellido !== "" && datos.profile.tipo !== "" && datos.password !== "" && datos.email !== "") {
 			Meteor.call('agregarUsuarioEquipo', datos, function (err, result) {
 				Bert.alert( 'Agregaste un nuevo usuario al equipo', 'success' );
+				analytics.identify( result.userId, {
+              		email: datos.email,
+              		name: datos.profile.nombre + " " + datos.profile.apellido
+            	});
 				Modal.hide('usuarioForm2');
 			});
 		} else {

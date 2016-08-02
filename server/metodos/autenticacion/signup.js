@@ -127,6 +127,10 @@ Meteor.methods({
 				});
 			});
 
+			return {
+				usuarioId: usuarioId
+			}
+
 		} else {
 			return;
 		}
