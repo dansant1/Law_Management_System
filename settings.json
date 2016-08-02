@@ -1,15 +1,93 @@
 {
 	"galaxy.meteor.com":
-		{ "env":
-			{ 	
-        "ROOT_URL": "https://app.grupoddv.com",
-				"MONGO_URL": "mongodb://bunqr:developer24@ds047692.mlab.com:47692/bunqrdb"
-			}
+		{ 
+			"env":
+				{ 	
+        			"ROOT_URL": "https://app.grupoddv.com",
+					"MONGO_URL": "mongodb://bunqr:developer24@ds047692.mlab.com:47692/bunqrdb"
+				}
 		},
-	"public": {
-    	"analyticsSettings": {
-      		"Mixpanel": { "token": "6413b5fae3f7ec417e4193306d3a56d1", "people": true }
-    	}
-    },
-  "private": {}
+	"public": 
+		{
+    		"analyticsSettings": 
+    			{
+      				"Mixpanel": { "token": "6413b5fae3f7ec417e4193306d3a56d1", "people": true }
+    			},
+    		"plans": 
+    			[
+      				{
+        				"name": "Premiun",
+        				"amount": 
+        					{
+          						"cents": 3900,
+          						"usd": "$39"
+        					},
+        				"limit": 20,
+        				"interval": "month"
+      				},
+      				{
+        				"name": "Premiun - Y",
+        				"amount": 
+        					{
+          						"cents": 34800,
+          						"usd": "$348"
+        					},
+        				"limit": 20,
+        				"interval": "year"
+      				},
+      				{
+        				"name": "Business class",
+        				"amount": 
+        					{
+          						"cents": 4900,
+          						"usd": "$49"
+        					},
+        				"limit": 20,
+        				"interval": "month"
+      				},
+      				{
+        				"name": "Business Class - Y",
+        				"amount": 
+        					{
+          						"cents": 46800,
+          						"usd": "$468"
+        					},
+        				"limit": 20,
+        				"interval": "year"
+      				},
+      				{
+        				"name": "Business class Plus",
+        				"amount": 
+        					{
+          						"cents": 59000,
+          						"usd": "$59"
+        					},
+        				"limit": 20,
+        				"interval": "month"
+      				},
+      				{
+        				"name": "Business class Plus - Y",
+        				"amount": 
+        					{
+          						"cents": 58800,
+          						"usd": "$588"
+        					},
+        				"limit": 20,
+        				"interval": "year"
+      				}
+    			],
+    		"stripe": 
+    			{
+      				"testPublishableKey": "pk_test_SGEhRXFqAEznPsrxjSMoXEbF",
+      				"livePublishableKey": "pk_live_XF9JWpm5t55cRHD89Z5qZMdD"
+    			}
+    	},
+  	"private": 
+  		{
+  			"stripe": 
+  				{
+      				"testSecretKey": "sk_test_Tjj4mmRFlFIk6tzGGuapxgTn",
+      				"liveSecretKey": "sk_live_OZwko7Rv7elqbqrnMUJT0R4J"
+    			}
+  		}
 }
