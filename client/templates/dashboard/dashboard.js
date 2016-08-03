@@ -2032,6 +2032,41 @@ Template.detalleConversacion2.onCreated(function () {
    });
 });
 
+Template.itemConversacion.helpers({
+	comentarios() {
+		return ComentariosConversacionesAsunto.find({conversacionAsuntoId: Template.parentData(0)._id});
+	}
+})
+
+Template.itemConversacion.events({
+	'click .enviar-comentario': function (event, template) {
+		let datos = {
+			comentario: template.find('[name="comentario"]').value,
+			asuntoId: FlowRouter.getParam('asuntoId'),
+			autor: {
+				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
+				id: Meteor.userId()
+			},
+			conversacionAsuntoId: this._id
+		}
+
+		if (datos.comentario !== "") {
+
+			Meteor.call('agregarComentarioAConversacionAsunto', datos, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
+					template.find('[name="comentario"]').value = "";
+				} else {
+					template.find('[name="comentario"]').value = "";
+				}
+			});
+
+		} else {
+			Bert.alert('Ingresa los datos correctamente', 'warning');
+		}
+	}
+})
+
 Template.detalleConversacion2.helpers({
 	email() {
 		return Meteor.user().emails[0].address
@@ -2039,9 +2074,7 @@ Template.detalleConversacion2.helpers({
 	conversaciones() {
 		return ConversacionesAsunto.find({asuntoId: FlowRouter.getParam('asuntoId')/*Session.get('asunto-id')*/}, {sort: {createdAt: -1}});
 	},
-	comentarios() {
-		return ComentariosConversacionesAsunto.find({conversacionAsuntoId: Template.parentData(0)._id});
-	},
+
 	asuntoId() {
 		return FlowRouter.getParam('asuntoId');
 	},
@@ -2075,32 +2108,6 @@ Template.detalleConversacion2.events({
 					template.find('[name="descripcion"]').value = "";
 				}
 			});
-		} else {
-			Bert.alert('Ingresa los datos correctamente', 'warning');
-		}
-	},
-	'click .enviar-comentario': function (event, template) {
-		let datos = {
-			comentario: template.find('[name="comentario"]').value,
-			asuntoId: FlowRouter.getParam('asuntoId'),
-			autor: {
-				nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido,
-				id: Meteor.userId()
-			},
-			conversacionAsuntoId: this._id
-		}
-
-		if (datos.comentario !== "") {
-
-			Meteor.call('agregarComentarioAConversacionAsunto', datos, function (err, result) {
-				if (err) {
-					Bert.alert('Hubo un problema, por favor vuelve a intentarlo', 'warning');
-					template.find('[name="comentario"]').value = "";
-				} else {
-					template.find('[name="comentario"]').value = "";
-				}
-			});
-
 		} else {
 			Bert.alert('Ingresa los datos correctamente', 'warning');
 		}
@@ -3894,9 +3901,9 @@ Template.modalNuevoEvento.events({
 	if (t.find("[name='finaliza']").value === "") {
 		datos.end = datos.start;
 	} else {
-		datos.end = t.find("[name='finaliza']").value;	
+		datos.end = t.find("[name='finaliza']").value;
 	}
-	
+
 
 	datos.horai = $( "#horai" ).val() ;
 	datos.minutoi = $( "#minutoi" ).val();
