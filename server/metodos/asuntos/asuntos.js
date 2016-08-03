@@ -152,6 +152,8 @@ Meteor.methods({
 				});
 			}
 
+			// if(datos.facturacion.forma_cobro=="")
+
 			Asuntos.update({_id:asuntoId},{
 				$set:datos
 			})

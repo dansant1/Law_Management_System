@@ -24,32 +24,64 @@ Template.workflowModal.events({
   },
   'keyup .tarea-1': function (e, t) {
     e.preventDefault();
+    debugger;
+    if (e.which == 13) {
+        let tarea = {
+            etapaId: this.id
+        }
+		if ( $(e.target).val()!=="") {
+		    tarea.descripcion = $(e.target).val();
+            tarea.duracion = Number($(e.target).parent().find("[name='duracion-tarea']").val());
+            $(e.target).parent().find("[name='duracion-tarea']").val("")
+			$(e.target).val("");
+		}
+        t.tareas.push(tarea);
+    }
+  },
+  'keyup [name="duracion-tarea"]':function (e,t) {
+    e.preventDefault();
+    if (e.which==13) {
+        if($(e.target).parent().find(".tarea-1").val()=="") return Bert.alert('Escriba la descripcion de la tarea','warning')
 
-    if (e.which === 13) {
-
-
-      let tarea = {
-          etapaId: this.id
-      }
-
-      $( ".tarea-1" ).each(function( index ) {
-
-			if ( $( this ).val()  !== "") {
-				tarea.descripcion = $( this ).val();
-				$( this ).val("");
-			}
-
-			});
-
-      t.tareas.push(tarea);
-
-      t.find('[name="crear-tarea-etapa"]').value = "";
-
+        let tarea = {
+            etapaId: this.id
+        }
+		if ( $(e.target).val()!=="") {
+		    tarea.descripcion = $(e.target).parent().find(".tarea-1").val();
+            tarea.duracion = Number(e.target.value);
+            $(e.target).parent().find(".tarea-1").val("")
+			$(e.target).val("");
+		}
+        t.tareas.push(tarea);
     }
   },
   'click .guardar-workflow': function (e, t) {
-      let workFlow = Template.instance().etapas.get();
-      Meteor.call('agregarWorkflow', workFlow);
+      debugger;
+
+      let workFlow = {}
+
+      let _etapas  = Template.instance().etapas.get()
+      let _tareas = Template.instance().tareas.get();
+      let etapas =  _etapas.map(function (etapa) {
+          let tareas = _tareas.filter(function (tarea) {
+              return tarea.etapaId == etapa.id
+          })
+          etapa.tareas = tareas;
+          return etapa;
+      })
+
+      workFlow.nombre = t.find("[name='nombre-workflow']").value;
+      workFlow.etapas = etapas;
+      workFlow.creador = {
+          id:Meteor.userId(),
+          nombre: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+      }
+
+      Meteor.call('agregarWorkflow', workFlow,function (err) {
+          if(err) return Bert.alert('Hubo un error al momento de registrar el workflow','danger')
+          Bert.alert('Se registro correctamente el workflow','success');
+          Modal.hide('workflowModal');
+      });
   }
 });
 
@@ -61,9 +93,6 @@ Template.workflowModal.helpers({
     var tareas = Template.instance().tareas.get().filter(function( task ) {
         return task.etapaId == Template.parentData(0).id;
     });
-    /*Template.parentData(0).id;
-    return Template.instance().tareas.get();*/
-
     return tareas;
   }
 });

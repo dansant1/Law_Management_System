@@ -28,16 +28,24 @@ EsquemaWorkflows = new SimpleSchema({
 	bufeteId: {
 		type: String
 	},
-	tareas: {
+	etapas:{
+		type:[Object]
+	},
+	'etapas.$.nombre':{
+		type:String
+	},
+
+	'etapas.$.tareas': {
 		type: [Object]
 	},
-	'tareas.descripcion': {
+	'etapas.$.tareas.$.descripcion': {
 		type: String
 	},
-	'tareas.duracion': {
-		type: Number
+	'etapas.$.tareas.$.duracion': {
+		type: Number,
+		optional:true
 	},
-	'tareas.asignado': {
+	'etapas.$.tareas.$.asignado': {
 		type: String,
 		optional: true
 	},
@@ -49,7 +57,8 @@ EsquemaWorkflows = new SimpleSchema({
 		type: String
 	},
 	createdAt: {
-		type: Date
+		type: Date,
+		defaultValue: new Date()
 	},
 	creador: {
 		type: Object
@@ -62,4 +71,4 @@ EsquemaWorkflows = new SimpleSchema({
 	}
 });
 
-Etapas.attachSchema(EsquemaEtapas);
+Workflows.attachSchema(EsquemaWorkflows);
