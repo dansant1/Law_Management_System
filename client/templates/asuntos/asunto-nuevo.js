@@ -10,6 +10,7 @@ Template.asuntoNuevoModal.onCreated(function () {
 		self.subscribe('clientes', bufeteId);
 		self.subscribe('tarifas',bufeteId)
 		self.subscribe('misequipos',bufeteId)
+		self.subscribe('workflows',bufeteId)
    });
 });
 
@@ -70,7 +71,10 @@ Template.asuntoNuevoModal.helpers({
     comentario(){
         let cliente = Clientes.findOne({_id:Session.get("cliente-asunto-id")});
         return cliente.facturacion? cliente.facturacion.comentario : ''
-    }
+    },
+	workflows(){
+		return Workflows.find();
+	}
 
 });
 
@@ -126,6 +130,12 @@ Template.asuntoNuevoModal.events({
 					monto: template.find("[name='monto']").value,
 					horas_no_cobradas: template.find("[name='horas-no-cobradas']").value,
 					monto_horas_no_cobradas: template.find("[name='monto-horas-no-cobradas']").value
+				}
+			}
+			debugger;
+			if(template.find("[name='workflow']").value!=""){
+				asunto.workflow = {
+					id: template.find("[name='workflow']").value
 				}
 			}
 

@@ -43,6 +43,10 @@ EsquemaEtapas = new SimpleSchema({
 	abierto: {
 		type: Boolean,
 		optional: true
+	},
+	createdAt: {
+		type:Date,
+		defaultValue:new Date()
 	}
 });
 

@@ -223,6 +223,15 @@
 										<label for="juzgado">Juzgado</label>
 										<input type="text" id="juzgado" name="juzgado" aria-describedby="basic-addon1">
 									</div>
+									<div class="medio-ancho">
+										<label for="">WorkFlow</label>
+										<select class="" name="workflow">
+											<option value=""></option>
+											{{#each workflows}}
+												<option value="{{this._id}}">{{this.nombre}}</option>
+											{{/each}}
+										</select>
+									</div>
 									<br>
 								</div>
 							</div>

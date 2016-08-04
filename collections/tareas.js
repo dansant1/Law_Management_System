@@ -46,7 +46,8 @@ EsquemaTareas = new SimpleSchema({
         optional: true
     },
     createdAt: {
-        type: Date
+        type: Date,
+        defaultValue: new Date()
     },
     asunto: {
         type: Object,

@@ -1,3 +1,15 @@
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 Meteor.methods({
 
 	cerrarAsunto: function (asuntoId) {
@@ -9,21 +21,6 @@ Meteor.methods({
 
 	crearAsunto: function (asuntos) {
 
-		// let dataCheck = {
-		// 	cliente: Object,
-		// 	caratula: String,
-		// 	carpeta: String,
-		// 	// abogados: [Object],
-		// 	area: String,
-		// 	juzgado: String,
-		// 	observaciones: String,
-		// 	inicio: String,
-		// 	responsable: Object,
-		// 	bufeteId: String,
-		// 	equipoId: String
-		//
-		// }
-
 		check(asuntos,Object)
 		// if(asuntos.facturacion) dataCheck.facturacion = Object
 
@@ -31,10 +28,10 @@ Meteor.methods({
 
 		if ( Roles.userIsInRole(this.userId, ['administrador'], 'bufete') ) {
 			asuntos.createdAt = new Date();
-
+			console.log(asuntos.workflow);
 			let cliente = Clientes.findOne({_id: asuntos.cliente.id})
-			console.log(cliente);
-			console.log(asuntos.equipoId);
+			// console.log(cliente);
+			// console.log(asuntos.equipoId);
 			asuntos.equipo={}
 			asuntos.abogados = [];
 			if(asuntos.equipoId){
@@ -77,11 +74,78 @@ Meteor.methods({
 
 			asuntos.creadorId = this.userId;
 			asuntos.abierto = true;
+			var _workflow = asuntos.workflow
 
 			let asuntoId = Asuntos.insert(asuntos);
 
-
 			if (asuntoId) {
+
+				// console.log(asuntos);
+				if(_workflow){
+					let workflow = Workflows.findOne(_workflow.id)
+					console.log(workflow);
+					workflow.etapas.forEach(function (etapa) {
+						etapa.asunto={
+							id:asuntoId,
+							nombre:asuntos.caratula
+						}
+						etapa.bufeteId =  Meteor.users.findOne(Meteor.userId()).profile.bufeteId;
+
+						var _tareas = etapa.tareas;
+						var etapaNombre = etapa.nombre;
+
+						var etapaId = Etapas.insert(etapa);
+						_tareas.forEach(function (tarea) {
+							tarea.asunto={
+								id:asuntoId,
+								nombre:asuntos.caratula
+							}
+
+							tarea.etapa = {
+								id: etapaId,
+								nombre: etapaNombre
+							}
+
+							tarea.bufeteId = Meteor.users.findOne(Meteor.userId()).profile.bufeteId;
+
+							var date = new Date();
+							date.setDate(date.getDate()+ tarea.duracion);
+							if(date.getDay()==0) date.setDate(date.getDate()+ 1);
+							else if(date.getDay()==6) date.setDate(date.getDate()+2);
+
+							let usuario = Meteor.users.findOne(Meteor.userId());
+
+							tarea.vence = date;
+							tarea.creador = {
+								id:Meteor.userId(),
+								nombre: usuario.profile.nombre +  "  " + usuario.profile.apellido
+							}
+							tarea.abierto = true;
+
+							let tareaId = Tareas.insert(tarea);
+
+							let evento = {
+								title: tarea.descripcion,
+								start: formatDate(tarea.vence),
+								asunto: tarea.asunto,
+								bufeteId: tarea.bufeteId,
+								creador: tarea.creador,
+								createdAt: new Date(),
+								color: '#34495e',
+								tarea: {
+									nombre: tarea.descripcion,
+									id: tareaId
+								}
+							}
+
+							Eventos.insert(evento);
+							MiCalendario.insert(evento);
+						})
+
+					})
+
+
+				}
 
 				// Creamos el evento de inicio de expediente (asunto)
 				let evento = {
