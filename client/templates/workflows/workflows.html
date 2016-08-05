@@ -1,0 +1,121 @@
+<template name="workflows">
+
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>{{email}} <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i> <a href="/tareas" >Tareas</a></p>
+        </div>
+    </div>
+    <div class="franja-filtros" style="padding-left: 12px;">
+
+        <a href="/dashboard2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim  asunto-item-activo " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
+            CRM
+        </a>
+         <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
+    </div>
+    <div class="franja-filtros" style="padding-left: 0px;">
+
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px; text-align: center;">
+            Tareas
+        </a>
+        <a href="/tareas/documentos/d" class="menu-asunto-aim " style="margin-left: 0px; text-align: center;">
+            Documentos
+        </a>
+        <a href="/workflows" class="menu-asunto-aim asunto-item-activo " style="margin-left: 0px; text-align: center;">
+            Workflows
+        </a>
+    </div>
+
+    <div class="franja-filtros">
+        <div class="progreso" style="padding-top: 15px;width:100%">
+
+            {{>botonNuevoTareas}}
+
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nueva-tarea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
+                    <i class="glyphicon glyphicon-filter"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+
+                    <li><a class="abiertos" href="#">Abiertos</a></li>
+                    <li><a class="cerrados" href="#">Cerrados</a></li>
+                    <li> <a class="hoy" href="">Vencen hoy</a></li>
+                    <li> <a class="mañana" href="">Vencen mañana</a></li>
+                    <li> <a class="semana" href="">Vencen esta semana</a></li>
+                    <li> <a class="vencidas" href="">Vencidas</a></li>
+                </ul>
+            </div>
+
+            <p style="display: inline-block">Tienes <a style="color: #2c3e50"> <strong>{{cantidad}}</strong> </a> tareas {{tipo}}</p>
+            <input type="text" class="buscador-bunqr buscador-tareas" style="width:45%;height:27px" placeholder="Busca las tareas por asunto, etapa y nombre...">
+
+        </div>
+
+    </div>
+
+    {{> tablaWorkflows}}
+</template>
+
+<template name="tablaWorkflows">
+	<div class="tarea-input">
+		<input type="text" name="crear-tarea-simple" placeholder="Escriba una tarea y luego presione enter...">
+	</div>
+	<div class="table-wrapper">
+		<table cellspacing="0" id="tech-companies">
+	 		<thead>
+				<tr>
+					 <th class="persist essential">
+					 	<h3>
+					 		<i class="fa fa-tasks" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+					 <th>
+					 	<h3 style="text-align: center;">
+					 		<i class="fa fa-cog" aria-hidden="true"></i>
+					 	</h3>
+					 </th>
+				</tr>
+	 		</thead>
+			<tbody>
+				{{#each workflows}}
+					<tr>
+                        <th>
+                            {{this.nombre}}
+                        </th>
+						 <td style="text-align: center;">
+						 	<div class="btn-group">
+								<button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0; color: #34495e;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+								</button>
+		  						<ul class="dropdown-menu">
+                                    <li class="editar-workflow"><a data-id="{{this._id}}" style="color: #3498db;">Mostrar</a></li>
+								    <li class="editar-workflow"><a data-id="{{this._id}}" style="color: #3498db;">Editar</a></li>
+								    <li role="separator" class="divider"></li>
+									<li class="eliminar-workflow"><a data-id="{{this._id}}" style="color: #e74c3c;">Eliminar</a></li>
+
+		  						</ul>
+							</div>
+						 </td>
+					</tr>
+			   {{/each}}
+	 		</tbody>
+		</table>
+	</div><!-- /table-wrapper -->
+</template>

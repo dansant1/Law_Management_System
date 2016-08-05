@@ -1,8 +1,7 @@
 Meteor.publish('workflows', function (bufeteId) {
-	check(bufeteId, String);
 
 	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )) {
-		return Workflows.find({bufeteId: bufeteId});
+		return Workflows.find({bufeteId: Meteor.users.findOne(this.userId).profile.bufeteId});
 	} else {
 		this.stop();
 		return;

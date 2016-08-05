@@ -1,0 +1,171 @@
+<template name="editarWorkflowModal">
+	<div class="modal fade" tabindex="-1" role="dialog">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+
+      			<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+
+        			<div class="modal-formulario">
+						<div class="side-help">
+							<div class="about-asunto fondo-bunqr" style="height: 230px;">
+								<h2>
+									Workflows
+								</h2>
+								<p style="color: white;">Crea espacios de trabajo automatico para que tu firma sea mas productiva. Asigne etapas, tareas, plazos, personas, etc.</p>
+
+							</div>
+							<div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+								<h3>
+									¿Necesitas ayuda?
+								</h3>
+								<p>
+									Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">soporte@grupoddv.com</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="contenido-formulario" style="height: 480px;">
+              <div class="franja-filtros">
+                <input type="text" name="nombre-workflow" class="buscador-bunqr " placeholder="Escribe el nombre del workflow" style="font-family: 'Open Sans', 'Sans serif'; border-left: none; border-top: none; margin-bottom: 0; width: 100%; ">
+              </div>
+              <!-- etapas -->
+              <div class="franja-filtros">
+              	<input type="text" name="nombre-etapa" class="buscador-bunqr etapa-1" placeholder="Escribe el nombre de la etapa y presiona enter" style="font-family: 'Open Sans', 'Sans serif'; font-weight: initial; border-left: none; border-top: none; margin-bottom: 0; width: 100%; ">
+              </div>
+
+              		<div class="table-wrapper">
+
+              <table cellspacing="0" id="tech-companies">
+              	 <thead>
+              			<tr>
+              				 <th class="persist essential">
+              				 	<h3>
+              				 		<i class="fa fa-tasks" aria-hidden="true"></i>
+              				 	</h3>
+              				 </th>
+              				 <th class="optional">
+              				 	<h3 style="text-align: center;">
+              				 		<i class="fa fa-user" aria-hidden="true"></i>
+              				 	</h3>
+              				 </th>
+              				 <th class="essential">
+              				 	<h3 style="text-align: center;">
+              				 		<i class="fa fa-calendar" aria-hidden="true"></i>
+              				 	</h3>
+              				 </th>
+              				<th class="essential">
+              				 	<h3 style="text-align: center;">
+              				 		<i class="fa fa-clock-o" aria-hidden="true"></i>
+              				 	</h3>
+              				 </th>
+
+              			</tr>
+              	 </thead>
+              	 <tbody>
+
+                   {{#each etapas}}
+                   <tr>
+                        <th>
+
+                         <span class="fh-checkbox">
+                             <input type="checkbox" name="{{this.id}}" id="etapa-id" class="{{this.id}}">
+                             <label for="{{this.id}}" style="font-weight: initial;"> {{this.nombre}} </label>
+                         </span>
+
+                         <span class="co-name"></span>
+                        </th>
+                        <td>
+                         <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+
+                         </h5>
+                        </td>
+                        <td>
+                         <h5 style="text-align: center; font-size: 17.5px; color: #34495e; font-weight: bold;">
+
+                         </h5>
+                        </td>
+
+                        <td>
+                         <h3 style="text-align: center;">
+
+                         </h3>
+
+                        </td>
+
+                     </tr>
+
+                     <tr>
+                        <th style="padding-left: 45px;">
+
+                         <h3>
+                           <input type="text" class="tarea-1" style="border: none; width: 100%; font-size: 14px; padding-bottom: 6px;" placeholder="Nueva tarea">
+						   <input type="number" name="duracion-tarea" style="border: none; width: 100%; font-size: 14px; padding-bottom: 6px;" placeholder="Duracion" value="">
+                         </h3>
+                        </th>
+                        <td>
+                         <h3 style="text-align: center;">
+
+                         </h3>
+                        </td>
+                        <td>
+                         <h3 style="text-align: center;">
+
+                         </h3>
+                        </td>
+
+                        <td>
+                         <h3 style="text-align: center;">
+
+                         </h3>
+
+                        </td>
+
+                     </tr>
+
+                     {{#each tareas}}
+                     <tr>
+                      <th style="padding-left: 37px;">
+
+                       <span class="fh-checkbox">
+
+                           <label style="color: white;">.</label>
+                       </span>
+                       <label><a style="font-weight: initial; color: #34495e; font-size: 14px; margin-top: 5px; display: inline-block;" href="#">{{this.descripcion}}</a></label>
+					   <label><a style="font-weight: initial; color: #34495e; font-size: 14px; margin-top: 5px; display: inline-block;" href="#">{{this.duracion}}</a></label>
+
+
+                      </th>
+                      <td>
+
+                      </td>
+                      <td>
+
+                      </td>
+
+                      <td>
+                       <h3 style="text-align: center;">
+
+                       </h3>
+
+                      </td>
+
+                     </tr>
+                     {{/each}}
+
+
+                   {{/each}}
+
+              	 </tbody>
+              </table>
+            </div>
+					</div>
+
+						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+							<input class="editar-workflow" type="button" value="Editar workflow">
+						</div>
+					</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+</template>
