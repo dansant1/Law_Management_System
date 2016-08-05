@@ -10,7 +10,7 @@ Template.asuntoNuevoModal.onCreated(function () {
 		self.subscribe('clientes', bufeteId);
 		self.subscribe('tarifas',bufeteId)
 		self.subscribe('misequipos',bufeteId)
-		self.subscribe('workflows',bufeteId)
+		self.subscribe('workflows')
    });
 });
 

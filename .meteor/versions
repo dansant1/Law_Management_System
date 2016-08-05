@@ -77,6 +77,7 @@ htmljs@1.0.10
 http@1.1.6
 id-map@1.0.8
 jcbernack:reactive-aggregate@0.6.0
+jimmiebtlr:bootstrap-wysihtml5@0.3.2
 jplack:bootstrap-timepicker@0.2.2
 jquery@1.11.9
 kadira:blaze-layout@2.3.0
