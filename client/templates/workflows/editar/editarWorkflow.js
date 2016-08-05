@@ -109,7 +109,7 @@ Template.editarWorkflowModal.events({
 
         Meteor.call('editarWorkflow', Session.get('workflow-select-id'), workFlow,function (err) {
             if(err) return Bert.alert('Hubo un error al momento de registrar el workflow','danger')
-            Bert.alert('Se registro correctamente el workflow','success');
+            Bert.alert('Se edito correctamente el workflow','success');
             Modal.hide('workflowModal');
         });
     }
