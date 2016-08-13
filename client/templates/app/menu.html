@@ -15,6 +15,9 @@ _elev.account_id = '579e82b391c63';
         <span class="abrir-menu" style="position: absolute; left: 230px; top: 13px; font-size: 25px;">
           <i class="fa fa-bars" aria-hidden="true" style="color: #34495e;"></i>
         </span>
+        <button style="position: absolute; right: 300px; top: 13px; " class="iniciar-tour">
+          Iniciar tour
+        </button>
         {{>cronometro2}}
 
 
@@ -22,9 +25,10 @@ _elev.account_id = '579e82b391c63';
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
 
-
-
+      
+      
       <ul class="nav navbar-nav navbar-right">
+        
         {{#if tieneAcceso}}
         {{>cambio}}
         {{/if}}

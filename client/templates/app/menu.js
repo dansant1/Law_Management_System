@@ -3,6 +3,54 @@ Meteor.startup(function () {});
 Template.menu.onRendered(function () {
 	Session.set('abrir', 'open-menu');
 	Session.set('close', '');
+
+	Template.instance().tour = new Tour({
+  		steps: [
+  			{
+    			element: "#tour-1",
+    			title: "Dashboard",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-2",
+    			title: "Tu equipo",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-3",
+    			title: "Conversaciones",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-4",
+    			title: "Tu agenda mas efectiva",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-5",
+    			title: "Tus tareas en un solo lugar",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-6",
+    			title: "Organiza tus asuntos",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-7",
+    			title: "Gestiona a tus clientes",
+    			content: "Content of my step"
+  			},
+  			{
+    			element: "#tour-8",
+    			title: "Lleva el control de tu facturación",
+    			content: "Content of my step"
+  			}
+		],
+		keyboard: true,
+	});
+
+	Template.instance().tour.init();
 });
 
 Template.menu.helpers({
@@ -57,6 +105,9 @@ Template.menu.events({
 			Session.set('close', '');
 		}
 		
+	},
+	'click .iniciar-tour'() {
+		Template.instance().tour.start();
 	}
 });
 

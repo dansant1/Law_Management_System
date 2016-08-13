@@ -15,6 +15,10 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 
 });
 
+
+
+
+
 Template.sidebarDashobard.helpers({
 	close() {
 		return Session.get('close');
