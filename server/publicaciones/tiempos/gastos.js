@@ -28,8 +28,12 @@ Meteor.publish('gastosxmiembro',function (bufeteId) {
         let asuntosId = _(Asuntos.find({abogados:{$elemMatch:{id:this.userId}}}).fetch()).map(function (asunto) {
             return asunto.id;
         })
-
-		return Gastos.find({bufeteId: bufeteId, 'asunto.id': {$in:asuntoId}});
+        if (asuntosId !== undefined) {
+        	return Gastos.find({bufeteId: bufeteId, 'asunto.id': {$in:asuntosId}});	
+        } else {
+        	return Gastos.find({bufeteId: bufeteId});
+        }
+		
 	} else {
 		this.stop();
 		return;

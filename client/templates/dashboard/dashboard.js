@@ -342,6 +342,12 @@ Template.teamSidebarDahboard.events({
 	}
 });
 
+Template.botonNuevoTareas.events({
+	'click .agregar-workflow'() {
+		Modal.show('workflowModal');
+	}
+});
+
 
 Template.botonNuevosContactos.events({
 	'click .persona': function () {

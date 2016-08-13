@@ -116,13 +116,16 @@ Template.gastos.helpers({
 
 Template.gastos.onCreated(function () {
     let self=this;
-    let bufeteId = Meteor.user().profile.bufeteId;
+    
     Session.set('gastos-admin',false)
     Session.set('query',"")
     self.autorun(function () {
+    	let bufeteId = Meteor.user().profile.bufeteId;
         self.subscribe('cambios',bufeteId);
         self.subscribe('recibos',bufeteId)
-        if(Meteor.user().roles.bufete[0]!="administrador")  return self.subscribe('gastosxmiembro',bufeteId);
+        if(Meteor.user().roles.bufete[0]!="administrador")  {
+        	self.subscribe('gastosxmiembro',bufeteId);	
+        } 
         self.subscribe('gastos',bufeteId)
 
     })
