@@ -1,8 +1,6 @@
 .cronometro {
-	display: inline-block;
 	position: fixed;
 	bottom: 0;
-
 	right: 0;
 	width: 350px;
 	height: 60.5px;
@@ -15,6 +13,58 @@
 	color: #34495e;
 	text-align: center;
 	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
+	z-index: 1001;
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+	.cronometro {
+		width: 100%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+	.cronometro {
+		width: 100%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+	.cronometro {
+		width: 100%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+	.cronometro {
+		width: 100%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+	.cronometro {
+		width: 100%;
+	}
 }
 
 

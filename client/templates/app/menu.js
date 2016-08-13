@@ -1,11 +1,8 @@
 Meteor.startup(function () {});
 
 Template.menu.onRendered(function () {
-	window.Intercom("boot", {
-  		app_id: "ozpz9hmm",
-  		name: Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido, // Full name
-    	email: Meteor.user().emails[0].address
-	});
+	Session.set('abrir', 'open-menu');
+	Session.set('close', '');
 });
 
 Template.menu.helpers({
@@ -16,6 +13,7 @@ Template.menu.helpers({
 			return false;
 		}
 	}
+	
 });
 
 Template.menu.events({
@@ -23,19 +21,19 @@ Template.menu.events({
 		Meteor.logout();
 		window.Intercom("shutdown");
 	},
-	'click .agregar-tarea': () =>{
+	'click .agregar-tarea'() {
 		Modal.show('nuevaTareaModal')
 	},
-	'click .agregar-nota': () =>{
+	'click .agregar-nota'() {
 		Modal.show('notaxasuntosModal')
 	},
-	'click .agregar-evento': () =>{
+	'click .agregar-evento'() {
 		Modal.show('evento');
 	},
-	'click .agregar-cliente': () =>{
+	'click .agregar-cliente'() {
 		Modal.show('clienteNuevoModal');
 	},
-	'click .asunto-modal': () => {
+	'click .asunto-modal'() {
 		Modal.show('AsuntoNuevoModal');
 	},
 	'click .modal-cliente'() {
@@ -49,6 +47,16 @@ Template.menu.events({
 	},
 	'click .tarifa-modal'() {
 		Modal.show('crearTarifaModal');
+	},
+	'click .abrir-menu'() {
+		if (Session.get('abrir') === "open-menu" && Session.get('close') === "") {
+			Session.set('abrir', 'close-menu');
+			Session.set('close', 'sidebar-close');
+		} else {
+			Session.set('abrir', 'open-menu');
+			Session.set('close', '');
+		}
+		
 	}
 });
 

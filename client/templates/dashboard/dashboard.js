@@ -13,7 +13,19 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 			return "S/N";
 		}
 
-	});
+});
+
+Template.sidebarDashobard.helpers({
+	close() {
+		return Session.get('close');
+	}
+});
+
+Template.appDashboard.helpers({
+	abrir() {
+		return Session.get('abrir');
+	}
+});
 
 Template.tareasDetalle2.helpers({
 	nombre() {

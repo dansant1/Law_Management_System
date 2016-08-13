@@ -10,17 +10,7 @@
 	overflow: overlay;
 }
 
-.contenido-dashboard {
-	width: 82%;
-    min-height: 700px;
-    position: absolute;
-    right: 0;
-    background: #F9F9F9;
-}
 
-.sidebar-logo {
-	text-align: center;
-}
 
 .sidebar-link {
 	width: 100%;

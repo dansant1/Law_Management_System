@@ -307,17 +307,7 @@ function calcularPorTipoDeCobro(trabajo) {
 
 	if(asunto.facturacion.forma_cobro=="retainer"){
 
-			// if(!asunto.facturacion.excedido){
-			// 	let diferencia = totalHorasAcumuladas(datos.asuntos.id) - asunto.facturacion.retainer.horas_maxima;
-			// 	datos.horas = diferencia;
-			// 	Asuntos.update({_id:datos.asunto.id},{
-			// 		$set:{
-			// 			'facturacion.excedido':true
-			// 		}
-			// 	})
-			// }
-			//
-			// console.log('ENTRO AQUI');
+			
 			debugger;
 		if(trabajo.sobrelimite) return calcularTarifa(trabajo).toFixed(2)
 		return;

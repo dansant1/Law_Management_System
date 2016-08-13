@@ -7,17 +7,17 @@ _elev.account_id = '579e82b391c63';
   <div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
   <div class="container-fluid">
     <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    
 
-    		<a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 175px; top: 28px; font-size: 12px;">&reg;</span></a>
-
-
-
+    		<a class="navbar-brand" id="marca">BUNQR 
+        <span style="position: absolute; left: 175px; top: 28px; font-size: 12px;">&reg;</span>
+        </a>
+        <span class="abrir-menu" style="position: absolute; left: 230px; top: 13px; font-size: 25px;">
+          <i class="fa fa-bars" aria-hidden="true" style="color: #34495e;"></i>
+        </span>
         {{>cronometro2}}
+
+
 
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
@@ -37,8 +37,7 @@ _elev.account_id = '579e82b391c63';
               Hola, {{profile.nombre}}
            <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a>Editar perfil</a></li>
-            <li><a href="/configuracion-facturacion">Facturación</a></li>
+            <li><a>Mi cuenta</a></li>
             <li class="modal-cliente"><a>Agregar cliente</a></li>
             <li><a class="workflow-modal">Crear workflow</a></li>
             <li><a class="hora-modal">Agregar trabajo</a></li>

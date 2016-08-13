@@ -16,11 +16,14 @@
 <!-- Contenido izquierdo -->
 
 <template name="sidebarDashobard">
-	<div class="sidebar-vertical">
+	<div class="sidebar-vertical {{close}}">
 
 		<!-- Seccion link de dashboard -->
-		<div class="sidebar-link">
-			<h5><a href="/dashboard2" id="sidebar-a">Dashboard</a></h5>
+		<div class="sidebar-titulo" style="margin-top: 75px">
+			<h5 class="sidebar-item">
+      <div data-icon="a" class="icon i-menu" style="display: inline-block;"></div>
+      <a href="/dashboard2">Dashboard</a>
+      </h5>
 		</div>
 
 		<!-- Seccion lista de integrantes de equipo -->
@@ -42,20 +45,80 @@
 		{{> clientesSidebarDashboard}}
 
     <!-- Seccion link facturación -->
-   <div class="sidebar-titulo" style="margin-top: 0;">
+  <div class="sidebar-titulo" style="margin-top: 0;">
+
     <h5 class="sidebar-item">
+    <div data-icon="w" class="icon i-menu" style="display: inline-block;"></div>
     <a href="/facturacion" style="text-decoration:none;">Facturación</a>
     </h5>
   </div>
 
 	</div>
+
+  <div class="sidebar-vertical-simple">
+    <div class="sidebar-titulo" style="margin-top: 75px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/dashboard2" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="a" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/equipo" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/conversaciones" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="-" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+    <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/calendario2" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="r" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+    <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/asuntos2" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="O" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+    <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/clientes2" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="&#xe001;" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+    <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
+      <h5 class="sidebar-item">
+        <a href="/facturacion" style="text-decoration:none; color: #34495e; font-size: 20px;">
+          <div data-icon="w" class="icon i-menu" style="display: inline-block;"></div>  
+        </a>
+      </h5>
+    </div>
+
+  </div>
 </template>
 
 <template name="calendarioSidebar">
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
-		<a href="/calendario2" style="text-decoration:none;">Calendario</a>
-		<i class="glyphicon glyphicon-plus icono-hover nuevo-event" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 64px;"></i>
+    <div data-icon="r" class="icon i-menu" style="display: inline-block;"></div>
+		<a href="/calendario2" style="text-decoration:none;">
+      Calendario
+      <i  class="glyphicon glyphicon-plus  nuevo-event i-agregar" aria-hidden="true"></i>
+    </a>
+
+		
 		</h5>
 	</div>
 </template>
@@ -63,6 +126,7 @@
 <template name="conversacionesSidebar">
 	<div class="sidebar-titulo" style="margin-top: 5px;">
 		<h5 class="sidebar-item">
+     <div data-icon="-" class="icon i-menu" style="display: inline-block;"></div>
 		<a href="/conversaciones">Conversaciones</a>
 		</h5>
 	</div>
@@ -72,8 +136,12 @@
 
 	<div class="sidebar-titulo" style="margin-top: 0;">
 		<h5 class="sidebar-item">
-            <a href="/equipo">Equipo</a>
-		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 100px;"></i>
+     <div data-icon="&#xe006;" class="icon i-menu" style="display: inline-block;"></div>
+    <a href="/equipo">
+      Equipo
+      <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 45px;"></i>  
+    </a>
+		
 		</h5>
 	</div>
 
@@ -97,12 +165,16 @@
 <template name="asuntosSidebarDashboard">
 
 	<div class="sidebar-titulo" style="margin-top: 0;">
-		<h5>
-		<a href="/asuntos2" id="sidebar-a">asuntos</a>
+		<h5 class="sidebar-item">
+     <div data-icon="O" class="icon i-menu" style="display: inline-block;"></div>
+		<a href="/asuntos2">
+      asuntos
+      {{#if esAdministrador}}
+        <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 35px;"></i>
+      {{/if}}
+    </a>
 
-    {{#if esAdministrador}}
-		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 90px;"></i>
-		{{/if}}
+   
     </h5>
 	</div>
 
@@ -123,9 +195,13 @@
 <template name="tareasSidebarDashboard">
 
   <div class="sidebar-titulo" style="margin-top: 0;">
-    <h5>
-    <a href="/tareas" id="sidebar-a">Mis tareas</a>
-    <i class="glyphicon glyphicon-plus icono-hover nuevo nueva-tarea-dash" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 74px;"></i>
+    <h5 class="sidebar-item">
+    <div data-icon="&#xe009;" class="icon i-menu" style="display: inline-block;"></div>
+    <a href="/tareas">
+      Mis tareas
+      <i class="glyphicon glyphicon-plus icono-hover nuevo nueva-tarea-dash i-agregar" aria-hidden="true" style="margin-left: 22px;"></i>
+    </a>
+    
     </h5>
   </div>
 {{#if hayTareas}}
@@ -143,7 +219,7 @@
     <span class="fh-checkbox" style="display: block;">
       <input type="checkbox" id="" name="{{this._id}}">
       <label for="{{this._id}}" style="margin-left: 35px;">
-        <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px; padding: 0;">{{this.descripcion}}
+        <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: #34495e; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px; padding: 0;">{{this.descripcion}}
         </a>
       </label>
     </span>
@@ -153,15 +229,19 @@
 
 
 <template name="itemAsuntos">
-	<p><a class="sidebar-item" href="/asuntos2/d/{{this._id}}" style="color: white; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px;">{{this.caratula}}</a></p>
+	<p><a class="sidebar-item" href="/asuntos2/d/{{this._id}}" style="color: #34495e; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px;">{{this.caratula}}</a></p>
 </template>
 
 <template name="clientesSidebarDashboard">
 
 	<div class="sidebar-titulo" style="margin-top: 0;">
-		<h5>
-		<a href="/clientes2" id="sidebar-a">clientes</a>
-		<i class="glyphicon glyphicon-plus icono-hover nuevo" aria-hidden="true" style="color: #A6B2BA; display: inline-block; margin-left: 92px;"></i>
+		<h5 class="sidebar-item">
+    <div data-icon="&#xe001;" class="icon i-menu" style="display: inline-block;"></div>
+		<a href="/clientes2">
+      clientes
+      <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 35px;"></i>
+    </a>
+		
 		</h5>
 	</div>
 
@@ -890,8 +970,7 @@
 
 <template name="appDashboard">
 	{{> menuDashboard}}
-	<div class="contenido-dashboard">
-		<!--{{>chatFB}}-->
+	<div class="contenido-dashboard {{abrir}}">
 		{{>Template.dynamic template=content}}
 	</div>
 
@@ -3427,56 +3506,7 @@
 		 </tbody>
 	</table>
 
-	</div><!-- /table-wrapper -->
-
-
-		<!--	<div class="btn-group">
-		   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-		     Nuevo <span class="caret"></span>
-		   </button>
-		   <ul class="dropdown-menu">
-		     <li class="nuevo-miembro"><a href="#">Miembro</a></li>
-		     <li class="nueva-area"><a href="#">Area</a></li>
-		   </ul>
-		 </div> -->
-            <!-- <button type="button" class="btn dropdown-toggle nuevo-miembro nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 22px; width: 90px; border-bottom: none; margin-top: 15px;">
-                <i class="fa fa-plus"></i> Nuevo
-            </button> -->
-
-
-
-        <!--{{#each miembros}}
-            <div >
-                <div class="franja-filtros" style="width: 80%; margin-left: 220px; height: 95px; padding-top: 5px; border-top: none; display: block">
-                    <img src="/contactos/contacto.jpg" alt="{{this.profile.nombre}}" style="width: 60px; height: 60px; border-radius: 70%; margin-left: 25px; margin-top: -35px;">
-                    <a href="/equipo/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
-                        <span style="color: #2B3E51;">{{this.profile.nombre}} {{this.profile.apellido}}</span><br>
-                        <h5>Por {{this.autor}}</h5>
-                        <i class="glyphicon glyphicon-phone"></i>
-                        {{#if this.profile.telefono}}
-                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-                                {{this.profile.telefono}}
-                            </a>
-                        {{else}}
-                            <a class="menu-asunto-aim" style="text-transform: initial; width: 140px; text-align:left">
-                                + Celular
-                            </a>
-                        {{/if}}
-
-                    </a>
-                    <div style="display: inline-block; padding-bottom: 25px;">
-
-                        <i class="glyphicon glyphicon-comment"></i>
-                            <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 160px;">
-                                {{emails}}
-                            </a>
-                    </div>
-                </div>
-
-            </div>
-
-        {{/each}} -->
-
+	</div>
 
 
 </template>
@@ -3497,7 +3527,7 @@
 		</div>
 	</div>
 
-	<div class="franja-filtros" style="padding-left: 18px;">
+	<div class="franja-filtros" style="padding-left: 4px;">
 
 		<a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
 			Actividad
@@ -3632,7 +3662,7 @@
         </div>
     </div>
 
-    <div class="franja-filtros" style="padding-left: 18px;">
+    <div class="franja-filtros" style="padding-left: 4px;">
 
         <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
             Actividad
@@ -3656,7 +3686,7 @@
             Facturación
         </a>
     </div>
-	<div class="franja-filtros">
+	<div class="franja-filtros" style="padding-left: 4px">
 		<a href="/equipo" class="menu-asunto-aim">
 			Miembros
 		</a>

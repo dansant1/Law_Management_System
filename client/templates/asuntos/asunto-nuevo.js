@@ -14,7 +14,8 @@ Template.asuntoNuevoModal.onCreated(function () {
    });
 });
 
-Template.asuntoNuevoModal.onRendered( () => {
+
+Template.asuntoNuevoModal.onRendered( function () {
 	var picker = new Pikaday({ field: document.getElementById('datepicker') });
 });
 

@@ -1,11 +1,83 @@
 .formulario-login {
 	display: block;
-	width: 35%;
 	margin: 0 auto;
 	margin-top: 100px;
 	text-align: center;
 	font-weight: initial;
 	font-family: 'Open Sans', sans-serif;
+}
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) {
+	.formulario-login {
+		width: 75%;
+	}
+}
+
+@media (min-width: 768px) {
+	.formulario-login {
+       width: 35%;
+    }
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+	.formulario-login {
+		width: 80%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+	.formulario-login {
+		width: 85%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+	.formulario-login {
+		width: 80%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+	.formulario-login {
+		width: 85%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+	.formulario-login {
+		width: 60%;
+	}
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+	.formulario-login {
+		width: 50%;
+	}
 }
 
 .formulario-login > h3 {

@@ -123,6 +123,7 @@ mpowaga:string-template@0.1.0
 mrgalaxy:stripe@2.2.2
 mrt:moment@2.8.1
 mrt:moment-timezone@0.2.1
+natestrauser:select2@4.0.2
 nilsdannemann:pdfmake@1.0.38
 npm-bcrypt@0.8.6_1
 npm-mongo@1.4.44
