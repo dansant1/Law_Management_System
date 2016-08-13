@@ -1,0 +1,115 @@
+.wrapper {
+    padding: 0 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.amarillo-flat-b {
+    border-left: 3px solid #f1c40f;  
+}
+
+.amarillo-flat-b:before {
+    border: 2.5px solid #f1c40f;
+}
+
+.rojo-flat-b {
+    border-left: 3px solid #e74c3c;
+}
+
+.rojo-flat-b:before {
+    border: 2.5px solid #e74c3c;
+}
+
+.verde-flat-b {
+    border-left: 3px solid #2ecc71;
+}
+
+.verde-flat-b:before {
+    border: 2.5px solid #2ecc71;
+}
+
+.morado-flat-b {
+    border-left: 3px solid #9b59b6;
+}
+
+.morado-flat-b:before {
+    border: 2.5px solid #9b59b6;
+}
+
+.azul-flat-b {
+    border-left: 3px solid #3498db;
+}
+
+.azul-flat-b:before {
+    border: 2.5px solid #3498db;
+}
+
+.naranja-flat-b {
+    border-left: 3px solid #e67e22;
+}
+
+.naranja-flat-b:before {
+    border: 2.5px solid #e67e22;
+}
+
+.turquesa-flat-b {
+    border-left: 3px solid #1abc9c;
+}
+
+.turquesa-flat-b:before {
+    border: 2.5px solid #1abc9c;
+}
+
+.azul-empresa-b {
+    border-left: 3px solid #3a5269;
+}
+
+.azul-empresa-b:before {
+    border: 2.5px solid #3a5269;
+}
+
+.post {
+  width: 96%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  position: relative;
+  height: 100px;
+}
+
+.post > span.tiempo {
+    display: block;
+    font-size: 10px;
+    font-weight: initial;
+    color: #7f8c8d;
+}
+
+.post:before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  left: -8px;
+  background-color: white;
+ 
+  border-radius: 10px;
+  height: 12px;
+  width: 12px;
+}
+
+.post:after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+ 
+  top: 30px;
+  left: 0px;
+}
+
+.post-inner {
+  
+  border-radius: 4px;
+  padding: 10px;
+  padding-left: 2.5px;
+  font-weight: 300;
+}

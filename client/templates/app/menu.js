@@ -1,8 +1,23 @@
 Meteor.startup(function () {});
 
+Template.menu.onCreated( function () {
+	var self = this;
+
+	this.limite = new ReactiveVar(7);
+
+
+	self.autorun(function () {
+
+		let bufeteId = Meteor.user().profile.bufeteId;	
+		self.subscribe('news', bufeteId, self.limite.get());
+	
+	});
+});
+
 Template.menu.onRendered(function () {
 	Session.set('abrir', 'open-menu');
 	Session.set('close', '');
+	Session.set('cerrar-news', 'sidebar-derecho-close');
 
 	Template.instance().tour = new Tour({
   		steps: [
@@ -51,7 +66,42 @@ Template.menu.onRendered(function () {
 	});
 
 	Template.instance().tour.init();
+
+	$(".rippler").rippler({
+    effectClass      :  'rippler-effect'
+    ,effectSize      :  16      // Default size (width & height)
+    ,addElement      :  'div'   // e.g. 'svg'(feature)
+    ,duration        :  400
+  });
 });
+
+function timeSince(date) {
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " años";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " meses";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " dias";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " horas";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutos";
+    }
+    return Math.floor(seconds) + " segundos";
+}
 
 Template.menu.helpers({
 	tieneAcceso() {
@@ -60,8 +110,50 @@ Template.menu.helpers({
 		} else {
 			return false;
 		}
+	},
+	cerrar() {
+		return Session.get('cerrar-news');
+	},
+	news: () => {
+		return NewsFeed.find({}, {sort: {createdAt: -1} });
+	},
+	haynews: () => {
+		if ( NewsFeed.find().fetch().length > 10 ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	type: (tipo) => {
+		if (tipo === "Expediente") {
+			return 'amarillo-flat-b';
+		} else if (tipo === "Documentos") {
+			return 'rojo-flat-b';
+		} else if (tipo === "Evento") {
+			return 'verde-flat-b';
+		} else if (tipo === "Hito") {
+			return 'morado-flat-b';
+		} else if (tipo === "Tarea") {
+			return 'azul-flat-b';
+		} else if (tipo === "Cliente") {
+			return 'naranja-flat-b';
+		} else if (tipo === "Estado") {
+			return 'turquesa-flat-b';
+		} else {
+			return 'azul-empresa-b'
+		}
+	},
+	sucedio(createdAt) {
+
+		return timeSince(createdAt);
+	},
+	quien() {
+		if (this.creador.id === Meteor.userId()) {
+			return 'Tú';
+		} else {
+			return this.creador.id;
+		}
 	}
-	
 });
 
 Template.menu.events({
@@ -108,6 +200,18 @@ Template.menu.events({
 	},
 	'click .iniciar-tour'() {
 		Template.instance().tour.start();
+	},
+	'click .abrir-news'() {
+		if (Session.get('cerrar-news') === "") {
+			Session.set('cerrar-news', 'sidebar-derecho-close');
+		} else {
+			Session.set('cerrar-news', '');
+		}
+	},
+	'click .cargar'(event, template) {
+		let cargar = template.limite.get() + 10;
+		template.limite.set(cargar);
+
 	}
 });
 

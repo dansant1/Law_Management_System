@@ -15,8 +15,63 @@
 	transition: width 0.2s ease-out;
 }
 
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}  
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}  
+@keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+
+.sidebar-vertical-derecho {
+	width: 325px;
+  	height: 100%;
+  	
+  	position: fixed;
+  	right: 0px;
+  	z-index: 1001;
+  	background: white;
+  	-webkit-box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
+	-moz-box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
+	box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
+	
+	 display: block;
+    -webkit-animation: fadeIn 0.2s;
+    animation: fadeIn 0.2s;
+}
+
+.sidebar-vertical-derecho > h5 {
+	width: 100%;
+	height: 41px;
+	text-align: center;
+	border-bottom: 2px solid #F1F1F1; 
+	font-weight: 300;
+	margin-top: 80px;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-family: "Open Sans", sans-serif;
+
+}
+
+.sidebar-derecho-close {
+	display: none;
+	-webkit-animation: fadeOut 0.2s;
+    animation: fadeOut 0.2s;
+}
+
+
 .sidebar-vertical-simple {
-	width: 5%;
+	width: 52px;
   	height: 100%;
   	position: fixed;
   	z-index: 1001;
