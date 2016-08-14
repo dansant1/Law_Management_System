@@ -151,7 +151,7 @@ Template.menu.helpers({
 		if (this.creador.id === Meteor.userId()) {
 			return 'Tú';
 		} else {
-			return this.creador.id;
+			return this.creador.nombre;
 		}
 	}
 });
