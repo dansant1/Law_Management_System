@@ -107,6 +107,7 @@ meteorhacks:kadira-binary-deps@1.4.0
 meteorhacks:kadira-profiler@1.2.1
 meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
+meteorhacks:sikka@1.0.1
 meteorhacks:ssr@2.2.0
 meteorspark:util@0.2.0
 minifier-css@1.1.12

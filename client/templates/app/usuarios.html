@@ -207,3 +207,83 @@
 	        </div>
 	    </div>
 </template>
+
+
+<template name="invitarMiembro">
+	<div class="modal fade" tabindex="-1" role="dialog">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+
+      			<div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+
+        			<div class="modal-formulario">
+						<div class="side-help">
+							<div class="about-asunto fondo-bunqr" style="height: 230px;">
+								<h2>
+									Miembros
+								</h2>
+								<p style="color: white;">Agrega a los miembros de tu firma para asignarle tareas, asuntos, crear equipos, areas y tener todo bien organizado.</p>
+
+							</div>
+							<div class="about-asunto fondo-ayuda" style="height: 245px; padding-top: 55px;">
+								<h3>
+									¿Necesitas ayuda?
+								</h3>
+								<p>
+									Haz click <a href="#" data-elevio-article="75102" class="color-bunqr">aquí</a> para ver un tutorial. También, puedes contactarnos a <a href="#" class="color-bunqr">daniel@grupoddv.com</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="contenido-formulario" style="height: 480px;">
+							
+							<div class="cuadro-datos-asunto">
+								<h1 class="color-bunqr">Información</h1>
+								<hr>
+								<div class="formulario-bunqr">
+									<div class="medio-ancho">
+										<label for="asunto">Nombre*</label>
+										<input type="text" name="nombre">
+									</div>
+									<div class="medio-ancho">
+										<label for="apellido">Apellido*</label>
+										<input type="text" name="apellido">
+									</div>
+									<div class="medio-ancho">
+										<label for="email">Email*</label>
+										<input type="email" name="email">
+									</div>
+									
+									<div class="medio-ancho">
+										<label for="tipo">Tipo*</label>
+										<select name="tipo">
+                                            <option value="socio senior">Asociado senior</option>
+                                            <option value="socio junior">Asociado junior</option>
+                                            <option value="secretario">Secretario</option>
+											<option value="procurador">Procurador</option>
+											<option value="socio">Socio</option>
+											<option value="encargado comercial">Encargado comercial</option>
+                                        </select>
+									</div>
+
+									<div class="medio-ancho">
+										<label for="area">Área</label>
+										<select class="areas" name="area">
+											{{#each areas}}
+												<option value="{{this._id}}">{{this.nombre}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<div class="cuadro-datos-asunto" style="height: 100px; width: 76.5%; position: relative; left: 208px; background-color: white; height: 75px; border-top: 2px solid #F2F2F2;">
+							<input class="agregar-miembro" type="button" value="Agregar miembro">
+						</div>
+					</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+</template>

@@ -80,10 +80,10 @@ Meteor.methods({
 
 			if (asuntoId) {
 
-				// console.log(asuntos);
-				if(_workflow){
-					let workflow = Workflows.findOne(_workflow.id)
-					console.log(workflow);
+				if(_workflow) {
+					Meteor.defer(function() {
+  					let workflow = Workflows.findOne(_workflow.id)
+					//console.log(workflow);
 					workflow.etapas.forEach(function (etapa) {
 						etapa.asunto={
 							id:asuntoId,
@@ -143,9 +143,12 @@ Meteor.methods({
 						})
 
 					})
-
-
+				});
+				
 				}
+				
+				
+
 
 				// Creamos el evento de inicio de expediente (asunto)
 				let evento = {

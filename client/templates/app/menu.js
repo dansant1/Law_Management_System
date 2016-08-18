@@ -24,42 +24,42 @@ Template.menu.onRendered(function () {
   			{
     			element: "#tour-1",
     			title: "Dashboard",
-    			content: "Content of my step"
+    			content: "Observe las metricas y la actividad de su firma desde el Dashboard"
   			},
   			{
     			element: "#tour-2",
     			title: "Tu equipo",
-    			content: "Content of my step"
+    			content: "Agrega a los miembros del estudio haciendo click en +"
   			},
   			{
     			element: "#tour-3",
     			title: "Conversaciones",
-    			content: "Content of my step"
+    			content: "Iniciar una conversación grupal de cualquier tema"
   			},
   			{
     			element: "#tour-4",
     			title: "Tu agenda mas efectiva",
-    			content: "Content of my step"
+    			content: "Gestiona tu agenda con nustro calendario personal. Para crear un nuevo evento haz click en +"
   			},
   			{
     			element: "#tour-5",
     			title: "Tus tareas en un solo lugar",
-    			content: "Content of my step"
+    			content: "Gestiona tus tareas desde aquí. edita los deadlines, asignalo a algún miembro de tu equipo y/o enlzalo con un asunto y horas de trabajo. "
   			},
   			{
     			element: "#tour-6",
     			title: "Organiza tus asuntos",
-    			content: "Content of my step"
+    			content: "Crea y administra tus proyectos, casos, asuntos. Haz click en + para crear tu primer asunto."
   			},
   			{
     			element: "#tour-7",
     			title: "Gestiona a tus clientes",
-    			content: "Content of my step"
+    			content: "Desde nuestro CRM puedes dar seguimientos a tus clientes, agregar notas relacionadas, crear negociaciones y ver reportes. Haz click en + para agregar un nuevo contacto."
   			},
   			{
     			element: "#tour-8",
     			title: "Lleva el control de tu facturación",
-    			content: "Content of my step"
+    			content: "Lleva el control de tus horas de trabajo, gastos y metricas de tu firma."
   			}
 		],
 		keyboard: true,

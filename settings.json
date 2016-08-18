@@ -3,10 +3,16 @@
 		{ 
 			"env":
 				{ 	
-        			"ROOT_URL": "https://app.grupoddv.com",
+        			"ROOT_URL": "https://bunqr.grupoddv.com",
 					"MONGO_URL": "mongodb://bunqr:developer24@ds047692.mlab.com:47692/bunqrdb"
 				}
 		},
+    "sikka": {
+         "captcha": {
+             "siteKey": "6LcAyicTAAAAAADp4br8__kypGYujPP-7p1UE81k",
+             "secret":  "6LcAyicTAAAAADu1UpuiVNhNJzKhu1dxLX6JLXI3"
+         }
+    },
 	"public": 
 		{
     		"analyticsSettings": 

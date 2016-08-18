@@ -1,0 +1,51 @@
+<template name="signupInvitado">
+	
+	<div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <a class="navbar-brand" id="marca">BUNQR <span style="position: absolute; left: 172.5px; top: 28px; font-size: 12px;">&reg;</span></a>    
+    </div>
+
+    <div style="display: inline-block; float: right; position: relative; top: 20px; font-weight: initial; color: #7f8c8d; right: 22.5px;">
+    	¿Ya tienes una cuenta? <span style="color: #34495e;"><a href="/login"  style="color: #34495e; font-weight: initial;">Ingresa.</a></span>
+    </div>
+   
+  </div>
+</div>
+
+	<form class="formulario-login" >
+		
+		    	<h3>Únete a BUNQR</h3>
+				<p>Lleve a su firma a la mayor eficiencia en segundos. No necesitas tarjeta de credito.</p>
+				<input  type="text" name="nombre" value="{{nombre}}" disabled placeholder="Ingrese su nombre">
+		    
+
+		   
+
+				<input  type="text" name="apellido" placeholder="Ingrese su apellido" value="{{apellido}}" disabled>
+		   
+
+		    
+
+				<input type="text" name="bufete" value="{{bufete}}" disabled placeholder="Ingrese el nombre de su firma">
+		   
+
+		     
+
+				<input  type="email" name="email" value="{{email}}" disabled placeholder="Ingrese su email">
+		    
+
+		   
+
+				<input type="password" name="password"  placeholder="Ingrese su contraseña">
+		    	<hr>
+				<p class="aviso">Al crear una cuenta, está aceptando nuestros <a href="/terminos-condiciones" target="_blank">Terminos de servicios </a> y
+				<a href="/politicas-privacidad" target="_blank">Políticas de privacidad</a>
+				</p>
+			
+		      	<input type="submit" value="Empezar prueba">
+		   
+
+		
+	</form>
+</template>

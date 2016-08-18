@@ -211,10 +211,10 @@ Template.horaMiembrosChart.onRendered(function () {
             datasets: datasets
         },{
             animateScale: true,
-            legendTemplate : '<ul>'
+            legendTemplate : '<ul style=\"display: flex; width: 85%; margin: 0 auto; flex-wrap: wrap; justify-content: center;\">'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
-                    +'<li>'
-                    +'<div style=\"display: flex; width: 86%; margin: 0 auto;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<li style=\" margin-right: 10px;\" >'
+                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;  border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'
@@ -343,10 +343,10 @@ Template.gastosChart.onRendered(function () {
             datasets: datasets
         },{
             animateScale: true,
-            legendTemplate : '<ul>'
+            legendTemplate : '<ul style=\"display: flex; width: 90%; margin: 0 auto; flex-wrap: wrap; justify-content: center;\">'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
-                    +'<li>'
-                    +'<div style=\"display: flex; width: 86%; margin: 0 auto;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<li style=\"margin-right: 10px;\">'
+                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px; border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'

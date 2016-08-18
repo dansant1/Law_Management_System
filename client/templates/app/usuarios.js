@@ -158,3 +158,49 @@ Template.usuarioForm2.events({
 
 	}
 });
+
+Template.invitarMiembro.onCreated(function () {
+	var self = this;
+	let bufeteId = Meteor.user().profile.bufeteId
+	self.autorun(function () {
+		self.subscribe('areas',bufeteId);
+	})
+});
+
+Template.invitarMiembro.helpers({
+	areas(){
+		return Areas.find()
+	}
+});
+
+Template.invitarMiembro.events({
+	'click .agregar-miembro': function (event, template) {
+		event.preventDefault();
+
+		let datos = {
+			email: template.find( '[name="email"]' ).value,
+   			nombre: template.find( '[name="nombre"]' ).value,
+   			apellido: template.find( '[name="apellido"]' ).value,
+			tipo: template.find('[name="tipo"]').value,
+			area: {
+				id:template.find('.areas').value,
+				nombre: template.find('.areas option:selected').innerHTML
+			}
+		}
+
+		if (datos.email !== "" && datos.nombre !== "" && datos.apellido !== "") {
+
+			Meteor.call('invitar', datos, function (err, result) {
+
+				Bert.alert( 'Agregaste un nuevo usuario al equipo', 'success' );
+
+				template.find( '[name="email"]' ).value = "";
+				template.find( '[name="nombre"]' ).value = "";
+				template.find( '[name="apellido"]' ).value = "";
+	
+			});
+		} else {
+			Bert.alert( 'Ingrese sus datos', 'warning' );
+		}
+	}
+});

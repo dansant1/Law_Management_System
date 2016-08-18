@@ -338,7 +338,7 @@ Template.teamSidebarDahboard.helpers({
 
 Template.teamSidebarDahboard.events({
 	'click .nuevo': () => {
-		Modal.show('usuarioForm2');
+		Modal.show('invitarMiembro');
 	}
 });
 
@@ -2274,7 +2274,7 @@ Template.equipo.helpers({
 
 Template.equipo.events({
 	'click .nuevo-miembro': function () {
-		Modal.show('usuarioForm');
+		Modal.show('usuarioForm2');
 	},
 	'click .nueva-area':function () {
 		Modal.show('areaForm');
