@@ -1,8 +1,9 @@
 Template.signupInvitado.onCreated(function () {
 	var self = this;
-	let invitadoId = FlowRouter.getParam('invitadoId')
+	
 	self.autorun(function () {
-		self.subscribe('invitacion', invitadoId);
+		let invitadoId = FlowRouter.getParam('invitadoId');
+    self.subscribe('invitacion', invitadoId);
 	})
 });
 

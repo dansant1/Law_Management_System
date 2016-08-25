@@ -15,10 +15,6 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 
 });
 
-
-
-
-
 Template.sidebarDashobard.helpers({
 	close() {
 		return Session.get('close');
@@ -31,12 +27,65 @@ Template.appDashboard.helpers({
 	}
 });
 
+Template.tareasDetalle2.onCreated(function () {
+	var self = this;
+
+	self.autorun(function() {
+
+		let bufeteId = Meteor.user().profile.bufeteId;
+
+    	self.subscribe('equipo', bufeteId);
+   });
+});
+
 Template.tareasDetalle2.helpers({
 	nombre() {
 		return Meteor.user().profile.nombre;
 	},
 	apellido() {
 		return Meteor.user().profile.apellido;
+	},
+	miembros() {
+		return Meteor.users.find();
+	}
+});
+
+Template.tareasDetalle2.events({
+	'keyup [name="detalle"]'(e, t) {
+		let datos = {
+			tareaId: this._id,
+			descripcion: t.find("[name='detalle']").value
+		}
+
+		Meteor.call('actualizarDescripcionTarea', datos, function (err, result) {
+        	if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+       	});
+	},
+	'keyup [name="descripcion"]'(e, t) {
+		let datos = {
+			tareaId: this._id,
+			descripcion: t.find("[name='descripcion']").value
+		}
+
+		Meteor.call('actualizarSobreTarea', datos, function (err, result) {
+        	if (err) return Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+       	});
+	},
+	'click .miembros-select'(e, t) {
+
+		if (e.target.tagName == "A") {
+			let data = {
+				tareaId: this._id,
+				nombre: e.target.text,
+				id: e.target.id
+			}
+			Meteor.call('actualizarAsignadoTarea', data, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				}	
+			});	
+		}
+
 	}
 });
 
@@ -1163,7 +1212,7 @@ Template.tareasDetalle2.helpers({
 			if (this.asignado.nombre === Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido) {
 				return "Asignado a ti";
 			} else {
-				return this.asignado.nombre;
+				return "Asignado a " + this.asignado.nombre;
 			}
 		},
 		comentador() {
@@ -3527,7 +3576,7 @@ Template.barChart.onRendered(function(){
 			else data_no_resuelto.push(0)
 		}
 
-		debugger;
+		//debugger;
 
 
 	    // Set the data

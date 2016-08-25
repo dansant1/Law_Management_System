@@ -443,3 +443,28 @@ a:focus {
 	color: #95a5a6;
 }
 
+.picker {
+	display: inline-block;
+	border: 1px solid white;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.picker:hover {
+	border-style: dashed;
+	border-color: #34495e;
+}
+
+#detalle {
+	display: block;
+	border: 1px solid white;
+	padding: 15px;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 5px;
+	min-height: 30px;
+	
+}
+
+#detalle:hover {
+	border-color: #34495e;
+	border-style: dashed;
+}

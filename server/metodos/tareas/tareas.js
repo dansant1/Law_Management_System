@@ -622,10 +622,10 @@ Meteor.methods({
 				}
 			});
 		} else {
-      return;
-    }
+      		return;
+   	 	}
 	},
-  actualizarNombreEtapa: function (datos) {
+  	actualizarNombreEtapa: function (datos) {
     check(datos, {
       nombre: String,
       id: String
@@ -640,5 +640,45 @@ Meteor.methods({
     } else {
       return;
     }
+  },
+  actualizarDescripcionTarea: function (data) {
+  	check(data, {
+  		descripcion: String,
+  		tareaId: String
+  	});
+
+  	Tareas.update({_id: data.tareaId}, {
+		$set: {
+			detalles: data.descripcion
+		}
+	});
+  },
+  actualizarSobreTarea: function (data) {
+  	check(data, {
+  		descripcion: String,
+  		tareaId: String
+  	});
+
+  	Tareas.update({_id: data.tareaId}, {
+		$set: {
+			descripcion: data.descripcion
+		}
+	});
+  },
+  actualizarAsignadoTarea: function (data) {
+  	check(data, {
+  		nombre: String,
+  		id: String,
+  		tareaId: String
+  	});
+
+	Tareas.update({_id: data.tareaId}, {
+		$set: {
+			asignado: {
+				nombre: data.nombre,
+				id: data.id
+			}
+		}
+	});  	
   }
 });

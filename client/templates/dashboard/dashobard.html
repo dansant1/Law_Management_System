@@ -1240,16 +1240,13 @@
         {{#with tarea}}
 
 
-				<span class="fh-checkbox cerrar" style="font-size: 28px; width: 25px; height: 25px;">
+				<span class="fh-checkbox cerrar" style="font-size: 28px; width: 25px; height: 25px; position: relative; top: 16px;">
 						<input type="checkbox" {{hecho}}  id="{{this._id}}" name="mycheckbox">
-						<label id="label-custom" for="{{this._id}}" class="bug-check" style="font-weight: initial;">  {{this.descripcion}} </label>
+						<label id="label-custom" for="{{this._id}}" class="bug-check" style="font-weight: initial; position: relative: top: 10px;"></label>   
 				</span>
+        <input type="text" name="descripcion" value="{{this.descripcion}}" id="detalle" style="display: inline-block; padding: 5px; font-size: 25px; width: 40%; ">
 				<a style="display: inline-block; margin-left: 12px; font-size: 17.5px;" class="adjuntar-archivo-tarea">
 	        <i class="glyphicon glyphicon-paperclip"></i>
-	      </a>
-
-				<a style="display: inline-block; margin-left: 18px; font-size: 17.5px;" >
-					<i class="glyphicon glyphicon-edit"></i>
 	      </a>
 
 				<a style="display: inline-block; margin-left: 18px; font-size: 17.5px;"  class="agregar-fecha">
@@ -1258,7 +1255,29 @@
 
 
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">en {{this.asunto.nombre}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{this.etapa.nombre}}</p>
-				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;"><span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}</span> {{estaAsignado}} | {{dia}}</p>
+				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">
+        
+        <li class="dropdown" style="display: inline-block; margin-right: 10px;">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
+               <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}
+        </span> 
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu miembros-select">
+            {{#each miembros}}
+              <li><a id="{{this._id}}">{{profile.nombre}} {{profile.apellido}}</a></li>
+            {{/each}}
+          </ul>
+        </li>
+
+       
+
+        {{estaAsignado}} | 
+
+        <input type="text"  class="picker" style="width: 250px" value="{{dia}}">
+
+        </p>
+        
+        <input name="detalle" id="detalle" value="{{this.detalles}}" style="width: 100%;">
 
         {{/with}}
 
