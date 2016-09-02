@@ -53,7 +53,7 @@ EsquemaGastos = new SimpleSchema({
 	},
   	asunto: {
   		type: Object,
-		optional:true
+		optional: true
   	},
   	'asunto.nombre': {
   		type: String
@@ -68,6 +68,10 @@ EsquemaGastos = new SimpleSchema({
   	monto: {
     	type: Number,
     	decimal: true
+  	},
+  	pagado: {
+  		type: Boolean,
+  		optional: true
   	}
 });
 

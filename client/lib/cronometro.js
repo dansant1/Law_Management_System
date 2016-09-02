@@ -24,7 +24,7 @@ chronometer.add = function() {
 			chronometer.hours++;
 		}
 	}
-	debugger;
+	//debugger;
 
 	$(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
 

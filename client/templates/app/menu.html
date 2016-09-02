@@ -15,15 +15,47 @@ _elev.account_id = '57b61ff36edb6';
         <a class="abrir-menu rippler rippler-inverse" style="position: absolute; left: 230px; font-size: 25px; display: inline-block; width: 50px; height: 60px; padding-top: 11px; text-align: center;">
           <i class="fa fa-bars" aria-hidden="true" style="color: #34495e;"></i>
         </a>
-        <button style="position: absolute; right: 300px; top: 13px; " class="iniciar-tour rippler rippler-inverse">
-          Iniciar tour
-        </button>
+        
         <a style="position: absolute; right: 400px; top: 0px; width: 50px; height: 60px; font-size: 25px; padding-top: 11px; color: #3a5269; text-align: center;" class=" rippler rippler-inverse abrir-news">
           <i class="fa fa-list-ul" aria-hidden="true"></i>
         </a>
 
-        {{>cronometro2}}
+        {{>cronometro2}} 
 
+       
+
+        <nav class="cd-stretchy-nav">
+          <a class="cd-nav-trigger" href="#0">
+            <span aria-hidden="true"></span>
+          </a>
+
+          <ul>
+            <li><a class="y" href="#0" ><span>Home</span></a></li>
+            <li><a class="y" href="#0"><span>Portfolio</span></a></li>
+            <li><a class="y" href="#0"><span>Services</span></a></li>
+            <li><a class="y" href="#0"><span>Store</span></a></li>
+            <li><a class="y" href="#0"><span>Contact</span></a></li>
+          </ul>
+
+          <span aria-hidden="true" class="stretchy-nav-bg"></span>
+        </nav>
+
+       
+  <nav class="cd-stretchy-nav add-content">
+    <a class="cd-nav-trigger" href="#0">
+      
+      <span aria-hidden="true"></span>
+    </a>
+
+    <ul>
+      <li><a class="y" href="#0"><span>Image</span></a></li>
+      <li><a class="y" href="#0"><span>Audio</span></a></li>
+      <li><a class="y" href="#0"><span>Link</span></a></li>
+      <li><a class="y" href="#0"><span>Video</span></a></li>
+    </ul>
+
+    <span aria-hidden="true" class="stretchy-nav-bg"></span>
+  </nav>
 
 
     </div>
@@ -86,7 +118,23 @@ _elev.account_id = '57b61ff36edb6';
 </template>
 
 <template name="cronometro2">
-  <div class="cronometro">
+    
+    <nav class="cd-stretchy-nav add-content" style="right: 0; left: 80%;">
+        <a class="cd-nav-trigger g boton-play" style=" margin-top: 0;" href="#0">
+            <i class="glyphicon glyphicon-play" style="top: 28%; left: 13.5%;" aria-hidden="true"></i>
+        </a>
+
+        <ul>
+            <li><a href="#0" class="c hora-crono" style="width: 130px; font-size: 20px; padding-top: 0;">00:00</a></li>
+            <li><a href="#"><i></i></a></li>
+            <li><a href="#0" class="c boton-agregar-hora"><i class="fa fa-hdd-o" aria-hidden="true"></i></a></li>
+            <li><a href="#0" class="c boton-resetear" style="padding-left: 1px"><i class="fa fa-cloud" aria-hidden="true"></i></a></li>
+        </ul>
+
+        <span aria-hidden="true" class="stretchy-nav-bg"></span>
+    </nav>
+
+  <!--<div class="cronometro">
     <div class="cuadro-crono"><h2 class="hora-crono" style="margin: 0; color: #34495e; margin-right: 5px;">00:00</h2></div>
     <div class="cuadro-crono" style="position: ">
             <button class="boton-lateral boton-disminuir"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
@@ -96,6 +144,6 @@ _elev.account_id = '57b61ff36edb6';
             <button class="boton-lateral boton-agregar-hora" style="background-color:#34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: 1px; top: 3px;"></i></button>
             <button class="boton-lateral boton-guardar-hora" style="margin-left: 5px; ;background-color: white;"><i class="fa fa-floppy-o" style="position: relative; right: 0px; top: 0px;  color: #34495e;"></i></button>
     </div>
-  </div>
+  </div>-->
 
 </template>

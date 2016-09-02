@@ -1255,3 +1255,24 @@ fieldset {
 	margin: 0 auto;
 	width: 60%;
 }
+
+.white-box {
+	background-color: white;
+	border: 1.5px solid #EFEFEF;
+	padding: 5px;
+	text-align: center;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.chart-hora {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.red-flat {
+	background-color: #e74c3c !important;
+}

@@ -14,6 +14,7 @@ Meteor.methods({
 			datos.monto = parseInt(datos.monto);
 			datos.administrativo = true;
 			datos.creadorId = this.userId;
+			datos.pagado = true;
 			datos.createdAt = new Date();
 
 
@@ -40,7 +41,8 @@ Meteor.methods({
 
 
 			datos.monto = parseInt(datos.monto);
-			datos.administrativo = false
+			datos.administrativo = false;
+			datos.pagado = false;
 			datos.creadorId = this.userId;
 			datos.createdAt = new Date();
 
@@ -61,7 +63,7 @@ Meteor.methods({
 
 
 			datos.monto = parseInt(datos.monto);
-			datos.administrativo = false
+			datos.administrativo = false;
 			datos.creadorId = this.userId;
 			datos.createdAt = new Date();
 

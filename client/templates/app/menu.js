@@ -294,6 +294,7 @@ Template.cronometro2.events({
 		chronometer.element = ".hora-crono";
 		chronometer.timer();
 		Session.set("cronometro-pausado",false);
+		$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
 
 	},
 	'click .boton-stop'(){
@@ -358,7 +359,7 @@ Template.cronometro2.events({
 			}
 
 			return Meteor.call('agregarHoraSinDetalles',datos,function (err) {
-				debugger;
+				//debugger;
 				if(err) return Bert.alert('Error al momento de crear las horas','danger');
 				chronometer.reset();
 				if(!$(".boton-principal").hasClass("boton-play")){

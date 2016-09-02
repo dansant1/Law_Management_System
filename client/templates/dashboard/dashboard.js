@@ -15,6 +15,26 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 
 });
 
+Template.menu.onRendered(function () {
+	if( $('.cd-stretchy-nav').length > 0 ) {
+		var stretchyNavs = $('.cd-stretchy-nav');
+		
+		stretchyNavs.each(function(){
+			var stretchyNav = $(this),
+				stretchyNavTrigger = stretchyNav.find('.cd-nav-trigger');
+			
+			stretchyNavTrigger.on('mouseover', function(event){
+				event.preventDefault();
+				stretchyNav.toggleClass('nav-is-visible');
+			});
+		});
+
+		$(document).on('click', function(event){
+			( !$(event.target).is('.cd-nav-trigger') && !$(event.target).is('.cd-nav-trigger span') ) && stretchyNavs.removeClass('nav-is-visible');
+		});
+	}
+});
+
 Template.sidebarDashobard.helpers({
 	close() {
 		return Session.get('close');
@@ -3994,4 +4014,88 @@ Template.modalNuevoEvento.events({
 			});
 		}
 	}
+});
+
+Template.horasDashboard.onRendered(function () {
+	// Horas de hoy
+	Morris.Donut({
+  		element: 'expectativa',
+  		data: [
+    		{label: "Horas trabajadas", value: 2.5},
+    		{label: "Expectativa", value: 4.1}
+  		],
+  		resize: true
+	});
+
+	// Expectativa de hoy
+	/*Morris.Bar({
+  		element: 'expectativa-1',
+  		data: [
+    		{ y: '2006', a: 100, b: 90 },
+    		{ y: '2007', a: 75,  b: 65 },
+    		{ y: '2008', a: 50,  b: 40 },
+    		{ y: '2009', a: 75,  b: 65 },
+    		{ y: '2010', a: 50,  b: 40 },
+    		{ y: '2011', a: 75,  b: 65 },
+    	{ y: '2012', a: 100, b: 90 }
+  		],
+  		xkey: 'y',
+  		ykeys: ['a', 'b'],
+  		labels: ['Series A', 'Series B']
+	});*/
+
+	// Expectativa de hoy
+	Morris.Bar({
+  		element: 'expectativa-hoy',
+  		data: [
+    		{ y: 'Avance', a: 5 },
+    		{ y: 'Expectativa', a: 8},
+  		],
+  		xkey: 'y',
+  		ykeys: ['a'],
+  		labels: ['Horas Trabajadas', 'Expectativa'],
+  		resize: true
+	});
+
+	// Expectativa de la semana
+	Morris.Bar({
+  		element: 'expectativa-semana',
+  		data: [
+    		{ y: 'Avance', a: 25 },
+    		{ y: 'Expectativa', a: 40},
+  		],
+  		xkey: 'y',
+  		ykeys: ['a'],
+  		labels: ['Horas Trabajadas', 'Expectativa'],
+  		resize: true
+	});
+
+	// Expectativa del mes
+	Morris.Bar({
+  		element: 'expectativa-mes',
+  		data: [
+    		{ y: 'Avance', a: 100 },
+    		{ y: 'Expectativa', a: 160},
+  		],
+  		xkey: 'y',
+  		ykeys: ['a'],
+  		labels: ['Horas', 'Expectativa'],
+  		barColors: ['#1abc9c', '#2ecc71'],
+  		resize: true
+	});
+
+	// Expectativa anual
+	Morris.Bar({
+  		element: 'expectativa-anual',
+  		data: [
+    		{ y: 'Avance', a: 1500 },
+    		{ y: 'Expectativa', a: 1800},
+  		],
+  		xkey: 'y',
+  		ykeys: ['a'],
+  		labels: ['Horas Trabajadas', 'Expectativa'],
+  		resize: true
+	});
+
+	$('svg').height(200);
 });

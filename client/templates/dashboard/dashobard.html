@@ -6,7 +6,6 @@
 		{{> sidebarDashobard}}
 		{{> appDashboard}}
 
-
 	{{else}}
 		{{> login}}
 	{{/if}}
@@ -2703,6 +2702,8 @@
   {{>newsfeed}}
 
 </template>
+
+
 
 <template name="contenidoDashboard2Bienvenido">
 	<!-- Menu -->
@@ -5679,19 +5680,53 @@
 
 <!-- Contenido del modulo dashboard -->
 
+<template name="horasDashboard">
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa"></div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa-hoy" class="chart-hora"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa-semana" class="chart-hora"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa-mes" class="chart-hora"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="white-box">
+        <div id="expectativa-anual" class="chart-hora"></div>
+      </div>
+    </div>
+  </div>
+  
+</template>
+
 <template name="mainDashboard">
+    
+  {{>horasDashboard}}
 
   <div style="width: 100%; margin: 0px ; text-align: center; display: flex; flex-wrap: wrap;">
       {{>horaMiembrosChart}}
   </div>
-</template>
-
-<template name="tareasHoyDashboard">
-
-</template>
-
-<template name="agendaHoyDashboard">
-
 </template>
 
 <template name="borradoresFacturaDashboard">
