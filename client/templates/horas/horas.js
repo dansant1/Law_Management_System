@@ -161,7 +161,7 @@ Template.nuevoHoras.events({
 });
 
 Template.agregarHoras.onRendered(function () {
-	debugger;
+	//debugger;
 	let template = this;
 	if(Session.get("cronometro-pausado")){
 		$(template.find("[name='horas']")).val(chronometer.hours);
@@ -672,7 +672,7 @@ Template.agregarHoras.events({
 	'change [name="asunto"]'(event,template){
 		Session.set('asunto-select-id',event.target.value);
 	},
-	'submit form': function (event, template) {
+	'click .agregar-trabajo': function (event, template) {
 		event.preventDefault();
 		// debugger;
 		let datos = {

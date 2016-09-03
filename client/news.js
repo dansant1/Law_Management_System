@@ -1,20 +1,13 @@
-Template.newsfeed.onCreated(function () {
+Template.tareasYeventos.onCreated(function () {
 	var self = this;
 
-	this.limite = new ReactiveVar(7);
-
-
 	self.autorun(function () {
-
-		let bufeteId = Meteor.user().profile.bufeteId;
 		self.subscribe('tareasxhoy');
-		self.subscribe('news', bufeteId, self.limite.get());
 		self.subscribe('eventosxhoy')
 	});
-
 });
 
-Template.newsfeed.helpers({
+Template.tareasYeventos.helpers({
 	eventos(){
 		return MiCalendario.find();
 	},
@@ -32,7 +25,21 @@ Template.newsfeed.helpers({
 	},
 	totalTareas(){
 		return Tareas.find().count()
-	},
+	}
+});
+
+Template.newsfeed.onCreated(function () {
+	var self = this;
+	this.limite = new ReactiveVar(7);
+	self.autorun(function () {
+		let bufeteId = Meteor.user().profile.bufeteId;	
+		self.subscribe('news', bufeteId, self.limite.get());
+	});
+
+});
+
+Template.newsfeed.helpers({
+	
 	dia() {
 		var d = new Date(),
     	minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),

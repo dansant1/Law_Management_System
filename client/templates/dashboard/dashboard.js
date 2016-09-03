@@ -17,20 +17,37 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 
 Template.menu.onRendered(function () {
 	if( $('.cd-stretchy-nav').length > 0 ) {
-		var stretchyNavs = $('.cd-stretchy-nav');
-		
+		var stretchyNavs = $('.cd-stretchy-nav.e');
+		var stretchyNavs2 = $('.cd-stretchy-nav');
 		stretchyNavs.each(function(){
 			var stretchyNav = $(this),
 				stretchyNavTrigger = stretchyNav.find('.cd-nav-trigger');
+				stretchyNavTrigger2 = stretchyNav.find('.cd-nav-trigger.t');
 			
-			stretchyNavTrigger.on('mouseover', function(event){
+			stretchyNavTrigger.on('click', function(event){
 				event.preventDefault();
-				stretchyNav.toggleClass('nav-is-visible');
+				stretchyNavs.toggleClass('nav-is-visible');
+				//$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
 			});
+
+			stretchyNavTrigger2.on('click', function(event){
+				event.preventDefault();
+				
+				$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
+			});
+
 		});
 
-		$(document).on('click', function(event){
-			( !$(event.target).is('.cd-nav-trigger') && !$(event.target).is('.cd-nav-trigger span') ) && stretchyNavs.removeClass('nav-is-visible');
+		stretchyNavs2.each(function(){
+			var stretchyNav = $(this),
+				stretchyNavTrigger2 = stretchyNav.find('.cd-nav-trigger.t');
+
+			stretchyNavTrigger2.on('click', function(event){
+				event.preventDefault();
+				
+				$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
+			});
+
 		});
 	}
 });
@@ -4024,25 +4041,10 @@ Template.horasDashboard.onRendered(function () {
     		{label: "Horas trabajadas", value: 2.5},
     		{label: "Expectativa", value: 4.1}
   		],
+  		colors: ['#34495e', '#2c3e50'],
   		resize: true
 	});
 
-	// Expectativa de hoy
-	/*Morris.Bar({
-  		element: 'expectativa-1',
-  		data: [
-    		{ y: '2006', a: 100, b: 90 },
-    		{ y: '2007', a: 75,  b: 65 },
-    		{ y: '2008', a: 50,  b: 40 },
-    		{ y: '2009', a: 75,  b: 65 },
-    		{ y: '2010', a: 50,  b: 40 },
-    		{ y: '2011', a: 75,  b: 65 },
-    	{ y: '2012', a: 100, b: 90 }
-  		],
-  		xkey: 'y',
-  		ykeys: ['a', 'b'],
-  		labels: ['Series A', 'Series B']
-	});*/
 
 	// Expectativa de hoy
 	Morris.Bar({
@@ -4054,6 +4056,7 @@ Template.horasDashboard.onRendered(function () {
   		xkey: 'y',
   		ykeys: ['a'],
   		labels: ['Horas Trabajadas', 'Expectativa'],
+  		barColors: ['#34495e'],
   		resize: true
 	});
 
@@ -4067,6 +4070,7 @@ Template.horasDashboard.onRendered(function () {
   		xkey: 'y',
   		ykeys: ['a'],
   		labels: ['Horas Trabajadas', 'Expectativa'],
+  		barColors: ['#34495e'],
   		resize: true
 	});
 
@@ -4080,7 +4084,7 @@ Template.horasDashboard.onRendered(function () {
   		xkey: 'y',
   		ykeys: ['a'],
   		labels: ['Horas', 'Expectativa'],
-  		barColors: ['#1abc9c', '#2ecc71'],
+  		barColors: ['#34495e'],
   		resize: true
 	});
 
@@ -4094,6 +4098,7 @@ Template.horasDashboard.onRendered(function () {
   		xkey: 'y',
   		ykeys: ['a'],
   		labels: ['Horas Trabajadas', 'Expectativa'],
+  		barColors: ['#34495e'],
   		resize: true
 	});
 

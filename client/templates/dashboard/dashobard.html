@@ -5722,11 +5722,14 @@
 
 <template name="mainDashboard">
     
-  {{>horasDashboard}}
-
+  <div class="box" style="height: 200px; background-color: white; padding-top: 0px; margin: 0; padding: 0;">
+    {{>tareasYeventos}}  
+  </div>
+  
   <div style="width: 100%; margin: 0px ; text-align: center; display: flex; flex-wrap: wrap;">
       {{>horaMiembrosChart}}
   </div>
+  {{>horasDashboard}}
 </template>
 
 <template name="borradoresFacturaDashboard">

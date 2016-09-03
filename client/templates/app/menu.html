@@ -16,44 +16,27 @@ _elev.account_id = '57b61ff36edb6';
           <i class="fa fa-bars" aria-hidden="true" style="color: #34495e;"></i>
         </a>
         
-        <a style="position: absolute; right: 400px; top: 0px; width: 50px; height: 60px; font-size: 25px; padding-top: 11px; color: #3a5269; text-align: center;" class=" rippler rippler-inverse abrir-news">
+        <a style="position: absolute; right: 291px; top: 0px; width: 50px; height: 60px; font-size: 25px; padding-top: 11px; color: #3a5269; text-align: center;" class=" rippler rippler-inverse abrir-news">
           <i class="fa fa-list-ul" aria-hidden="true"></i>
         </a>
 
         {{>cronometro2}} 
 
-       
-
-        <nav class="cd-stretchy-nav">
-          <a class="cd-nav-trigger" href="#0">
-            <span aria-hidden="true"></span>
-          </a>
-
-          <ul>
-            <li><a class="y" href="#0" ><span>Home</span></a></li>
-            <li><a class="y" href="#0"><span>Portfolio</span></a></li>
-            <li><a class="y" href="#0"><span>Services</span></a></li>
-            <li><a class="y" href="#0"><span>Store</span></a></li>
-            <li><a class="y" href="#0"><span>Contact</span></a></li>
-          </ul>
-
-          <span aria-hidden="true" class="stretchy-nav-bg"></span>
-        </nav>
 
        
-  <nav class="cd-stretchy-nav add-content">
+  <nav class="cd-stretchy-nav e add-content">
     <a class="cd-nav-trigger" href="#0">
       
       <span aria-hidden="true"></span>
     </a>
 
     <ul>
-      <li><a class="y" href="#0"><span>Image</span></a></li>
-      <li><a class="y" href="#0"><span>Audio</span></a></li>
-      <li><a class="y" href="#0"><span>Link</span></a></li>
-      <li><a class="y" href="#0"><span>Video</span></a></li>
+      <li><a class="y" style="font-size: 20px; text-align: center;"><i class="fa fa-folder-o" aria-hidden="true"></i></a></li>
+      <li><a class="y" style="font-size: 20px; text-align: center;"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
+      <li><a class="y" style="font-size: 20px; text-align: center;"><i class="fa fa-upload" aria-hidden="true"></i></a></li>
+      <li><a class="y" style="font-size: 20px; text-align: center;"><i class="fa fa-tasks" aria-hidden="true"></i></a></li>
     </ul>
-
+    
     <span aria-hidden="true" class="stretchy-nav-bg"></span>
   </nav>
 
@@ -70,7 +53,7 @@ _elev.account_id = '57b61ff36edb6';
         {{/if}}
 
       {{#with nombre}}
-      <span class="rippler rippler-default" style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
+      <span class="rippler rippler-default" style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #34495e; background-color: #34495e; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
 
         <li class="dropdown ">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
@@ -118,17 +101,16 @@ _elev.account_id = '57b61ff36edb6';
 </template>
 
 <template name="cronometro2">
-    
-    <nav class="cd-stretchy-nav add-content" style="right: 0; left: 80%;">
-        <a class="cd-nav-trigger g boton-play" style=" margin-top: 0;" href="#0">
-            <i class="glyphicon glyphicon-play" style="top: 28%; left: 13.5%;" aria-hidden="true"></i>
+    <nav class="cd-stretchy-nav add-content nav-is-visible" style="right: 0; left: 84%;">
+        <a class="cd-nav-trigger t g boton-play" style=" margin-top: 0;">
+            <i class="glyphicon glyphicon-play" style="top: 31%; left: 34.5%;" aria-hidden="true"></i>
         </a>
 
         <ul>
             <li><a href="#0" class="c hora-crono" style="width: 130px; font-size: 20px; padding-top: 0;">00:00</a></li>
             <li><a href="#"><i></i></a></li>
-            <li><a href="#0" class="c boton-agregar-hora"><i class="fa fa-hdd-o" aria-hidden="true"></i></a></li>
-            <li><a href="#0" class="c boton-resetear" style="padding-left: 1px"><i class="fa fa-cloud" aria-hidden="true"></i></a></li>
+            <li><a href="#0" class="c boton-resetear"><i class="fa fa-history" aria-hidden="true"></i></a></li>
+            <li><a href="#0" class="c boton-agregar-hora" style="padding-left: 1px"><i class="fa fa-cloud" aria-hidden="true"></i></a></li>
         </ul>
 
         <span aria-hidden="true" class="stretchy-nav-bg"></span>

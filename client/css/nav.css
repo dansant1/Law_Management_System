@@ -22,7 +22,7 @@ Stretchy Nav style - common to:
   width: 60px;
   height: 60px;
   border-radius: 30px;
-  background: #2980b9;
+  background: #2c3e50;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   -webkit-transition: height 0.2s, box-shadow 0.2s;
   -moz-transition: height 0.2s, box-shadow 0.2s;
@@ -80,8 +80,7 @@ Stretchy Nav style - common to:
   color: #ffffff;
   left: 42%;
   top: 36%;
-  width: 80%;
-  height: 80%;
+ 
   bottom: auto;
   right: auto;
 }
@@ -177,7 +176,7 @@ Stretchy Nav style - common to:
   -o-transform: translateY(-50%) scale(0);
   transform: translateY(-50%) scale(0);
   opacity: .6;
-  background: url(../img/cd-sprite-1.svg) no-repeat 0 0;
+  /*background: url(../img/cd-sprite-1.svg) no-repeat 0 0;*/
 }
 .cd-stretchy-nav ul a::before {
   /* line visible next to the active navigation item */
@@ -337,7 +336,7 @@ add-content navigation style
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-color: #2980b9;
+  background-color: #2c3e50;
   -webkit-transition: width 0.2s, box-shadow 0.2s;
   -moz-transition: width 0.2s, box-shadow 0.2s;
   transition: width 0.2s, box-shadow 0.2s;
@@ -356,7 +355,7 @@ add-content navigation style
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-color: #3498db;
+  background-color: #34495e;
 }
 .cd-stretchy-nav.add-content .cd-nav-trigger span {
   background-color: transparent;
@@ -428,7 +427,7 @@ add-content navigation style
   -ms-transform: translateY(-50%) scale(0);
   -o-transform: translateY(-50%) scale(0);
   transform: translateY(-50%) scale(0);
-  background-image: url(../img/cd-sprite-2.svg);
+  /*background-image: url(../img/cd-sprite-2.svg);*/
 }
 .cd-stretchy-nav.add-content ul li:first-of-type a::after {
   background-position: -16px 0px;
@@ -516,7 +515,7 @@ add-content navigation style
 }
 
 .no-touch .cd-stretchy-nav.add-content.nav-is-visible ul a:hover span {
-  opacity: 1;
+  opacity: 1001;
   visibility: visible;
   /* reset default style */
   -webkit-transform: translateX(0);

@@ -1,4 +1,4 @@
-Meteor.startup(function () {});
+
 
 Template.menu.onCreated( function () {
 	var self = this;
@@ -229,7 +229,7 @@ Template.notaxasuntosModal.events({
 	'submit form' : function (event,template) {
 
 		event.preventDefault();
-		debugger;
+		//debugger;
 		let datos = {
 			nombre: template.find('[name="nombre"]').value,
 			descripcion: template.find('[name="descripcion"]').value,
@@ -294,7 +294,7 @@ Template.cronometro2.events({
 		chronometer.element = ".hora-crono";
 		chronometer.timer();
 		Session.set("cronometro-pausado",false);
-		$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
+		
 
 	},
 	'click .boton-stop'(){
@@ -391,7 +391,7 @@ Template.cambio.onCreated(function () {
 
 Template.cambio.helpers({
 	valor() {
-		return Cambio.findOne({bufeteId: Meteor.user().profile.bufeteId}).cambio;
+		return Cambio.findOne().cambio;
 	}
 });
 

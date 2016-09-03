@@ -43,11 +43,11 @@
 
 .lbl:active:after { transform: scale(1.15, 0.85); }
 
-.cbx:checked ~ label { background: #6fbeb5; }
+.cbx:checked ~ label { background: #1F2D3C; }
 
 .cbx:checked ~ label:after {
   left: 20px;
-  background: #179588;
+  background: #2c3e50;
 }
 
 .cbx:disabled ~ label {

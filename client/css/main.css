@@ -97,7 +97,7 @@ input:-webkit-autofill {
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 9px;
 }
 
 /* Track */
@@ -185,7 +185,7 @@ input:-webkit-autofill:active {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	min-height: 400px;
+	
 	background: #f9f9f9;
 	padding: 20px;
 }

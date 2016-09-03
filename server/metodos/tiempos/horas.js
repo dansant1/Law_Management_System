@@ -676,7 +676,7 @@ Meteor.methods({
 
 			let asunto = Asuntos.findOne({_id:_datos.asunto.id});
 			// console.log(asunto);
-
+			// Arreglar tarifa, por que si un asunto es de tipo flat fee entonces no tendra tarifa asociada y por lo tanto no podra encontrar la tarifa id
 			let tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id});
 			let cambio = Cambio.findOne({bufeteId:_datos.bufeteId})
 			let datos = Horas.findOne({_id:_datos.id});

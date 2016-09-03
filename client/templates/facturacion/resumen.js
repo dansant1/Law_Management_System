@@ -116,13 +116,6 @@ Template.horaMiembrosChart.onCreated(function () {
 
 Template.horaMiembrosChart.onRendered(function () {
     function chartLine() {
-        // var dynamicColors = function() {
-        //     var r = Math.floor(Math.random() * 255);
-        //     var g = Math.floor(Math.random() * 255);
-        //     var b = Math.floor(Math.random() * 255);
-        //     return "rgb(" + r + "," + g + "," + b + ")";
-        // }
-        //
 
         var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
@@ -188,20 +181,6 @@ Template.horaMiembrosChart.onRendered(function () {
             }
         }
 
-
-        // for (var gastos in gastosxasunto) {
-        //     if (gastosxasunto.hasOwnProperty(gastos)) {
-        //         let mes = gastos.groupBy(function (gasto) {
-        //             return gasto.mes
-        //         })
-        //         meses.push(mes);
-        //     }
-        // }
-
-
-
-        debugger
-
         var ctx = document.getElementById("horasMiembrosChart").getContext("2d");
 
         let meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -211,10 +190,11 @@ Template.horaMiembrosChart.onRendered(function () {
             datasets: datasets
         },{
             animateScale: true,
+            //responsive: true,
             legendTemplate : '<ul style=\"display: flex; width: 85%; margin: 0 auto; flex-wrap: wrap; justify-content: center;\">'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
                     +'<li style=\" margin-right: 10px;\" >'
-                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px;  border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor[0]%>;width:20px;height:20px; position: relative; top: 3px;  border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'
