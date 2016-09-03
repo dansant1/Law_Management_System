@@ -8,9 +8,9 @@ Template.menu.onCreated( function () {
 
 	self.autorun(function () {
 
-		let bufeteId = Meteor.user().profile.bufeteId;	
+		let bufeteId = Meteor.user().profile.bufeteId;
 		self.subscribe('news', bufeteId, self.limite.get());
-	
+
 	});
 });
 
@@ -162,7 +162,7 @@ Template.menu.events({
 		window.Intercom("shutdown");
 	},
 	'click .agregar-tarea'() {
-		Modal.show('nuevaTareaModal')
+		Modal.show('nuevaTareaModal2')
 	},
 	'click .agregar-nota'() {
 		Modal.show('notaxasuntosModal')
@@ -174,7 +174,7 @@ Template.menu.events({
 		Modal.show('clienteNuevoModal');
 	},
 	'click .asunto-modal'() {
-		Modal.show('AsuntoNuevoModal');
+		Modal.show('asuntoNuevoModal');
 	},
 	'click .modal-cliente'() {
 		Modal.show('ModalClienteNuevo2');
@@ -196,7 +196,7 @@ Template.menu.events({
 			Session.set('abrir', 'open-menu');
 			Session.set('close', '');
 		}
-		
+
 	},
 	'click .iniciar-tour'() {
 		Template.instance().tour.start();
@@ -294,7 +294,7 @@ Template.cronometro2.events({
 		chronometer.element = ".hora-crono";
 		chronometer.timer();
 		Session.set("cronometro-pausado",false);
-		
+
 
 	},
 	'click .boton-stop'(){

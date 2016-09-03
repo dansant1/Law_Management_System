@@ -3,7 +3,7 @@
 	margin-top: 60px;
 	width: 100%;
 	height: 60px;
-	background-color: #F1F1F1;
+	background-color: #EDF1F5;
 }
 
 .progreso {
@@ -33,12 +33,22 @@
 	text-decoration: underline;
 }
 
+table {
+	width: 95% !important;
+	margin: 10px auto !important;
+	border-radius: 4px !important;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+}
+
 .franja-filtros {
-	width: 100%;
+	width: 95%;
+	margin: 5px auto;
+	border-radius: 4px;
 	height: 60px;
 	background-color: white;
-	border-top: 1.5px solid #EFEFEF;
-	border-bottom: 1.5px solid #EFEFEF;
+	border-top: 1px solid #edf1f5;
+	border-bottom: 1px solid #edf1f5;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .lista-asuntos {
@@ -50,16 +60,16 @@
 	padding: 30px;
 	padding-bottom: 17.5px;
 	padding-top: 0px;
-	background-color: white;
+
 }
 
 .asunto-item-cuadro {
 	min-width: 260px;
 	max-width: 300px;
 	height: 170px;
-	margin: 0 auto;
+	margin: 7px;
 	border-radius: 5px;
-	background-color: transparent;
+	background-color: white;
 	border: 1px solid #dedede;
 	box-shadow: 0 1px 2px rgba(0,0,0,.05);
 	transition: color .2s ease,border-color .2s ease;
@@ -91,6 +101,8 @@
     transition: color 0.4s ease-out;
 }
 
+
+
 .menu-asunto-aim:hover {
 	color: #34495e;
 	cursor: pointer;
@@ -111,9 +123,11 @@
 }
 
 .item-lista-tareas {
-	width: 100%;
+	width: 95%;
+	margin: 10px auto;
+	border-radius: 4px;
 	margin-bottom: 0;
-	padding: 10px 25px;
+
 	background-color: white;
 	min-width: 15px;
 	border-bottom: none;
@@ -184,20 +198,14 @@
 	cursor: pointer;
 }
 
-.detalle-tarea {
-	display: flex;
-	flex-wrap: wrap;
-}
 
 .cuadro-detalle-tarea {
 	position: relative;
-	width: 100%;
+	width: 95%;
 	background-color: white;
-
-	margin: 20px auto;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	margin: 0px auto;
 	border-radius: 5px;
-
-	margin-left: 15px;
 }
 hr {
 	margin-top: 10px;
@@ -219,15 +227,15 @@ hr {
 }
 
 .caja-comentario-tarea {
-	margin: 0 auto;
-	width: 80%;
+	margin: 10px auto;
+	width: 95%;
 	height: 145px;
-	display: inline-block;
 	background-color: white;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	padding: 10px;
-	padding-top: 0px;
+	padding-top: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .hov:hover {

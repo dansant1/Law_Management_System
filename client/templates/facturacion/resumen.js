@@ -190,7 +190,7 @@ Template.horaMiembrosChart.onRendered(function () {
             datasets: datasets
         },{
             animateScale: true,
-            //responsive: true,
+            responsive: true,
             legendTemplate : '<ul style=\"display: flex; width: 85%; margin: 0 auto; flex-wrap: wrap; justify-content: center;\">'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
                     +'<li style=\" margin-right: 10px;\" >'

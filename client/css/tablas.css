@@ -25,7 +25,7 @@
 
 .table-wrapper {
    position: relative;
-  
+
    margin: 0;
    font: 62.5%/1.3 Helvetica, sans-serif;
 }
@@ -74,14 +74,14 @@ thead th {
 	color: #888;
    margin-bottom: 6px;
    height: 60px;
-   
+
 }
 th, td {
    padding: .5em 1em;
 	background-color: #fff;
 	text-align: right;
 }
-th:first-child, 
+th:first-child,
 td:first-child {
    text-align: left;
 }
@@ -99,12 +99,12 @@ tbody th, td {
    display: none;
 }
 
-.legacy-ie .enhanced th.essential, 
+.legacy-ie .enhanced th.essential,
 .legacy-ie .enhanced td.essential {
 	display: inline;
    color: #34495e;
 }
-.enhanced th.essential, 
+.enhanced th.essential,
 .enhanced td.essential {
    display: table-cell;
 }
@@ -114,37 +114,41 @@ th > h3 {
 }
 
 .tarea-input {
-   width: 100%;
+   width: 95%;
+   margin: 10px auto;
+   border-radius: 4px;
+   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
    background-color: white;
-   height: 75px;
+   height: 45px;
 }
 
 .tarea-input > input {
+  border-radius: 4px;
    display: block;
    width: 100%;
-   height: 60px;
-   padding: 15px;
+   height: 40px;
+   padding: 20px 15px;
+   font-weight: initial;
    border: none;
-   border-bottom: 1px solid #EFEFEF;
 }
 
 @media screen and (min-width: 500px) {
-	.legacy-ie .enhanced th.optional, 
+	.legacy-ie .enhanced th.optional,
 	.legacy-ie .enhanced td.optional {
 		display: inline;
 	}
-	.enhanced th.optional, 
+	.enhanced th.optional,
 	.enhanced td.optional {
 		display: table-cell;
 	}
 }
 
 @media screen and (min-width: 800px) {
-   .legacy-ie .enhanced th, 
+   .legacy-ie .enhanced th,
    .legacy-ie .enhanced td {
       display: inline;
    }
-   .enhanced th, 
+   .enhanced th,
    .enhanced td {
       display: table-cell;
    }

@@ -102,7 +102,7 @@ input:-webkit-autofill {
 
 /* Track */
 ::-webkit-scrollbar-track {
-   
+
 
 }
 
@@ -111,7 +111,7 @@ input:-webkit-autofill {
 
     /*background: rgba(255,0,0,0.8); */
     background-color: #34495e;
-    
+
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	/*background: rgba(255,0,0,0.4); */
@@ -182,11 +182,10 @@ input:-webkit-autofill:active {
 }
 
 .box {
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-	
-	background: #f9f9f9;
+
+	width: 98%;
+	margin: 0 auto;
+
 	padding: 20px;
 }
 
@@ -356,10 +355,6 @@ input:-webkit-autofill:active {
 	margin: 25px 15px;
 }
 
-.col-md-12 {
-	padding: 0;
-}
-
 .nav {
 	padding-top: 6px;
 }
@@ -386,13 +381,7 @@ input:-webkit-autofill:active {
 	color: #3A3D3F;
 }
 
-.col-md-3 {
-	padding: 0px;
-}
 
-.col-md-9 {
-	padding: 0px;
-}
 
 .panel {
 	box-shadow: none;
@@ -879,7 +868,7 @@ a:hover {
 	margin: 0;
 	padding: 30px;
 	width: 95%;
-	border: 1px solid #F0F0F0;
+
 }
 
 .box-accesos {
@@ -918,7 +907,8 @@ a:hover {
 	background-color: white;
 	box-shadow: 0 2px 5px rgba(77, 77, 77, 0.19);
 	border-radius: 5px;
-	width: 100%;
+	width: 95%;
+	margin: 10px auto;
 	min-height: 500px;
 	padding: 15px;
 }
@@ -953,8 +943,10 @@ a:hover {
 
 .lista-calendarios {
 	min-height: 190px;
-	width: 100%;
-	margin: 0px;
+	width: 95%;
+	margin: 0px auto;
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
 	padding: 0px;
 	background-color: white;
 }
@@ -1275,4 +1267,18 @@ fieldset {
 
 .red-flat {
 	background-color: #e74c3c !important;
+}
+
+.box-white {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	background: white;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+
+
+
+.contenido-dashboard {
+	background: #edf1f5;
 }

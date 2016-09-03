@@ -15,6 +15,7 @@ UI.registerHelper('getFirstLettersOfName', function (nombre, apellido) {
 
 });
 
+
 Template.menu.onRendered(function () {
 	if( $('.cd-stretchy-nav').length > 0 ) {
 		var stretchyNavs = $('.cd-stretchy-nav.e');
@@ -23,7 +24,7 @@ Template.menu.onRendered(function () {
 			var stretchyNav = $(this),
 				stretchyNavTrigger = stretchyNav.find('.cd-nav-trigger');
 				stretchyNavTrigger2 = stretchyNav.find('.cd-nav-trigger.t');
-			
+
 			stretchyNavTrigger.on('click', function(event){
 				event.preventDefault();
 				stretchyNavs.toggleClass('nav-is-visible');
@@ -32,7 +33,7 @@ Template.menu.onRendered(function () {
 
 			stretchyNavTrigger2.on('click', function(event){
 				event.preventDefault();
-				
+
 				$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
 			});
 
@@ -44,7 +45,7 @@ Template.menu.onRendered(function () {
 
 			stretchyNavTrigger2.on('click', function(event){
 				event.preventDefault();
-				
+
 				$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
 			});
 
@@ -119,8 +120,8 @@ Template.tareasDetalle2.events({
 			Meteor.call('actualizarAsignadoTarea', data, function (err, result) {
 				if (err) {
 					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
-				}	
-			});	
+				}
+			});
 		}
 
 	}

@@ -16,7 +16,7 @@
 
 <template name="sidebarDashobard">
 	<div class="sidebar-vertical {{close}}">
-    
+
 		<!-- Seccion link de dashboard -->
 		<div class="sidebar-titulo" id="tour-1" style="margin-top: 75px">
 			<h5 class="sidebar-item">
@@ -58,49 +58,49 @@
     <div class="sidebar-titulo" style="margin-top: 75px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/dashboard2" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="a" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="a" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
      <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/equipo" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
      <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/conversaciones" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="-" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="-" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/calendario2" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="r" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="r" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/asuntos2" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="O" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="O" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/clientes2" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="&#xe001;" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="&#xe001;" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
     <div class="sidebar-titulo" style="margin-top: 20px; padding-left: 4px;">
       <h5 class="sidebar-item">
         <a href="/facturacion" style="text-decoration:none; color: #34495e; font-size: 20px;">
-          <div data-icon="w" class="icon i-menu" style="display: inline-block;"></div>  
+          <div data-icon="w" class="icon i-menu" style="display: inline-block;"></div>
         </a>
       </h5>
     </div>
@@ -117,7 +117,7 @@
       <i  class="glyphicon glyphicon-plus  nuevo-event i-agregar" aria-hidden="true"></i>
     </a>
 
-		
+
 		</h5>
 	</div>
 </template>
@@ -138,9 +138,9 @@
      <div data-icon="&#xe006;" class="icon i-menu" style="display: inline-block;"></div>
     <a href="/equipo">
       Equipo
-      <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 45px;"></i>  
+      <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 45px;"></i>
     </a>
-		
+
 		</h5>
 	</div>
 
@@ -173,7 +173,7 @@
       {{/if}}
     </a>
 
-   
+
     </h5>
 	</div>
 
@@ -200,7 +200,7 @@
       Mis tareas
       <i class="glyphicon glyphicon-plus icono-hover nuevo nueva-tarea-dash i-agregar" aria-hidden="true" style="margin-left: 22px;"></i>
     </a>
-    
+
     </h5>
   </div>
 {{#if hayTareas}}
@@ -240,7 +240,7 @@
       clientes
       <i class="glyphicon glyphicon-plus icono-hover nuevo i-agregar" aria-hidden="true" style="margin-left: 35px;"></i>
     </a>
-		
+
 		</h5>
 	</div>
 
@@ -1229,19 +1229,19 @@
     </div>
 
 
-    <div class="detalle-tarea" style="display: block; width: 90%; box-shadow:none;">
+    <div class="detalle-tarea" >
 
 
     <div class="cuadro-detalle-tarea" style="display: block;">
 
-      <div class="item-lista-tareas" style="padding-left: 8px; padding-top: 0;">
+      <div class="item-lista-tareas" >
 				<p style="padding: 0; margin: 0;"><i class="fa fa-long-arrow-left regresar cursor hov" aria-hidden="true" style="color: #7f8c8d; font-size: 24px;"></i></p>
         {{#with tarea}}
 
 
 				<span class="fh-checkbox cerrar" style="font-size: 28px; width: 25px; height: 25px; position: relative; top: 16px;">
 						<input type="checkbox" {{hecho}}  id="{{this._id}}" name="mycheckbox">
-						<label id="label-custom" for="{{this._id}}" class="bug-check" style="font-weight: initial; position: relative: top: 10px;"></label>   
+						<label id="label-custom" for="{{this._id}}" class="bug-check" style="font-weight: initial; position: relative: top: 10px;"></label>
 				</span>
         <input type="text" name="descripcion" value="{{this.descripcion}}" id="detalle" style="display: inline-block; padding: 5px; font-size: 25px; width: 40%; ">
 				<a style="display: inline-block; margin-left: 12px; font-size: 17.5px;" class="adjuntar-archivo-tarea">
@@ -1255,11 +1255,11 @@
 
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">en {{this.asunto.nombre}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{this.etapa.nombre}}</p>
 				<p style="padding-left: 35px; font-weight: initial; color: #7f8c8d;">
-        
+
         <li class="dropdown" style="display: inline-block; margin-right: 10px;">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
                <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 35px; height: 35px; color: white; font-weight: initial; padding-top: 5px; text-align: center;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}
-        </span> 
+        </span>
           <span class="caret"></span></a>
           <ul class="dropdown-menu miembros-select">
             {{#each miembros}}
@@ -1268,15 +1268,15 @@
           </ul>
         </li>
 
-       
 
-        {{estaAsignado}} | 
+
+        {{estaAsignado}} |
 
         <input type="text"  class="picker" style="width: 250px" value="{{dia}}">
 
         </p>
-        
-        <input name="detalle" id="detalle" value="{{this.detalles}}" style="width: 100%;">
+
+        <input placeholder="Escribe una descripción de la tarea y presiona enter para guardar..." name="detalle" id="detalle" value="{{this.detalles}}" style="width: 100%;">
 
         {{/with}}
 
@@ -1307,7 +1307,7 @@
 </template>
 
 <template name="cuadroSubTareas">
-   <p><input type="text" name="crear-subtarea" class="item-lista-tareas" placeholder="Nueva Sub tarea" style="border: none; padding: 0;"></p>
+   <p><input type="text" name="crear-subtarea" class="item-lista-tareas" placeholder="Escribe una subtarea y presiona enter..." style="border: none; padding: 0;"></p>
   {{#each subtareas}}
   	<div>
 		<span class="fh-checkbox cerrar-subtarea" >
@@ -1371,7 +1371,7 @@
 		<div class="progreso" style="padding-top: 15px;">
 
       {{#if esAdministrador}}
-      <a class="btn nueva-tarea nuevo-evento azul-flat nuevo" style="border-bottom: none;">+ Asunto</a>
+      <a class="btn nueva-tarea nuevo-evento azul-flat nuevo" style="border-bottom: none; border-radius: 28px; background-color: white; border: 2px solid #2ecc71; color: #2ecc71;">Crear Asunto</a>
       {{/if}}
 			<div class="btn-group">
   <button type="button" class="btn dropdown-toggle nueva-tarea azul-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-bottom: none; background-color: white; color: #34495e;">
@@ -1391,15 +1391,15 @@
 	</div>
 
 	 <div style="display: block; width: 100%; margin-bottom: 17.5px;">
-      <div class="buscador " style="width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px;">
+      <div class="buscador " style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px; font-weight: initial; ">
 
-            <select class="select-bunqr tipo-busqueda" style="text-align: center;" name="tipo">
+            <select class="select-bunqr tipo-busqueda" style="text-align: center; border-top-left-radius: 28px; border-bottom-left-radius: 28px; padding-left: 30px;" name="tipo">
                 <option value="asuntos">Asuntos</option>
                 <option value="clientes">Clientes</option>
             </select>
 
 
-            <input type="text" placeholder="Buscar por {{tipo_busqueda}}  " name="consulta" class="select-bunqr buscador-asuntos" style="width: 60%; display: inline-block;">
+            <input type="text" placeholder="Buscar por {{tipo_busqueda}}  " name="consulta" class="select-bunqr buscador-asuntos" style="width: 60%; display: inline-block; border-top-right-radius: 28px; border-bottom-right-radius: 28px;">
 
     </div>
     </div>
@@ -2686,8 +2686,7 @@
     <a href="/equipo" class="menu-asunto-aim">
         Equipo
     </a>
-
-        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
     <a href="/clientes2" class="menu-asunto-aim" style="margin-left: 0px;">
@@ -2697,10 +2696,10 @@
       Facturación
     </a>
 	</div>
-
-  {{>mainDashboard}}
-  {{>newsfeed}}
-
+	<div class="container-fluid">
+		{{>mainDashboard}}
+	  {{>newsfeed}}
+	</div>
 </template>
 
 
@@ -3358,7 +3357,7 @@
   </button>
   <ul class="dropdown-menu">
     <li class="persona"><a href="#">Persona</a></li>
-    
+
     <li class="caso"><a href="#">Negociación</a></li>
   </ul>
     </div>
@@ -3424,7 +3423,7 @@
 				 </div>
 			</div>
 
-		
+
 
 		</div>
 
@@ -3595,7 +3594,7 @@
 				 </div>
 			</div>
 
-			
+
 
 		</div>
 
@@ -3730,7 +3729,7 @@
 				 </div>
 			</div>
 
-			
+
 		</div>
 
 		<div class="table-wrapper">
@@ -5684,12 +5683,12 @@
 
   <div class="row">
     <div class="col-sm-12 col-md-6 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa"></div>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa-1"></div>
       </div>
     </div>
@@ -5697,38 +5696,42 @@
 
   <div class="row">
     <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa-hoy" class="chart-hora"></div>
       </div>
     </div>
     <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa-semana" class="chart-hora"></div>
       </div>
     </div>
     <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa-mes" class="chart-hora"></div>
       </div>
     </div>
     <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="white-box">
+      <div class="box-white">
         <div id="expectativa-anual" class="chart-hora"></div>
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <template name="mainDashboard">
-    
-  <div class="box" style="height: 200px; background-color: white; padding-top: 0px; margin: 0; padding: 0;">
-    {{>tareasYeventos}}  
+	<br>
+  <div class="row">
+  	{{>tareasYeventos}}
   </div>
-  
-  <div style="width: 100%; margin: 0px ; text-align: center; display: flex; flex-wrap: wrap;">
-      {{>horaMiembrosChart}}
+  <div class="row">
+		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+			<div class="box-white">
+				{{>horaMiembrosChart}}
+			</div>
+		</div>
   </div>
+
   {{>horasDashboard}}
 </template>
 

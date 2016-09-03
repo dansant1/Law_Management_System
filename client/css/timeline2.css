@@ -1,11 +1,12 @@
 .wrapper {
     padding: 0 20px;
+    height: 80%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
 .amarillo-flat-b {
-    border-left: 3px solid #f1c40f;  
+    border-left: 3px solid #f1c40f;
 }
 
 .amarillo-flat-b:before {
@@ -70,11 +71,11 @@
 
 .post {
   width: 96%;
-  padding-top: 10px;
-  padding-bottom: 20px;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
   padding-left: 10px;
   position: relative;
-  height: 100px;
+  min-height: 100px;
 }
 
 .post > span.tiempo {
@@ -90,7 +91,7 @@
   top: 34px;
   left: -8px;
   background-color: white;
- 
+
   border-radius: 10px;
   height: 12px;
   width: 12px;
@@ -101,13 +102,13 @@
   height: 0;
   width: 0;
   position: absolute;
- 
+
   top: 30px;
   left: 0px;
 }
 
 .post-inner {
-  
+
   border-radius: 4px;
   padding: 10px;
   padding-left: 2.5px;

@@ -18,7 +18,7 @@
 @-webkit-keyframes fadeIn {
     from { opacity: 0; }
       to { opacity: 1; }
-}  
+}
 @keyframes fadeIn {
     from { opacity: 0; }
       to { opacity: 1; }
@@ -27,7 +27,7 @@
 @-webkit-keyframes fadeOut {
     from { opacity: 1; }
       to { opacity: 0; }
-}  
+}
 @keyframes fadeOut {
     from { opacity: 1; }
       to { opacity: 0; }
@@ -36,7 +36,7 @@
 .sidebar-vertical-derecho {
 	width: 325px;
   	height: 100%;
-  	
+
   	position: fixed;
   	right: 0px;
   	z-index: 1001;
@@ -44,7 +44,7 @@
   	-webkit-box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
 	-moz-box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
 	box-shadow: -1px 11px 59px -11px rgba(0,0,0,0.48);
-	
+
 	 display: block;
     -webkit-animation: fadeIn 0.2s;
     animation: fadeIn 0.2s;
@@ -54,7 +54,7 @@
 	width: 100%;
 	height: 41px;
 	text-align: center;
-	border-bottom: 2px solid #F1F1F1; 
+	border-bottom: 2px solid #F1F1F1;
 	font-weight: 300;
 	margin-top: 80px;
 	font-size: 20px;
@@ -71,7 +71,7 @@
 
 
 .sidebar-vertical-simple {
-	width: 52px;
+	width: 58px;
   	height: 100%;
   	position: fixed;
   	z-index: 1001;
@@ -403,7 +403,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	
+
 }
 
 .iniciar-tour {
@@ -461,7 +461,7 @@ a:focus {
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 5px;
 	min-height: 30px;
-	
+
 }
 
 #detalle:hover {

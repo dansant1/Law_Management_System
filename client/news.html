@@ -1,9 +1,9 @@
 
 <template name="newsfeed">
 
-    <div class="box" style="background-color: white; padding-top: 0px; margin: 0; padding: 0;">
+    <div class="col-md-12">
+    <div class="box-white">
 
-        
 
         <div class="box-news" style="width: 100%;">
             <div class="asunto">
@@ -30,30 +30,66 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 
 
 </template>
 
 <template name="tareasYeventos">
-    <div class="box-news" style="width: 50%; margin: 0;">
-            <h3>Tareas por vencer hoy</h3>
-            <h4>Tienes {{totalTareas}} tarea(s) pendiente(s)</h4>
-            <br>
+    <div class="col-md-6">
+      <div class="box-white">
+
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-4">
+            <h3 style="font-size: 19px;">Tareas de hoy</h3>
+            <h1 style="margin: 0; font-size: 50px;">{{totalTareas}}</h1>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8">
+            <ul>
             {{#each tareas}}
-                <ul>
-                    <li>{{this.descripcion}}</li>
-                </ul>
+
+                    <li style="margin-bottom: 0px;">
+                      <span class="fh-checkbox" style="display: block;">
+                        <input type="checkbox" id="{{this._id}}" name="{{this._id}}">
+                        <label for="{{this._id}}" style="margin-left: 35px;">
+                          <a class="sidebar-item" href="/tareas/{{this._id}}" style="color: #34495e; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px; padding: 0;">{{this.descripcion}}
+                          </a>
+                        </label>
+                      </span>
+                    </li>
+
             {{/each}}
+            </ul>
+          </div>
         </div>
-        <div class="box-news" style="width: 50%; margin: 0;">
-            <h3>Eventos por vencer hoy</h3>
-            <h4>Tienes {{totalEventos}} evento(s) pendiente(s)</h4>
-            <br>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box-white">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-4">
+            <h3 style="font-size: 19px;">Eventos de hoy</h3>
+            <h1 style="margin: 0; font-size: 50px;">{{totalEventos}}</h1>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8">
+            <ul>
             {{#each eventos}}
-                <ul>
-                    <li>{{this.title}}</li>
-                </ul>
+
+                    <li style="margin-bottom: 0px;">
+                      <span class="fh-checkbox" style="display: block;">
+                        <input type="checkbox" id="{{this._id}}" name="{{this._id}}">
+                        <label for="{{this._id}}" style="margin-left: 35px;">
+                          <a class="sidebar-item" style="color: #34495e; text-decoration: none; display: block; font-size: 13px; margin-bottom: 0; padding-top: 0px; padding-bottom: 0px; padding: 0;">{{this.title}}
+                          </a>
+                        </label>
+                      </span>
+                    </li>
+
             {{/each}}
+            </ul>
+          </div>
         </div>
+      </div>
+    </div>
 </template>

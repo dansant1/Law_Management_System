@@ -5,10 +5,10 @@
   min-height: 500px;
 
   margin-top: 0;
-  background-color: white;
+  
   overflow: auto;
   padding: 5px;
-  padding-left: 15px;
+  padding-left: 30px;
   font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #393939;
   display: flex;
