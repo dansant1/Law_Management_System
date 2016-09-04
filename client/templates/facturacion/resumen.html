@@ -139,10 +139,35 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box-white">
 
+          <div style="width: 96%; margin: 0 auto; text-align: center">
+            {{>horasPorAsunto}}
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box-white">
+          <div style="width: 96%; margin: 0 auto; text-align: center">
+            {{>ingresosPorAsunto}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</template>
 
+<template name="horasPorAsunto">
+  <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Horas de trabajo por asunto</h4>
+  <canvas id="horasAsuntoChart"></canvas>
+</template>
 
+<template name="ingresosPorAsunto"> 
+  <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Ingresos por asunto</h4>
+  <canvas id="ingresosPorAsuntoChart"></canvas>
 </template>
 
 <template name="montoXcliente">

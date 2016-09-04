@@ -1,3 +1,39 @@
+function getMontoPorAsunto (a) {
+
+
+  let asunto = Asuntos.findOne({_id: a});
+  let total=0;
+  let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+  // if(asunto.caratula=="ASUNTO 2") debugger;
+  if(asunto.facturacion.forma_cobro=="horas hombre"){
+    for (var i = 0; i < horas.length; i++) {
+      let precio = Number(calcularPorTipoDeCobro(horas[i],false));
+      if(precio!=undefined){
+        total += precio;
+      }
+    }
+    return total.toFixed(2);
+  }
+  if(asunto.facturacion.forma_cobro=="retainer"){
+    // debugger;
+    for (var i = 0; i < horas.length; i++) {
+      if(horas[i].sobrelimite){
+        let precio = Number(calcularPorTipoDeCobro(horas[i],false));
+        if(precio!=undefined){
+          total += precio;
+        }
+      }
+    }
+    if(asunto.facturacion.tipo_moneda=="soles") return (total+=Number(asunto.facturacion.retainer.monto)).toFixed(2);
+    return (total+=Number(asunto.facturacion.retainer.monto)*Cambio.findOne().cambio).toFixed(2);
+  }
+  if(asunto.facturacion.tipo_moneda=="soles") return (total+= Number(asunto.facturacion.montogeneral)).toFixed(2);
+  return (total+= Number(asunto.facturacion.montogeneral)*Cambio.findOne().cambio).toFixed(2);
+
+}
+
+
+
 function calcularTarifa(trabajo) {
 	let asunto = Asuntos.findOne({_id:trabajo.asunto.id}),
 		tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id}),
@@ -133,6 +169,283 @@ Template.montoXcliente.onCreated(function () {
     self.subscribe('equipo', Meteor.user().profile.bufeteId);
     self.subscribe('tarifas', Meteor.user().profile.bufeteId);
   });
+});
+
+Template.ingresosPorAsunto.onRendered( function () {
+
+  function ingresosPorAsunto () {
+    var getListaMontoPorAsunto = function () {
+      var lista = [];
+
+      var asuntos = Asuntos.find({abierto: true});
+
+      asuntos.forEach( (a) => {
+        lista.push(getMontoPorAsunto(a._id));
+      });
+
+      return lista;
+    }
+
+    var getColoresXasunto = function () {
+
+      var colores = [];
+
+      var asuntos = Asuntos.find({abierto: true});
+
+      if (asuntos.fetch().length > 0 ) {
+
+        asuntos.forEach( a => {
+          var dynamicColors = function() {
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+                    var a = Math.floor(Math.random() * 255);
+                    return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+          }
+          colores.push( dynamicColors() );
+        });
+
+      } else {
+        return [];
+      }
+
+      return colores;
+    }
+
+    var getAsuntos = function () {
+      var ListaAsuntos = [];
+      var asuntos = Asuntos.find({abierto: true});
+
+      asuntos.forEach( (asunto) => {
+        ListaAsuntos.push(asunto.caratula);
+      });
+
+      return ListaAsuntos;
+    }
+
+    var datos = {
+      labels: getAsuntos(),
+      datasets: [
+        {
+            label: "Horas por Asunto",
+            fillColor: getColoresXasunto(),
+            data: getListaMontoPorAsunto()
+        }
+      ]
+    };
+
+    var options = {
+
+      ///Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: true,
+
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+
+      //Boolean - Whether the line is curved between points
+      bezierCurve: true,
+
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension: 0.4,
+
+      //Boolean - Whether to show a dot for each point
+      pointDot: true,
+
+      //Number - Radius of each point dot in pixels
+      pointDotRadius: 4,
+
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth: 1,
+
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius: 20,
+
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke: true,
+
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth: 2,
+
+      //Boolean - Whether to fill the dataset with a colour
+      datasetFill: true,
+
+      display:true,
+      responsive: true,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+    };
+
+
+    var horasChart = document.getElementById("ingresosPorAsuntoChart").getContext("2d");
+
+    let myPieChart = new Chart(horasChart).Bar( datos, options)
+  }
+
+  setTimeout(function () {
+
+		Tracker.autorun(ingresosPorAsunto);
+
+	}, 1000)
+
+
+
+});
+
+Template.horasPorAsunto.onCreated(function () {
+  var self = this;
+
+  self.autorun(function () {
+    //self.subscribe('asuntos', Meteor.user().profile.bufeteId);
+    //self.subscribe('horas', Meteor.user().profile.bufeteId);
+  });
+});
+
+Template.horasPorAsunto.onRendered( function () {
+  function horasTrabajadasPorAsunto () {
+    var getAsuntos = function () {
+      var ListaAsuntos = [];
+      var asuntos = Asuntos.find({abierto: true});
+
+      asuntos.forEach( (asunto) => {
+        ListaAsuntos.push(asunto.caratula);
+      });
+
+      return ListaAsuntos;
+    }
+
+    var getHorasXasunto = function () {
+      var horas = [];
+
+      var asuntos = Asuntos.find({abierto: true});
+      var hour = 0;
+
+      asuntos.forEach( (asunto) => {
+        var h = Horas.find( { 'asunto.id': asunto._id } );
+
+        h.forEach( ( hr ) => {
+            hour = hr.horas + hour;
+        });
+
+        horas.push(hour);
+
+      });
+
+      return horas;
+
+    }
+
+    var getColoresXasunto = function () {
+
+      var colores = [];
+
+      var asuntos = Asuntos.find({abierto: true});
+
+      if (asuntos.fetch().length > 0 ) {
+
+        asuntos.forEach( a => {
+          var dynamicColors = function() {
+                		var r = Math.floor(Math.random() * 255);
+                		var g = Math.floor(Math.random() * 255);
+                		var b = Math.floor(Math.random() * 255);
+                		var a = Math.floor(Math.random() * 255);
+                		return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+          }
+          colores.push( dynamicColors() );
+        });
+
+      } else {
+        return [];
+      }
+
+      return colores;
+    }
+
+    var datos = {
+      labels: getAsuntos(),
+      datasets: [
+        {
+            label: "Horas por Asunto",
+            fillColor: getColoresXasunto(),
+            data: getHorasXasunto()
+        }
+      ]
+    };
+
+    var options = {
+
+			///Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines: true,
+
+			//String - Colour of the grid lines
+			scaleGridLineColor: "rgba(0,0,0,.05)",
+
+			//Number - Width of the grid lines
+			scaleGridLineWidth: 1,
+
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
+
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
+
+			//Boolean - Whether the line is curved between points
+			bezierCurve: true,
+
+			//Number - Tension of the bezier curve between points
+			bezierCurveTension: 0.4,
+
+			//Boolean - Whether to show a dot for each point
+			pointDot: true,
+
+			//Number - Radius of each point dot in pixels
+			pointDotRadius: 4,
+
+			//Number - Pixel width of point dot stroke
+			pointDotStrokeWidth: 1,
+
+			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			pointHitDetectionRadius: 20,
+
+			//Boolean - Whether to show a stroke for datasets
+			datasetStroke: true,
+
+			//Number - Pixel width of dataset stroke
+			datasetStrokeWidth: 2,
+
+			//Boolean - Whether to fill the dataset with a colour
+			datasetFill: true,
+
+			display:true,
+      responsive: true,
+			//String - A legend template
+			legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+		};
+
+
+    var horasChart = document.getElementById("horasAsuntoChart").getContext("2d");
+
+    let myPieChart = new Chart(horasChart).Bar( datos, options)
+
+  }
+
+  setTimeout(function () {
+
+		Tracker.autorun(horasTrabajadasPorAsunto);
+
+	}, 1000)
+
+
 });
 
 Template.montoXcliente.onRendered( function () {
@@ -272,7 +585,12 @@ Template.montoXcliente.onRendered( function () {
 
   }
 
-  Tracker.autorun(montosPorCliente);
+  setTimeout(function () {
+
+		Tracker.autorun(montosPorCliente);
+
+	}, 1000)
+
 });
 
 Template.horasXcliente.onCreated( function () {
@@ -437,8 +755,12 @@ Template.horasXcliente.onRendered( function () {
     let myPieChart = new Chart(horasChart).Bar( datos, options)
 
   }
+  setTimeout(function () {
 
-  Tracker.autorun(horasPorCliente);
+    Tracker.autorun(horasPorCliente);
+
+	}, 1000)
+
 });
 
 Template.resumenHorasPersonal.onRendered(function () {
@@ -516,7 +838,13 @@ Template.resumenHorasPersonal.onRendered(function () {
 
     }
 
-    Tracker.autorun(chartLine);
+    setTimeout(function () {
+
+      Tracker.autorun(chartLine);
+
+  	}, 1000)
+
+
 
 })
 
@@ -647,7 +975,12 @@ Template.horaMiembrosChart.onRendered(function () {
         document.getElementById("legendDivhorasmiembros").innerHTML = myPieChart.generateLegend();
     }
 
-    Tracker.autorun(chartLine);
+    setTimeout(function () {
+
+      Tracker.autorun(chartLine);
+
+  	}, 1000)
+
 
 })
 
@@ -772,8 +1105,12 @@ Template.gastosChart.onRendered(function () {
 
         document.getElementById("legendDivGastos").innerHTML = myPieChart.generateLegend();
     }
+    setTimeout(function () {
 
-    Tracker.autorun(chartLine);
+      Tracker.autorun(chartLine);
+
+  	}, 1000)
+
 })
 
 Template.gastosChart.onCreated(function () {
@@ -782,11 +1119,7 @@ Template.gastosChart.onCreated(function () {
     self.autorun(function () {
         self.subscribe('asuntos',bufeteId)
     })
-})
-
-Template.gastosChart.helpers(function () {
-
-})
+});
 
 Template.resumenGastos.helpers({
   gastos() {
@@ -803,9 +1136,6 @@ Template.resumenGastos.helpers({
         let grupos = _(gastos).groupBy(function (gasto) {
             return gasto.asunto.id;
         })
-
-
-
     }
 });
 
