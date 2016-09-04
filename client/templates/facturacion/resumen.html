@@ -179,7 +179,7 @@
 
 <template name="resumenHorasPersonal">
 	<div style="text-align: center;">
-    	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px; margin-top: 0; font-weight: bold;">Resúmen personal</h3>
+    	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px; margin-top: 20px; font-weight: bold; text-transform: uppercase;">Resúmen personal</h3>
 
 		 <select name="rangos" class="select-bunqr">
              <option value="dia">Hoy</option>
@@ -201,7 +201,7 @@
         {{#transition in="zoomIn" out="bounceOut"}}
             {{#each horas}}
               <tr>
-                <td><span class="circulo-asunto"></span> {{this.nombre}}</td>
+                <td><span class="circulo-asunto" style="position: relative; top: 2.1px;"></span> {{this.nombre}}</td>
                 <td>{{this.horas}}h {{this.minutos}}m </td>
               </tr>
             {{/each}}

@@ -306,7 +306,7 @@ Template.cronometro2.events({
 	},
 
 	'click .boton-resetear'(){
-		swal({  title: "¿Segúro que quieres resetear el cronometro?",
+		swal({  title: "¿Segúro que quieres resetear el cronómetro?",
 				text: "El tiempo transcurrido ya no estara disponible",
 				type: "warning",
 				showCancelButton: true,
