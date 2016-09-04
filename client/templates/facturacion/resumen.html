@@ -74,7 +74,7 @@
     	<option value="semana">Rango de tiempo anual</option>
     </select> -->
     <br>
-    <canvas id="gastosChart" width="625" height="300"></canvas>
+    <canvas id="gastosChart"></canvas>
     <div id="legendDivGastos"></div>
   </div>
   <br>
@@ -84,13 +84,42 @@
   <div class="franja-filtros">
     {{> menuBotonesFacturacion}}
   </div>
-  <div class="reportes-facturacion">
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box-white">
+           {{> horaMiembrosChart}}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box-white">
+          {{>resumenHorasPersonal}}
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-xs-12 col-sm-12">
+        <div class="box-white">
+          {{> gastosChart}}
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12 col-sm-12">
+        <div class="box-white">
+            {{>resumenGastos}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="reportes-facturacion">
     <div class="fila">
-     
+
       {{>resumenGastos}}
-    
-   
-      
+
+
+
       <div class="columna" id="sin-padding">
 
         {{>ultimosGastos}}
@@ -117,18 +146,13 @@
        </div>
 
 
-  </div>
+  </div> -->
 </template>
 
 
 <template name="horaMiembrosChart">
     <div  style="display: inline-block; width: 100%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 0px;">
       <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Trabajos de la firma</h4>
-      <!-- <select name="rangos" class="select-bunqr">
-      	<option value="semana">Rango de tiempo semanal</option>
-      	<option value="semana">Rango de tiempo mensual</option>
-      	<option value="semana">Rango de tiempo anual</option>
-      </select> -->
       <br>
       <canvas id="horasMiembrosChart" width="625" height="300"></canvas>
       <div id="legendDivhorasmiembros"></div>
@@ -136,10 +160,10 @@
 </template>
 
 <template name="resumenGastos">
-  <div class="columna" style="padding-top: 20px;">
-    <h4>Gastos Administrativos</h4>
-    <p>S/ {{gastos}}</p>
-  </div>
+
+    <h3 style="font-size: 19px;">Gastos Administrativos</h3>
+    <h1 style="margin: 0; font-size: 47.5px;">S/ {{gastos}}</h1>
+
 </template>
 
 <template name="ultimosGastos">
@@ -154,7 +178,7 @@
 </template>
 
 <template name="resumenHorasPersonal">
-	<div style="display: inline-block; background-color: white; border-radius: 5px; text-align: center; margin-left: 30px;">
+	<div style="text-align: center;">
     	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px; margin-top: 0; font-weight: bold;">Resúmen personal</h3>
 
 		 <select name="rangos" class="select-bunqr">
@@ -169,11 +193,23 @@
     <br><br>
 	<div class="lista-asuntos-reporte">
 		<h3 class="total">Tiempo total <span class="hora">{{total}}</span></h3>
-        {{#if horas}}
+    <div class="table-wrapper">
+    <table class="table">
+
+      {{#if horas}}
+      <tbody>
+        {{#transition in="zoomIn" out="bounceOut"}}
             {{#each horas}}
-    		      <h4><span class="circulo-asunto"></span>{{this.nombre}}<span class="hora" style="margin-left: 20px;">{{this.horas}} h {{this.minutos}} m </span></h4>
+              <tr>
+                <td><span class="circulo-asunto"></span> {{this.nombre}}</td>
+                <td>{{this.horas}}h {{this.minutos}}m </td>
+              </tr>
             {{/each}}
-        {{/if}}
+        {{/transition}}
+      </tbody>
+      {{/if}}
+    </table>
+  </div>
 	</div>
   </div>
 </template>

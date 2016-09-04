@@ -253,7 +253,7 @@ Template.asuntosxCliente.helpers({
 
         let asuntos = Asuntos.find({'cliente.id':this._id}).fetch();
 		let montoTotal = 0;
-		debugger;
+		//debugger;
 		asuntos.forEach(function (asunto) {
 			// debugger;
 			let horas = Horas.find({'asunto.id':asunto._id}).fetch();
@@ -408,10 +408,10 @@ Template.asuntosxCliente.helpers({
 
         if(tiempoxAsunto.length!=0)
             return _(tiempoxAsunto).map(function (obj) {
-                return obj.horas + " h "+ obj.minutos + " m"
+                return obj.horas + "h "+ obj.minutos + "m"
             })
 
-        return "0 h 0 m";
+        return "0h 0m";
 
 
     },

@@ -212,13 +212,6 @@ Template.horaMiembrosChart.onRendered(function () {
 
 Template.gastosChart.onRendered(function () {
     function chartLine() {
-        // var dynamicColors = function() {
-        //     var r = Math.floor(Math.random() * 255);
-        //     var g = Math.floor(Math.random() * 255);
-        //     var b = Math.floor(Math.random() * 255);
-        //     return "rgb(" + r + "," + g + "," + b + ")";
-        // }
-        //
 
         var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
@@ -323,10 +316,11 @@ Template.gastosChart.onRendered(function () {
             datasets: datasets
         },{
             animateScale: true,
+            responsive: true,
             legendTemplate : '<ul style=\"display: flex; width: 90%; margin: 0 auto; flex-wrap: wrap; justify-content: center;\">'
                   +'<% for (var i=0; i<datasets.length; i++) { %>'
                     +'<li style=\"margin-right: 10px;\">'
-                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px; border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
+                    +'<div style=\"display: inline-block;\"><div style=\"background-color:<%=datasets[i].fillColor%>;width:20px;height:20px; position: relative; top: 3px; border-radius: 70%; display: inline-block; margin-right: 2.5px;\"></div><span><% if (datasets[i].label) { %><%= datasets[i].label %><% } %></span></div>'
                     +'</p>'
                   +'</li>'
                 +'<% } %>'

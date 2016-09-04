@@ -68,15 +68,15 @@
         <a href="/facturacion/cobros" class="menu-asunto-aim asunto-item-activo" style="margin-left: 10px;">
             Cobros
         </a>
-        
+
         <a href="/facturacion/configuracion-facturacion" class="menu-asunto-aim " style="margin-left: 10px;">
             Configuración
         </a>
     </div>
-	
+
 
 	<div class="franja-filtros">
-		
+
 		<input type="text" class="buscador-bunqr buscador-cobros buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
 	</div>
 	{{>listaClientesFacturables}}
@@ -151,10 +151,10 @@
 		<tr>
 			<th style="padding-left: 45px;">
 				<span class="fh-checkbox">
-					<label for="dan"> {{this.caratula}} </label>
+					<label for="dan" style="font-weight: initial;"> {{this.caratula}} </label>
 				</span>
 				<span class="co-name">
-					<span style="color: #3498db;"><i class="fa fa-user" aria-hidden="true"></i>{{this.responsable.nombre}}</span>
+					<span style="color: #3498db; font-weight: initial;"><i class="fa fa-user" aria-hidden="true" style="display: inline-block; margin-right: 5px;"></i>{{this.responsable.nombre}}</span>
 				</span>
 			</th>
 			<td>
