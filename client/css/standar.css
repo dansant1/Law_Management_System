@@ -1,9 +1,12 @@
 
 .select-bunqr {
 	display: inline-block;
+	border-radius: 28px;
 	background-color: white;
 	border: 1px solid #EFEFEF;
 	padding: 10px;
+	margin-right: 7.5px;
+	padding-left: 25px;
 	width: 243px;
 	height: 50px;
 	margin-bottom: 25px;

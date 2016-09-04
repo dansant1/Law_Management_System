@@ -55,11 +55,11 @@ _elev.account_id = '57b61ff36edb6';
       {{#with nombre}}
       <span class="rippler rippler-default" style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #34495e; background-color: #34495e; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName profile.nombre profile.apellido}}</span>
 
-        <li class="dropdown ">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
               Hola, {{profile.nombre}}
            <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="padding-bottom: 0;">
             <li><a>Mi cuenta</a></li>
             <li class="modal-cliente"><a>Agregar contacto</a></li>
             <li><a class="workflow-modal">Crear workflow</a></li>

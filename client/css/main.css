@@ -1020,8 +1020,8 @@ a:hover {
 }
 
 .body-contacto {
-	width: 100%;
-	min-height: 707px;
+	width: 80%;
+	margin-left: 25px;
 }
 
 .imagen-contacto {
@@ -1281,4 +1281,14 @@ fieldset {
 
 .contenido-dashboard {
 	background: #edf1f5;
+}
+
+thead {
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+tr {
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;	
 }

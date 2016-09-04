@@ -3276,11 +3276,11 @@
     <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
       Tareas
     </a>
-       <a href="/equipo" class="menu-asunto-aim">
-           Equipo
-       </a>
+    <a href="/equipo" class="menu-asunto-aim">
+      Equipo
+    </a>
 
-       <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+    <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
       Asuntos
     </a>
     <a href="/clientes2" class="menu-asunto-aim asunto-item-activo" style="margin-left: 0px;">
@@ -3292,60 +3292,77 @@
   </div>
 
 	{{>menuCRM}}
+    
+  <div class="container-fluid">
+    <br>
+    <div class="row">
+     {{>cantidadClientes}}
+      <div class="col-md-4">
+        <div class="box-white">
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Prospectos</h1>
+            </div>
+            <div class="col-md-3">
+              <h1>{{prospectos}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box-white">
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Clientes</h1>
+            </div>
+            <div class="col-md-3">
+              <h1>{{clientes}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<div class="cuadros-estadisticos">
-		{{> cantidadClientes}}
+    <div class="row">
+    <div class="col-md-4">
+      <div class="box-white">
+        {{>pieChart}}
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="box-white">
+        {{>barChart}}
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box-white">
+        {{>newsCRM}}
+      </div>
+    </div>
+  </div>
+  </div>
 
-    <div class="cuadro-unit" style="background-color: white; margin: 0px;">
-			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
-			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-tags" style="font-size: 40px; color: #34495e;"></i>
-				<h3 style="margin: 0px; color: #34495e;">Prospectos</h3>
-			</div>
-			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #9b59b6;"><strong>{{prospectos}}</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px; color: #9b59b6;">Total</h3>
-			</div>
-			</div>
-		</div>
-
-		<div class="cuadro-unit" style="background-color: white; margin: 0px;">
-			<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
-			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-briefcase" style="font-size: 40px; color: #34495e;"></i>
-				<h3 style="margin: 0px; color: #34495e;">Clientes</h3>
-			</div>
-			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #e74c3c;"><strong>{{ clientes  }}</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px; color: #e74c3c;">Total</h3>
-			</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="box" style="padding: 0px; background: white;">
-		{{>pieChart}}
-    	{{>barChart}}
-    	{{>newsCRM}}
-	</div>
+	
 
 </template>
 
 <template name="cantidadClientes">
-	<div class="cuadro-unit" style="background-color: white; margin: 0;">
-		<div style="margin: 0 auto; width: 100%; padding-top: 25px; ;display: flex; flex-wrap: wrap;">
-			<div style="text-align: center; width: 50%;">
-				<i class="glyphicon glyphicon-user" style="font-size: 40px; color: #34495e;"></i>
-				<h3 style="margin: 0px; color: #34495e; ">Contactos</h3>
-			</div>
-			<div style="width: 50%;">
-				<h1 style="margin: 0; color: #2ecc71;"><strong>{{contactos}}</strong></h1>
-				<h3 style="margin: 0px; margin-top: 5px; color: #2ecc71;">Total</h3>
-			</div>
-		</div>
-
-		</div>
+  <div class="col-md-4">
+        <div class="box-white">
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Contactos</h1>
+            </div>
+            <div class="col-md-3">
+              <h1>{{contactos}}</h1>
+            </div>
+          </div>
+        </div>
+  </div>
+	
 </template>
 
 
@@ -4127,7 +4144,7 @@
 
   {{#with cliente}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
+   <div class="franja-filtros" style="height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
       <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px;">{{getFirstLettersOfName this.nombre this.apellido}}</span>
     <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} {{this.apellido}}
@@ -4156,28 +4173,19 @@
   </div>
 
   <div >
-  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 7px;">
+  <div class="franja-filtros"  style="border-top: none; padding-left: 7px;">
     <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim  asunto-item-activo">
       Notas
     </a>
     <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim" style="margin-left: 0px;">
       Información
     </a>
-   <!-- <a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
-    </a>
-    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Asuntos
-    </a>
-    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-      Facturación
-    </a> -->
   </div>
 
   </div>
 
   <div >
-    <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; background-color: white; min-height: 450px;">
+    
 
         <div class="form-conversacion" style="margin: 20px auto; width: 90%;">
         <input type="text" name="nombre" placeholder="Nota">
@@ -4194,7 +4202,7 @@
       {{/each}}
       {{/transition}}
 
-    </div>
+   
   </div>
 
 </template>
@@ -4729,7 +4737,7 @@
 
    {{#with cliente}}
 
-   <div class="franja-filtros" style="width: 100%; margin-left: 0px; height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
+   <div class="franja-filtros" style="height: 95px; padding-top: 15px; border-top: none; padding-left: 34px;">
     <span style="font-size: 16px;display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 40px; height: 40px; color: white; font-weight: initial; padding-top: 8px; text-align: center; margin-top: 5px; margin-right: 20px; ">{{getFirstLettersOfName this.nombre this.apellido}}</span>
     <a href="/clientes2/d/{{this._id}}" class="menu-asunto-aim" style="text-transform: initial; width: 200px; text-align: left; margin-left: 20px;">
       {{this.nombre}} {{this.apellido}}
@@ -4760,29 +4768,20 @@
 
   </div>
   <div style="display: flex; flex-wrap;">
-  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; padding-left: 7px;">
+  <div class="franja-filtros"  style="border-top: none; padding-left: 7px;">
     <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim">
       Notas
     </a>
     <a href="/clientes2/d/{{contactoId}}/info" class="menu-asunto-aim  asunto-item-activo" style="margin-left: 0px;">
       Información
     </a>
-    <!--<a href="/clientes2/d/{{contactoId}}/casos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Casos
-    </a>
-    <a href="/clientes2/d/{{contactoId}}/asuntos" class="menu-asunto-aim" style="margin-left: 10px;">
-      Asuntos
-    </a>
-    <a href="/clientes2/d/{{contactoId}}/facturacion" class="menu-asunto-aim" style="margin-left: 10px;">
-      Facturación
-    </a> -->
   </div>
 
   </div>
 
   <div style="width: 100%;">
    {{#with cliente}}
-  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="border-top: none; height: 111px;">
 
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Nombre y apellido </h5>{{this.nombre}} {{this.apellido}}
@@ -4808,7 +4807,7 @@
 
   </div>
 
-  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="border-top: none; height: 111px;">
         {{#if this.identificacion}}
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Identificación </h5>{{this.identificacion}}
@@ -4833,7 +4832,7 @@
 
   </div>
 
-  <div class="franja-filtros"  style="width: 100%; margin-left: 0px; border-top: none; height: 111px;">
+  <div class="franja-filtros"  style="border-top: none; height: 111px;">
         {{#if this.direccion}}
         <a href="/clientes2/d/{{contactoId}}/" class="menu-asunto-aim" style="width: 200px;">
          <h5>Dirección </h5>{{this.direccion}}
@@ -5603,7 +5602,7 @@
 
 <template name="pieChart">
 
-    <div class="cuadro-pie" style="display: block; width: 33.33%; height: 350px; background-color: white;  padding: 20px; text-align: center;">
+    <div class="cuadro-pie" style="display: block; height: 350px; background-color: white;  padding: 20px; text-align: center;">
 
       <h2 style="margin-top: 0px; margin-bottom: 0px;">Contactos</h2>
       <br>
@@ -5620,11 +5619,11 @@
 
 
 <template name="barChart">
-  <div class="cuadro-pie" style="display: block; width: 66.6%; min-height: 350px; background-color: white; padding: 0px; text-align: center; margin-left: 0px;">
+  <div class="cuadro-pie" style="display: block; min-height: 250px; background-color: white; padding: 0px; text-align: center; margin-left: 0px;">
 
     <h2 style="color: #34495e; margin-top: 12px;">Negociaciones</h2>
 
-    <canvas id="myChart" width="600" height="240"></canvas>
+    <canvas id="myChart" ></canvas>
 	<br>
 	<a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #9b59b6;"> </span> En ejecución </a>
       <a style="font-size: 10px; color: #7f8c8d; display: inline-block; margin-right: 3px;"><span style="display: inline-block; border-radius: 2px; width: 10px; height: 10px; background: #2ecc71;"> </span> Ganados </a>
