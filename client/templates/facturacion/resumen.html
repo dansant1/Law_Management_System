@@ -55,24 +55,19 @@
     </a>
   </div>
 
-
-    {{>resumenDatosFacturacion}}
-
-
-
+  {{>resumenDatosFacturacion}}
 
 </template>
 
+<template name="horasXcliente">
+  <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Horas trabajadas por cliente</h4>
+  <canvas id="horascliente"></canvas>
+</template>
 
 
 <template name="gastosChart">
   <div  style="display: inline-block; width: 96%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 0px;">
     <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; text-align: center;">Gastos Administrativos</h4>
-    <!-- <select name="rangos" class="select-bunqr">
-    	<option value="semana">Rango de tiempo semanal</option>
-    	<option value="semana">Rango de tiempo mensual</option>
-    	<option value="semana">Rango de tiempo anual</option>
-    </select> -->
     <br>
     <canvas id="gastosChart"></canvas>
     <div id="legendDivGastos"></div>
@@ -86,69 +81,74 @@
   </div>
   <br>
   <div class="container-fluid">
+
     <div class="row">
       <div class="col-md-6">
-        <div class="box-white">
-           {{> horaMiembrosChart}}
+        <div class="row">
+          <div class="col-md-12" style="padding: 0;">
+            <div class="box-white">
+              {{> horaMiembrosChart}}
+            </div>
+          </div>
+          <div class="col-md-12" style="padding: 0;">
+            <div class="box-white">
+              <div style="width: 96%; margin: 0 auto; text-align: center;">
+              {{>montoXcliente}}
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
       <div class="col-md-6">
-        <div class="box-white">
-          {{>resumenHorasPersonal}}
+        <div class="row">
+          <div class="col-md-12" style="padding: 0;">
+            <div class="box-white">
+              {{>resumenHorasPersonal}}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="padding: 0;">
+            <div class="box-white">
+              {{>resumenGastos}}
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
     <div class="row">
-      <div class="col-md-8 col-xs-12 col-sm-12">
-        <div class="box-white">
-          {{> gastosChart}}
+      <div class="col-md-6 col-xs-12 col-sm-12">
+
+        <div class="row">
+          <div class="col-md-12" style="padding: 0;">
+            <div class="box-white">
+              <div style="width: 96%; margin: 0 auto; text-align: center;">
+                {{>horasXcliente}}
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
-      <div class="col-md-4 col-xs-12 col-sm-12">
+      <div class="col-md-6 col-xs-12 col-sm-12">
         <div class="box-white">
-            {{>resumenGastos}}
+            {{> gastosChart}}
         </div>
       </div>
     </div>
+
   </div>
 
-  <!--<div class="reportes-facturacion">
-    <div class="fila">
 
-      {{>resumenGastos}}
-
-
-
-      <div class="columna" id="sin-padding">
-
-        {{>ultimosGastos}}
-
-      </div>
-
-      <div class="columna" id="sin-padding" style="min-height: 200px; border-bottom: none;">
-        <div class="cuadro-total">
-          {{>resumenHorasPersonal}}
-        </div>
-      </div>
-
-    </div>
-     <div class="fila" style="width: 66.65%;">
-        <div style="width: 100%; min-height: 400px; border: 1px solid #f1f1f1; border-right-width: 2px;">
-          {{> gastosChart}}
-        </div>
-      </div>
-      <div class="fila" style="width: 66.65%;">
-         <div style="width: 100%; min-height: 400px; border: 1px solid #f1f1f1; border-right-width: 2px;">
-           {{> horaMiembrosChart}}
-         </div>
-
-       </div>
-
-
-  </div> -->
 </template>
 
+<template name="montoXcliente">
+  <h4 style="color: #34495e; font-size: 24px; margin-top: 25px; margin-bottom: 20px; font-weight: bold; text-transform: uppercase;">Ingresos por cliente</h4>
+  <canvas id="montoClienteChart"></canvas>
+</template>
 
 <template name="horaMiembrosChart">
     <div  style="display: inline-block; width: 100%; min-height: 350px; background-color: white; border-radius: 5px; text-align: center; margin-left: 0px;">
@@ -181,7 +181,7 @@
 	<div style="text-align: center;">
     	<h3 style="color: #34495e; margin-top: 25px; margin-bottom: 20px; margin-top: 20px; font-weight: bold; text-transform: uppercase;">Resúmen personal</h3>
 
-		 <select name="rangos" class="select-bunqr">
+		 <select name="rangos" class="select-bunqr" style="text-align: center;">
              <option value="dia">Hoy</option>
                 <option value="semana">Esta semana</option>
                 <option value="mes">Este mes</option>

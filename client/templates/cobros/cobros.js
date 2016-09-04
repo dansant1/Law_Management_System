@@ -57,10 +57,7 @@ Template.cobros.onCreated(function () {
         self.subscribe('gastos',bufeteId)
 		self.subscribe('cambio',bufeteId);
     })
-})
-
-
-Template.cobros.onRendered(function () {})
+});
 
 Template.asuntosxCliente.onCreated(function () {
     let self = this;
@@ -200,17 +197,7 @@ function calcularPorTipoDeCobro(trabajo,convertir) {
 
 	if(asunto.facturacion.forma_cobro=="retainer"){
 
-			// if(!asunto.facturacion.excedido){
-			// 	let diferencia = totalHorasAcumuladas(datos.asuntos.id) - asunto.facturacion.retainer.horas_maxima;
-			// 	datos.horas = diferencia;
-			// 	Asuntos.update({_id:datos.asunto.id},{
-			// 		$set:{
-			// 			'facturacion.excedido':true
-			// 		}
-			// 	})
-			// }
-			//
-			// console.log('ENTRO AQUI');
+
 		if(trabajo.sobrelimite){
 			let tarifa = calcularTarifa(trabajo).toFixed(2)
 			if(!convertir) return tarifa;

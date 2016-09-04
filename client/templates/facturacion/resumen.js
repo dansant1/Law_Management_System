@@ -1,3 +1,446 @@
+function calcularTarifa(trabajo) {
+	let asunto = Asuntos.findOne({_id:trabajo.asunto.id}),
+		tarifa = Tarifas.findOne({_id:asunto.facturacion.tarifa.id}),
+		cambio = Cambio.findOne({bufeteId:trabajo.bufeteId}),
+		precio;
+
+
+
+	tarifa.miembros.some(function (miembro) {
+		if(miembro.id==trabajo.responsable.id){
+			let costoxminuto, costoxhora;
+
+			if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+			else costoxhora = miembro.soles*trabajo.horas;
+
+			costoxminuto = (miembro.soles/60)*trabajo.minutos;
+
+			return precio = Number(costoxhora) + Number(costoxminuto);
+		}
+	})
+
+	if(!precio){
+		let user = Meteor.users.findOne({_id:trabajo.responsable.id});
+		tarifa.roles.some(function (roles) {
+			let costoxminuto, costoxhora;
+			if(user.roles.bufete.length==1)
+				if(user.roles.bufete[0]==roles.nombre){
+
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+
+					return precio = Number(costoxhora) + Number(costoxminuto);
+
+				}
+			else {
+				if(user.roles.bufete[1]==roles.nombre){
+					if(trabajo.diferencia)	costoxhora = miembro.soles*trabajo.diferencia;
+					else costoxhora = miembro.soles*trabajo.horas;
+
+					costoxminuto = (roles.soles/60)*trabajo.minutos;
+					return precio =  Number(costoxhora) + Number(costoxminuto);
+				}
+			}
+		})
+	}
+
+	return precio;
+
+};
+
+function calcularPorTipoDeCobro(trabajo,convertir) {
+	let precio,
+		asunto = Asuntos.findOne({_id:trabajo.asunto.id})
+	if(asunto.facturacion.forma_cobro=="horas hombre") {
+		let tarifa = calcularTarifa(trabajo).toFixed(2);
+
+		if(!convertir) return tarifa;
+
+		if(asunto.facturacion.tipo_moneda=="soles")	return tarifa;
+		return tarifa/Cambio.findOne().cambio;
+	}
+	if(asunto.forma_cobro=="flat fee") return "";
+
+	if(asunto.facturacion.forma_cobro=="retainer"){
+
+
+		if(trabajo.sobrelimite){
+			let tarifa = calcularTarifa(trabajo).toFixed(2)
+			if(!convertir) return tarifa;
+
+			if(asunto.facturacion.tipo_moneda=="soles")	return tarifa;
+			return tarifa/Cambio.findOne().cambio;
+		}
+		return tarifa;
+	}
+
+	return precio;
+}
+
+
+function getTotalMontoXcliente (id) {
+
+      let asuntos = Asuntos.find({'cliente.id':id}).fetch();
+  		let montoTotal = 0;
+  		//debugger;
+  		asuntos.forEach(function (asunto) {
+  			// debugger;
+  			let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+  			let total=0;
+  			if(asunto.facturacion.forma_cobro=="horas hombre"){
+  				for (var i = 0; i < horas.length; i++) {
+  					let precio = Number(calcularPorTipoDeCobro(horas[i],false));
+  					if(precio!=undefined){
+  						// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+  						// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+  						total += precio;
+  					}
+  				}
+  				return montoTotal+=total;
+  			}
+  			if(asunto.facturacion.forma_cobro=="retainer"){
+  				for (var i = 0; i < horas.length; i++) {
+  					if(horas[i].sobrelimite){
+  						let precio = Number(calcularPorTipoDeCobro(horas[i],false));
+  						if(precio!=undefined){
+  							// if(Session.get('tipo-cambio')!="dolares") return "S/ "+ precio;
+  							// return "$ " + (precio/Cambio.findOne({bufeteId:Meteor.user().profile.bufeteId}).cambio).toFixed(2);
+  							total += precio;
+  						}
+  					}
+  				}
+  				// debugger;
+  				// if(!)
+
+  				if(asunto.facturacion.tipo_moneda=="soles") return montoTotal+=(total+(Number(asunto.facturacion.retainer.monto)));
+  				return montoTotal+=(total+(Number(asunto.facturacion.retainer.monto)*Cambio.findOne().cambio));
+  			}
+  			// debugger;
+  			if(asunto.facturacion.tipo_moneda=="soles") return montoTotal+= Number(asunto.facturacion.montogeneral);
+  			return montoTotal+= Number(asunto.facturacion.montogeneral)*Cambio.findOne().cambio;
+  		})
+
+  		// debugger;
+
+  		return montoTotal.toFixed(2);
+};
+
+Template.montoXcliente.onCreated(function () {
+  var self = this;
+
+  self.autorun(function () {
+    self.subscribe('equipo', Meteor.user().profile.bufeteId);
+    self.subscribe('tarifas', Meteor.user().profile.bufeteId);
+  });
+});
+
+Template.montoXcliente.onRendered( function () {
+  function montosPorCliente () {
+
+    var getMontos = function () {
+      var ListaMontos = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          ListaMontos.push(getTotalMontoXcliente(cliente._id));
+        });
+
+      } else {
+        return [];
+      }
+
+      return ListaMontos;
+    }
+
+    var getListaClientes = function () {
+
+      var ListaClientes = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          ListaClientes.push(cliente.nombreCompleto);
+        });
+
+      } else {
+        return [];
+      }
+
+      return ListaClientes;
+
+    }
+
+    var getColoresXcliente = function () {
+
+      var colores = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          var dynamicColors = function() {
+                		var r = Math.floor(Math.random() * 255);
+                		var g = Math.floor(Math.random() * 255);
+                		var b = Math.floor(Math.random() * 255);
+                		var a = Math.floor(Math.random() * 255);
+                		return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+          }
+          colores.push( dynamicColors() );
+        });
+
+      } else {
+        return [];
+      }
+
+      return colores;
+    }
+
+
+    var datos = {
+      labels: getListaClientes(),
+      datasets: [
+        {
+            label: "Montos por cliente",
+            fillColor: getColoresXcliente(),
+            data: getMontos()
+        }
+      ]
+    };
+
+    var options = {
+
+			///Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines: true,
+
+			//String - Colour of the grid lines
+			scaleGridLineColor: "rgba(0,0,0,.05)",
+
+			//Number - Width of the grid lines
+			scaleGridLineWidth: 1,
+
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
+
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
+
+			//Boolean - Whether the line is curved between points
+			bezierCurve: true,
+
+			//Number - Tension of the bezier curve between points
+			bezierCurveTension: 0.4,
+
+			//Boolean - Whether to show a dot for each point
+			pointDot: true,
+
+			//Number - Radius of each point dot in pixels
+			pointDotRadius: 4,
+
+			//Number - Pixel width of point dot stroke
+			pointDotStrokeWidth: 1,
+
+			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			pointHitDetectionRadius: 20,
+
+			//Boolean - Whether to show a stroke for datasets
+			datasetStroke: true,
+
+			//Number - Pixel width of dataset stroke
+			datasetStrokeWidth: 2,
+
+			//Boolean - Whether to fill the dataset with a colour
+			datasetFill: true,
+
+			display:true,
+      responsive: true,
+			//String - A legend template
+			legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+		};
+
+
+    var horasChart = document.getElementById("montoClienteChart").getContext("2d");
+
+    let myPieChart = new Chart(horasChart).Bar( datos, options)
+
+  }
+
+  Tracker.autorun(montosPorCliente);
+});
+
+Template.horasXcliente.onCreated( function () {
+  var self = this;
+
+  self.autorun(function () {
+    self.subscribe( 'clientesOficial', Meteor.user().profile.bufeteId );
+    self.subscribe( 'asuntos', Meteor.user().profile.bufeteId );
+    self.subscribe( 'horas', Meteor.user().profile.bufeteId );
+  });
+});
+
+Template.horasXcliente.onRendered( function () {
+  function horasPorCliente () {
+
+
+
+    var getListaClientes = function () {
+
+      var ListaClientes = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          ListaClientes.push(cliente.nombreCompleto);
+        });
+
+      } else {
+        return [];
+      }
+
+      return ListaClientes;
+
+    }
+
+    var getColoresXcliente = function () {
+
+      var colores = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          var dynamicColors = function() {
+                		var r = Math.floor(Math.random() * 255);
+                		var g = Math.floor(Math.random() * 255);
+                		var b = Math.floor(Math.random() * 255);
+                		var a = Math.floor(Math.random() * 255);
+                		return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+          }
+          colores.push( dynamicColors() );
+        });
+
+      } else {
+        return [];
+      }
+
+      return colores;
+    }
+
+    var getHoras = function () {
+      var horas = [];
+
+      var clientes = Clientes.find({estatus: 'cliente'});
+
+      if (clientes.fetch().length > 0 ) {
+
+        clientes.forEach( (cliente) => {
+          var horasCliente = 0;
+          var asuntos = Asuntos.find({'cliente.id': cliente._id});
+
+          asuntos.forEach( (asunto) => {
+            var hours = 0;
+            Horas.find({'asunto.id': asunto._id}).forEach( (h) => {
+              hours = h.horas + hours;
+            });
+            horasCliente = hours + horasCliente;
+
+          });
+
+          horas.push(horasCliente);
+
+        });
+
+        return horas;
+
+      } else {
+        return [];
+      }
+
+      return horas;
+    }
+
+    var datos = {
+      labels: getListaClientes(),
+      datasets: [
+        {
+            label: "Horas por cliente",
+            fillColor: getColoresXcliente(),
+            data: getHoras(),
+        }
+      ]
+    };
+
+    var options = {
+
+			///Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines: true,
+
+			//String - Colour of the grid lines
+			scaleGridLineColor: "rgba(0,0,0,.05)",
+
+			//Number - Width of the grid lines
+			scaleGridLineWidth: 1,
+
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
+
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
+
+			//Boolean - Whether the line is curved between points
+			bezierCurve: true,
+
+			//Number - Tension of the bezier curve between points
+			bezierCurveTension: 0.4,
+
+			//Boolean - Whether to show a dot for each point
+			pointDot: true,
+
+			//Number - Radius of each point dot in pixels
+			pointDotRadius: 4,
+
+			//Number - Pixel width of point dot stroke
+			pointDotStrokeWidth: 1,
+
+			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			pointHitDetectionRadius: 20,
+
+			//Boolean - Whether to show a stroke for datasets
+			datasetStroke: true,
+
+			//Number - Pixel width of dataset stroke
+			datasetStrokeWidth: 2,
+
+			//Boolean - Whether to fill the dataset with a colour
+			datasetFill: true,
+
+			display:true,
+      responsive: true,
+			//String - A legend template
+			legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+		};
+
+
+    var horasChart = document.getElementById("horascliente").getContext("2d");
+
+    let myPieChart = new Chart(horasChart).Bar( datos, options)
+
+  }
+
+  Tracker.autorun(horasPorCliente);
+});
+
 Template.resumenHorasPersonal.onRendered(function () {
     function chartLine(){
 

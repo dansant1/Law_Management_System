@@ -27,7 +27,7 @@ Meteor.publish('asunto',function (asuntoId) {
     	return;
 	}
 
-})
+});
 
 Meteor.publish('asuntosxmiembro',function (miembroId,bufeteId) {
 	check(miembroId,String);
