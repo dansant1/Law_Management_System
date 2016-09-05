@@ -2697,8 +2697,8 @@
     </a>
 	</div>
 	<div class="container-fluid">
-		{{>mainDashboard}}
-	  {{>newsfeed}}
+        {{>mainDashboard}}
+	    {{>newsfeed}}
 	</div>
 </template>
 
@@ -5680,18 +5680,19 @@
 
 <template name="horasDashboard">
 
-  <div class="row">
-    <div class="col-sm-12 col-md-6 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa"></div>
-      </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="box-white">
+                {{>horaMiembrosChart}}
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="box-white">
+                <div id="expectativa"></div>
+            </div>
+        </div>
+        
     </div>
-    <div class="col-sm-12 col-md-6 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa-1"></div>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col-md-3 col-sm-12 col-xs-12">
@@ -5723,13 +5724,7 @@
   <div class="row">
   	{{>tareasYeventos}}
   </div>
-  <div class="row">
-		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-			<div class="box-white">
-				{{>horaMiembrosChart}}
-			</div>
-		</div>
-  </div>
+  
 
   {{>horasDashboard}}
 </template>
