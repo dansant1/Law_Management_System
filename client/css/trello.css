@@ -17,7 +17,7 @@
   padding-right: 10px;
   margin-right: 10px;
 }
-[draggable] {
+article[draggable] {
   position: relative;
   -moz-user-select: -moz-none;
     -webkit-user-select: none;

@@ -86,6 +86,18 @@ Meteor.methods({
 
 		}
 	},
+	actualizarEtapaTrello: function (datos) {
+		check(datos, {
+			etapaId: String,
+			tareaId: String
+		});
+
+		Tareas.update({_id: datos.tareaId}, {
+			$set: {
+				'etapa.id': datos.etapaId
+			}
+		});
+	},
 	editarTareas: function (datos,tareaId) {
 		check(datos,Object)
 		check(tareaId,String)

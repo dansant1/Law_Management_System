@@ -3809,8 +3809,6 @@ Template.formularioParaCrearTarifa.events({
 
 
 
-
-
 Template.trelloLikeTareas.onCreated(function () {
 	let self = this;
 
@@ -3822,8 +3820,13 @@ Template.trelloLikeTareas.onCreated(function () {
 		self.subscribe('MisSubtareas', Meteor.user().profile.bufeteId);
 		self.subscribe('MisComentariosDeTareas', Meteor.user().profile.bufeteId);
 		self.subscribe('MisDocumentosDeTareas', Meteor.user().profile.bufeteId);
-	});
 
+	});
+	
+});
+
+Template.trelloLikeTareas.onRendered(function () {
+	
 });
 
 Template.trelloLikeTareas.helpers({
@@ -3882,9 +3885,6 @@ Template.trelloLikeTareas.helpers({
 	},
 	dia(date) {
 		var d = date,
-    	// minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
-    	// hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
-    	// ampm = d.getHours() >= 12 ? 'pm' : 'am',
     	months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Dec'],
     	days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 		return days[d.getDay()]+', ' + d.getDate() + ' de ' + months[d.getMonth()] + ' del ' + d.getFullYear();
@@ -3899,6 +3899,41 @@ Template.trelloLikeTareas.helpers({
 });
 
 Template.trelloLikeTareas.events({
+	'dragstart .card2': function (evt, tmpl) {
+		console.log(this._id);
+		Session.set('ID', this._id);
+		//$(this).toggleClass('dragged');
+     	
+  	},
+  	'dragover .card2': function (evt) {
+    	evt.preventDefault();
+    	console.log(this.descripcion);
+    	//$(this).toggleClass('dragged');
+  	},
+  	'drop .card2': function (evt, t) {
+    	evt.preventDefault();
+    	var id = Session.get('ID');
+    	//var etapa = $('article').attr('id')
+    	//console.log(etapa);
+    	
+
+    	if (evt.target.id !== "") {
+    		let datos = {
+    			etapaId: evt.target.id,
+    			tareaId: Session.get('ID') 
+    		}
+    		console.log('etapaId: ', evt.target.id)
+    		Meteor.call('actualizarEtapaTrello', datos, function (error) {
+    			if (error) {
+    				Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+    			} else {
+    				Bert.alert('¡Genial!, actualizaste la etapa de la tarea', 'success');
+    			}
+    		});
+    	} 
+
+    	
+  	},
 	'keyup [name="tarea-nueva"]': function (event, template) {
 
 		if(event.which == 13) {
@@ -3940,8 +3975,8 @@ Template.trelloLikeTareas.events({
         	});
     	}
 	},
-	'click .ir-detalle': () => {
-		console.log(this._id);
+	'click .ir-detalle'() {
+		
 		//FlowRouter.go('/tareas/' + this._id);
 	},
 	'click .establecer-fecha'(event,template){
