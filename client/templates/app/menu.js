@@ -279,7 +279,7 @@ Template.cronometro2.onRendered(function () {
 		}
 
 
-		$(".hora-crono")[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+		$(".hora-crono")[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours + "h") : "00") + "h " + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes + "m" : "0" + chronometer.minutes + "m") : "00m");
 
 
 	}

@@ -26,7 +26,7 @@ chronometer.add = function() {
 	}
 	//debugger;
 
-	$(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+	$(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours + "h") : "00") + "h " + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes + "m" : "0" + chronometer.minutes + "m") : "00m");
 
 	chronometer.timer();
 }
@@ -39,7 +39,7 @@ chronometer.addMinutes = function (minutes) {
         chronometer.hours++;
     }
 
-    $(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+    $(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours + "h") : "00") + "h " + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes + "m" : "0" + chronometer.minutes + "m") : "00m");
 
 }
 
@@ -54,7 +54,7 @@ chronometer.removeMinutes = function (minutes) {
         }
     }
 
-	$(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+	$(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours + "h") : "00") + "h " + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes + "m" : "0" + chronometer.minutes + "m") : "00m");
 }
 
 chronometer.stop = function () {
@@ -68,6 +68,6 @@ chronometer.reset = function () {
     chronometer.minutes = 0;
     chronometer.seconds = 0;
     chronometer.hours = 0;
-    $(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours) : "00") + ":" + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes : "0" + chronometer.minutes) : "00");
+    $(chronometer.element)[0].textContent = (chronometer.hours ? (chronometer.hours > 9 ? chronometer.hours : "0" + chronometer.hours + "h") : "00") + "h " + (chronometer.minutes ? (chronometer.minutes > 9 ? chronometer.minutes + "m" : "0" + chronometer.minutes + "m") : "00m");
 
 }

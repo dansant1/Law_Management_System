@@ -3813,6 +3813,8 @@ Template.trelloLikeTareas.onCreated(function () {
 	let self = this;
 
 	self.autorun(function () {
+		let bufeteId = Meteor.user().profile.bufeteId;
+    	self.subscribe('equipo', bufeteId);
 		let asuntoId = FlowRouter.getParam('asuntoId');
 		self.subscribe('etapasTrello', asuntoId);
 		self.subscribe('tareasTrello', asuntoId);
@@ -3895,6 +3897,16 @@ Template.trelloLikeTareas.helpers({
 		} else if (this.abierto === false) {
 			return "checked";
 		}
+	},
+	miembros() {
+		return Meteor.users.find();
+	},
+	soy() {
+		if (this.profile.nombre === Meteor.user().profile.nombre) {
+			return 'Yo'
+		} else {
+			return this.profile.nombre + ' ' + this.profile.apellido
+		}
 	}
 });
 
@@ -3975,10 +3987,6 @@ Template.trelloLikeTareas.events({
         	});
     	}
 	},
-	'click .ir-detalle'() {
-		
-		//FlowRouter.go('/tareas/' + this._id);
-	},
 	'click .establecer-fecha'(event,template){
 		Modal.show('fechaTareaModal',this)
 	},
@@ -4020,6 +4028,29 @@ Template.trelloLikeTareas.events({
 				});
 
     	}
+	},
+	'click .miembros-select'(e, t) {
+
+		if (e.target.tagName == "A") {
+			let data = {
+				tareaId: this._id,
+				nombre: e.target.text,
+				id: e.target.id
+			}
+
+			if (e.target.text === "Yo") {
+				data.nombre = Meteor.user().profile.nombre + " " + Meteor.user().profile.apellido
+			}
+
+			Meteor.call('actualizarAsignadoTarea', data, function (err, result) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Bert.alert('Cambiaste de asignado', 'success');
+				}
+			});
+		}
+
 	}
 });
 

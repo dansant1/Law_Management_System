@@ -377,11 +377,29 @@ Meteor.methods({
 		check(tareaId, String);
 
 		if (this.userId) {
+
 			Tareas.update({_id: tareaId}, {
 				$set: {
 					abierto: false
 				}
 			});
+
+			if (Tareas.findOne({_id: tareaId}).asunto !== undefined) {
+				
+				Notas.insert({
+					nombre: 'La tarea ' + Tareas.findOne({_id: tareaId}).descripcion + ' fue completada',
+					descripcion: Meteor.users.findOne({_id: this.userId}).profile.nombre + ' ' + Meteor.users.findOne({_id: this.userId}).profile.apellido + ' cerró la tarea',
+					creadorId: this.userId,
+					bufeteId: Meteor.users.findOne({_id: this.userId}).profile.bufeteId,
+					asuntoId: Tareas.findOne({_id: tareaId}).asunto.id,
+					fecha: new Date(),
+					createdAt: new Date(),
+					autor: Meteor.users.findOne({_id: this.userId}).profile.nombre + ' ' + Meteor.users.findOne({_id: this.userId}).profile.apellido
+				});
+			}
+
+			
+
 		} else {
 			return;
 		}

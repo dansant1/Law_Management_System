@@ -69,9 +69,10 @@ article[draggable] {
   font-weight: bold;
   color: #2c3e50;
   margin-bottom: 8px;
-  background-color: #f1f1f1;
-  border: 1px solid #f1f1f1;
+  background-color: white;
+  border: 1px solid white;
   width: 100%;
+  transition: border 0.5 ease-out;
 }
 
 .list > h3 > input:hover, .list > h3 > input:focus {
@@ -110,11 +111,12 @@ article[draggable] {
 
 .kanban-input {
   border: none;
-  border-bottom: 1px dashed #f1f1f1;
-  background-color: #f1f1f1;
+  border-bottom: 1px dashed white;
+  background-color: white;
   display: block;
+  font-weight: initial;
   margin-bottom: 10px;
-  width: 99%;
+  width: 100%;
   -webkit-transition: border-color 0.4s ease-out;
   -moz-transition: border-color 0.4s ease-out;
   -o-transition: border-color 0.4s ease-out;
