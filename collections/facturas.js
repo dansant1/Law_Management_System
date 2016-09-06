@@ -24,7 +24,7 @@ Facturas.deny({
 	}
 });
 
-EsquemaFacturas = new SimpleSchema({
+/*EsquemaFacturas = new SimpleSchema({
     cliente:{
         type:Object
     },
@@ -68,6 +68,10 @@ EsquemaFacturas = new SimpleSchema({
     facturarPor:{
         type:String
     },
+    tipo: {
+    	type: String,
+    	optional: true
+    },
 	bufeteId:{
 		type:String
 	},
@@ -88,13 +92,16 @@ EsquemaFacturas = new SimpleSchema({
 		optional:true
 	},
 	'estado.paso':{
-		type:Object
+		type:Object,
+		optional: true
 	},
 	'estado.paso.nro':{
-		type:Number
+		type:Number,
+		optional: true
 	},
 	'estado.paso.nombre':{
-		type:String
+		type:String,
+		optional: true
 	},
 	ultimaModificacion:{
 		type: Date,
@@ -106,4 +113,4 @@ EsquemaFacturas = new SimpleSchema({
 	}
 });
 
-Facturas.attachSchema(EsquemaFacturas);
+Facturas.attachSchema(EsquemaFacturas);*/
