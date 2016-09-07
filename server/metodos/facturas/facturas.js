@@ -70,9 +70,59 @@ Meteor.methods({
     }
 });
 
-function getMontoDeHora (horId, responsableId) {
+function getMontoDeHora (horaId, responsableId, tarifaId) {
+
+    let tarifa = Tarifas.findOne({_id: tarifaId});
+    let hora = Horas.findOne({_id: horaId });
+    let precio  = 0;
+
+    tarifa.miembros.some( miembro => {
+
+        if ( miembro.id === responsableId ) {
+
+            let precioxminutos = miembro.soles/60*hora.minutos;
+
+            precio = ( hora.horas * miembro.soles ) + precioxminutos;
+
+            return precio;
+
+        }
+
+    });
+
+    return precio;
+
+}
+
+function precioDelResponsable (responsableId) {
     return 1;
 }
+
+function obtenerCostoDeAsuntoRetainer (asuntoId) {
+    
+    let maximoHoras = Asuntos.findOne({_id: asuntoId}).facturacion.retainer.horas_maxima;
+    let horas = Horas.find({'asunto.id': asuntoId, cobrable: true, facturado: false});
+    let horasTranscurridas = 0;
+    let diferencia;
+    let costo;
+
+    horas.forEach( h => {
+        // Algoritmo
+        horasTranscurridas += h.horas; // h.minutos
+
+        if (horasTranscurridas > maximoHoras) {
+            diferencia = horasTranscurridas - maximoHoras;
+            costo = diferencia * precioDelResponsable(h.responsable.id);
+        }
+
+    });
+
+    return costo;
+
+}
+
+
+
 
 Meteor.methods({
     facturar: function (datos) {
@@ -115,8 +165,8 @@ Meteor.methods({
 
                             let asunto = Asuntos.findOne({_id: a.id});
 
-                            let horas = Horas.find({'asunto.id': a.id, cobrable: true});
-                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false});
+                            let horas = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
 
                             if (asunto.facturacion.forma_cobro === "horas hombre") {
 
@@ -124,20 +174,35 @@ Meteor.methods({
 
                                 horas.forEach( h => {
                                     
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
                                     hours.push({
                                         tipo: 'Servicio',
+                                        id: h._id,
                                         descripcion: h.descripcion,
                                         cantidad: h.horas + '.' + h.minutos,
-                                        monto: getMontoDeHora(h._id, h.responsable.id)
+                                        monto: getMontoDeHora(h._id, h.responsable.id, asunto.facturacion.tarifa.id)
                                     });
+
                                 });
 
                                 var expenses = [];
 
                                 gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
                                     
                                     expenses.push({
                                         tipo: 'Gasto',
+                                        id: g._id,
                                         descripcion: g.descripcion,
                                         monto: g.monto
                                     });
@@ -156,9 +221,16 @@ Meteor.methods({
                                 var expense = [];
 
                                 gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
                                     
                                     expense.push({
                                         tipo: 'Gasto',
+                                        id: g._id,
                                         descripcion: g.descripcion,
                                         monto: g.monto
                                     });
@@ -192,16 +264,25 @@ Meteor.methods({
 
                             let asunto = Asuntos.findOne({_id: a.id});
 
-                            let horas = Horas.find({'asunto.id': a.id, cobrable: true});
-                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false});
+                            let horas = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
 
                             if (asunto.facturacion.forma_cobro === "horas hombre") {
 
                                 var hours = {};
                                 hours.total = 0;
+                                hours.id = [];
                                 horas.forEach( h => {
+
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                    hours.id.push(h._id);
                                     
-                                    hours.total += getMontoDeHora(h._id, h.responsable.id);
+                                    hours.total += getMontoDeHora(h._id, h.responsable.id, asunto.facturacion.tarifa.id);
                                     
                                 });
 
@@ -209,8 +290,17 @@ Meteor.methods({
 
                                 var expenses = {};
                                 expenses.total = 0;
+                                expenses.gastosId = [];
                                 gastos.forEach( g => {
                                     
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
                                     expenses.total += g.monto;
 
                                 });
@@ -230,7 +320,17 @@ Meteor.methods({
 
                                 expense.total = 0;
 
+                                expense.gastosId = [];
+
                                 gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expense.gastosId.push(g._id);
                                     
                                     expense.total += g.monto;
 
@@ -262,20 +362,43 @@ Meteor.methods({
                         
                         datos.asuntos.map( a => {
 
+                            let asunto = Asuntos.findOne({_id: a.id});
+
+                            let horas = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
+
                             if (asunto.facturacion.forma_cobro === "horas hombre") {
 
                                 var hours = {};
                                 hours.total = 0;
+                                hours.id = [];
                                 horas.forEach( h => {
+
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
                                     
-                                    hours.total += getMontoDeHora(h._id, h.responsable.id);
+                                    hours.id.push(h._id);
+
+                                    hours.total += getMontoDeHora(h._id, h.responsable.id, asunto.facturacion.tarifa.id);
                                     
                                 });
 
                                 var expenses = {};
                                 expenses.total = 0;
+                                expenses.gastosId = [];
                                 gastos.forEach( g => {
                                     
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
                                     expenses.total += g.monto;
 
                                 });
@@ -294,7 +417,16 @@ Meteor.methods({
                                 
                                 var expense = {};
                                 expense.total = 0;
+                                expense.gastosId = [];
                                 gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expense.gastosId.push(g._id);
                                     
                                     expense.total += g.monto;
 
@@ -311,6 +443,32 @@ Meteor.methods({
                                 });         
                             } else if (asunto.facturacion.forma_cobro === "retainer") {
 
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    total: asunto.facturacion.retainer.monto + expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                });             
                             }
 
                         });
