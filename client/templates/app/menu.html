@@ -25,7 +25,7 @@ _elev.account_id = '57b61ff36edb6';
 
 
   <nav class="cd-stretchy-nav e add-content">
-    <a class="cd-nav-trigger" href="#0">
+    <a class="cd-nav-trigger" id="tour-9" href="#0">
 
       <span aria-hidden="true"></span>
     </a>
@@ -43,7 +43,8 @@ _elev.account_id = '57b61ff36edb6';
 
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
-
+      
+      <button class="btn-tour init-tour">¿Cómo funciona?</button>
 
 
       <ul class="nav navbar-nav navbar-right">
@@ -95,14 +96,55 @@ _elev.account_id = '57b61ff36edb6';
 </div>
 </template>
 
+<template name="welcome">
+  <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body" style="padding: 0px; background-color: #F2F2F2;">
+              <h1>Bienvenido</h1>
+            </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<template name="gracias">
+  <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body" style="padding: 0px;">
+              <img src="/perfil.jpg">
+              <h1>¿Te interesaría un tour personal gratis?</h1>
+              <p>
+                Me encantaría hacerte personalmente un tour online en base a tus necesidades. Son 10 minutos, compartiendo la pantalla, y por teléfono.
+              </p>
+
+              <p class="segundo-texto">
+                Escribe tu número internacional y te llamo para ver que día te queda bien.
+              </p>
+
+              <div class="tour-foot">
+                <form>
+                  <input type="text" placeholder="Escribe tu teléfono" name="telefono">
+                  <input type="submit" class="boton-telefono" value="¡Si!, quiero un Tour"> 
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</template>
+
 <template name="cambio">
   <i class="fa fa-usd simbolo" aria-hidden="true"></i>
-  <input type="text" name="tipo-cambio" class="cambio" value="{{valor}}">
+  <input type="text" name="tipo-cambio" id="tour-0" class="cambio" value="{{valor}}">
 </template>
 
 <template name="cronometro2">
-    <nav class="cd-stretchy-nav d add-content nav-is-visible">
-        <a class="cd-nav-trigger t g boton-play" style=" margin-top: 0;">
+    <nav class="cd-stretchy-nav d add-content nav-is-visible" >
+        <a class="cd-nav-trigger t g boton-play" id="tour-10"  style=" margin-top: 0;">
             <i class="glyphicon glyphicon-play" style="top: 31%; left: 34.5%;" aria-hidden="true"></i>
         </a>
 

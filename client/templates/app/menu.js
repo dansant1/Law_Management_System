@@ -20,7 +20,16 @@ Template.menu.onRendered(function () {
 	Session.set('cerrar-news', 'sidebar-derecho-close');
 
 	Template.instance().tour = new Tour({
+		onEnd: function () {
+			Modal.show('gracias');
+		},
+		orphan: true,
   		steps: [
+  			{
+  				element: "#tour-0",
+    			title: "Tipo de Cambio",
+    			content: "Aquí puedes observar el tipo de cambio a dólares. Puedes cambiarlo haciendo click, escribiendo el tipo de cambio y presiona enter para guardar."
+  			},
   			{
     			element: "#tour-1",
     			title: "Dashboard",
@@ -38,13 +47,13 @@ Template.menu.onRendered(function () {
   			},
   			{
     			element: "#tour-4",
-    			title: "Tu agenda mas efectiva",
-    			content: "Gestiona tu agenda con nustro calendario personal. Para crear un nuevo evento haz click en +"
+    			title: "Tu agenda más efectiva",
+    			content: "Gestiona tu agenda con nuestro calendario personal. Para crear un nuevo evento haz click en +"
   			},
   			{
     			element: "#tour-5",
     			title: "Tus tareas en un solo lugar",
-    			content: "Gestiona tus tareas desde aquí. edita los deadlines, asignalo a algún miembro de tu equipo y/o enlzalo con un asunto y horas de trabajo. "
+    			content: "Gestiona tus tareas desde aquí. edita los deadlines, asignalo a algún miembro de tu equipo y/o enlázalo con un asunto y horas de trabajo. "
   			},
   			{
     			element: "#tour-6",
@@ -60,6 +69,16 @@ Template.menu.onRendered(function () {
     			element: "#tour-8",
     			title: "Lleva el control de tu facturación",
     			content: "Lleva el control de tus horas de trabajo, gastos y metricas de tu firma."
+  			},
+  			{
+    			element: "#tour-9",
+    			title: "Accesos rápidos",
+    			content: "Hacien click en + puede realizar ciertas acciones como crear asuntos, agregar clientes, crear tareas, subir archivos."
+  			},
+  			{
+    			element: "#tour-10",
+    			title: "Cronómetro integrado",
+    			content: "Con nuestro cronómetro puedes llevar el registro de tu trabajo y enlázarlo con tus asuntos, además el software calcúla tus tarifas automaticamente lo cual te permite saber cuanto cobrar a tus clientes. También, nuestro software te mostrara reportes que te permitira saber cuanto tiempo le dedicas a cada cliente, asunto, ver tu rentabilidad con cada uno de estos y mucho más."
   			}
 		],
 		keyboard: true,
@@ -72,7 +91,8 @@ Template.menu.onRendered(function () {
     ,effectSize      :  16      // Default size (width & height)
     ,addElement      :  'div'   // e.g. 'svg'(feature)
     ,duration        :  400
-  });
+  	});
+
 });
 
 function timeSince(date) {
@@ -198,7 +218,7 @@ Template.menu.events({
 		}
 
 	},
-	'click .iniciar-tour'() {
+	'click .init-tour'() {
 		Template.instance().tour.start();
 	},
 	'click .abrir-news'() {
