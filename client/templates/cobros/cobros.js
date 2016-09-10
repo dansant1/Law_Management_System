@@ -35,7 +35,39 @@ Template.listaClientesFacturables.helpers({
 
 Template.cobros.events({
 	'click .generar-cobros': function () {
-		Modal.show('generarCobroModal');
+		//Modal.show('generarCobroModal');
+
+		let datos = {
+			emision: '25-06-2016',
+			vencimiento: '28-07-2016',
+			detalles: 1,
+			combinar: false,
+			igv: true,
+			aprobado: false
+		}
+
+		datos.asuntos = [];
+
+		$("input:checkbox.asunto-selection").each(function () {
+    		var $this = $(this);
+
+    		if($this.is(":checked")){
+        		datos.asuntos.push( { id: $this.attr("id") } );
+    		}
+		});
+
+		if ( datos.asuntos !== [] ) {
+			console.log(datos.asuntos);
+			Meteor.call('facturar', datos, function (err) {
+				if (err) {
+					Bert.alert('Hubo un error', 'warning');
+				} else {
+					Bert.alert('funciona :D', 'success');
+				}
+			});	
+		}
+
+		
 	},
     'click .boton-facturar':function () {
         Modal.show('facturarModal')
@@ -98,7 +130,7 @@ Template.asuntosxCliente.events({
 
 function totalHorasAcumuladas(asuntoId) {
 
-	var horas = Horas.find({'asunto.id':asuntoId,cobrable:true}).fetch();
+	var horas = Horas.find({'asunto.id':asuntoId,cobrable:true, facturado: false}).fetch();
 	var asunto = Asuntos.findOne({_id:asuntoId});
 	var grupos = _(horas).groupBy(function (hora) {
 		return hora.asunto.id;
@@ -243,7 +275,7 @@ Template.asuntosxCliente.helpers({
 		//debugger;
 		asuntos.forEach(function (asunto) {
 			// debugger;
-			let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+			let horas = Horas.find({'asunto.id':asunto._id, facturado: false}).fetch();
 			let total=0;
 			if(asunto.facturacion.forma_cobro=="horas hombre"){
 				for (var i = 0; i < horas.length; i++) {
@@ -326,7 +358,7 @@ Template.asuntosxCliente.helpers({
             return asunto._id;
         })
         // debugger
-        var horas = Horas.find({'asunto.id':{$in:asuntosId},cobrable:true}).fetch();
+        var horas = Horas.find({'asunto.id':{$in:asuntosId},cobrable:true, facturado: false}).fetch();
 
         var groups = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
@@ -366,7 +398,7 @@ Template.asuntosxCliente.helpers({
         return totalHoras + "h " + totalMinutos +"m " ;
     },
     horas(){
-        var horas = Horas.find({'asunto.id':this._id,cobrable:true}).fetch();
+        var horas = Horas.find({'asunto.id':this._id,cobrable:true, facturado: false}).fetch();
 
         var grupos = _(horas).groupBy(function (hora) {
             return hora.asunto.id;
@@ -407,7 +439,7 @@ Template.asuntosxCliente.helpers({
 		let self = this;
 		let asunto = Asuntos.findOne({_id:this._id});
 		let total=0;
-		let horas = Horas.find({'asunto.id':asunto._id}).fetch();
+		let horas = Horas.find({'asunto.id':asunto._id, facturado: false}).fetch();
 		// if(asunto.caratula=="ASUNTO 2") debugger;
 		if(asunto.facturacion.forma_cobro=="horas hombre"){
 			for (var i = 0; i < horas.length; i++) {

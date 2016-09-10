@@ -91,5 +91,26 @@ Meteor.methods({
 		} else {
 			return;
 		}
+	},
+	solicitarLlmada: function (telefono) {
+		check(telefono, String);
+
+		if (this.userId) {
+
+			let usuario = Meteor.users.findOne({_id: this.userId});
+			let mensaje = "El usuario " + usuario.profile.nombre + " " + usuario.profile.apellido + " solicitó una llamada a su número " + telefono;
+			Meteor.defer(function() {
+
+					Email.send({
+  						to: "daniel@grupoddv.com",
+  						from: usuario.emails[0].address,
+  						subject: "Solicitar llamada",
+  						text: mensaje
+					});
+
+				});
+
+		}
+
 	}
 });

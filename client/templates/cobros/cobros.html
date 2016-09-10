@@ -77,6 +77,8 @@
 
 	<div class="franja-filtros">
 
+		<button class="generar-cobros">Facturar</button>
+
 		<input type="text" class="buscador-bunqr buscador-cobros buscador-contacto" placeholder="Busca clientes o asuntos para ser facturados...">
 	</div>
 	{{>listaClientesFacturables}}
@@ -126,7 +128,7 @@
 	<tr>
 		<th>
 			<span class="fh-checkbox">
-				<input type="checkbox" id="{{this._id}}" name="mycheckbox">
+				<input type="checkbox" id="{{this._id}}">
 				<label for="{{this._id}}">{{this.nombre}} {{this.apellido}}</label>
 			</span>
 			<span class="co-name"></span>
@@ -151,7 +153,8 @@
 		<tr>
 			<th style="padding-left: 45px;">
 				<span class="fh-checkbox">
-					<label for="dan" style="font-weight: initial;"> {{this.caratula}} </label>
+					<input type="checkbox" id="{{this._id}}" class="asunto-selection" name="{{this._id}}">
+					<label for="{{this._id}}" style="font-weight: initial;"> {{this.caratula}} </label>
 				</span>
 				<span class="co-name">
 					<span style="color: #3498db; font-weight: initial;"><i class="fa fa-user" aria-hidden="true" style="display: inline-block; margin-right: 5px;"></i>{{this.responsable.nombre}}</span>

@@ -94,25 +94,85 @@ function getMontoDeHora (horaId, responsableId, tarifaId) {
 
 }
 
-function precioDelResponsable (responsableId) {
-    return 1;
+function precioDelResponsable (responsableId, tarifaId) {
+    let tarifa = Tarifas.findOne({_id: tarifaId});
+    
+    let precioxminutos = 0;
+
+    tarifa.miembros.some( miembro => {
+
+        if ( miembro.id === responsableId ) {
+
+            precioxminutos = miembro.soles;
+
+            return precioxminutos;
+        }
+
+    });
+
+    return precioxminutos;
+    
 }
 
-function obtenerCostoDeAsuntoRetainer (asuntoId) {
+function precioDelResponsableMinutos (responsableId, tarifaId) {
+    let tarifa = Tarifas.findOne({_id: tarifaId});
+    
+    let precioxhoras = 0;
+
+    tarifa.miembros.some( miembro => {
+
+        if ( miembro.id === responsableId ) {
+
+            precioxhoras = miembro.soles/60;
+
+            return precioxhoras;
+        }
+
+    });
+
+    return precioxhoras;
+}
+
+function obtenerCostoDeAsuntoRetainer (asuntoId, tarifaId) {
     
     let maximoHoras = Asuntos.findOne({_id: asuntoId}).facturacion.retainer.horas_maxima;
     let horas = Horas.find({'asunto.id': asuntoId, cobrable: true, facturado: false});
     let horasTranscurridas = 0;
-    let diferencia;
-    let costo;
+    let minutosTranscurridos = 0;
+    let costo = 0;
 
     horas.forEach( h => {
-        // Algoritmo
-        horasTranscurridas += h.horas; // h.minutos
+        
+        /*Horas.update({_id: h._id}, {
+            $set: {
+                facturado: true
+            }
+        });*/
 
-        if (horasTranscurridas > maximoHoras) {
-            diferencia = horasTranscurridas - maximoHoras;
-            costo = diferencia * precioDelResponsable(h.responsable.id);
+        // Algoritmo
+
+        if (horasTranscurridas !== 0) {
+
+            horasTranscurridas += h.horas;
+            minutosTranscurridos += h.minutos;
+
+            if (minutosTranscurridos >= 60) {
+                horasTranscurridas++
+                minutosTranscurridos -= 60;
+            }
+
+        } else {
+            horasTranscurridas = h.horas;
+            minutosTranscurridos = h.minutos;
+        }
+
+        if (horasTranscurridas >= maximoHoras) {
+            console.log(precioDelResponsable(h.responsable.id, tarifaId));
+            console.log(precioDelResponsableMinutos(h.responsable.id, tarifaId));
+            costoHoras = (horasTranscurridas - maximoHoras) * precioDelResponsable(h.responsable.id, tarifaId);
+            costoMinutos = minutosTranscurridos * precioDelResponsableMinutos(h.responsable.id, tarifaId);
+            costo = costoHoras + costoMinutos;
+            return costo;
         }
 
     });
@@ -133,10 +193,13 @@ Meteor.methods({
             combinar: Boolean,
             igv: Boolean,
             aprobado: Boolean,
+            //clientes: Object,
             asuntos: Array
         });
 
         let factura = {};
+
+        factura.asunto = [];
 
         if ( this.userId ) {
 
@@ -161,8 +224,8 @@ Meteor.methods({
                 switch (datos.detalles) {
                     case 1: // Todos los detalles 
 
-                        datos.asuntos.map( (a) => {
-
+                        datos.asuntos.map( a => {
+                            console.log(a.id);
                             let asunto = Asuntos.findOne({_id: a.id});
 
                             let horas = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
@@ -179,7 +242,10 @@ Meteor.methods({
                                             facturado: true
                                         }
                                     });
-
+                                    console.log(h._id);
+                                    console.log(h.responsable.id);
+                                    console.log(asunto.facturacion.tarifa.id);
+                                    console.log( getMontoDeHora(h._id, h.responsable.id, asunto.facturacion.tarifa.id) );
                                     hours.push({
                                         tipo: 'Servicio',
                                         id: h._id,
@@ -236,6 +302,36 @@ Meteor.methods({
                                     });
 
                                 });
+                                console.log(factura.asunto);
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    monto: {
+                                        tipo: 'Servicio',
+                                        descripcion: asunto.caratula,
+                                        monto: asunto.facturacion.montogeneral
+                                    },
+                                    gastos: expense
+                                });
+
+
+                            } else if (asunto.facturacion.forma_cobro === "retainer") {
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
 
                                 factura.asunto.push({
                                     nombre: asunto.caratula,
@@ -243,14 +339,14 @@ Meteor.methods({
                                     monto: {
                                         tipo: 'Servicio',
                                         descripcion: asunto.caratula,
-                                        monto: asunto.montogeneral
+                                        monto: asunto.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto._id, asunto.facturacion.tarifa.id)
                                     },
-                                    gastos: expense
-                                });
-
-
-                            } else if (asunto.facturacion.forma_cobro === "retainer") {
-
+                                    gastos: expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                }); 
                             }
                         
                         });
@@ -344,13 +440,39 @@ Meteor.methods({
                                     monto: {
                                         tipo: 'Servicio',
                                         descripcion: asunto.caratula,
-                                        monto: asunto.montogeneral
+                                        monto: asunto.facturacion.montogeneral
                                     },
                                     gastos: expense
                                 });
 
                             } else if (asunto.facturacion.forma_cobro === "retainer") {
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
 
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    monto: asunto.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto._id, asunto.facturacion.tarifa.id),
+                                    gastos: expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                });             
                             }
 
                         });
@@ -435,7 +557,7 @@ Meteor.methods({
                                 factura.asunto.push({
                                     nombre: asunto.caratula,
                                     id: asunto._id,
-                                    total: asunto.montogeneral + expense.total,
+                                    total: asunto.facturacion.montogeneral + expense.total,
                                     descripcion: {
                                         tipo: 'Flat fee y Gastos',
                                         cantidad: 1
@@ -463,7 +585,7 @@ Meteor.methods({
                                 factura.asunto.push({
                                     nombre: asunto.caratula,
                                     id: asunto._id,
-                                    total: asunto.facturacion.retainer.monto + expenses.total,
+                                    total: asunto.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto._id, asunto.facturacion.tarifa.id) + expenses.total,
                                     descripcion: {
                                         tipo: 'Servicios y Gastos',
                                         cantidad: 1
@@ -477,8 +599,392 @@ Meteor.methods({
                     break;
                 }
 
-            } else {
-                return;
+            } else { // Si no es combinado
+
+                if (datos.aprobado === true) {
+
+                    factura['aprobado'] = true;
+                    factura['estado'] = 'pendiente';
+
+                } else {
+
+                    factura['aprobado'] = false;
+                    factura['estado'] = 'borrador';
+
+                }
+
+                factura.igv = datos.igv;
+
+                datos.asuntos.map( a => {
+                    
+                    switch(datos.detalles) {
+                        
+                        case 1:
+                            let asunto = Asuntos.findOne({_id: a.id});
+
+                            let horas = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
+
+                            if (asunto.facturacion.forma_cobro === "horas hombre") {
+
+                                var hours = [];
+
+                                horas.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                    hours.push({
+                                        tipo: 'Servicio',
+                                        id: h._id,
+                                        descripcion: h.descripcion,
+                                        cantidad: h.horas + '.' + h.minutos,
+                                        monto: getMontoDeHora(h._id, h.responsable.id, asunto.facturacion.tarifa.id)
+                                    });
+
+                                });
+
+                                var expenses = [];
+
+                                gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+                                    
+                                    expenses.push({
+                                        tipo: 'Gasto',
+                                        id: g._id,
+                                        descripcion: g.descripcion,
+                                        monto: g.monto
+                                    });
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    horas: hours,
+                                    gastos: expenses
+                                });
+
+
+                            } else if (asunto.facturacion.forma_cobro === "flat fee") {
+
+                                var expense = [];
+
+                                gastos.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+                                    
+                                    expense.push({
+                                        tipo: 'Gasto',
+                                        id: g._id,
+                                        descripcion: g.descripcion,
+                                        monto: g.monto
+                                    });
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    monto: {
+                                        tipo: 'Servicio',
+                                        descripcion: asunto.caratula,
+                                        monto: asunto.facturacion.montogeneral
+                                    },
+                                    gastos: expense
+                                });
+
+
+                            } else if (asunto.facturacion.forma_cobro === "retainer") {
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+                                console.log(obtenerCostoDeAsuntoRetainer(asunto._id, asunto.facturacion.tarifa.id));
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto._id,
+                                    monto: {
+                                        tipo: 'Servicio',
+                                        descripcion: asunto.caratula,
+                                        monto: asunto.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto._id, asunto.facturacion.tarifa.id)
+                                    },
+                                    gastos: expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                }); 
+                            }
+
+                            Facturas.insert(factura);
+
+                        break;
+
+                        case 2:
+                            let asunto2 = Asuntos.findOne({_id: a.id});
+
+                            let horas2 = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos2 = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
+
+                            if (asunto2.facturacion.forma_cobro === "horas hombre") {
+
+                                var hours = {};
+                                hours.total = 0;
+                                hours.id = [];
+                                horas2.forEach( h => {
+
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                    hours.id.push(h._id);
+                                    
+                                    hours.total += getMontoDeHora(h._id, h.responsable.id, asunto2.facturacion.tarifa.id);
+                                    
+                                });
+
+                                hours.descripcion = 'Horas de trabajo';
+
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos2.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                expenses.descripcion = 'Gastos administrativos'
+
+                                factura.asunto.push({
+                                    nombre: asunto2.caratula,
+                                    id: asunto2._id,
+                                    horas: hours,
+                                    gastos: expenses
+                                });
+
+                            } else if (asunto2.facturacion.forma_cobro === "flat fee") {
+
+                                var expense = {};
+
+                                expense.total = 0;
+
+                                expense.gastosId = [];
+
+                                gastos2.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expense.gastosId.push(g._id);
+                                    
+                                    expense.total += g.monto;
+
+                                });
+
+                                expense.descripcion = 'Gastos administrativos';
+
+                                factura.asunto.push({
+                                    nombre: asunto2.caratula,
+                                    id: asunto2._id,
+                                    monto: {
+                                        tipo: 'Servicio',
+                                        descripcion: asunto2.caratula,
+                                        monto: asunto2.facturacion.montogeneral
+                                    },
+                                    gastos: expense
+                                });
+
+                            } else if (asunto2.facturacion.forma_cobro === "retainer") {
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos2.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto.caratula,
+                                    id: asunto2._id,
+                                    monto: asunto2.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto2._id, asunto2.facturacion.tarifa.id),
+                                    gastos: expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                });             
+                            }
+
+                            Facturas.insert(factura);
+
+                        break;
+
+                        case 3:
+
+                            let asunto3 = Asuntos.findOne({_id: a.id});
+
+                            let horas3 = Horas.find({'asunto.id': a.id, cobrable: true, facturado: false});
+                            let gastos3 = Gastos.find({'asunto.id': a.id, administrativo: false, pagado: false});
+
+                            if (asunto3.facturacion.forma_cobro === "horas hombre") {
+
+                                var hours = {};
+                                hours.total = 0;
+                                hours.id = [];
+                                horas3.forEach( h => {
+
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+                                    
+                                    hours.id.push(h._id);
+
+                                    hours.total += getMontoDeHora(h._id, h.responsable.id, asunto3.facturacion.tarifa.id);
+                                    
+                                });
+
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos3.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto3.caratula,
+                                    id: asunto3._id,
+                                    total: hours.total + expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                });                                
+
+                            } else if (asunto3.facturacion.forma_cobro === "flat fee") {
+                                
+                                var expense = {};
+                                expense.total = 0;
+                                expense.gastosId = [];
+                                gastos3.forEach( g => {
+
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expense.gastosId.push(g._id);
+                                    
+                                    expense.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto3.caratula,
+                                    id: asunto3._id,
+                                    total: asunto3.facturacion.montogeneral + expense.total,
+                                    descripcion: {
+                                        tipo: 'Flat fee y Gastos',
+                                        cantidad: 1
+                                    }
+                                });         
+                            } else if (asunto3.facturacion.forma_cobro === "retainer") {
+
+                                var expenses = {};
+                                expenses.total = 0;
+                                expenses.gastosId = [];
+                                gastos3.forEach( g => {
+                                    
+                                    Gastos.update({_id: g._id}, {
+                                        $set: {
+                                            pagado: true
+                                        }
+                                    });
+
+                                    expenses.gastosId.push(g._id);
+
+                                    expenses.total += g.monto;
+
+                                });
+
+                                factura.asunto.push({
+                                    nombre: asunto3.caratula,
+                                    id: asunto3._id,
+                                    total: asunto3.facturacion.retainer.monto + obtenerCostoDeAsuntoRetainer(asunto3._id, asunto3.facturacion.tarifa.id) + expenses.total,
+                                    descripcion: {
+                                        tipo: 'Servicios y Gastos',
+                                        cantidad: 1
+                                    }
+                                });             
+                            }
+
+                            Facturas.insert(factura);
+                        break;
+
+                    }
+
+                });
+
+                
             }
 
         } else {

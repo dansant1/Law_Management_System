@@ -14,6 +14,24 @@ Template.menu.onCreated( function () {
 	});
 });
 
+Template.gracias.events({
+	'submit form'(e, t) {
+		e.preventDefault();
+		var telefono = t.find("[name='telefono']").value;
+
+		if (telefono !== "") {
+			Meteor.call('solicitarLlmada', telefono, function (err, res) {
+				if (err) {
+					Bert.alert('Hubo un error, vuelve a intentarlo', 'warning');
+				} else {
+					Modal.hide('gracias');
+					swal("¡Muchas Graacias!", "Nos estaremos comunicando contigo en breve!", "success")
+				}
+			});
+		}
+	}
+});
+
 Template.menu.onRendered(function () {
 	Session.set('abrir', 'open-menu');
 	Session.set('close', '');
