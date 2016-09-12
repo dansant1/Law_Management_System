@@ -1,307 +1,37 @@
 <template name="documentos">
-  <div class="box-header">
-    {{> nuevoArchivo}}
-	</div>
-  <div class="lista-tareas" style="width: 84%;">
-    {{#transition in="zoomIn" out="bounceOut"}}
-  		{{#each docs}}
-  		<div class="item-lista-tareas">
-        <i class="glyphicon glyphicon-file i-hover"> </i>
-        <a href="/asuntos2/d/{{asuntoId}}/documentos/{{this._id}}">{{this.metadata.nombre}}</a>
-
-
-
-        <div class="btn-group" style="float: right; margin-right: 55px;">
-            <button type="button" class="btn dropdown-toggle" style="background-color: white; padding: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="{{this.url download=true}}" target="_parent">Descargar</a></li>
-              <li role="separator" class="divider"></li>
-              <li style="color: #e74c3c;">{{#FS.DeleteButton class="marca"}}Eliminar{{/FS.DeleteButton}}</li>
-            </ul>
+  <!-- Menu -->
+    <div class="franja-progreso">
+        <div class="progreso">
+            <p>
+                {{email}}
+                <i class="glyphicon glyphicon-chevron-right" style="color: #2c3e50"> </i>
+                <a href="/documentos" > Documentos</a>
+            </p>
         </div>
+    </div>
 
-        <a style="display: inline-block; float: right; margin-right: 10px;">{{sucedio this.uploadedAt}}</a>
-
-      </div>
-  		{{/each}}
-  	{{/transition}}
-  </div>
-</template>
-
-<template name="nuevaCarpeta">
-  <a class="btn nueva-tarea nuevo-evento morado-flat" style="border: none;">+ Carpeta</a>
-</template>
-
-<template name="nuevaPlantilla">
-  <a class="btn nueva-tarea nuevo-evento azul-flat" style="border: none;">+ Plantilla</a>
-</template>
-
-<template name="nuevaSubCarpeta">
-  <a class="btn nueva-tarea nuevo-evento morado-flat" style="border: none;">+ Carpeta</a>
-</template>
-
-<template name="nuevoArchivo">
-  <a class="btn nueva-tarea nuevo-evento verde-flat">+ Documento</a>
-</template>
-
-<template name="nuevosubArchivo">
-  <a class="btn nueva-tarea nuevo-evento verde-flat">+ Documento</a>
-</template>
-
-<template name="archivoModal">
-    <div id="doc-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Subir archivo</h4>
-                </div>
-
-                <div class="modal-body">
-                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
-                    <fieldset>
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Nombre</label>
-                        <input class="company" type="text" name="nombre" id="cd-company">
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Descripción</label>
-                        <textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Seleccionar archivo</label>
-                         <input type="file" class="archivos" id="myArchivo" value="haz click para subir un documento">
-                      </div>
-
-                      <!-- <div class="icon">
-                				<label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
-                				<p class="cd-select icon">
-                					<select class="budget asunto">
-                						<option value="ninguno">Elige un asunto</option>
-                						{{#each asuntos}}
-                						<option value="{{_id}}">{{caratula}}</option>
-                						{{/each}}
-                					</select>
-                				</p>
-                			</div> -->
-
-                      <input type="submit" value="Subir archivo">
-                    </fieldset>
-                  </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-
-            </div>
-        </div>
+    <div class="franja-filtros" style="padding-left: 4px;">
+        <a href="/dashboard2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Actividad
+        </a>
+        <a href="/calendario2" class="menu-asunto-aim " style="margin-left: 0px;">
+            Calendario
+        </a>
+        <a href="/tareas" class="menu-asunto-aim " style="margin-left: 0px;">
+            Tareas
+        </a>
+        <a href="/equipo" class="menu-asunto-aim ">
+            Equipo
+        </a>
+        <a href="/asuntos2" class="menu-asunto-aim" style="margin-left: 0px;">
+            Asuntos
+        </a>
+        <a href="/clientes2" class="menu-asunto-aim " style="margin-left: 0px;">
+            CRM
+        </a>
+        <a href="/facturacion" class="menu-asunto-aim" style="margin-left: 0px;">
+            Facturación
+        </a>
     </div>
 </template>
 
-<template name="subarchivoModal">
-    <div id="doc-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Subir archivo</h4>
-                </div>
-
-                <div class="modal-body">
-                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
-                    <fieldset>
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Nombre</label>
-                        <input class="company" type="text" name="nombre" id="cd-company">
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Descripción</label>
-                        <textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Seleccionar archivo</label>
-                         <input type="file" class="archivos" id="myArchivo" value="haz click para subir un documento">
-                      </div>
-
-                      <input type="submit" value="Subir archivo">
-                    </fieldset>
-                  </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</template>
-
-
-<template name="nuevasubCarpeta">
-  <a class="btn nueva-tarea nuevo-evento morado-flat" style="border: none;">+ Carpeta</a>
-</template>
-
-<template name="carpetaModal">
-    <div id="carpeta-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Nueva Carpeta</h4>
-                </div>
-
-                <div class="modal-body">
-                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
-                    <fieldset>
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Nombre</label>
-                        <input class="company" type="text" name="nombre" id="cd-company">
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Descripción</label>
-                        <textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
-                      </div>
-
-                      <div class="icon">
-                				<label class="cd-label" for="cd-email">¿Con que asunto esta relacionado?</label>
-                				<p class="cd-select icon">
-                					<select class="budget asunto">
-                						<option value="ninguno">Elige un asunto</option>
-                						{{#each asuntos}}
-                						<option value="{{_id}}">{{caratula}}</option>
-                						{{/each}}
-                					</select>
-                				</p>
-                			</div>
-
-                      <input type="submit" value="Agregar carpeta">
-                    </fieldset>
-                  </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</template>
-
-
-<template name="carpetas">
-
-  <div class="box-header">
-    {{> nuevasubCarpeta}}
-    {{> nuevosubArchivo}}
-		<!--<input type="file" class="archivos" value="haz click para subir un documento" style="display: inline"> -->
-    <br><br>
-	</div>
-  <div class="box">
-    {{#transition in="zoomIn" out="bounceOut"}}
-  		{{#each docs}}
-        {{#unless this.isUploaded}}
-          {{> FS.UploadProgressBar bootstrap=true}}
-        {{/unless}}
-  		<div class="box-item" style="height: 320px;">
-        {{#if isImage}}
-          <div class="box-image-file">
-            <img src="{{this.url}}" class="box-image"/>
-          </div>
-          <br><br><br><br><br><br>
-        {{/if}}
-  			<div class="box-content">
-  				<h1><a href="#" class="box-titulo">{{this.metadata.nombre}}</a></h1>
-  				<a class="bloque">{{this.metadata.descripcion}}</a>
-          <br><br>
-  			</div>
-        <div class="box-footer">
-          <a href="{{this.url download=true}}" target="_parent" class="btn nueva-tarea nuevo-evento verde-flat">Descargar</a>
-          {{#if esAdministrador}}
-            {{#FS.DeleteButton class="btn nueva-tarea nuevo-evento rojo-flat"}}Eliminar{{/FS.DeleteButton}}
-          {{/if}}
-        </div>
-        <div class="box-foot">
-        <h1><a href="/documentos/a/{{this._id}}" class="box-ingresar">ver comentarios</a></h1>
-        </div>
-  		</div>
-  		{{/each}}
-  	{{/transition}}
-
-    {{#transition in="zoomIn" out="bounceOut"}}
-      {{#each carpetas}}
-      <div class="box-item" style="height: 320px;">
-        <div class="box-image-file" style="text-align: center;">
-          <h2 class="box-image" style="background-color: #34495E; margin: 0; color: white; padding-top: 20px;">{{this.nombre}}</h2>
-        </div>
-        <br><br><br><br><br><br>
-        <div class="box-content">
-
-          <a class="bloque">{{this.descripcion}}</a>
-          <br><br>
-        </div>
-        <div class="box-foot">
-          <h1><a href="/documentos/c/{{this._id}}" class="box-ingresar">Abrir Carpeta</a></h1>
-        </div>
-      </div>
-      {{/each}}
-    {{/transition}}
-  </div>
-</template>
-
-<template name="subcarpetaModal">
-    <div id="carpeta-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Nueva Carpeta</h4>
-                </div>
-
-                <div class="modal-body">
-                  <form class="cd-form floating-labels" style="margin-top: -20px; margin-bottom: 0px;">
-                    <fieldset>
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Nombre</label>
-                        <input class="company" type="text" name="nombre" id="cd-company">
-                      </div>
-
-                      <div class="icon">
-                        <label class="cd-label" for="cd-company">Descripción</label>
-                        <textarea class="company" type="text" name="descripcion" id="cd-company"></textarea>
-                      </div>
-
-
-                      <input type="submit" value="Agregar carpeta">
-                    </fieldset>
-                  </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</template>
-
-<template name="menuDocs">
-  <div id='cssmenu'>
-  <ul style="margin: 0 auto; padding: 0; text-align: center;">
-     <li><a href=""><span>Todo</span></a></li>
-     <li><a href=""><span>Documentos</span></a></li>
-     <li><a href=""><span>Carpetas</span></a></li>
-     <li><a href=""><span>Plantillas</span></a></li>
-  </ul>
-  </div>
-</template>

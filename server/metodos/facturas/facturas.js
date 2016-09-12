@@ -286,6 +286,16 @@ Meteor.methods({
 
                                 var expense = [];
 
+                                horas.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -314,6 +324,14 @@ Meteor.methods({
                                     gastos: expense
                                 });
 
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
+                                });
 
                             } else if (asunto.facturacion.forma_cobro === "retainer") {
                                 var expenses = {};
@@ -418,6 +436,17 @@ Meteor.methods({
 
                                 expense.gastosId = [];
 
+
+                                horas.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -443,6 +472,15 @@ Meteor.methods({
                                         monto: asunto.facturacion.montogeneral
                                     },
                                     gastos: expense
+                                });
+
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
                                 });
 
                             } else if (asunto.facturacion.forma_cobro === "retainer") {
@@ -540,6 +578,17 @@ Meteor.methods({
                                 var expense = {};
                                 expense.total = 0;
                                 expense.gastosId = [];
+
+                                horas.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -562,7 +611,18 @@ Meteor.methods({
                                         tipo: 'Flat fee y Gastos',
                                         cantidad: 1
                                     }
-                                });         
+                                });     
+
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
+                                });
+
+
                             } else if (asunto.facturacion.forma_cobro === "retainer") {
 
                                 var expenses = {};
@@ -677,6 +737,16 @@ Meteor.methods({
 
                                 var expense = [];
 
+                                horas.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -703,6 +773,15 @@ Meteor.methods({
                                         monto: asunto.facturacion.montogeneral
                                     },
                                     gastos: expense
+                                });
+
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
                                 });
 
 
@@ -805,6 +884,16 @@ Meteor.methods({
 
                                 expense.gastosId = [];
 
+                                horas2.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos2.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -830,6 +919,15 @@ Meteor.methods({
                                         monto: asunto2.facturacion.montogeneral
                                     },
                                     gastos: expense
+                                });
+
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
                                 });
 
                             } else if (asunto2.facturacion.forma_cobro === "retainer") {
@@ -924,6 +1022,17 @@ Meteor.methods({
                                 var expense = {};
                                 expense.total = 0;
                                 expense.gastosId = [];
+
+                                horas3.forEach( h => {
+                                    
+                                    Horas.update({_id: h._id}, {
+                                        $set: {
+                                            facturado: true
+                                        }
+                                    });
+
+                                });
+
                                 gastos3.forEach( g => {
 
                                     Gastos.update({_id: g._id}, {
@@ -946,7 +1055,17 @@ Meteor.methods({
                                         tipo: 'Flat fee y Gastos',
                                         cantidad: 1
                                     }
-                                });         
+                                }); 
+
+                                // Cuando se crea la factura de un flat fee
+                                // El monto general (flat fee) se vuelve 0
+                                // Si el abogado elimina el borrador o la factura en si, entonces regresa al monto general de antes
+                                Asunto.update({_id: asunto3._id}, {
+                                    $set: {
+                                        'facturacion.montogeneral': 0 
+                                    }
+                                });
+
                             } else if (asunto3.facturacion.forma_cobro === "retainer") {
 
                                 var expenses = {};

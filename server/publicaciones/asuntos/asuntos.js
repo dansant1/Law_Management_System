@@ -14,6 +14,10 @@ Meteor.publish('asuntos', function (bufeteId) {
 	}
 });
 
+Meteor.publish('Allasuntos', function () {
+	return Asuntos.find();
+});
+
 Meteor.publish('asunto',function (asuntoId) {
 	check(asuntoId, String);
 

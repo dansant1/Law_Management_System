@@ -33,3 +33,13 @@ Meteor.publish('horasxAsunto', function (bufeteId, asuntoId) {
 		return;
 	}
 });
+
+Meteor.publish('MisHoras', function () {
+
+	if ( Roles.userIsInRole( this.userId, ['administrador'], 'bufete' ) || Roles.userIsInRole( this.userId, ['abogado'], 'bufete' )) {
+		return Horas.find({'responsable.id': this.userId});
+	} else {
+		this.stop();
+		return;
+	}
+});
