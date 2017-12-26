@@ -17,10 +17,10 @@ Meteor.methods({
 		datos.profile.bufeteId = bufeteId;
 
 		let usuarioId = Accounts.createUser(datos);
-		
+
 
 		if (usuarioId) {
-			Accounts.sendVerificationEmail( usuarioId );
+			//Accounts.sendVerificationEmail( usuarioId );
 			Areas.insert({
 				nombre: "General",
 				bufeteId: datos.profile.bufeteId
@@ -47,11 +47,7 @@ Meteor.methods({
 			return
 		}
 
-		
-
-		
-
-		Meteor.defer(function() {
+		/*Meteor.defer(function() {
   			SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
 
 			var emailData = {
@@ -64,7 +60,7 @@ Meteor.methods({
   				subject: "Bienvenido a BUNQR",
   				html: SSR.render( 'htmlEmail', emailData )
 			});
-		});
+		});*/
 
 
 
@@ -93,11 +89,11 @@ Meteor.methods({
 		datos.profile.bufeteId = invitacion.bufeteId;
 
 		let usuarioId = Accounts.createUser(datos);
-		
+
 
 		if (usuarioId) {
-			Accounts.sendVerificationEmail( usuarioId );
-			
+			//Accounts.sendVerificationEmail( usuarioId );
+
 			if (invitacion.tipo === "encargado comercial") {
 				Roles.addUsersToRoles(usuarioId, [invitacion.tipo], 'bufete');
 			} else if (invitacion.tipo === "socio") {
@@ -122,7 +118,7 @@ Meteor.methods({
 			return
 		}
 
-		Meteor.defer(function() {
+		/*Meteor.defer(function() {
   			SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
 
 			var emailData = {
@@ -135,7 +131,7 @@ Meteor.methods({
   				subject: "Bienvenido a BUNQR",
   				html: SSR.render( 'htmlEmail', emailData )
 			});
-		});
+		});*/
 
 
 
@@ -162,7 +158,7 @@ Meteor.methods({
 		let usuarioId = Accounts.createUser(datos);
 
 		if (usuarioId) {
-			Accounts.sendVerificationEmail( usuarioId );
+			//Accounts.sendVerificationEmail( usuarioId );
 			if (datos.profile.tipo === "encargado comercial") {
 				Roles.addUsersToRoles(usuarioId, [datos.profile.tipo], 'bufete');
 			} else if (datos.profile.tipo === "socio") {
@@ -182,7 +178,7 @@ Meteor.methods({
 				tipo: 'prueba'
 			});
 
-			Meteor.defer(function() {
+			/*Meteor.defer(function() {
   				SSR.compileTemplate( 'htmlEmail', Assets.getText( 'bienvenido.html' ) );
 
 				var emailData = {
@@ -195,7 +191,7 @@ Meteor.methods({
   					subject: "Bienvenido a BUNQR",
   					html: SSR.render( 'htmlEmail', emailData )
 				});
-			});
+			});*/
 
 			return {
 				usuarioId: usuarioId
@@ -205,7 +201,7 @@ Meteor.methods({
 			return;
 		}
 
-		
+
 
 	}
 });

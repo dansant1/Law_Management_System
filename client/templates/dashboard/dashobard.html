@@ -5686,41 +5686,16 @@
 <template name="horasDashboard">
 
     <div class="row">
-        <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="box-white">
                 {{>horaMiembrosChart}}
             </div>
         </div>
-        <div class="col-md-4 col-sm-12 col-xs-12">
-            <div class="box-white">
-                <div id="expectativa"></div>
-            </div>
-        </div>
-        
+
+
     </div>
 
-  <div class="row">
-    <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa-hoy" class="chart-hora"></div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa-semana" class="chart-hora"></div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa-mes" class="chart-hora"></div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="box-white">
-        <div id="expectativa-anual" class="chart-hora"></div>
-      </div>
-    </div>
-  </div>
+
 
 </template>
 
@@ -5729,7 +5704,7 @@
   <div class="row">
   	{{>tareasYeventos}}
   </div>
-  
+
 
   {{>horasDashboard}}
 </template>
@@ -6433,7 +6408,7 @@
 
 
  {{#each tareas this._id}}
-    
+
 
   <article id="{{../_id}}" draggable="true" class="card2 {{borde this.tipo}} ir-detalle {{this._id}}">
 	<h4>
@@ -6451,7 +6426,7 @@
         {{#if this.asignado.nombre}}
         <li class="dropdown" style="display: inline-block; margin-right: 10px; float: right;">
           <a href="#" style="font-weight: initial;" class="dropdown-toggle" data-toggle="dropdown" id="marca"  role="button" aria-haspopup="true" aria-expanded="false">
-              
+
                 {{asignadoA}}
                  <span style="display: inline-block; border-radius: 70%; border: 1px solid #3498db; background-color: #3498db; width: 30px; height: 30px; color: white; font-weight: initial; padding-top: 5px; text-align: center; margin-left: 4.5px;">{{getFirstLettersOfName this.asignado.nombre this.asignado.apellido}}
                 </span>

@@ -50,6 +50,8 @@
 }
 
 .circulo-asunto {
+	position: relative;
+  top: 2.7px;
 	display: inline-block;
 	background-color: #3498db;
 	width: 15px;
