@@ -3,8 +3,8 @@
 		{ 
 			"env":
 				{ 	
-        	"ROOT_URL": "https://bunqr.grupoddv.com",
-					"MONGO_URL": "mongodb://bunqr:developer24@ds047692.mlab.com:47692/bunqrdb"
+        	"ROOT_URL": "http://morangesoft-crm.meteorapp.com",
+					"MONGO_URL": "mongodb://admin:20dejunio@ds061611.mlab.com:61611/crm"
 				}
 		},
     "sikka": {

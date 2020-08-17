@@ -1,5 +1,5 @@
-Accounts.emailTemplates.siteName = "BUNQR - Software de gestión para abogados";
-Accounts.emailTemplates.from     = "BUNQR <daniel@grupoddv.com>";
+Accounts.emailTemplates.siteName = "MORANGESOFT - Software de gestión ";
+Accounts.emailTemplates.from     = "MORANGESOFT <daniel@grupoddv.com>";
 
 Accounts.emailTemplates.verifyEmail = {
   subject() {

@@ -2,7 +2,7 @@
   "name": "bnq-in",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor --settings settings.json"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
