@@ -28,7 +28,7 @@ Template.menu.onRendered(function () {
 			stretchyNavTrigger.on('click', function(event){
 				event.preventDefault();
 				stretchyNavs.toggleClass('nav-is-visible');
-				//$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
+				$('.cd-stretchy-nav.add-content .g').toggleClass('red-flat');
 			});
 
 			stretchyNavTrigger2.on('click', function(event){

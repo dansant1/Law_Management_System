@@ -1,5 +1,5 @@
-Accounts.emailTemplates.siteName = "MORANGESOFT - Software de gestión ";
-Accounts.emailTemplates.from     = "MORANGESOFT <daniel@grupoddv.com>";
+Accounts.emailTemplates.siteName = "DDV - Software de gestión ";
+Accounts.emailTemplates.from     = "DDV <daniel@grupoddv.com>";
 
 Accounts.emailTemplates.verifyEmail = {
   subject() {

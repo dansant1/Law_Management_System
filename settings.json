@@ -3,7 +3,7 @@
 		{ 
 			"env":
 				{ 	
-        	"ROOT_URL": "http://morangesoft-crm.meteorapp.com",
+        	"ROOT_URL": "http://ddv-crm.meteorapp.com",
 					"MONGO_URL": "mongodb://admin:20dejunio@ds061611.mlab.com:61611/crm"
 				}
 		},

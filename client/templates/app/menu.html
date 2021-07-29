@@ -1,7 +1,23 @@
+<template name="cronometro2">
+  <nav class="cd-stretchy-nav d add-content nav-is-visible" >
+      <a class="cd-nav-trigger t g boton-play" id="tour-10"  style=" margin-top: 0;">
+          <i class="glyphicon glyphicon-play" style="top: 31%; left: 34.5%;" aria-hidden="true"></i>
+      </a>
+
+      <ul>
+          <li><a href="#0" class="c hora-crono" style="width: 130px; font-size: 20px; padding-top: 0;">00h 00m</a></li>
+          <li><a href="#"><i></i></a></li>
+          <li><a href="#0" class="c boton-resetear"><i class="fa fa-history" aria-hidden="true"></i></a></li>
+          <li><a href="#0" class="c boton-agregar-hora" style="padding-left: 1px"><i class="fa fa-cloud" aria-hidden="true"></i></a></li>
+      </ul>
+
+      <span aria-hidden="true" class="stretchy-nav-bg"></span>
+  </nav>
+</template>
 <template name="menu">
  <script>
-<!--var _elev = window._elev || {};(function() {var i,e;i=document.createElement("script"),i.type='text/javascript';i.async=1,i.src="https://static.elev.io/js/v3.js",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(i,e);})();
-_elev.account_id = '57b61ff36edb6'; -->
+var _elev = window._elev || {};(function() {var i,e;i=document.createElement("script"),i.type='text/javascript';i.async=1,i.src="https://static.elev.io/js/v3.js",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(i,e);})();
+_elev.account_id = '57b61ff36edb6';
 </script>
 
   <div class="navbar navbar-inverse menu navbar-fixed-top" id="custom-menu">
@@ -9,7 +25,7 @@ _elev.account_id = '57b61ff36edb6'; -->
     <div class="navbar-header">
 
 
-    		<a class="navbar-brand" id="marca">MORANGESOFT
+    		<a class="navbar-brand" id="marca">DDV
         <span style="position: absolute; left: 182px; top: 28px; font-size: 12px;">&reg;</span>
         </a>
         <a class="abrir-menu rippler rippler-inverse" style="position: absolute; left: 320px; font-size: 25px; display: inline-block; width: 50px; height: 60px; padding-top: 11px; text-align: center;">
@@ -24,7 +40,10 @@ _elev.account_id = '57b61ff36edb6'; -->
 
 
 
-  <nav class="cd-stretchy-nav e add-content">
+  <nav class="cd-stretchy-nav d add-content nav-is-visible" style="position: absolute;
+  top: 90vh;
+  left: 25% !important;">
+
     <a class="cd-nav-trigger" id="tour-9" href="#0">
 
       <span aria-hidden="true"></span>
@@ -142,32 +161,4 @@ _elev.account_id = '57b61ff36edb6'; -->
   <input type="text" name="tipo-cambio" id="tour-0" class="cambio" value="{{valor}}">
 </template>
 
-<template name="cronometro2">
-    <nav class="cd-stretchy-nav d add-content nav-is-visible" >
-        <a class="cd-nav-trigger t g boton-play" id="tour-10"  style=" margin-top: 0;">
-            <i class="glyphicon glyphicon-play" style="top: 31%; left: 34.5%;" aria-hidden="true"></i>
-        </a>
 
-        <ul>
-            <li><a href="#0" class="c hora-crono" style="width: 130px; font-size: 20px; padding-top: 0;">00h 00m</a></li>
-            <li><a href="#"><i></i></a></li>
-            <li><a href="#0" class="c boton-resetear"><i class="fa fa-history" aria-hidden="true"></i></a></li>
-            <li><a href="#0" class="c boton-agregar-hora" style="padding-left: 1px"><i class="fa fa-cloud" aria-hidden="true"></i></a></li>
-        </ul>
-
-        <span aria-hidden="true" class="stretchy-nav-bg"></span>
-    </nav>
-
-  <!--<div class="cronometro">
-    <div class="cuadro-crono"><h2 class="hora-crono" style="margin: 0; color: #34495e; margin-right: 5px;">00:00</h2></div>
-    <div class="cuadro-crono" style="position: ">
-            <button class="boton-lateral boton-disminuir"><i class="glyphicon glyphicon-backward" style="position: relative; right: 3.4px; top: 3px;"></i></button>
-            <button class="boton-principal boton-play"><i class="glyphicon glyphicon-play"></i></button>
-            <button class="boton-lateral boton-aumentar"><i class="glyphicon glyphicon-forward" style="position: relative; right: -1px; top: 3px;"></i></button>
-            <button class="boton-lateral boton-resetear" style="display:inline-block; margin-left: 15px;"><i class="glyphicon glyphicon-refresh" style="position: relative; right: 1px; top: 3px;"></i></button>
-            <button class="boton-lateral boton-agregar-hora" style="background-color:#34495e; margin-left: 12.5px;"><i class="glyphicon glyphicon-plus" style="position: relative; color: white; right: 1px; top: 3px;"></i></button>
-            <button class="boton-lateral boton-guardar-hora" style="margin-left: 5px; ;background-color: white;"><i class="fa fa-floppy-o" style="position: relative; right: 0px; top: 0px;  color: #34495e;"></i></button>
-    </div>
-  </div>-->
-
-</template>
